@@ -1,0 +1,24 @@
+<taglib>
+	<tlib-version>1.0</tlib-version>
+	<jsp-version>2.0</jsp-version>
+	<short-name>Example TLD with Body</short-name>
+	<tag>
+		<name>l2d</name>
+		<description>convert long to date</description>
+		<tag-class>cn.com.ttblog.jfinal_bootstrap_table.util.LongToDateTag
+		</tag-class>
+		<body-content>empty</body-content>
+		<attribute>
+			<name>value</name>
+			<required>true</required>
+			<type>java.lang.Object</type>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>format</name>
+			<required>true</required>
+			<type>java.lang.String</type>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+</taglib>

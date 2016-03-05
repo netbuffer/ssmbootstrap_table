@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	version="3.0">
+	<display-name>ssmbootstrap-table</display-name>
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath:spring-mybatis.xml</param-value>
+	</context-param>
+	<filter>
+		<filter-name>encodingFilter</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<async-supported>true</async-supported>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+		<init-param>
+			<param-name>forceEncoding</param-name>
+			<param-value>true</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>encodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	<filter>
+		<filter-name>LoginFilter</filter-name>
+		<filter-class>cn.com.ttblog.ssmbootstrap_table.filter.LoginFilter</filter-class>
+		<init-param>
+			<param-name>noFilterTags</param-name>
+			<param-value>index.html;login;register;captcha;.css;.js;.jpg</param-value>
+		</init-param>
+		<init-param>
+			<param-name>enable</param-name>
+			<param-value>true</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>LoginFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<filter>
+		<filter-name>injectionAttackFilter</filter-name>
+		<filter-class>cn.com.ttblog.ssmbootstrap_table.filter.InjectionAttackFilter</filter-class>
+		<!-- optional parameters. values given are the defaults. they can be set 
+			to false or removed to disable. -->
+		<init-param>
+			<param-name>filter_xss</param-name>
+			<param-value>true</param-value>
+		</init-param>
+		<init-param>
+			<param-name>filter_sql_injection</param-name>
+			<param-value>true</param-value>
+		</init-param>
+		<init-param>
+			<!-- adds X-FRAME-OPTIONS -> SAMEORIGIN to all HttpServletResponses. Will 
+				not overwrite existing X-FRAME-OPTIONS header -->
+			<param-name>click_jacking_header</param-name>
+			<param-value>true</param-value>
+		</init-param>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>injectionAttackFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	<filter>
+		<filter-name>timerFilter</filter-name>
+		<filter-class>cn.com.ttblog.ssmbootstrap_table.filter.TimerFilter</filter-class>
+		<init-param>
+			<param-name>enable</param-name>
+			<param-value>true</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>timerFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<filter>
+		<filter-name>trimFilter</filter-name>
+		<filter-class>cn.com.ttblog.ssmbootstrap_table.filter.TrimFilter</filter-class>
+		<init-param>
+			<param-name>enable</param-name>
+			<param-value>true</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>trimFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<listener>
+		<listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
+	</listener>
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+
+	<servlet>
+		<servlet-name>SpringMVC</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>classpath:spring-mvc.xml</param-value>
+		</init-param>
+		<init-param>
+			<param-name>debug</param-name>
+			<param-value>0</param-value>
+		</init-param>
+		<load-on-startup>0</load-on-startup>
+		<async-supported>true</async-supported>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>SpringMVC</servlet-name>
+		<!-- <url-pattern>/*</url-pattern> -->
+		<!-- csdn连接:http://bbs.csdn.net/topics/390610045 如果使用/*拦截,会直接显示jsp源码了,配置成/会被正确解析 -->
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+	<error-page>
+		<error-code>404</error-code>
+		<location>/404.html</location>
+	</error-page>
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+		<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
+
+</web-app>  

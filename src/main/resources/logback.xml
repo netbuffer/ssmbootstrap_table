@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<property name="logname" value="ssmbootstrap_table" />
+	<property name="logbase" value="${catalina.base}/logs/ssmbootstrap_table/" />
+	<jmxConfigurator />
+	<appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder charset="utf-8">
+			<pattern>
+				%date [%thread] %-5level %logger{80} - %msg%n
+			</pattern>
+		</encoder>
+	</appender>
+	<appender name="logfile"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<Prudent>true</Prudent>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<FileNamePattern>
+				${logbase}${logname}.%d{yyyy-MM-dd}.html
+			</FileNamePattern>
+		</rollingPolicy>
+		<layout class="ch.qos.logback.classic.html.HTMLLayout">
+			<Pattern>
+				%date%level%thread%10logger%file%line%msg
+			</Pattern>
+		</layout>
+	</appender>
+	<root>
+		<level value="INFO" />
+		<appender-ref ref="stdout" />
+		<appender-ref ref="logfile" />
+	</root>
+	<root>
+		<level value="DEBUG" />
+		<appender-ref ref="stdout" />
+		<appender-ref ref="logfile" />
+	</root>
+	<logger name="org.mybatis" level="INFO" />
+	<logger name="cn.com.ttblog.ssmbootstrap_table.dao" level="INFO" />
+	<logger name="jdbc.connection" level="OFF" />
+	<logger name="jdbc.audit" level="OFF" />
+	<logger name="jdbc.resultset" level="OFF" />
+	<logger name="jdbc.sqlonly" level="OFF" />
+	<logger name="jdbc.sqltiming" level="INFO" />
+	<logger name="log4jdbc.debug" level="OFF" />
+</configuration>
