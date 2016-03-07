@@ -1,5 +1,8 @@
 package cn.com.ttblog.ssmbootstrap_table.dao;
 
+import java.util.List;
+import java.util.Map;
+
 import cn.com.ttblog.ssmbootstrap_table.model.User;
 
 public interface IUserDao {
@@ -18,4 +21,6 @@ public interface IUserDao {
 	long getUserListCount();
 
 	int getNewData();
+
+	List<Map<String, Object>> getDataSum();
 }

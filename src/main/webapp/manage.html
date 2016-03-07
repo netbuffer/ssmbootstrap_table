@@ -33,7 +33,9 @@
 			});
 			$("#xinzeng").mouseover();
 			$("#login_username").text(data.username);
-			
+			$.getJSON('datacount',function(data){
+				console.log(data);
+			});
 			var myChart = echarts.init(document.getElementById('echarts_test'));
 			var option = {
 				tooltip : {

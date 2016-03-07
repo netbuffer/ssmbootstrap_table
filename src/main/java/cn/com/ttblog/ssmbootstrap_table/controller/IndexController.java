@@ -24,6 +24,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.com.ttblog.ssmbootstrap_table.model.User;
 import cn.com.ttblog.ssmbootstrap_table.service.IUserService;
@@ -66,6 +67,12 @@ public class IndexController {
 		model.addAttribute("username", username);
 		logger.info("执行后:{}",model);
 		return "newdata";
+	}
+	
+	@RequestMapping("/datacount")
+	public @ResponseBody Map<String, Object> datacount(HttpSession session,Model model) {
+		List<Map<String, Object>> counts = userService.getDataSum();
+		return null;
 	}
 
 	@RequestMapping("/export")

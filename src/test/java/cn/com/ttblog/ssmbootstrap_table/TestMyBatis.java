@@ -77,8 +77,14 @@ public class TestMyBatis {
 	}
 	
 	@Test
+	@Ignore
 	public void testdao(){
 		logger.info("getnew:{}",userDao.getNewData());
+	}
+	
+	@Test
+	public void testDatacount(){
+		logger.info("datacount:{}",userDao.getDataSum());
 	}
 
 }

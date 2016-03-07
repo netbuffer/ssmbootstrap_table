@@ -58,4 +58,9 @@ public class UserServiceImpl implements IUserService {
 	public int getNewData() {
 		return userDao.getNewData();
 	}
+
+	@Override
+	public List<Map<String, Object>> getDataSum() {
+		return userDao.getDataSum();
+	}
 }
