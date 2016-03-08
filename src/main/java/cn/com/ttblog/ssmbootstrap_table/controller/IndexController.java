@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -25,6 +26,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.alibaba.fastjson.JSONArray;
 
 import cn.com.ttblog.ssmbootstrap_table.model.User;
 import cn.com.ttblog.ssmbootstrap_table.service.IUserService;
@@ -72,7 +75,17 @@ public class IndexController {
 	@RequestMapping("/datacount")
 	public @ResponseBody Map<String, Object> datacount(HttpSession session,Model model) {
 		List<Map<String, Object>> counts = userService.getDataSum();
-		return null;
+		
+		JSONArray categorys=new JSONArray();
+		JSONArray nums=new JSONArray();
+		for(Map<String, Object> m:counts){
+			categorys.add(m.get("adddate").toString());
+			nums.add(m.get("num").toString());
+		}
+		Map<String, Object> data=new HashMap<String, Object>();
+		data.put("c", categorys);
+		data.put("d", nums);
+		return data;
 	}
 
 	@RequestMapping("/export")
