@@ -35,9 +35,7 @@ public class UserServiceImpl implements IUserService {
 		Random r=new Random();
 		sqlSession.insert(IUserDao.class.getName()+".insert",user);
 		//事务测试
-//		if(r.nextInt(6)==0){
-//			int i=1/0;
-//		}
+//		int i=1/0;
 	}
 
 	@Override
