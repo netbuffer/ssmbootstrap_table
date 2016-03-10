@@ -83,8 +83,20 @@ public class TestMyBatis {
 	}
 	
 	@Test
+	@Ignore
 	public void testDatacount(){
 		logger.info("datacount:{}",userDao.getDataSum());
+	}
+	
+	@Test
+	public void testAddUserTran(){
+		User u=new User();
+		u.setName("事务测试");
+		u.setAge(10);
+		u.setSex("男");
+		u.setPhone("13833422322");
+		u.setAdddate((int)System.currentTimeMillis()/1000);
+		userService.addUser(u);
 	}
 
 }
