@@ -112,9 +112,9 @@
 			<version>5.1.38</version>
 		</dependency>
 		<dependency>
-			<groupId>commons-dbcp</groupId>
-			<artifactId>commons-dbcp</artifactId>
-			<version>1.2.2</version>
+			<groupId>com.alibaba</groupId>
+			<artifactId>druid</artifactId>
+			<version>1.0.16</version>
 		</dependency>
 		<dependency>
 			<groupId>jstl</groupId>
