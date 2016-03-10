@@ -12,11 +12,12 @@
                         http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
 	<context:component-scan base-package="cn.com.ttblog.ssmbootstrap_table" />
 	<tx:annotation-driven />
+	
 	<bean id="propertyConfigurer"
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="location" value="classpath:jdbc.properties" />
 	</bean>
-	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
 		destroy-method="close">
 		<property name="driverClassName" value="${driver}" />
 		<property name="url" value="${url}" />
@@ -27,6 +28,8 @@
 		<property name="maxIdle" value="${maxIdle}"></property>
 		<property name="minIdle" value="${minIdle}"></property>
 		<property name="maxWait" value="${maxWait}"></property>
+		<!-- 配置监控统计拦截的filters -->
+	     <property name="filters" value="stat" />
 	</bean>
 	<!-- 使用mybatis进行数据处理有四种方式(SqlSessionTemplate/SqlSessionDaoSupport/MapperFactoryBean/MapperScannerConfigurer) -->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
