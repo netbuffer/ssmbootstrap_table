@@ -19,7 +19,7 @@ public class RegisterController {
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
-	@RequestMapping(value={"/index","/"})
+	@RequestMapping(value={"","/","/index"})
 	public String index() {
 		return "redirect:/register.html";
 	}

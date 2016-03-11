@@ -26,12 +26,36 @@
 		<property name="password" value="${password}" />
 		<property name="initialSize" value="${initialSize}"></property>
 		<property name="maxActive" value="${maxActive}"></property>
-		<property name="maxIdle" value="${maxIdle}"></property>
 		<property name="minIdle" value="${minIdle}"></property>
 		<property name="maxWait" value="${maxWait}"></property>
-		<!-- 配置监控统计拦截的filters -->
-		<property name="filters" value="stat" />
+		<!-- 用来检测连接是否有效的sql，要求是一个查询语句 -->
+		<property name="validationQuery" value="${validationQuery}" />
+		<!-- 打开PSCache，并且指定每个连接上PSCache的大小 -->
+		<property name="poolPreparedStatements" value="true" />
+		<property name="maxPoolPreparedStatementPerConnectionSize"
+			value="20" />
+		<!-- 配置监控统计拦截的filters,wall-sql防火墙支持 -->
+		<property name="filters" value="stat,wall" />
 	</bean>
+	
+	<!-- spring方法调用监控 -->
+	<bean id="druid-stat-interceptor"
+		class="com.alibaba.druid.support.spring.stat.DruidStatInterceptor"></bean>
+	<bean id="druid-stat-pointcut" class="org.springframework.aop.support.JdkRegexpMethodPointcut"
+		scope="prototype">
+		<property name="patterns">
+			<list>
+				<value>cn.com.ttblog.ssmbootstrap_table.service.*</value>
+				<value>cn.com.ttblog.ssmbootstrap_table.dao.*</value>
+			</list>
+		</property>
+	</bean>
+	
+	<aop:config>
+		<aop:advisor advice-ref="druid-stat-interceptor"
+			pointcut-ref="druid-stat-pointcut" />
+	</aop:config>
+
 	<!-- 使用mybatis进行数据处理有四种方式(SqlSessionTemplate/SqlSessionDaoSupport/MapperFactoryBean/MapperScannerConfigurer) -->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
@@ -57,7 +81,8 @@
 		</tx:attributes>
 	</tx:advice>
 	<aop:config>
-		<aop:pointcut expression="execution(* cn.com.ttblog.ssmbootstrap_table.serviceimpl.*.*(..))"
+		<aop:pointcut
+			expression="execution(* cn.com.ttblog.ssmbootstrap_table.serviceimpl.*.*(..))"
 			id="trasactionService" />
 		<aop:advisor pointcut-ref="trasactionService" advice-ref="trasactionAdvice" />
 	</aop:config>
