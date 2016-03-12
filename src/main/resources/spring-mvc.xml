@@ -55,6 +55,8 @@
 	<!-- <bean class="com.wonders.stpt.bid.controller.JXLExcelView"/> -->
 	<!-- 启动SpringMVC的注解功能，完成请求和注解POJO的映射 -->
     <mvc:annotation-driven />
+    <!-- 设定全局的validator -->
+    <!-- <mvc:annotation-driven validator="" /> -->
     <!-- 静态资源等，默认行为 -->
     <mvc:default-servlet-handler/>
     <mvc:view-controller path="/" view-name="index.html"/>
