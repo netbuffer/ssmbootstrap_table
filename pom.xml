@@ -193,6 +193,16 @@
 			<artifactId>poi</artifactId>
 			<version>3.13</version>
 		</dependency>
+		<dependency>
+			<groupId>javax.validation</groupId>
+			<artifactId>validation-api</artifactId>
+			<version>1.1.0.Final</version>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>5.2.4.Final</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<finalName>ssmbootstrap_table</finalName>
