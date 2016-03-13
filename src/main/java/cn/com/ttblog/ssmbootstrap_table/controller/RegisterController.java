@@ -34,7 +34,7 @@ public class RegisterController {
 	}
 
 	@RequestMapping("/save")
-	public String save(User user) {
+	public String save(@Validated User user) {
 		user.setAdddate((int) (System.currentTimeMillis() / 1000));
 		try {
 			userService.addUser(user);
