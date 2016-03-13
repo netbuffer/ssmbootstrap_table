@@ -1,10 +1,14 @@
 package cn.com.ttblog.ssmbootstrap_table.controller;
 
 import javax.annotation.Resource;
+import javax.validation.Valid;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.DataBinder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -22,11 +26,15 @@ public class RegisterController {
 	private IUserService userService;
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
-
-	@InitBinder
-	public void initBinder(DataBinder binder) {
-		binder.setValidator(new UserValidator());
-	}
+	
+	/**
+	 * springmvc数据校验 需要为实体加@Validated标记 
+	 * @param binder
+	 */
+//	@InitBinder
+//	public void initBinder(DataBinder binder) {
+//		binder.setValidator(new UserValidator());
+//	}
 
 	@RequestMapping(value = { "", "/", "/index" })
 	public String index() {
@@ -34,7 +42,12 @@ public class RegisterController {
 	}
 
 	@RequestMapping("/save")
-	public String save(@Validated User user) {
+	public String save(@Valid User user,BindingResult result,Model model) {
+		if(result.hasErrors()){
+			logger.info("校验user出错:"+ToStringBuilder.reflectionToString(result));
+			model.addAttribute("result", result);
+			return "500";
+		}
 		user.setAdddate((int) (System.currentTimeMillis() / 1000));
 		try {
 			userService.addUser(user);

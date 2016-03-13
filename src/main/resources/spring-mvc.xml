@@ -53,7 +53,8 @@
 			value="org.springframework.web.servlet.view.JstlView" />
 	</bean>
 	<!-- <bean class="com.wonders.stpt.bid.controller.JXLExcelView"/> -->
-	<!-- 启动SpringMVC的注解功能，完成请求和注解POJO的映射 -->
+	<!-- 启动SpringMVC的注解功能，完成请求和注解POJO的映射,使 Spring MVC 支持 JSR303 validator via 
+		@Valid, and also bind your properties file -->
 	<mvc:annotation-driven />
 	<!-- 设定全局的validator -->
 	<!-- <mvc:annotation-driven validator="" /> -->
@@ -85,6 +86,7 @@
 			<props>
 				<prop key="java.lang.Exception">500</prop>
 				<prop key="java.lang.Throwable">500</prop>
+				<prop key="BindException">500</prop>
 			</props>
 		</property>
 		<property name="statusCodes">
@@ -99,4 +101,24 @@
 		<!-- 默认HTTP状态码 -->
 		<property name="defaultStatusCode" value="500"></property>
 	</bean>
+
+	<!-- bind i18n messages properties,this just setting zh_CN message -->
+	<bean id="messageSource"
+		class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+		<property name="useCodeAsDefaultMessage" value="false" />
+		<property name="defaultEncoding" value="UTF-8" />
+		<property name="fallbackToSystemLocale" value="true" />
+		<property name="basenames">
+			<list>
+				<value>classpath:messages.properties</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="validator"
+		class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
+		<property name="providerClass" value="org.hibernate.validator.HibernateValidator" />
+		<property name="validationMessageSource" ref="messageSource" />
+	</bean>
+
 </beans>  
