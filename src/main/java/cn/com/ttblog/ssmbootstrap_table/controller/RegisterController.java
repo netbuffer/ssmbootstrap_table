@@ -14,6 +14,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import cn.com.ttblog.ssmbootstrap_table.exception.CustomGenericException;
 import cn.com.ttblog.ssmbootstrap_table.model.User;
 import cn.com.ttblog.ssmbootstrap_table.service.IUserService;
 import cn.com.ttblog.ssmbootstrap_table.validator.UserValidator;
@@ -57,5 +58,15 @@ public class RegisterController {
 		}
 		return "redirect:/register-success.html";
 	}
-
+	
+	@RequestMapping("/testerror1")
+	public String testError(){
+		throw new CustomGenericException(500,"错误测试");
+	}
+	
+	@RequestMapping("/testerror2")
+	public String testError2(){
+		int i=1/0;
+		return "index";
+	}
 }
