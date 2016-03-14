@@ -16,11 +16,18 @@
 <body>
 	<div class="container">
 		发生错误啦:
-		<h3>错误数量:${result.errorCount}</h3>
-		<h3>错误对象名:${result.objectName}</h3>
-		<c:forEach items="${result.allErrors}" var="error">
-			${error.code }/${error.defaultMessage }<br/>
-		</c:forEach>
+		<c:if test="${not empty result}">
+			<h1>校验信息错误</h1>
+			<hr/>
+			<h3>错误数量:${result.errorCount}</h3>
+			<h3>错误对象名:${result.objectName}</h3>
+			<c:forEach items="${result.allErrors}" var="error">
+				${error.code }/${error.defaultMessage }<br/>
+			</c:forEach>
+		</c:if>
+		<c:if test="${not empty errMsg}">
+			<hr/>错误信息:${errMsg }
+		</c:if>
 	</div>
 </body>
 </html>

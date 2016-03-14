@@ -24,15 +24,17 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import com.alibaba.fastjson.JSONArray;
+import org.springframework.web.servlet.ModelAndView;
 
 import cn.com.ttblog.ssmbootstrap_table.model.User;
 import cn.com.ttblog.ssmbootstrap_table.service.IUserService;
 import cn.com.ttblog.ssmbootstrap_table.util.BeanMapUtil;
 import cn.com.ttblog.ssmbootstrap_table.util.POIExcelUtil;
+
+import com.alibaba.fastjson.JSONArray;
 
 @Controller
 @RequestMapping("/")
@@ -61,39 +63,41 @@ public class IndexController {
 	}
 
 	@RequestMapping("/newdata")
-	public String newdata(HttpSession session,Model model) {
-		logger.info("执行前:{}",model);
+	public String newdata(HttpSession session, Model model) {
+		logger.info("执行前:{}", model);
 		int newcount = userService.getNewData();
 		String username = session.getAttribute(ConfigConstant.USERNAME)
 				.toString();
 		model.addAttribute("newcount", newcount);
 		model.addAttribute("username", username);
-		logger.info("执行后:{}",model);
+		logger.info("执行后:{}", model);
 		return "newdata";
 	}
-	
+
 	@RequestMapping("/datacount")
-	public @ResponseBody Map<String, Object> datacount(HttpSession session,Model model) {
+	public @ResponseBody Map<String, Object> datacount(HttpSession session,
+			Model model) {
 		List<Map<String, Object>> counts = userService.getDataSum();
-		
-		JSONArray categorys=new JSONArray();
-		JSONArray nums=new JSONArray();
-		for(Map<String, Object> m:counts){
+
+		JSONArray categorys = new JSONArray();
+		JSONArray nums = new JSONArray();
+		for (Map<String, Object> m : counts) {
 			categorys.add(m.get("adddate").toString());
 			nums.add(m.get("num").toString());
 		}
-		Map<String, Object> data=new HashMap<String, Object>();
+		Map<String, Object> data = new HashMap<String, Object>();
 		data.put("c", categorys);
 		data.put("d", nums);
 		return data;
 	}
 
 	@RequestMapping("/export")
-	public ResponseEntity<byte[]>  export(HttpSession session, HttpServletRequest request,
-			HttpServletResponse response) {
+	public ResponseEntity<byte[]> export(HttpSession session,
+			HttpServletRequest request, HttpServletResponse response) {
 		SimpleDateFormat format = new SimpleDateFormat("yyyyMMddHHmmss");
 		List<User> users = userService.getUserList("desc", 10, 0);
-		String projectPath = request.getServletContext().getRealPath("export")+File.separator;
+		String projectPath = request.getServletContext().getRealPath("export")
+				+ File.separator;
 		int userCount = users.size();
 		List<Map<String, Object>> mps = new ArrayList<Map<String, Object>>(
 				users.size());
@@ -112,17 +116,40 @@ public class IndexController {
 		titles.add("sex");
 		String file = projectPath + format.format(new Date()) + "."
 				+ ConfigConstant.EXCELSTR;
-		logger.info("文件路径:{}",file);
+		logger.info("文件路径:{}", file);
 		POIExcelUtil.export(titles, mps, file);
-		HttpHeaders headers = new HttpHeaders();  
-	    headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);  
-	    headers.setContentDispositionFormData("attachment",file.replace(projectPath, ""));  
-	    try {
-			return new ResponseEntity<byte[]>(FileUtils.readFileToByteArray(new File(file)),  
-			                                  headers, HttpStatus.CREATED);
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+		headers.setContentDispositionFormData("attachment",
+				file.replace(projectPath, ""));
+		try {
+			return new ResponseEntity<byte[]>(
+					FileUtils.readFileToByteArray(new File(file)), headers,
+					HttpStatus.CREATED);
 		} catch (IOException e) {
 			e.printStackTrace();
-		} 
-	    return null;
+		}
+		return null;
 	}
+
+	@RequestMapping("/testerror")
+	public String testthrowException() {
+		throw new RuntimeException("test error");
+	}
+
+	@ExceptionHandler
+	public ModelAndView handleAllException(Exception ex) {
+		ModelAndView mav = new ModelAndView("500");
+		mav.addObject("errMsg", ex.getMessage());
+		return mav;
+	}
+
+	/**
+	 * 数据转换处理
+	 */
+	// @InitBinder
+	// public void bind(WebDataBinder binder){
+	// //设置不转换name，自行处理
+	// binder.setDisallowedFields("name");
+	// }
 }
