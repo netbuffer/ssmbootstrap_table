@@ -69,4 +69,9 @@ public class RegisterController {
 		int i=1/0;
 		return "index";
 	}
+	@RequestMapping("/testredirect")
+	public String testRedirect(Model model){
+		model.addAttribute("param", "test");
+		return "redirect:/register-success.html?id={param}";
+	}
 }

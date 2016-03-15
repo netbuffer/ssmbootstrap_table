@@ -24,7 +24,10 @@
 			</Pattern>
 		</layout>
 	</appender>
-	<!-- 写入数据库日志配置,需要先在数据库中建表，导入logback.sql -->
+	<!--
+		 写入数据库日志配置,需要先在数据库中建表，导入logback.sql
+		http://logback.qos.ch/manual/appenders.html 
+	-->
 	<!-- <appender name="db-classic-mysql" class="ch.qos.logback.classic.db.DBAppender">  
         <connectionSource class="ch.qos.logback.core.db.DriverManagerConnectionSource">  
             <driverClass>com.mysql.jdbc.Driver</driverClass>  
