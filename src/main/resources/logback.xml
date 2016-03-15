@@ -24,23 +24,33 @@
 			</Pattern>
 		</layout>
 	</appender>
-	<root>
-		<level value="INFO" />
-		<appender-ref ref="stdout" />
-		<appender-ref ref="logfile" />
-	</root>
-	<root>
-		<level value="DEBUG" />
-		<appender-ref ref="stdout" />
-		<appender-ref ref="logfile" />
-	</root>
-	<logger name="org.springframework" level="DEBUG" />
+	<!-- 写入数据库日志配置,需要先在数据库中建表，导入logback.sql -->
+	<!-- <appender name="db-classic-mysql" class="ch.qos.logback.classic.db.DBAppender">  
+        <connectionSource class="ch.qos.logback.core.db.DriverManagerConnectionSource">  
+            <driverClass>com.mysql.jdbc.Driver</driverClass>  
+            <url>jdbc:mysql://127.0.0.1:3306/u?useUnicode=true&amp;characterEncoding=utf-8&amp;useSSL=false</url>  
+            <user>root</user>  
+            <password>root</password>  
+        </connectionSource>  
+    </appender> -->
+	<logger name="org.springframework.core" level="DEBUG" />
+	<logger name="org.springframework.beans" level="DEBUG" />
+	<logger name="org.springframework.context" level="DEBUG" />
+	<logger name="org.springframework.http" level="DEBUG" />
+	<logger name="org.springframework.web" level="DEBUG" />
 	<logger name="org.mybatis" level="INFO" />
 	<logger name="cn.com.ttblog.ssmbootstrap_table.dao" level="INFO" />
-	<logger name="jdbc.connection" level="OFF" />
+	<logger name="jdbc.connection" level="DEBUG" />
 	<logger name="jdbc.audit" level="OFF" />
 	<logger name="jdbc.resultset" level="OFF" />
 	<logger name="jdbc.sqlonly" level="OFF" />
 	<logger name="jdbc.sqltiming" level="INFO" />
 	<logger name="log4jdbc.debug" level="OFF" />
+	<root>
+		<level value="DEBUG" />
+		<appender-ref ref="stdout" />
+		<appender-ref ref="logfile" />
+		<!-- 数据库日志 -->
+		<!-- <appender-ref ref="db-classic-mysql" /> -->
+	</root>
 </configuration>
