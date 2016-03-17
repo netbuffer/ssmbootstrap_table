@@ -14,6 +14,7 @@
 	rel="stylesheet">
 </head>
 <body>
+	<!--JSP的内置(隐含)对象及EL表达式的内置(隐含)对象 http://blog.chinaunix.net/uid-725717-id-2060317.html -->
 	<div class="container">
 		发生错误啦:
 		<c:if test="${not empty result}">
@@ -28,6 +29,7 @@
 		<c:if test="${not empty errMsg}">
 			<hr/>错误信息:${errMsg }
 		</c:if>
+		${exception}
 	</div>
 </body>
 </html>
