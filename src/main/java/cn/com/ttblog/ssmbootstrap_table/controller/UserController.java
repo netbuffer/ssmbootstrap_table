@@ -65,9 +65,9 @@ public class UserController {
 	 * @return
 	 */
 	@RequestMapping("/userlist")
-	public String userlist(String order, int limit, int offset, Model model) {
-		logger.info("参数:{},{},{}", order, limit, offset);
-		List<User> users = userService.getUserList(order, limit, offset);
+	public String userlist(String order, Integer page,Integer rows,Model model) {
+		logger.info("参数:{},{},{}", order, page, rows);
+		List<User> users = userService.getUserList(order, page, rows);
 		long total = userService.getUserListCount();
 		Map<String, Object> params = new HashMap<String, Object>();
 		model.addAttribute("total", total);

@@ -3,8 +3,7 @@
 * spring+springmvc+mybatis
 * poi3
 * 自定义标签开发
-* bootstrap3
-* bootstrap-table1.9
+* easyui1.4.4
 * druid
 * weui
 * log4jdbc

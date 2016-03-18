@@ -39,11 +39,11 @@ public class UserServiceImpl implements IUserService {
 	}
 
 	@Override
-	public List<User> getUserList(String order, int limit, int offset) {
+	public List<User> getUserList(String order, int page, int rows) {
 		 Map<String, Object> params=new HashMap<String, Object>();
 		 params.put("order", order);
-		 params.put("limit", limit);
-		 params.put("offset", offset);
+		 params.put("limit", page*rows);
+		 params.put("offset", rows);
 		return sqlSession.selectList(IUserDao.class.getName()+".selectList",params);
 	}
 
