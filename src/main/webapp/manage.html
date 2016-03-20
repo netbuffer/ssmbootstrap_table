@@ -13,7 +13,8 @@
 	charset="utf-8"></script>
 <script src="easyui/locale/easyui-lang-zh_CN.js" type="text/javascript"
 	charset="utf-8"></script>
-<script src="//cdn.bootcss.com/echarts/3.0.0/echarts.min.js"></script>
+<script src="//cdn.bootcss.com/moment.js/2.11.2/moment.min.js"></script>
+<script src="//cdn.bootcss.com/moment.js/2.11.0/locale/zh-cn.js"></script>
 <script type="text/javascript">
 	$(function() {
 		//树形菜单
@@ -58,13 +59,9 @@
 		});
 
 		$.getJSON('newdata.json', function(data) {
-			$("#xinzeng").text(data.newcount);
-			$("#xinzeng").tooltip({
-				"title" : "今日新增数据，点击查看",
-				"placement" : "bottom"
-			});
-			$("#xinzeng").mouseover();
+
 			$("#login_username").text(data.username);
+			$("#new_datacount").text(data.newcount);
 			$.getJSON('datacount', function(data) {
 				var myChart = echarts.init(document
 						.getElementById('echarts_test'));
@@ -186,6 +183,33 @@
 
 		});
 	});
+
+	function sys_exit() {
+		if (confirm("确定退出系统吗")) {
+			window.location.href = "exit";
+		}
+	}
+	//格式化性别显示
+	function formatSex(val, row) {
+		var strstyle = "";
+		if (val = "男") {
+			strstyle = "color:green;";
+		} else if (val = "女") {
+			strstyle = "color:red;";
+		} else {
+			strstyle = "color:blue;";
+		}
+		var str = '<span style="'+strstyle+'">' + val + '</span>';
+		return str;
+	}
+	function operate(val, row) {
+		return "<a href='#' class='easyui-linkbutton' iconCls='icon-search'>查询</a>&emsp;"
+				+ "<a href='#' class='easyui-linkbutton' iconCls='icon-search'>修改</a>&emsp;"
+				+ "<a href='#' class='easyui-linkbutton' iconCls='icon-search'>删除</a>";
+	}
+	function dateformatter(val, row){
+		return moment.unix(val).format("YYYY-MM-DD hh:mm:ss a");
+	}
 </script>
 </head>
 <body class="easyui-layout">
@@ -196,7 +220,9 @@
 			style="float: left; COLOR: #fff; FONT-SIZE: 22px; FONT-WEIGHT: bold">Easyui后台管理系统</div>
 		<div style="COLOR: #fff">
 			<A href="#" style="COLOR: #fff; TEXT-DECORATION: none">欢迎您:<span
-				id="login_username"></span></A>
+				id="login_username"></span></A>, <a href="#"
+				style="COLOR: #fff; TEXT-DECORATION: none" onclick="sys_exit();">退出系统</a><br />
+			<a href="#" title="今日新增数据" class="easyui-tooltip">今日新增:<strong><span id="new_datacount"></span></strong></a>
 		</div>
 	</div>
 
@@ -267,29 +293,82 @@
 		data-options="region:'south',split:true,border:true">
 		底部声明:<a href="https://git.oschina.net/gradle/ssmbootstrap_table">ssmbootstrap_table</a>
 	</div>
-	<div data-options="region:'center'" style="padding:0px; text-align: center;">
-		<table id="dg" title="用户信息"
-			data-options="
-					fit:true,
-					rownumbers:false,
-					singleSelect:true,
-					autoRowHeight:true,
-					pagination:true,
-					url:'user/userlist?format=json',method:'post'">
-			<thead>
-				<tr>
-					<!-- <th data-field="id" width="10" style="display:none;"></th> -->
-					<th data-options="field:'name'" >姓名</th>
-					<th data-options="field:'sex'" >性别</th>
-					<th data-options="field:'age'" >年龄</th>
-					<th data-options="field:'phone'">手机号</th>
-					<th data-options="field:'deliveryaddress'">收货地址</th>
-					<th data-options="field:'adddate'" >添加时间</th>
-					<th data-options="field:'operate'" >操作</th>
-				</tr>
-			</thead>
-		</table>
+	<div data-options="region:'center'"
+		style="padding: 0px; text-align: center;">
+		<div class="easyui-accordion" style="width: 100%; height: 100%;">
+			<div title="echarts展示效果" data-options="iconCls:'icon-ok'"
+				style="overflow: auto; padding: 10px;">
+				<div class="easyui-layout" style="width: 100%; height: 100%;">
+					<div class="row">
+						<div id="echarts_test" style="height: 250px;" class="col-md-12"></div>
+					</div>
+					<div class="row">
+						<div id="echarts_test2" style="height: 250px;" class="col-md-12"></div>
+					</div>
+				</div>
+			</div>
+			<div title="用户信息datagrid" data-options="iconCls:'icon-help'"
+				style="padding: 10px;">
+				<div class="easyui-layout" style="width: 100%; height: 100%;">
+					<table id="dg" title="用户信息"
+						data-options="
+								fit:true,
+								rownumbers:false,
+								singleSelect:true,
+								autoRowHeight:true,
+								pagination:true,
+								url:'user/userlist?format=json',method:'post'"
+						style="height: 100%;">
+						<thead>
+							<tr>
+								<!-- <th data-field="id" width="10" style="display:none;"></th> -->
+								<th data-options="field:'name'">姓名</th>
+								<th data-options="field:'sex'" formatter="formatSex">性别</th>
+								<th data-options="field:'age'">年龄</th>
+								<th data-options="field:'phone'">手机号</th>
+								<th data-options="field:'deliveryaddress'">收货地址</th>
+								<th data-options="field:'adddate'" formatter="dateformatter">添加时间</th>
+								<th data-options="field:'operate'" formatter="operate">操作</th>
+							</tr>
+						</thead>
+					</table>
+				</div>
+			</div>
+			<div title="用户信息tab" data-options="iconCls:'icon-edit'"
+				style="padding: 10px;">
+				<div class="easyui-tabs" style="width: 700px; height: 250px">
+					<div title="About" data-options="tools:'#p-tools'"
+						style="padding: 10px">
+						<p style="font-size: 14px">jQuery EasyUI framework helps you
+							build your web pages easily.</p>
+						<ul>
+							<li>easyui is a collection of user-interface plugin based
+								on jQuery.</li>
+							<li>easyui provides essential functionality for building
+								modem, interactive, javascript applications.</li>
+							<li>using easyui you don't need to write many javascript
+								code, you usually defines user-interface by writing some HTML
+								markup.</li>
+							<li>complete framework for HTML5 web page.</li>
+							<li>easyui save your time and scales while developing your
+								products.</li>
+							<li>easyui is very easy but powerful.</li>
+						</ul>
+					</div>
+					<div title="Help" data-options="iconCls:'icon-help',closable:true"
+						style="padding: 10px">This is the help content.</div>
+				</div>
+				<div id="p-tools">
+					<a href="javascript:void(0)" class="icon-mini-add"
+						onclick="alert('add')"></a> <a href="javascript:void(0)"
+						class="icon-mini-edit" onclick="alert('edit')"></a> <a
+						href="javascript:void(0)" class="icon-mini-refresh"
+						onclick="alert('refresh')"></a>
+				</div>
+			</div>
+		</div>
 	</div>
+	
 </body>
-
+<script src="//cdn.bootcss.com/echarts/3.0.0/echarts.min.js"></script>
 </html>
