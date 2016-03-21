@@ -1,4 +1,4 @@
-#ssmbootstrap_table demo
+#ssmeasyui demo
 ## 技术栈
 * spring+springmvc+mybatis
 * poi3
