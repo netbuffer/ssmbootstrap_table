@@ -89,6 +89,7 @@ public class TestMyBatis {
 	}
 	
 	@Test
+	@Ignore
 	public void testAddUserTran(){
 		User u=new User();
 		u.setName("事务测试");
@@ -98,5 +99,10 @@ public class TestMyBatis {
 		u.setAdddate((int)System.currentTimeMillis()/1000);
 		userService.addUser(u);
 	}
-
+	
+	@Test
+	public void testMybatisParam(){
+		logger.info("测试#{0}:{}",userDao.selectByPrimaryKey(3L));
+		logger.info("测试#ids:{}",userDao.selectByPrimaryKeys(3L,4L));
+	}
 }

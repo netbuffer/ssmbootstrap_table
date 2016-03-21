@@ -23,4 +23,10 @@ public interface IUserDao {
 	int getNewData();
 
 	List<Map<String, Object>> getDataSum();
+	/**
+	 * 测试数组参数
+	 * @param ids  变长参数，实为数组
+	 * @return
+	 */
+	List<User> selectByPrimaryKeys(Long... ids);
 }

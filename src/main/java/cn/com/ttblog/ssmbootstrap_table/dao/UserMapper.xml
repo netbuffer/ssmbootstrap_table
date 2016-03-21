@@ -14,12 +14,22 @@
 	<sql id="Base_Column_List">
 		id, name, sex, age, phone, deliveryaddress, adddate
 	</sql>
+	<!-- #{id,jdbcType=BIGINT} -->
 	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
 		parameterType="java.lang.Long">
 		select
 		<include refid="Base_Column_List" />
 		from user
-		where id = #{id,jdbcType=BIGINT}
+		where id = #{0}
+	</select>
+	<select id="selectByPrimaryKeys" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from user
+		where id in
+		<foreach item="id" collection="array" separator="," open="(" close=")" index="">  
+	      #{id, jdbcType=BIGINT}  
+	    </foreach>
 	</select>
 
 	<select id="getUserListCount" resultType="java.lang.Long">
