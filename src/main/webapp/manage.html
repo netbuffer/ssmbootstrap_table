@@ -13,10 +13,31 @@
 	charset="utf-8"></script>
 <script src="easyui/locale/easyui-lang-zh_CN.js" type="text/javascript"
 	charset="utf-8"></script>
+<script src="easyui/easyuitabutil.js" type="text/javascript"
+	charset="utf-8"></script>
 <script src="//cdn.bootcss.com/moment.js/2.11.2/moment.min.js"></script>
 <script src="//cdn.bootcss.com/moment.js/2.11.0/locale/zh-cn.js"></script>
 <script type="text/javascript">
 	$(function() {
+		//监听右键事件，创建右键菜单
+	    $('#test_tabs').tabs({
+	        onContextMenu: function (e, title, index) {
+	            e.preventDefault();
+	            if (index > 0) {
+	                $('#tab_menu').menu('show', {
+	                    left: e.pageX,
+	                    top: e.pageY
+	                }).data("tabTitle", title);
+	            }
+	        }
+	    });
+	    //右键菜单click
+	    $("#tab_menu").menu({
+	        onClick: function (item) {
+	            closeTab("test_tabs",this, item.name);
+	        }
+	    });
+	    
 		//树形菜单
 		$('#help_tree').tree({
 			checkbox : false,
@@ -207,8 +228,16 @@
 				+ "<a href='#' class='easyui-linkbutton' iconCls='icon-search'>修改</a>&emsp;"
 				+ "<a href='#' class='easyui-linkbutton' iconCls='icon-search'>删除</a>";
 	}
-	function dateformatter(val, row){
+	function dateformatter(val, row) {
 		return moment.unix(val).format("YYYY-MM-DD hh:mm:ss a");
+	}
+
+	function testAddSubPage(domid, title, url) {
+		$("#"+domid).tabs("add",{
+			title : "百度一下-"+title,
+			content : "<iframe runat='server' src='"+url+"' width='100%' height='100%' frameborder='no' border='0' marginwidth='0' marginheight='0' scrolling='no' allowtransparency='yes'></iframe>",
+			closable : true
+		});
 	}
 </script>
 </head>
@@ -222,7 +251,8 @@
 			<A href="#" style="COLOR: #fff; TEXT-DECORATION: none">欢迎您:<span
 				id="login_username"></span></A>, <a href="#"
 				style="COLOR: #fff; TEXT-DECORATION: none" onclick="sys_exit();">退出系统</a><br />
-			<a href="#" title="今日新增数据" class="easyui-tooltip">今日新增:<strong><span id="new_datacount"></span></strong></a>
+			<a href="#" title="今日新增数据" class="easyui-tooltip">今日新增:<strong><span
+					id="new_datacount"></span></strong></a>
 		</div>
 	</div>
 
@@ -335,15 +365,15 @@
 				</div>
 			</div>
 			<div title="用户信息tab" data-options="iconCls:'icon-edit'"
-				style="padding: 10px;">
-				<div class="easyui-tabs" style="width: 700px; height: 250px">
-					<div title="About" data-options="tools:'#p-tools'"
-						style="padding: 10px">
+				style="padding:0px;margin:0px;">
+				<div class="easyui-tabs" id="test_tabs" style="width: 100%; height: 100%;">
+					<div title="About" data-options="tools:'#p-tools'">
+						<a href="javascript:void(0)" class="easyui-linkbutton" onclick="testAddSubPage('test_tabs','www.baidu.com','http://www.baidu.com')">打开百度</a>
 						<p style="font-size: 14px">jQuery EasyUI framework helps you
 							build your web pages easily.</p>
 						<ul>
-							<li>easyui is a collection of user-interface plugin based
-								on jQuery.</li>
+							<li>easyui is a collection of user-interface plugin based on
+								jQuery.</li>
 							<li>easyui provides essential functionality for building
 								modem, interactive, javascript applications.</li>
 							<li>using easyui you don't need to write many javascript
@@ -367,6 +397,17 @@
 				</div>
 			</div>
 		</div>
+	</div>
+	
+	
+	<div id="tab_menu" class="easyui-menu" style="width:120px;">
+	    <div id="tab_menu-tabclosrefresh" data-options="name:6">刷新</div>
+	    <div id="tab_menu-tabclose" data-options="name:1">关闭</div>
+	    <div id="tab_menu-tabcloseall" data-options="name:2">全部关闭</div>
+	    <div id="tab_menu-tabcloseother" data-options="name:3">除此之外全部关闭</div>
+	    <div class="menu-sep"></div>
+	    <div id="tab_menu-tabcloseright" data-options="name:4">当前页右侧全部关闭</div>
+	    <div id="tab_menu-tabcloseleft" data-options="name:5">当前页左侧全部关闭</div>
 	</div>
 	
 </body>

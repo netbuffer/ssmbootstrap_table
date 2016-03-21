@@ -5,6 +5,7 @@
 	<jmxConfigurator />
 	<appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
 		<encoder charset="utf-8">
+			<!-- %logger{10} -->
 			<pattern>
 				%date [%thread] %-5level %logger{80} - %msg%n
 			</pattern>
