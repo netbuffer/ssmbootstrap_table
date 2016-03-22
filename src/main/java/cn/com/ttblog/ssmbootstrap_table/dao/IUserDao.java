@@ -29,4 +29,6 @@ public interface IUserDao {
 	 * @return
 	 */
 	List<User> selectByPrimaryKeys(Long... ids);
+	
+	List<String> selectByUserName(String name);
 }

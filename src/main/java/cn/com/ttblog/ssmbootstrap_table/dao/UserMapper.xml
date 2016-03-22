@@ -31,7 +31,12 @@
 	      #{id, jdbcType=BIGINT}  
 	    </foreach>
 	</select>
-
+	
+	<!-- 根据name查询，参数为String类型#{name}、#{_parameter} -->
+	<select id="selectByUserName" resultType="string" parameterType="string">
+		select sex from user where name=#{name}
+	</select>
+	
 	<select id="getUserListCount" resultType="java.lang.Long">
 		select count(*) from
 		user
