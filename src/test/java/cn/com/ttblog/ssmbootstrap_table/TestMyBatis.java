@@ -5,6 +5,8 @@ import java.util.Random;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.ibatis.session.SqlSession;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -30,7 +32,8 @@ public class TestMyBatis {
 	private IUserService userService;
 	@Resource 
 	private IUserDao userDao;
-
+	@Resource
+	private SqlSession sqlSession;
 	// @Before
 	// public void before() {
 	// ac = new ClassPathXmlApplicationContext("applicationContext.xml");
@@ -89,6 +92,7 @@ public class TestMyBatis {
 	}
 	
 	@Test
+	@Ignore
 	public void testAddUserTran(){
 		User u=new User();
 		u.setName("事务测试");
@@ -97,6 +101,13 @@ public class TestMyBatis {
 		u.setPhone("13833422322");
 		u.setAdddate((int)System.currentTimeMillis()/1000);
 		userService.addUser(u);
+	}
+	
+	@Test
+	public void testInterceptor(){
+//		logger.debug(ToStringBuilder.reflectionToString(sqlSession.getConfiguration()));
+//		logger.debug("测试拦截器:{}",sqlSession.selectOne("cn.com.ttblog.ssmbootstrap_table.dao.IUserDao.selectByPrimaryKey",1L));
+		testDatacount();
 	}
 
 }
