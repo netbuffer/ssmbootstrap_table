@@ -26,8 +26,12 @@ import cn.com.ttblog.ssmbootstrap_table.util.ReflectUtil;
 @Intercepts({@Signature(type=StatementHandler.class,method="prepare",args={Connection.class})})
 public class MybatisPagerInterceptor implements Interceptor {
 	private Logger log=LoggerFactory.getLogger(getClass());
+	private Properties properties;
 	@Override
 	public Object intercept(Invocation invocation) throws Throwable {
+		if(!Boolean.parseBoolean(properties.getProperty("enable"))){
+			return invocation.proceed();
+		}
 		log.warn("===========================执行mybatis拦截器开始===========================");
 		StatementHandler stmt=(StatementHandler)invocation.getTarget();
 		StatementHandler delegate = (StatementHandler)ReflectUtil.getFieldValue(stmt, "delegate");
@@ -45,7 +49,8 @@ public class MybatisPagerInterceptor implements Interceptor {
 
 	@Override
 	public void setProperties(Properties properties) {
-
+		log.info("set "+getClass().getName()+" properties to:{}",properties.getProperty("enable"));
+		this.properties=properties;
 	}
 
 }
