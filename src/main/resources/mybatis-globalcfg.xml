@@ -40,12 +40,15 @@
 		<setting name="lazyLoadTriggerMethods" value="equals,clone,hashCode,toString" />
 		<!-- 设置关联对象加载的形态，此处为按需加载字段(加载字段由SQL指 定)，不会加载关联表的所有字段，以提高性能 -->
 		<setting name="aggressiveLazyLoading" value="false" />
-		<!-- 配置日志实现 -->
-		<setting name="logImpl" value="STDOUT_LOGGING" />
+		<!-- 配置日志实现默认寻找日志的顺序 SLF4J | LOG4J | LOG4J2 | JDK_LOGGING | COMMONS_LOGGING | STDOUT_LOGGING | NO_LOGGING -->
+		<!-- <setting name="logImpl" value="STDOUT_LOGGING" /> -->
+		<setting name="logImpl" value="SLF4J" /> 
 	</settings>
 
 	<plugins>
 		<plugin
-			interceptor="cn.com.ttblog.ssmbootstrap_table.interceptor.MybatisPagerInterceptor" />
+			interceptor="cn.com.ttblog.ssmbootstrap_table.interceptor.MybatisPagerInterceptor">
+			<property name="enable" value="false"/>
+		</plugin>
 	</plugins>
 </configuration>
