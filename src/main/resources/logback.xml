@@ -41,13 +41,19 @@
 	<logger name="org.springframework.context" level="DEBUG" />
 	<logger name="org.springframework.http" level="DEBUG" />
 	<logger name="org.springframework.web" level="DEBUG" />
-	<logger name="org.mybatis" level="INFO" />
+	<logger name="org.mybatis" level="OFF" />
+	<logger name="org.apache.ibatis" level="OFF">
+		<appender-ref ref="STDOUT"/>
+	</logger>
+	<logger name="java.sql" level="OFF">
+	    <appender-ref ref="STDOUT"/>
+	</logger>
 	<logger name="cn.com.ttblog.ssmbootstrap_table.dao" level="INFO" />
-	<logger name="jdbc.connection" level="DEBUG" />
+	<logger name="jdbc.connection" level="OFF" />
 	<logger name="jdbc.audit" level="OFF" />
 	<logger name="jdbc.resultset" level="OFF" />
 	<logger name="jdbc.sqlonly" level="OFF" />
-	<logger name="jdbc.sqltiming" level="INFO" />
+	<logger name="jdbc.sqltiming" level="OFF" />
 	<logger name="log4jdbc.debug" level="OFF" />
 	<root>
 		<level value="DEBUG" />
