@@ -5,6 +5,7 @@ import java.util.Random;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -31,7 +32,6 @@ public class TestMyBatis {
 	private IUserService userService;
 	@Resource 
 	private IUserDao userDao;
-	
 	@Resource
 	private SqlSession sqlSession;
 	// @Before
@@ -71,12 +71,11 @@ public class TestMyBatis {
 			User u = new User();
 			u.setAge(i + new Random().nextInt(1));
 			u.setAdddate((int)System.currentTimeMillis());
-			u.setName("用户");
+			u.setName("用户:"+i);
 			u.setDeliveryaddress("收货地址");
 			u.setPhone("1324");
 			u.setSex("男");
-//			userService.addUser(u);
-			userDao.insert(u);
+			userService.addUser(u);
 		}
 	}
 	
@@ -105,19 +104,10 @@ public class TestMyBatis {
 	}
 	
 	@Test
-	@Ignore
-	public void testMybatisParam(){
-		logger.info("测试#{0}:{}",userDao.selectByPrimaryKey(3L));
-		logger.info("测试#ids:{}",userDao.selectByPrimaryKeys(3L,4L));
+	public void testInterceptor(){
+//		logger.debug(ToStringBuilder.reflectionToString(sqlSession.getConfiguration()));
+//		logger.debug("测试拦截器:{}",sqlSession.selectOne("cn.com.ttblog.ssmbootstrap_table.dao.IUserDao.selectByPrimaryKey",1L));
+		logger.debug("getdatasum:{}",userDao.getDataSum());
 	}
-	
-	@Test
-	@Ignore
-	public void testMybatisParamString(){
-		logger.info("用户:{}",userDao.selectByUserName("用户"));
-	}
-	@Test
-	public void testSqlSession(){
-		logger.info("通过sqlSession数据获取:{}",sqlSession.selectList("cn.com.ttblog.ssmbootstrap_table.dao.IUserDao.selectByUserName", "用户"));
-	}
+
 }
