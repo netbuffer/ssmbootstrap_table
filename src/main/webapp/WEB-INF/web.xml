@@ -5,6 +5,10 @@
 	version="3.0">
 	<display-name>ssmbootstrap-table</display-name>
 	<context-param>
+		<param-name>webAppRootKey</param-name>
+		<param-value>webapp.root</param-value>
+	</context-param>
+	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>classpath:spring-mybatis.xml</param-value>
 	</context-param>
@@ -117,6 +121,9 @@
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
+	<listener>    
+        <listener-class>cn.com.ttblog.ssmbootstrap_table.listener.ApplicationListener</listener-class>    
+ 	</listener> 
 	
 	<servlet>
 		<servlet-name>druidstat</servlet-name>
