@@ -77,14 +77,15 @@ public class IndexController {
 	@RequestMapping("/datacount")
 	public @ResponseBody Map<String, Object> datacount(HttpSession session,
 			Model model) {
+		logger.debug("获取datacount");
 		List<Map<String, Object>> counts = userService.getDataSum();
-
 		JSONArray categorys = new JSONArray();
 		JSONArray nums = new JSONArray();
 		for (Map<String, Object> m : counts) {
 			categorys.add(m.get("adddate").toString());
 			nums.add(m.get("num").toString());
 		}
+		logger.debug("categorys:{},nums:{}",categorys,nums);
 		Map<String, Object> data = new HashMap<String, Object>();
 		data.put("c", categorys);
 		data.put("d", nums);

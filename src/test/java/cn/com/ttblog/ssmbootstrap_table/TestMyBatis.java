@@ -107,7 +107,7 @@ public class TestMyBatis {
 	public void testInterceptor(){
 //		logger.debug(ToStringBuilder.reflectionToString(sqlSession.getConfiguration()));
 //		logger.debug("测试拦截器:{}",sqlSession.selectOne("cn.com.ttblog.ssmbootstrap_table.dao.IUserDao.selectByPrimaryKey",1L));
-		testDatacount();
+		logger.debug("getdatasum:{}",userDao.getDataSum());
 	}
 
 }
