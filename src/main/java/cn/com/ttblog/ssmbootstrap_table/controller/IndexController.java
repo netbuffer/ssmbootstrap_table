@@ -2,6 +2,7 @@ package cn.com.ttblog.ssmbootstrap_table.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -64,6 +65,16 @@ public class IndexController {
 
 	@RequestMapping("/newdata")
 	public String newdata(HttpSession session, Model model) {
+		DecimalFormat df = new DecimalFormat("0.00") ;
+        //Display the total amount of memory in the Java virtual machine.
+        long totalMem = Runtime.getRuntime().totalMemory()/1024/1024;
+        System.out.println(df.format(totalMem) + " MB");
+        //Display the maximum amount of memory that the Java virtual machine will attempt to use.
+        long maxMem = Runtime.getRuntime().maxMemory()/1024/1024;
+        System.out.println(df.format(maxMem) + " MB");
+        //Display the amount of free memory in the Java Virtual Machine.
+        long freeMem = Runtime.getRuntime().freeMemory()/1024/1024;
+        System.out.println(df.format(freeMem) + " MB");
 		logger.info("执行前:{}", model);
 		int newcount = userService.getNewData();
 		String username = session.getAttribute(ConfigConstant.USERNAME)
