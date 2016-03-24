@@ -65,12 +65,11 @@ public class TestMyBatis {
 	}
 
 	@Test
-	@Ignore
 	public void testAddUser() {
 		for (int i = 0; i < 10; i++) {
 			User u = new User();
 			u.setAge(i + new Random().nextInt(1));
-			u.setAdddate((int)System.currentTimeMillis());
+			u.setAdddate((int)(System.currentTimeMillis() / 1000));
 			u.setName("用户:"+i);
 			u.setDeliveryaddress("收货地址");
 			u.setPhone("1324");
@@ -104,6 +103,7 @@ public class TestMyBatis {
 	}
 	
 	@Test
+	@Ignore
 	public void testInterceptor(){
 //		logger.debug(ToStringBuilder.reflectionToString(sqlSession.getConfiguration()));
 //		logger.debug("测试拦截器:{}",sqlSession.selectOne("cn.com.ttblog.ssmbootstrap_table.dao.IUserDao.selectByPrimaryKey",1L));
