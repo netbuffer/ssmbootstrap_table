@@ -1,7 +1,12 @@
+<!-- 去除jsp导入带来的空行 -->
+<%-- <%@ page trimDirectiveWhitespaces="true"%> --%>
 <%@ page language="java" isErrorPage="true" errorPage="500.jsp"
 	contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html>
+<head>
+	<title>Hello World</title>
+</head>
 <body>
 	<h2>Hello World!</h2>
 	<a href="user/showUser?id=1">user/showUser</a><hr/>
