@@ -44,7 +44,7 @@
 	<select id="selectList" resultMap="BaseResultMap">
 		select
 		<include refid="Base_Column_List" />
-		from user order by adddate ${order} limit #{offset},#{limit}
+		from user order by adddate ${order} limit #{limit},#{offset}
 	</select>
 
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">

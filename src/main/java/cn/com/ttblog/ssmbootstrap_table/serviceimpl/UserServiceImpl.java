@@ -42,7 +42,7 @@ public class UserServiceImpl implements IUserService {
 	public List<User> getUserList(String order, int page, int rows) {
 		 Map<String, Object> params=new HashMap<String, Object>();
 		 params.put("order", order);
-		 params.put("limit", page*rows);
+		 params.put("limit", (page-1)*rows);
 		 params.put("offset", rows);
 		return sqlSession.selectList(IUserDao.class.getName()+".selectList",params);
 	}
