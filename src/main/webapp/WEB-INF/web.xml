@@ -121,10 +121,10 @@
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
-	<listener>    
-        <listener-class>cn.com.ttblog.ssmbootstrap_table.listener.ApplicationListener</listener-class>    
- 	</listener> 
-	
+	<listener>
+		<listener-class>cn.com.ttblog.ssmbootstrap_table.listener.ApplicationListener</listener-class>
+	</listener>
+
 	<servlet>
 		<servlet-name>druidstat</servlet-name>
 		<servlet-class>com.alibaba.druid.support.http.StatViewServlet</servlet-class>
@@ -133,7 +133,7 @@
 		<servlet-name>druidstat</servlet-name>
 		<url-pattern>/druid/*</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet>
 		<servlet-name>SpringMVC</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
@@ -154,6 +154,17 @@
 		<!-- csdn连接:http://bbs.csdn.net/topics/390610045 如果使用/*拦截,会直接显示jsp源码了,配置成/会被正确解析 -->
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
+	
+	<!-- <jsp-config>
+		<jsp-property-group>
+			<url-pattern>*.jsp</url-pattern>
+			<trim-directive-whitespaces>true</trim-directive-whitespaces>
+		</jsp-property-group>
+	</jsp-config> -->
+	<!-- <jsp-property-group>
+	       <url-pattern>*.jsp</url-pattern>
+	       <trim-directive-whitespaces>true </trim-directive-whitespaces>
+	</jsp-property-group>  -->
 	<error-page>
 		<error-code>404</error-code>
 		<location>/404.html</location>
