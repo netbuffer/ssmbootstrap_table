@@ -3,6 +3,7 @@
 	xmlns="http://java.sun.com/xml/ns/javaee"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
 	version="3.0">
+
 	<display-name>ssmbootstrap-table</display-name>
 	<context-param>
 		<param-name>webAppRootKey</param-name>
@@ -154,17 +155,37 @@
 		<!-- csdn连接:http://bbs.csdn.net/topics/390610045 如果使用/*拦截,会直接显示jsp源码了,配置成/会被正确解析 -->
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
-	
-	<!-- <jsp-config>
-		<jsp-property-group>
+
+	<jsp-config>
+		<!-- jsp-property-group配置 -->
+		<!-- <jsp-property-group>
 			<url-pattern>*.jsp</url-pattern>
+			禁止EL表达式 设置，禁止后会原样输出
+			<el-ignored>false</el-ignored>
+			禁止<%%>脚本设置
+			<scripting-invalid>true</scripting-invalid>
+			抬头
+			<include-prelude>/prelude.jspf</include-prelude>
+			结尾
+			<include-coda>/coda.jspf</include-coda>
+			清除jsp中由于page指令引入带来的空行
 			<trim-directive-whitespaces>true</trim-directive-whitespaces>
-		</jsp-property-group>
-	</jsp-config> -->
-	<!-- <jsp-property-group>
-	       <url-pattern>*.jsp</url-pattern>
-	       <trim-directive-whitespaces>true </trim-directive-whitespaces>
-	</jsp-property-group>  -->
+		</jsp-property-group> -->
+		<!-- <jsp-property-group>
+			<url-pattern>/aa/*.jsp</url-pattern>
+			禁止EL表达式 设置，禁止后会原样输出
+			<el-ignored>false</el-ignored>
+			禁止<%%>脚本设置
+			<scripting-invalid>true</scripting-invalid>
+			抬头
+			<include-prelude>/prelude.jspf</include-prelude>
+			结尾
+			<include-coda>/coda.jspf</include-coda>
+			清除jsp中由于page指令引入带来的空行
+			<trim-directive-whitespaces>true</trim-directive-whitespaces>
+		</jsp-property-group> -->
+	</jsp-config>
+
 	<error-page>
 		<error-code>404</error-code>
 		<location>/404.html</location>
