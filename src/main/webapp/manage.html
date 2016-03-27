@@ -21,6 +21,8 @@
 <script
 	src="//rawgit.com/hhurz/tableExport.jquery.plugin/master/tableExport.js"></script>
 <script src="//cdn.bootcss.com/echarts/3.0.0/echarts.min.js"></script>
+<script src="js/moment.min.js"></script>
+<script src="js/moment.zh-cn.js"></script>
 <script type="text/javascript">
 	$(function() {
 		$.getJSON('newdata.json', function(data) {
@@ -252,6 +254,10 @@
 			window.location.href = "export";
 		}
 	}
+	
+	function dateFormatter(value, row, index) {
+		return moment.unix(value).format("YYYY-MM-DD hh:mm:ss a");
+	}
 </script>
 </head>
 <body>
@@ -334,7 +340,7 @@
 					<th data-field="age">年龄</th>
 					<th data-field="phone">手机号</th>
 					<th data-field="deliveryaddress">收货地址</th>
-					<th data-field="adddate">添加时间</th>
+					<th data-field="adddate" data-formatter="dateFormatter">添加时间</th>
 					<th data-field="operate" data-formatter="operateFormatter"
 						data-events="operateEvents">操作</th>
 				</tr>
