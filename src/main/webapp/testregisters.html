@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+<title>注册页</title>
+<link href="//cdn.bootcss.com/weui/0.4.0/style/weui.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="css/register.css" />
+<link href="css/jquery-weui.css" rel="stylesheet">
+<script src="http://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+<script type="text/javascript" src="js/jquery-weui.js"></script>
+<script type="text/javascript">
+$(function(){
+});
+</script>
+</head>
+<body ontouchstart>
+
+<div class="container">
+	<div class="hd">
+	    <h1 class="page_title">请填写注册信息</h1>
+	</div>
+	<div class="weui_cells weui_cells_form">
+		<form action="register/saves" method="post">
+			<div class="weui_cell">
+				<div class="weui_cell_hd">
+					<label class="weui_label">昵称</label>
+				</div>
+				<div class="weui_cell_bd weui_cell_primary">
+					<input type="text" name="users[0].username" placeholder="请输入昵称" class="weui_input">
+				</div>
+			</div>
+			<div class="weui_cell weui_vcode">
+				<div class="weui_cell_hd">
+					<label class="weui_label">年龄</label>
+				</div>
+				<div class="weui_cell_bd weui_cell_primary">
+					<input type="number" name="users[0].age" placeholder="请输入年龄" class="weui_input">
+				</div>
+			</div>
+			
+			<div class="weui_cell">
+				<div class="weui_cell_hd">
+					<label class="weui_label">昵称</label>
+				</div>
+				<div class="weui_cell_bd weui_cell_primary">
+					<input type="text" name="users[1].name" placeholder="请输入昵称" class="weui_input">
+				</div>
+			</div>
+			<div class="weui_cell weui_vcode">
+				<div class="weui_cell_hd">
+					<label class="weui_label">年龄</label>
+				</div>
+				<div class="weui_cell_bd weui_cell_primary">
+					<input type="number" name="users[1].age" placeholder="请输入年龄" class="weui_input">
+				</div>
+			</div>
+			
+	        <div class="weui_btn_area">
+		        <button type="submit" class="weui_btn weui_btn_primary">注册</button>
+		    </div>
+        </form>
+	</div>
+</div>
+</body>
+</html>
