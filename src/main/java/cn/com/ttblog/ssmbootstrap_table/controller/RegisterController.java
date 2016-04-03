@@ -62,7 +62,11 @@ public class RegisterController {
 	
 	@RequestMapping("/saves")
 	public String save(UserListModel users) {
-		logger.debug("user lists:{}",users);
+		logger.debug("user lists-size:{}",users.getUsers().size());
+		for(User u:users.getUsers()){
+			logger.debug("userinfo:{}",u);
+			userService.addUser(u);
+		}
 		return "redirect:/register-success.html";
 	}
 	
