@@ -102,6 +102,7 @@ public class InjectionAttackWrapper extends HttpServletRequestWrapper {
 			for (int i = 0; i < existingCookies.length; ++i) {
 				Cookie cookie = existingCookies[i];
 				cookie.setValue(filterParamString(cookie.getValue()));
+				existingCookies[i]=cookie;
 			}
 		}
 		return existingCookies;

@@ -31,22 +31,6 @@
 		<filter-name>encodingFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
-	<filter>
-		<filter-name>LoginFilter</filter-name>
-		<filter-class>cn.com.ttblog.ssmbootstrap_table.filter.LoginFilter</filter-class>
-		<init-param>
-			<param-name>noFilterTags</param-name>
-			<param-value>index.html;login;register;captcha;.css;.js;.jpg</param-value>
-		</init-param>
-		<init-param>
-			<param-name>enable</param-name>
-			<param-value>true</param-value>
-		</init-param>
-	</filter>
-	<filter-mapping>
-		<filter-name>LoginFilter</filter-name>
-		<url-pattern>/*</url-pattern>
-	</filter-mapping>
 
 	<filter>
 		<filter-name>injectionAttackFilter</filter-name>
@@ -68,9 +52,25 @@
 			<param-value>true</param-value>
 		</init-param>
 	</filter>
-
 	<filter-mapping>
 		<filter-name>injectionAttackFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
+	<filter>
+		<filter-name>LoginFilter</filter-name>
+		<filter-class>cn.com.ttblog.ssmbootstrap_table.filter.LoginFilter</filter-class>
+		<init-param>
+			<param-name>noFilterTags</param-name>
+			<param-value>index.html;login;register;captcha;.css;.js;.jpg</param-value>
+		</init-param>
+		<init-param>
+			<param-name>enable</param-name>
+			<param-value>true</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>LoginFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 
@@ -113,8 +113,6 @@
 		<filter-name>trimFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
-
-
 
 	<listener>
 		<listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
