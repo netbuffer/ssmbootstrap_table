@@ -616,6 +616,7 @@ body {
   margin: 0;
   left: 7.5%;
   top: 30%;
+  z-index:10000;
 }
 .weui_dialog .weui_btn_dialog + .weui_btn_dialog,
 .weui_toast .weui_btn_dialog + .weui_btn_dialog {
