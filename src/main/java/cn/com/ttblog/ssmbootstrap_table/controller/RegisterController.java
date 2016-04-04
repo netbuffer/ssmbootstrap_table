@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import cn.com.ttblog.ssmbootstrap_table.exception.CustomGenericException;
 import cn.com.ttblog.ssmbootstrap_table.model.User;
+import cn.com.ttblog.ssmbootstrap_table.model.UserListModel;
 import cn.com.ttblog.ssmbootstrap_table.service.IUserService;
 import cn.com.ttblog.ssmbootstrap_table.validator.UserValidator;
 
@@ -55,6 +56,16 @@ public class RegisterController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			return "redirect:/register-error.html";
+		}
+		return "redirect:/register-success.html";
+	}
+	
+	@RequestMapping("/saves")
+	public String save(UserListModel users) {
+		logger.debug("user lists-size:{}",users.getUsers().size());
+		for(User u:users.getUsers()){
+			logger.debug("userinfo:{}",u);
+			userService.addUser(u);
 		}
 		return "redirect:/register-success.html";
 	}

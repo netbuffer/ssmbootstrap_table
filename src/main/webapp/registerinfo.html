@@ -4,10 +4,34 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
 <title>注册页</title>
-<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/weui/0.3.0/style/weui.min.css" />
+<link href="//cdn.bootcss.com/weui/0.4.0/style/weui.min.css" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="css/register.css" />
+<link href="css/jquery-weui.css" rel="stylesheet">
+<script src="http://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+<script type="text/javascript" src="js/jquery-weui.js"></script>
+<script type="text/javascript">
+$(function(){
+	$.noti({
+      title: "中奖啦！",
+      text: "点击领取腾讯撸啊撸杯二等奖！",
+      media: "<img src='./images/present.png' />",
+      data: {
+        message: "逗你玩的!"
+      },
+      time: 3000,
+      onClick: function(data) {
+        $.alert(data.message);
+      }
+    });
+	$.showLoading();
+    setTimeout(function() {
+      $.hideLoading();
+    }, 3000)
+});
+</script>
 </head>
 <body ontouchstart>
+
 <div class="container">
 	<div class="hd">
 	    <h1 class="page_title">请填写注册信息</h1>
