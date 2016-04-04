@@ -2,65 +2,121 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+<meta name="viewport"
+	content="width=device-width,initial-scale=1,user-scalable=0">
 <title>注册页</title>
-<link href="//cdn.bootcss.com/weui/0.4.0/style/weui.min.css" rel="stylesheet">
+<link href="//cdn.bootcss.com/weui/0.4.0/style/weui.min.css"
+	rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="css/register.css" />
 <link href="css/jquery-weui.css" rel="stylesheet">
 <script src="http://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
 <script type="text/javascript" src="js/jquery-weui.js"></script>
+<!-- 表单序列化为json -->
+<script
+	src="//cdn.bootcss.com/jquery.serializeJSON/2.7.2/jquery.serializejson.min.js"></script>
+<script type="text/javascript" src="js/jquery-cloneya.min.js"></script>
 <script type="text/javascript">
-$(function(){
-});
+	$(function() {
+		$('#simple-clone').cloneya();
+	});
+	function ser() {
+		$.alert(JSON.stringify($('#list_form_test').serializeJSON()));
+	}
+	function ser2(){
+		$.alert(JSON.stringify($('#list_form_test2').serializeJSON()));
+	}
 </script>
 </head>
 <body ontouchstart>
+	<!-- 测试springmvc接收list对象 http://blog.csdn.net/lutinghuan/article/details/46820023 -->
+	<div class="weui_tab">
+		<div class="weui_navbar">
+			<a class="weui_navbar_item weui_bar_item_on" href="#tab1"> 页面一 </a> <a
+				class="weui_navbar_item" href="#tab2"> 页面二 </a> <a
+				class="weui_navbar_item" href="#tab3"> 页面三 </a>
+		</div>
+		<div class="weui_tab_bd">
+			<div class="weui_tab_bd_item weui_tab_bd_item_active" id="tab1">
+				<div class="weui_cells weui_cells_form">
+					<form id="list_form_test" action="register/saves" method="post">
+						<div class="weui_cell">
+							<div class="weui_cell_hd">
+								<label class="weui_label">昵称</label>
+							</div>
+							<div class="weui_cell_bd weui_cell_primary">
+								<input type="text" name="users[0].name" placeholder="请输入昵称"
+									class="weui_input">
+							</div>
+						</div>
+						<div class="weui_cell weui_vcode">
+							<div class="weui_cell_hd">
+								<label class="weui_label">年龄</label>
+							</div>
+							<div class="weui_cell_bd weui_cell_primary">
+								<input type="number" name="users[0].age" placeholder="请输入年龄"
+									class="weui_input">
+							</div>
+						</div>
 
-<div class="container">
-	<div class="hd">
-	    <h1 class="page_title">请填写注册信息</h1>
+						<div class="weui_cell">
+							<div class="weui_cell_hd">
+								<label class="weui_label">昵称</label>
+							</div>
+							<div class="weui_cell_bd weui_cell_primary">
+								<input type="text" name="users[1].name" placeholder="请输入昵称"
+									class="weui_input">
+							</div>
+						</div>
+						<div class="weui_cell weui_vcode">
+							<div class="weui_cell_hd">
+								<label class="weui_label">年龄</label>
+							</div>
+							<div class="weui_cell_bd weui_cell_primary">
+								<input type="number" name="users[1].age" placeholder="请输入年龄"
+									class="weui_input">
+							</div>
+						</div>
+
+						<div class="weui_btn_area">
+							<button type="submit" class="weui_btn weui_btn_primary">注册</button>
+						</div>
+						<div class="weui_btn_area">
+							<button type="button" onclick="ser();"
+								class="weui_btn weui_btn_default">序列化测试</button>
+						</div>
+					</form>
+				</div>
+			</div>
+			<div class="weui_tab_bd_item" id="tab2">
+				<div id="simple-clone" class="demo-wrap">
+					<h2>Simple Cloning</h2>
+					<form class="form" method="post" id="list_form_test2" onsubmit="return false;">
+						<div class="toclone">
+							<p class="name">
+								<input type="text" name="name[]" id="sname" /> <label
+									for="name">Name</label>
+							</p>
+
+							<p class="email">
+								<input type="text" name="email[]" id="semail" /> <label
+									for="email">E-mail</label>
+							</p>
+
+							<p class="web">
+								<input type="text" name="web[]" id="sweb" /> <label for="web">Website</label>
+							</p>
+							<a href="#" class="clone">clone</a> <a href="#" class="delete">delete</a>
+						</div>
+						<p class="submit">
+							<button onclick="ser2();">序列化</button>
+						</p>
+					</form>
+				</div>
+			</div>
+			<div class="weui_tab_bd_item" id="tab3">
+				<h1 class="doc-head">页面三</h1>
+			</div>
+		</div>
 	</div>
-	<div class="weui_cells weui_cells_form">
-		<form action="register/saves" method="post">
-			<div class="weui_cell">
-				<div class="weui_cell_hd">
-					<label class="weui_label">昵称</label>
-				</div>
-				<div class="weui_cell_bd weui_cell_primary">
-					<input type="text" name="users[0].name" placeholder="请输入昵称" class="weui_input">
-				</div>
-			</div>
-			<div class="weui_cell weui_vcode">
-				<div class="weui_cell_hd">
-					<label class="weui_label">年龄</label>
-				</div>
-				<div class="weui_cell_bd weui_cell_primary">
-					<input type="number" name="users[0].age" placeholder="请输入年龄" class="weui_input">
-				</div>
-			</div>
-			
-			<div class="weui_cell">
-				<div class="weui_cell_hd">
-					<label class="weui_label">昵称</label>
-				</div>
-				<div class="weui_cell_bd weui_cell_primary">
-					<input type="text" name="users[1].name" placeholder="请输入昵称" class="weui_input">
-				</div>
-			</div>
-			<div class="weui_cell weui_vcode">
-				<div class="weui_cell_hd">
-					<label class="weui_label">年龄</label>
-				</div>
-				<div class="weui_cell_bd weui_cell_primary">
-					<input type="number" name="users[1].age" placeholder="请输入年龄" class="weui_input">
-				</div>
-			</div>
-			
-	        <div class="weui_btn_area">
-		        <button type="submit" class="weui_btn weui_btn_primary">注册</button>
-		    </div>
-        </form>
-	</div>
-</div>
 </body>
 </html>
