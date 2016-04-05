@@ -1,5 +1,7 @@
 package cn.com.ttblog.ssmbootstrap_table.controller;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 import javax.validation.Valid;
 
@@ -12,6 +14,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.DataBinder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import cn.com.ttblog.ssmbootstrap_table.exception.CustomGenericException;
@@ -64,6 +67,16 @@ public class RegisterController {
 	public String save(UserListModel users) {
 		logger.debug("user lists-size:{}",users.getUsers().size());
 		for(User u:users.getUsers()){
+			logger.debug("userinfo:{}",u);
+			userService.addUser(u);
+		}
+		return "redirect:/register-success.html";
+	}
+	
+	@RequestMapping("/savesjson")
+	public String savesjson(@RequestBody List<User> users) {
+		logger.debug("user lists-size:{}",users.size());
+		for(User u:users){
 			logger.debug("userinfo:{}",u);
 			userService.addUser(u);
 		}
