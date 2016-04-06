@@ -80,27 +80,14 @@
 	</bean>
 
 	<!-- 全局异常配置,也可通过使用@ControllerAdvice注解的类处理全局异常 -->
-	<!-- <bean id="exceptionResolver"
-		class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
-		<property name="exceptionMappings">
-			<props>
-				<prop key="java.lang.Exception">500</prop>
-				<prop key="java.lang.Throwable">500</prop>
-				<prop key="BindException">500</prop>
-			</props>
-		</property>
-		<property name="statusCodes">
-			<props>
-				<prop key="500">500</prop>
-			</props>
-		</property>
-		设置日志输出级别，不定义则默认不输出警告等错误日志信息
-		<property name="warnLogCategory" value="WARN"></property>
-		默认错误页面，当找不到上面mappings中指定的异常对应视图时，使用本默认配置
-		<property name="defaultErrorView" value="500"></property>
-		默认HTTP状态码
-		<property name="defaultStatusCode" value="500"></property>
-	</bean> -->
+	<!-- <bean id="exceptionResolver" class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver"> 
+		<property name="exceptionMappings"> <props> <prop key="java.lang.Exception">500</prop> 
+		<prop key="java.lang.Throwable">500</prop> <prop key="BindException">500</prop> 
+		</props> </property> <property name="statusCodes"> <props> <prop key="500">500</prop> 
+		</props> </property> 设置日志输出级别，不定义则默认不输出警告等错误日志信息 <property name="warnLogCategory" 
+		value="WARN"></property> 默认错误页面，当找不到上面mappings中指定的异常对应视图时，使用本默认配置 <property 
+		name="defaultErrorView" value="500"></property> 默认HTTP状态码 <property name="defaultStatusCode" 
+		value="500"></property> </bean> -->
 
 	<!-- bind i18n messages properties,this just setting zh_CN message -->
 	<bean id="messageSource"
@@ -120,5 +107,14 @@
 		<property name="providerClass" value="org.hibernate.validator.HibernateValidator" />
 		<property name="validationMessageSource" ref="messageSource" />
 	</bean>
+
+	<mvc:interceptors>
+		<bean class="cn.com.ttblog.ssmbootstrap_table.interceptor.SpringMVCInterceptor" />
+		<!-- 如果不配置或/*,将拦截所有的Controller 定义在mvc:interceptor下面的表示是对特定的请求才进行拦截的 -->
+		<!-- <mvc:interceptor>
+			<mvc:mapping path="/test/number.do" />
+			<bean class="com.host.app.web.interceptor.LoginInterceptor" />
+		</mvc:interceptor> -->
+	</mvc:interceptors>
 
 </beans>  
