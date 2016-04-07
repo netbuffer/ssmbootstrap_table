@@ -15,15 +15,65 @@
 <script
 	src="//cdn.bootcss.com/jquery.serializeJSON/2.7.2/jquery.serializejson.min.js"></script>
 <script type="text/javascript" src="js/jquery-cloneya.min.js"></script>
+<script
+	src="//cdn.bootcss.com/jquery-validate/1.15.0/jquery.validate.min.js"></script>
+<script
+	src="//cdn.bootcss.com/jquery-validate/1.15.0/additional-methods.min.js"></script>
 <script type="text/javascript">
 	$(function() {
 		$('#simple-clone').cloneya();
+		$("#list_form_test2").validate({
+			rules : {
+				name :{
+					required : true
+				},
+				age : {
+					required : true,
+					maxlength:3
+				}
+			},
+			messages : {
+				name :{
+					required : "必须输入用户名"
+				},
+				age : {
+					required : "必须输入年龄",
+					maxlength:"最大长度3位"
+				}
+			}
+		});
 	});
 	function ser() {
 		$.alert(JSON.stringify($('#list_form_test').serializeJSON()));
 	}
-	function ser2(){
-		$.alert(JSON.stringify($('#list_form_test2').serializeJSON()));
+	function ser2() {
+		var tlen=$("input[name='name']").length;
+		var $n=$("input[name='name']");
+		var $a=$("input[name='age']");
+		if(tlen>0&&$("#list_form_test2").valid()){
+			var users=new Array();
+			for(var i=0;i<tlen;i++){
+				var u={};
+				u.name=$n.eq(i).val();
+				u.age=$a.eq(i).val();
+				users.push(u);
+			}
+			//$.alert(JSON.stringify($('#list_form_test2').serializeJSON()));
+			$.alert(JSON.stringify(users));
+			$.ajax({
+                url: "register/savesjson",
+                type: "POST",
+                contentType : 'application/json;charset=utf-8', //设置请求头信息
+                dataType:"json",
+                data: JSON.stringify(users),
+                success: function(data){
+                	 $.alert("保存成功!");
+                },
+                error: function(res){
+                    alert(res.responseText);
+                }
+            });
+		}
 	}
 </script>
 </head>
@@ -90,20 +140,14 @@
 			<div class="weui_tab_bd_item" id="tab2">
 				<div id="simple-clone" class="demo-wrap">
 					<h2>Simple Cloning</h2>
-					<form class="form" method="post" id="list_form_test2" onsubmit="return false;">
+					<form class="form" method="post" id="list_form_test2"
+						onsubmit="return false;">
 						<div class="toclone">
 							<p class="name">
-								<input type="text" name="name[]" id="sname" /> <label
-									for="name">Name</label>
+								<label for="name">Name</label><input type="text" name="name" id="sname" />
 							</p>
-
-							<p class="email">
-								<input type="text" name="email[]" id="semail" /> <label
-									for="email">E-mail</label>
-							</p>
-
-							<p class="web">
-								<input type="text" name="web[]" id="sweb" /> <label for="web">Website</label>
+							<p class="age">
+								<label for="age">age</label><input type="text" name="age" id="sage" />
 							</p>
 							<a href="#" class="clone">clone</a> <a href="#" class="delete">delete</a>
 						</div>
