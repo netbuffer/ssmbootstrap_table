@@ -65,16 +65,17 @@ public class IndexController {
 
 	@RequestMapping("/newdata")
 	public String newdata(HttpSession session, Model model) {
-		DecimalFormat df = new DecimalFormat("0.00") ;
-        //Display the total amount of memory in the Java virtual machine.
-        long totalMem = Runtime.getRuntime().totalMemory()/1024/1024;
-        System.out.println(df.format(totalMem) + " MB");
-        //Display the maximum amount of memory that the Java virtual machine will attempt to use.
-        long maxMem = Runtime.getRuntime().maxMemory()/1024/1024;
-        System.out.println(df.format(maxMem) + " MB");
-        //Display the amount of free memory in the Java Virtual Machine.
-        long freeMem = Runtime.getRuntime().freeMemory()/1024/1024;
-        System.out.println(df.format(freeMem) + " MB");
+		DecimalFormat df = new DecimalFormat("0.00");
+		// Display the total amount of memory in the Java virtual machine.
+		long totalMem = Runtime.getRuntime().totalMemory() / 1024 / 1024;
+		System.out.println(df.format(totalMem) + " MB");
+		// Display the maximum amount of memory that the Java virtual machine
+		// will attempt to use.
+		long maxMem = Runtime.getRuntime().maxMemory() / 1024 / 1024;
+		System.out.println(df.format(maxMem) + " MB");
+		// Display the amount of free memory in the Java Virtual Machine.
+		long freeMem = Runtime.getRuntime().freeMemory() / 1024 / 1024;
+		System.out.println(df.format(freeMem) + " MB");
 		logger.info("执行前:{}", model);
 		int newcount = userService.getNewData();
 		String username = session.getAttribute(ConfigConstant.USERNAME)
@@ -83,6 +84,11 @@ public class IndexController {
 		model.addAttribute("username", username);
 		logger.info("执行后:{}", model);
 		return "newdata";
+	}
+
+	@RequestMapping("teststr")
+	public @ResponseBody String teststr() {
+		return "this is str";
 	}
 
 	@RequestMapping("/datacount")
@@ -96,7 +102,7 @@ public class IndexController {
 			categorys.add(m.get("adddate").toString());
 			nums.add(m.get("num").toString());
 		}
-		logger.debug("categorys:{},nums:{}",categorys,nums);
+		logger.debug("categorys:{},nums:{}", categorys, nums);
 		Map<String, Object> data = new HashMap<String, Object>();
 		data.put("c", categorys);
 		data.put("d", nums);
