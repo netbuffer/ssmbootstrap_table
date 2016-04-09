@@ -11,7 +11,9 @@
                             http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
 	<!-- 自动扫描该包，使SpringMVC认为包下用了@controller注解的类是控制器 -->
 	<context:component-scan base-package="cn.com.ttblog.ssmbootstrap_table.controller" />
-
+   	
+   	<bean id="logBeanPocessor" class="cn.com.ttblog.ssmbootstrap_table.util.TestBeanPostProcessor" lazy-init="false" />
+   
 	<!-- 多视图配置,内容协商视图解析 -->
 	<bean
 		class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
