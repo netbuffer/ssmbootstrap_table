@@ -22,6 +22,7 @@ import cn.com.ttblog.ssmbootstrap_table.service.IUserService;
 import cn.com.ttblog.ssmbootstrap_table.serviceimpl.UserServiceImpl;
 
 import com.alibaba.fastjson.JSON;
+import com.github.pagehelper.PageHelper;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 // 表示继承了SpringJUnit4ClassRunner类
@@ -105,14 +106,26 @@ public class TestMyBatis {
 	}
 	
 	@Test
-//	@Ignore
+	@Ignore
 	public void testInterceptor(){
 //		logger.debug(ToStringBuilder.reflectionToString(sqlSession.getConfiguration()));
 //		logger.debug("测试拦截器:{}",sqlSession.selectOne("cn.com.ttblog.ssmbootstrap_table.dao.IUserDao.selectByPrimaryKey",1L));
 //		logger.debug("getdatasum:{}",userDao.getDataSum());
+//		http://git.oschina.net/free/Mapper/blob/master/wiki/mapper3/5.Mappers.md通用接口文档
 		Example ex=new Example(User.class);
 		ex.orderBy("id").desc();
 		logger.debug("getdatasum:{}",userDao.selectByExample(ex));
 	}
-
+	
+	@Test
+	public void testPages(){
+		PageHelper.startPage(1, 4);
+		Example ex=new Example(User.class);
+		ex.orderBy("id").desc();
+		userDao.selectByExample(ex);
+		PageHelper.startPage(2, 4);
+		Example ex2=new Example(User.class);
+		ex2.orderBy("id").desc();
+		userDao.selectByExample(ex2);
+	}
 }
