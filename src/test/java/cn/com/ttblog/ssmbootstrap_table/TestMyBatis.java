@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import tk.mybatis.mapper.entity.Example;
 import cn.com.ttblog.ssmbootstrap_table.dao.IUserDao;
 import cn.com.ttblog.ssmbootstrap_table.model.User;
 import cn.com.ttblog.ssmbootstrap_table.service.IUserService;
@@ -24,7 +25,7 @@ import com.alibaba.fastjson.JSON;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 // 表示继承了SpringJUnit4ClassRunner类
-@ContextConfiguration(locations = { "classpath:spring-mybatis.xml" })
+@ContextConfiguration(locations = { "classpath:spring-context.xml","classpath:spring-mybatis.xml" })
 public class TestMyBatis {
 
 	private static Logger logger = LoggerFactory.getLogger(TestMyBatis.class);
@@ -65,6 +66,7 @@ public class TestMyBatis {
 	}
 
 	@Test
+	@Ignore
 	public void testAddUser() {
 		for (int i = 0; i < 10; i++) {
 			User u = new User();
@@ -103,11 +105,14 @@ public class TestMyBatis {
 	}
 	
 	@Test
-	@Ignore
+//	@Ignore
 	public void testInterceptor(){
 //		logger.debug(ToStringBuilder.reflectionToString(sqlSession.getConfiguration()));
 //		logger.debug("测试拦截器:{}",sqlSession.selectOne("cn.com.ttblog.ssmbootstrap_table.dao.IUserDao.selectByPrimaryKey",1L));
-		logger.debug("getdatasum:{}",userDao.getDataSum());
+//		logger.debug("getdatasum:{}",userDao.getDataSum());
+		Example ex=new Example(User.class);
+		ex.orderBy("id").desc();
+		logger.debug("getdatasum:{}",userDao.selectByExample(ex));
 	}
 
 }

@@ -1,91 +1,178 @@
 package cn.com.ttblog.ssmbootstrap_table.model;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
+import java.math.BigDecimal;
+import javax.persistence.*;
 
-import org.apache.commons.lang.builder.ToStringBuilder;
-import org.hibernate.validator.constraints.Range;
-
-@XmlRootElement
 public class User {
-	/**
-	 * 用户id
-	 */
-	private Long id;
-	@Size(min = 2, max = 6, message = "{用户名长度必须在2到6个字符之间}")
-	private String name;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-	private String sex;
-	
-	@NotNull(message="年龄不能为空")
-	@Range(min = 1, max = 150)
-	private Integer age;
+    /**
+     * 姓名
+     */
+    private String name;
 
-	private String phone;
+    /**
+     * 性别
+     */
+    private String sex;
 
-	private String deliveryaddress;
+    /**
+     * 年龄
+     */
+    private Integer age;
 
-	private Integer adddate;
+    /**
+     * 手机
+     */
+    private String phone;
 
-	public Long getId() {
-		return id;
-	}
+    /**
+     * 收货地址
+     */
+    private String deliveryaddress;
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    /**
+     * 添加时间
+     */
+    private Integer adddate;
 
-	public String getName() {
-		return name;
-	}
+    private BigDecimal balance;
 
-	public void setName(String name) {
-		this.name = name == null ? null : name.trim();
-	}
+    /**
+     * @return id
+     */
+    public Long getId() {
+        return id;
+    }
 
-	public String getSex() {
-		return sex;
-	}
+    /**
+     * @param id
+     */
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public void setSex(String sex) {
-		this.sex = sex == null ? null : sex.trim();
-	}
+    /**
+     * 获取姓名
+     *
+     * @return name - 姓名
+     */
+    public String getName() {
+        return name;
+    }
 
-	public Integer getAge() {
-		return age;
-	}
+    /**
+     * 设置姓名
+     *
+     * @param name 姓名
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public void setAge(Integer age) {
-		this.age = age;
-	}
+    /**
+     * 获取性别
+     *
+     * @return sex - 性别
+     */
+    public String getSex() {
+        return sex;
+    }
 
-	public String getPhone() {
-		return phone;
-	}
+    /**
+     * 设置性别
+     *
+     * @param sex 性别
+     */
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
 
-	public void setPhone(String phone) {
-		this.phone = phone == null ? null : phone.trim();
-	}
+    /**
+     * 获取年龄
+     *
+     * @return age - 年龄
+     */
+    public Integer getAge() {
+        return age;
+    }
 
-	public String getDeliveryaddress() {
-		return deliveryaddress;
-	}
+    /**
+     * 设置年龄
+     *
+     * @param age 年龄
+     */
+    public void setAge(Integer age) {
+        this.age = age;
+    }
 
-	public void setDeliveryaddress(String deliveryaddress) {
-		this.deliveryaddress = deliveryaddress == null ? null : deliveryaddress
-				.trim();
-	}
+    /**
+     * 获取手机
+     *
+     * @return phone - 手机
+     */
+    public String getPhone() {
+        return phone;
+    }
 
-	public Integer getAdddate() {
-		return adddate;
-	}
+    /**
+     * 设置手机
+     *
+     * @param phone 手机
+     */
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
 
-	public void setAdddate(Integer adddate) {
-		this.adddate = adddate;
-	}
+    /**
+     * 获取收货地址
+     *
+     * @return deliveryaddress - 收货地址
+     */
+    public String getDeliveryaddress() {
+        return deliveryaddress;
+    }
 
-	public String toString() {
-		return ToStringBuilder.reflectionToString(this);
-	}
+    /**
+     * 设置收货地址
+     *
+     * @param deliveryaddress 收货地址
+     */
+    public void setDeliveryaddress(String deliveryaddress) {
+        this.deliveryaddress = deliveryaddress;
+    }
+
+    /**
+     * 获取添加时间
+     *
+     * @return adddate - 添加时间
+     */
+    public Integer getAdddate() {
+        return adddate;
+    }
+
+    /**
+     * 设置添加时间
+     *
+     * @param adddate 添加时间
+     */
+    public void setAdddate(Integer adddate) {
+        this.adddate = adddate;
+    }
+
+    /**
+     * @return balance
+     */
+    public BigDecimal getBalance() {
+        return balance;
+    }
+
+    /**
+     * @param balance
+     */
+    public void setBalance(BigDecimal balance) {
+        this.balance = balance;
+    }
 }

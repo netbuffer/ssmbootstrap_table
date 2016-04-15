@@ -53,7 +53,7 @@
 		<aop:advisor advice-ref="druid-stat-interceptor"
 			pointcut-ref="druid-stat-pointcut" />
 	</aop:config>
-
+	
 	<!-- 使用mybatis进行数据处理有四种方式(SqlSessionTemplate/SqlSessionDaoSupport/MapperFactoryBean/MapperScannerConfigurer) -->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
@@ -65,10 +65,20 @@
 	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
 		<constructor-arg index="0" ref="sqlSessionFactory" />
 	</bean>
-	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+	<!-- <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 		<property name="basePackage" value="cn.com.ttblog.ssmbootstrap_table.dao" />
 		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>
+	</bean> -->
+	<!-- 通用mapper-http://git.oschina.net/free/Mapper/blob/master/wiki/mapper3/3.Use.md -->
+	<bean class="tk.mybatis.spring.mapper.MapperScannerConfigurer">
+	    <property name="basePackage" value="cn.com.ttblog.ssmbootstrap_table.dao"/>
+	    <property name="properties">
+	        <value>
+	            mappers=tk.mybatis.mapper.common.Mapper
+	        </value>
+	    </property>
 	</bean>
+	
 
 	<!-- 声明式事务配置 -->
 	<bean id="transactionManager"

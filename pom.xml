@@ -20,7 +20,17 @@
 		<mybatis.version>3.3.0</mybatis.version>
 		<slf4j.version>1.7.7</slf4j.version>
 		<logback.version>1.1.3</logback.version>
+		<!-- http://git.oschina.net/free/Mapper/blob/master/wiki/mapper3/7.UseMBG.md -->
+		<!-- MyBatis Generator -->
+		<!-- Java接口和实体类 -->
+		<targetJavaProject>${basedir}/src/main/java</targetJavaProject>
+		<targetMapperPackage>cn.com.ttblog.ssmbootstrap_table.dao</targetMapperPackage>
+		<targetModelPackage>cn.com.ttblog.ssmbootstrap_table.model</targetModelPackage>
+		<!-- XML生成路径 -->
+		<targetResourcesProject>${basedir}/src/main/cn/com/ttblog/ssmbootstrap_table/dao</targetResourcesProject>
+		<targetXMLPackage>dao</targetXMLPackage>
 	</properties>
+
 
 	<dependencies>
 		<dependency>
@@ -203,6 +213,11 @@
 			<artifactId>hibernate-validator</artifactId>
 			<version>5.2.4.Final</version>
 		</dependency>
+		<dependency>
+			<groupId>tk.mybatis</groupId>
+			<artifactId>mapper</artifactId>
+			<version>3.3.7</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<finalName>ssmbootstrap_table</finalName>
@@ -211,6 +226,29 @@
 				<groupId>org.apache.tomcat.maven</groupId>
 				<artifactId>tomcat7-maven-plugin</artifactId>
 				<version>2.2</version>
+			</plugin>
+			<!-- mybatis-generator -->
+			<plugin>
+				<groupId>org.mybatis.generator</groupId>
+				<artifactId>mybatis-generator-maven-plugin</artifactId>
+				<version>1.3.2</version>
+				<configuration>
+					<configurationFile>${basedir}/src/main/resources/generator/generatorConfig.xml</configurationFile>
+					<overwrite>true</overwrite>
+					<verbose>true</verbose>
+				</configuration>
+				<dependencies>
+					<dependency>
+						<groupId>mysql</groupId>
+						<artifactId>mysql-connector-java</artifactId>
+						<version>5.1.38</version>
+					</dependency>
+					<dependency>
+						<groupId>tk.mybatis</groupId>
+						<artifactId>mapper</artifactId>
+						<version>3.3.7</version>
+					</dependency>
+				</dependencies>
 			</plugin>
 		</plugins>
 	</build>

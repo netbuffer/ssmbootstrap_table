@@ -3,20 +3,10 @@ package cn.com.ttblog.ssmbootstrap_table.dao;
 import java.util.List;
 import java.util.Map;
 
+import tk.mybatis.mapper.common.Mapper;
 import cn.com.ttblog.ssmbootstrap_table.model.User;
 
-public interface IUserDao {
-    int deleteByPrimaryKey(Long id);
-
-    int insert(User record);
-
-    int insertSelective(User record);
-
-    User selectByPrimaryKey(Long id);
-
-    int updateByPrimaryKeySelective(User record);
-
-    int updateByPrimaryKey(User record);
+public interface IUserDao extends Mapper<User> {
 
 	long getUserListCount();
 

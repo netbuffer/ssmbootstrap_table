@@ -32,10 +32,12 @@ public class UserServiceImpl implements IUserService {
 	@Transactional
 	@Override
 	public void addUser(User user) {
-		Random r=new Random();
-		sqlSession.insert(IUserDao.class.getName()+".insert",user);
+//		Random r=new Random();
+//		sqlSession.insert(IUserDao.class.getName()+".insert",user);
 		//事务测试
 //		int i=1/0;
+		//使用mapper接口
+		userDao.insert(user);
 	}
 
 	@Override
