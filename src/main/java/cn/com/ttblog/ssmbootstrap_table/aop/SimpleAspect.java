@@ -33,7 +33,10 @@ public class SimpleAspect {
 		// 如果需要这里可以取出参数进行处理
 		// Object[] args = joinPoint.getArgs();
 		log.debug("before aspect executing param:{}",ToStringBuilder.reflectionToString(joinPoint));
-		log.debug("method param:{}",ToStringBuilder.reflectionToString(joinPoint.getArgs()[0]));
+		Object[] arr=joinPoint.getArgs();
+		if(arr.length>0){
+			log.debug("method param:{}",ToStringBuilder.reflectionToString(joinPoint.getArgs()[0]));
+		}
 	}
 
 	@AfterReturning(pointcut = "pointCut()", returning = "returnVal")
