@@ -67,7 +67,7 @@ public class TestMyBatis {
 	}
 
 	@Test
-	@Ignore
+//	@Ignore
 	public void testAddUser() {
 		for (int i = 0; i < 10; i++) {
 			User u = new User();
@@ -90,7 +90,7 @@ public class TestMyBatis {
 	@Test
 	@Ignore
 	public void testDatacount(){
-		logger.info("datacount:{}",userDao.getDataSum());
+		logger.info("datacount:{}",userService.getDataSum());
 	}
 	
 	@Test
@@ -118,6 +118,7 @@ public class TestMyBatis {
 	}
 	
 	@Test
+	@Ignore
 	public void testPages(){
 		PageHelper.startPage(1, 4);
 		Example ex=new Example(User.class);
