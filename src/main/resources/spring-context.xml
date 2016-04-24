@@ -13,7 +13,9 @@
                         http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
                         http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd">
 	<context:component-scan base-package="cn.com.ttblog.ssmbootstrap_table" />
- 	<!-- 启用aop -->
- 	<aop:aspectj-autoproxy />
+	<!-- 启用aop -->
+	<aop:aspectj-autoproxy />
 	<import resource="spring-mybatis.xml" />
+	<bean class="com.intera.util.web.servlet.filter.JsonpCallbackFilter"
+		id="jsonpCallbackFilter" />
 </beans>

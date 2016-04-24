@@ -62,7 +62,7 @@
 		<filter-class>cn.com.ttblog.ssmbootstrap_table.filter.LoginFilter</filter-class>
 		<init-param>
 			<param-name>noFilterTags</param-name>
-			<param-value>index.html;login;register;captcha;.css;.js;.jpg</param-value>
+			<param-value>index.html;login;register;captcha;.css;.js;.jpg;jsonp</param-value>
 		</init-param>
 		<init-param>
 			<param-name>enable</param-name>
@@ -86,7 +86,17 @@
 		<filter-name>druidfilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
+	
+	<!-- jsonp支持 -->	
+	<filter>
+        <filter-name>jsonpCallbackFilter</filter-name>
+        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+    </filter>
 
+    <filter-mapping>
+        <filter-name>jsonpCallbackFilter</filter-name>
+        <url-pattern>*.json</url-pattern>
+    </filter-mapping>
 
 	<filter>
 		<filter-name>timerFilter</filter-name>
