@@ -2,6 +2,8 @@ package cn.com.ttblog.ssmbootstrap_table.controller;
 
 
 import java.io.IOException;
+import java.lang.reflect.Array;
+import java.util.Arrays;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -96,5 +98,29 @@ public class JsonpController {
 	@RequestMapping("/str")
 	public@ResponseBody String str() {
 		return "你好";
+	}
+	/**
+	 * http://localhost:8080/ssmbootstrap_table/jsonp/testarr?v[]=1&v[]=2&v[]=3
+	 * var arr=["a","b","c"];
+	  前端jquery发送数组，需要traditional置为 true
+	 $.ajax({
+	   url:"http://localhost:8080/ssmbootstrap_table/jsonp/testarr",
+	   data:{"v":arr},
+	   type:"post",
+	   traditional: true,
+	   success:function(data){
+	     console.log(data);
+	   },
+	   error:function(xhr){
+	     console.log(xhr);
+	   }
+	 });
+	 * @param values
+	 * @return
+	 */
+	@RequestMapping("/testarr")
+	public @ResponseBody String[] testarr(@RequestParam(value="v")String[] values) {
+		logger.debug("接收到的数组参数:{}",Arrays.deepToString(values));
+		return values;
 	}
 }
