@@ -16,6 +16,7 @@
 	<!-- 启用aop -->
 	<aop:aspectj-autoproxy />
 	<import resource="spring-mybatis.xml" />
+	<!-- jsonpfilter -->
 	<bean class="com.intera.util.web.servlet.filter.JsonpCallbackFilter"
 		id="jsonpCallbackFilter" />
 </beans>
