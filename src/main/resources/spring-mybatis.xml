@@ -36,6 +36,15 @@
 		<property name="filters" value="stat,wall" />
 	</bean>
 	
+	<!-- 多数据源配置 -->
+	<bean id="dataSource2" class="com.alibaba.druid.pool.DruidDataSource"
+		destroy-method="close">
+		<property name="driverClassName" value="${driver2}" />
+		<property name="url" value="${url2}" />
+		<property name="username" value="${username2}" />
+		<property name="password" value="${password2}" />
+	</bean>
+	
 	<!-- spring方法调用监控 -->
 	<bean id="druid-stat-interceptor"
 		class="com.alibaba.druid.support.spring.stat.DruidStatInterceptor"></bean>
@@ -55,19 +64,31 @@
 	</aop:config>
 
 	<!-- 使用mybatis进行数据处理有四种方式(SqlSessionTemplate/SqlSessionDaoSupport/MapperFactoryBean/MapperScannerConfigurer) -->
-	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean" name="sf">
 		<property name="dataSource" ref="dataSource" />
 		<!-- mybatis全局配置 -->
 		<property name="configLocation" value="classpath:mybatis-globalcfg.xml"></property>
 		<property name="mapperLocations"
 			value="classpath:cn/com/ttblog/ssmbootstrap_table/dao/*.xml"></property>
 	</bean>
+	
+	<!-- sqlSessionFactory2 -->
+	<bean id="sqlSessionFactory2" class="org.mybatis.spring.SqlSessionFactoryBean" name="sf2">
+		<property name="dataSource" ref="dataSource2" />
+		<property name="mapperLocations"
+			value="classpath:cn/com/ttblog/ssmbootstrap_table/dao2/*.xml"></property>
+	</bean>
+	
 	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
 		<constructor-arg index="0" ref="sqlSessionFactory" />
 	</bean>
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 		<property name="basePackage" value="cn.com.ttblog.ssmbootstrap_table.dao" />
-		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>
+		<property name="sqlSessionFactoryBeanName" value="sf"></property>
+	</bean>
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="cn.com.ttblog.ssmbootstrap_table.dao2" />
+		<property name="sqlSessionFactoryBeanName" value="sf2"></property>
 	</bean>
 
 	<!-- 声明式事务配置 -->
