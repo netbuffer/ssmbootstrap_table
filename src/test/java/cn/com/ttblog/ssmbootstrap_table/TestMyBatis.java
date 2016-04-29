@@ -14,8 +14,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.com.ttblog.ssmbootstrap_table.dao.IUserDao;
+import cn.com.ttblog.ssmbootstrap_table.dao2.IUserDaoTest;
 import cn.com.ttblog.ssmbootstrap_table.model.User;
 import cn.com.ttblog.ssmbootstrap_table.service.IUserService;
 import cn.com.ttblog.ssmbootstrap_table.serviceimpl.UserServiceImpl;
@@ -34,6 +36,8 @@ public class TestMyBatis {
 	private IUserDao userDao;
 	@Resource
 	private SqlSession sqlSession;
+	@Resource
+	private IUserDaoTest userDaoTest;
 	// @Before
 	// public void before() {
 	// ac = new ClassPathXmlApplicationContext("applicationContext.xml");
@@ -65,7 +69,7 @@ public class TestMyBatis {
 	}
 
 	@Test
-//	@Ignore
+	@Ignore
 	public void testAddUser() {
 		for (int i = 0; i < 10; i++) {
 			User u = new User();
@@ -110,5 +114,9 @@ public class TestMyBatis {
 //		logger.debug("测试拦截器:{}",sqlSession.selectOne("cn.com.ttblog.ssmbootstrap_table.dao.IUserDao.selectByPrimaryKey",1L));
 		logger.debug("getdatasum:{}",userDao.getDataSum());
 	}
-
+	
+	@Test
+	public void testDataSource2(){
+		logger.debug("test2:{}",userDaoTest.getSum());
+	}
 }

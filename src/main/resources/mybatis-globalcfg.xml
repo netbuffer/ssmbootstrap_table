@@ -48,7 +48,7 @@
 	<plugins>
 		<plugin
 			interceptor="cn.com.ttblog.ssmbootstrap_table.interceptor.MybatisPagerInterceptor">
-			<property name="enable" value="false"/>
+			<property name="enable" value="true"/>
 		</plugin>
 	</plugins>
 </configuration>
