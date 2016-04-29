@@ -117,6 +117,6 @@ public class TestMyBatis {
 	
 	@Test
 	public void testDataSource2(){
-		logger.debug("test2:{}",userDaoTest.getSum());
+		logger.debug("testDataSource2:{}",userDaoTest.getSum());
 	}
 }
