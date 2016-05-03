@@ -31,6 +31,12 @@
 		<include refid="Base_Column_List" />
 		from user order by adddate ${order} limit #{offset},#{limit}
 	</select>
+	
+	<select id="selectListWithQuery" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from user where name like '%${search}%' order by adddate ${order} limit #{offset},#{limit}
+	</select>	
 
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
 		delete from user

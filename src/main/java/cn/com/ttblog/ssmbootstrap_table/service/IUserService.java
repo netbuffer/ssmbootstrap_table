@@ -9,6 +9,8 @@ public interface IUserService {
 	public User getUserById(long userId);
 	public void addUser(User user);
 	public List<User> getUserList(String order, int limit, int offset);
+	//带有查询条件
+	public List<User> getUserList(String search, String order, int limit,int offset);
 	public long getUserListCount();
 	public int getNewData();
 	public List<Map<String, Object>> getDataSum();

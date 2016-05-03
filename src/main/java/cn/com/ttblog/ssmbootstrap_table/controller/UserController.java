@@ -1,5 +1,7 @@
 package cn.com.ttblog.ssmbootstrap_table.controller;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -65,9 +68,19 @@ public class UserController {
 	 * @return
 	 */
 	@RequestMapping("/userlist")
-	public String userlist(String order, int limit, int offset, Model model) {
+	public String userlist(@RequestParam(value="search",required=false)String search,String order, int limit, int offset, Model model) {
 		logger.info("参数:{},{},{}", order, limit, offset);
-		List<User> users = userService.getUserList(order, limit, offset);
+		if(search!=null){
+			try {
+				//get参数乱码问题:http://luanxiyuan.iteye.com/blog/1849169
+				search=new String(search.getBytes("ISO-8859-1"), "UTF-8");
+				logger.info("查询参数:{}", search);
+			} catch (UnsupportedEncodingException e) {
+				e.printStackTrace();
+			}
+			
+		}
+		List<User> users =search==null? userService.getUserList(order, limit, offset): userService.getUserList(search,order, limit, offset);
 		long total = userService.getUserListCount();
 		Map<String, Object> params = new HashMap<String, Object>();
 		model.addAttribute("total", total);

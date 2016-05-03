@@ -24,27 +24,41 @@ public class UserServiceImpl implements IUserService {
 	private IUserDao userDao;
 	@Resource
 	private SqlSessionTemplate sqlSession;
+
 	@Override
 	public User getUserById(long userId) {
 		return this.userDao.selectByPrimaryKey(userId);
 	}
-	
+
 	@Transactional
 	@Override
 	public void addUser(User user) {
-		Random r=new Random();
-		sqlSession.insert(IUserDao.class.getName()+".insert",user);
-		//事务测试
-//		int i=1/0;
+		Random r = new Random();
+		sqlSession.insert(IUserDao.class.getName() + ".insert", user);
+		// 事务测试
+		// int i=1/0;
 	}
 
 	@Override
 	public List<User> getUserList(String order, int limit, int offset) {
-		 Map<String, Object> params=new HashMap<String, Object>();
-		 params.put("order", order);
-		 params.put("limit", limit);
-		 params.put("offset", offset);
-		return sqlSession.selectList(IUserDao.class.getName()+".selectList",params);
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("order", order);
+		params.put("limit", limit);
+		params.put("offset", offset);
+		return sqlSession.selectList(IUserDao.class.getName() + ".selectList",
+				params);
+	}
+
+	@Override
+	public List<User> getUserList(String search, String order, int limit,
+			int offset) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("order", order);
+		params.put("limit", limit);
+		params.put("offset", offset);
+		params.put("search", search);
+		return sqlSession.selectList(IUserDao.class.getName() + ".selectListWithQuery",
+				params);
 	}
 
 	@Override
@@ -61,4 +75,5 @@ public class UserServiceImpl implements IUserService {
 	public List<Map<String, Object>> getDataSum() {
 		return userDao.getDataSum();
 	}
+
 }
