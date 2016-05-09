@@ -55,6 +55,11 @@ public class JodaTimeUtil {
 		return d.plusDays((max - day));
 	}
 
+	/**
+	 * 本季度开始时间
+	 * @param d
+	 * @return
+	 */
 	public static DateTime getSeasonStart(DateTime d) {
 		int season=getSeason(d);
 		switch (season) {
@@ -71,6 +76,11 @@ public class JodaTimeUtil {
 		}
 	}
 	
+	/**
+	 * 本季度结束时间
+	 * @param d
+	 * @return
+	 */
 	public static DateTime getSeasonEnd(DateTime d) {
 		int season=getSeason(d);
 		switch (season) {
@@ -106,5 +116,23 @@ public class JodaTimeUtil {
 			season = 4;
 		}
 		return season;
+	}
+	
+	/**
+	 * 本年开始时间
+	 * @param d
+	 * @return
+	 */
+	public static DateTime getYearStart(DateTime d) {
+		return new DateTime(d.getYear(),1,1,0,0,0);
+	}
+	
+	/**
+	 * 本年结束时间
+	 * @param d
+	 * @return
+	 */
+	public static DateTime getYearEnd(DateTime d) {
+		return new DateTime(d.getYear(),12,31,23,59,59);
 	}
 }

@@ -42,4 +42,12 @@ public class TestJodaTime {
 	public void testSeasonEnd(){
 		log.debug("本季度结束时间:{}",JodaTimeUtil.getSeasonEnd(new DateTime()).toString(FORMAT));
 	}
+	@Test
+	public void testYearStart(){
+		log.debug("本年度开始时间:{}",JodaTimeUtil.getYearStart(new DateTime()).toString(FORMAT));
+	}
+	@Test
+	public void testYearEnd(){
+		log.debug("本年度结束时间:{}",JodaTimeUtil.getYearEnd(new DateTime()).toString(FORMAT));
+	}
 }
