@@ -11,12 +11,6 @@ import cn.com.ttblog.ssmbootstrap_table.util.JodaTimeUtil;
 public class TestJodaTime {
 	Logger log = LoggerFactory.getLogger(this.getClass());
 	private final static  String FORMAT="yyyy-MM-dd";
-	
-	@Test
-	public void test(){
-		DateTime d=new DateTime();
-		System.out.println("aa:"+d.getMonthOfYear());
-	}
 
 	@Test
 	public void testWeekStart(){

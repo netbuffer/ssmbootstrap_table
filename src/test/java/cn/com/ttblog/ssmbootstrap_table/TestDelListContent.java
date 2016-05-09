@@ -36,7 +36,7 @@ public class TestDelListContent {
 		delids.add(0);
 		delids.add(3);
 		while(arri.hasNext()){
-			arri.next();
+			arri.next();//必须先调用next方法再调用remove
 //			System.out.println("元素:"+arri.next());
 //			System.out.println("count:"+count);
 			for(int i:delids){
