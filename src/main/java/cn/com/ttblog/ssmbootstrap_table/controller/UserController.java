@@ -14,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.DataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,7 +24,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.alibaba.fastjson.JSON;
+
 import cn.com.ttblog.ssmbootstrap_table.model.User;
+import cn.com.ttblog.ssmbootstrap_table.model.query.QueryUser;
 import cn.com.ttblog.ssmbootstrap_table.service.IUserService;
 import cn.com.ttblog.ssmbootstrap_table.validator.UserValidator;
 
@@ -87,6 +91,16 @@ public class UserController {
 		model.addAttribute("rows", users);
 		logger.info("结果:{}", params);
 		return "userlist";
+	}
+	
+	@RequestMapping("/userlistq")
+	public String userlist(QueryUser query,ModelMap map) {
+		logger.info("查询参数:{}", query);
+		map.addAttribute("query", query);
+		String querystr=JSON.toJSONString(query);
+		map.addAttribute("querystr",querystr);
+		logger.debug("querystr:{}",querystr);
+		return "testquery";
 	}
 
 	@RequestMapping("/showUserXML")
