@@ -13,6 +13,7 @@ import net.sourceforge.pinyin4j.format.HanyuPinyinToneType;
 import net.sourceforge.pinyin4j.format.HanyuPinyinVCharType;
 import net.sourceforge.pinyin4j.format.exception.BadHanyuPinyinOutputFormatCombination;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,6 +23,7 @@ public class TestDelListContent {
 	private static Logger logger = LoggerFactory.getLogger(TestMyBatis.class);
 
 	@Test
+	@Ignore
 	public void testSystemProperties() {
 		List<String> arr=new ArrayList<String>();
 		arr.add("1");//删除第0个
@@ -46,6 +48,25 @@ public class TestDelListContent {
 			}
 			count++;
 		}
+		System.out.println(arr.toString());
+	}
+	
+	@Test
+	public void testAddToIndex() {
+		List<String> arr=new ArrayList<String>();
+		arr.add("1");
+		arr.add("2");
+		arr.add("3");
+		arr.add("4");
+		arr.add("5");
+		arr.add("6");
+		List<String> arr2=new ArrayList<String>();
+		arr2.add("7");
+		arr2.add("8");
+		//插入到第3个索引位上，从0开始
+		System.out.println("add?:"+arr.addAll(3,arr2));
+		System.out.println(arr.toString());
+		arr.add(5, "test");
 		System.out.println(arr.toString());
 	}
 }

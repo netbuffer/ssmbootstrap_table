@@ -11,7 +11,7 @@
 		$("#btn").click(function(e){
 			console.log(e);
 			$.ajax({
-				url:"",
+				url:"userlistq?name=aa",
 				type:"POST",
 				data:${querystr},
 				success:function(){
