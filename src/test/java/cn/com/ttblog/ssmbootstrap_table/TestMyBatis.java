@@ -129,4 +129,12 @@ public class TestMyBatis {
 		ex2.orderBy("id").desc();
 		userDao.selectByExample(ex2);
 	}
+	
+	@Test
+	public void testSelectOne(){
+		User u=new User();
+//		u.setId(1L);
+		u.setAge(23);
+		userDao.selectOne(u);
+	}
 }
