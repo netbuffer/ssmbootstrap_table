@@ -1,7 +1,10 @@
 package cn.com.ttblog.ssmbootstrap_table.model;
 
 import java.math.BigDecimal;
+
 import javax.persistence.*;
+
+import org.apache.commons.lang.builder.ToStringBuilder;
 
 public class User {
     @Id
@@ -38,7 +41,7 @@ public class User {
      */
     private Integer adddate;
 
-    private BigDecimal balance;
+//    private BigDecimal balance;
 
     /**
      * @return id
@@ -165,14 +168,17 @@ public class User {
     /**
      * @return balance
      */
-    public BigDecimal getBalance() {
-        return balance;
-    }
+//    public BigDecimal getBalance() {
+//        return balance;
+//    }
 
     /**
      * @param balance
      */
-    public void setBalance(BigDecimal balance) {
-        this.balance = balance;
+//    public void setBalance(BigDecimal balance) {
+//        this.balance = balance;
+//    }
+    public String toString(){
+    	return ToStringBuilder.reflectionToString(this);
     }
 }

@@ -133,8 +133,8 @@ public class TestMyBatis {
 	@Test
 	public void testSelectOne(){
 		User u=new User();
-//		u.setId(1L);
-		u.setAge(23);
-		userDao.selectOne(u);
+		u.setId(1L);
+//		u.setAge(23);
+		logger.debug("queryone:{}",userDao.selectOne(u));
 	}
 }
