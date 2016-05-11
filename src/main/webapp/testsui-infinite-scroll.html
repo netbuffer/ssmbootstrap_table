@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>SUI 无限滚动demo</title>
+<meta name="description"
+	content="MSUI: Build mobile apps with simple HTML, CSS, and JS components.">
+<meta name="author" content="阿里巴巴国际UED前端">
+<meta name="viewport" content="initial-scale=1, maximum-scale=1">
+<link rel="shortcut icon" href="/favicon.ico">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no">
+<link rel="apple-touch-icon-precomposed"
+	href="/assets/img/apple-touch-icon-114x114.png">
+<link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm.min.css">
+<script type='text/javascript' src='js/laytpl.js' charset='utf-8'></script>
+<script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
+<script>
+	$(function(){
+		var totalPage=0;
+		$.getJSON("user/userlist?format=json&order=asc&limit=30&offset=0",function(data){
+			totalPage=data.total%20==0?parseInt(data.total/20):parseInt(data.total/20)+1;
+			var gettpl = $('#list_tpl').html();
+			laytpl(gettpl).render(data, function(html){
+			    $('.infinite-scroll .list-container').append(html);
+			});
+		   console.log("totalPage:"+totalPage);
+		});
+		
+		$(document).on("pageInit", "#page-infinite-scroll-bottom", function(e, id, page) {
+		    var loading = false;
+		    var currentPage=parseInt($("#currentPage").val());
+		    $(page).on('infinite', function() {
+		      // 如果正在加载，则退出
+		      if (loading) return;
+		      // 设置flag
+		      loading = true;
+		      if (currentPage >totalPage) {
+		          // 加载完毕，则注销无限加载事件，以防不必要的加载
+		          $.detachInfiniteScroll($('.infinite-scroll'));
+		          // 删除加载提示符
+		          $('.infinite-scroll-preloader').remove();
+		          return;
+		      }
+		      console.log("currentPage:"+currentPage);
+		      $.getJSON("user/userlist?format=json&order=asc&limit=20&offset="+20*(currentPage-1),function(data){
+		    	  	console.log(data);
+		    	  	var gettpl = $('#list_tpl').html();
+					laytpl(gettpl).render(data, function(html){
+					    $('.infinite-scroll .list-container').append(html);
+					});
+					// 重置加载flag
+					loading = false;
+					$.refreshScroller();
+					currentPage++;
+					console.log("up:"+currentPage);
+					$("#currentPage").val(currentPage);
+		      });
+		      
+		    });
+	   });
+	   $.init();
+		
+		  
+	});
+</script>
+</head>
+<body>
+	<div class="page-group">
+		<div id="page-infinite-scroll-bottom" class="page">
+			<header class="bar bar-nav">
+				<a class="button button-link button-nav pull-left external"
+					href="/demos"> <span class="icon icon-left"></span>
+				</a>
+				<h1 class="title">无限滚动</h1>
+			</header>
+			<div class="content infinite-scroll" data-distance="100">
+				<div class="list-block">
+					<ul class="list-container"></ul>
+					<!-- 加载提示符 -->
+				    <div class="infinite-scroll-preloader">
+				      <div class="preloader">
+				      </div>
+				    </div>
+				    <input type="hidden" value="1"  id="currentPage"/>
+				</div>
+			</div>
+			
+		</div>
+	</div>
+	<script id="list_tpl" type="text/html">
+		{{# for(var i=0;i<d.rows.length;i++){ }}
+			<li class="item-content">
+       			<div class="item-media"><i class="icon icon-f7"></i></div>
+       				<div class="item-inner">
+        			<div class="item-title">{{d.rows[i].name}}->{{d.rows[i].id}}</div>
+        			<div class="item-after"></div>
+      			 </div>
+    		</li>
+    	{{# } }}
+	</script>
+	
+</body>
+</html>
