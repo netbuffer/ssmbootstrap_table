@@ -9,6 +9,13 @@ CREATE TABLE `user` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
+DROP TABLE IF EXISTS `address`;
+CREATE TABLE `address` (
+  `user_id` bigint(20) DEFAULT NULL,
+  `province` varchar(255) DEFAULT NULL,
+  `city` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 -- ----------------------------
 -- Function structure for `fristPinyin`
 -- ----------------------------
