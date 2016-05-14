@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.ttblog.ssmbootstrap_table.dao.IMenuDao">
+
+	<resultMap id="BaseResultMap" type="cn.com.ttblog.ssmbootstrap_table.model.Menu">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="parent_id" property="parentId" jdbcType="VARCHAR" />
+		<collection property="menus" ofType="cn.com.ttblog.ssmbootstrap_table.model.Menu" column="id" select="selectMenusByParentId"/>
+	</resultMap>
+	
+    <select id="getMenuById"  resultMap="BaseResultMap" parameterType="java.lang.Long">
+		select * from menu where id = #{id}
+	</select>
+	
+	<select id="selectMenusByParentId" resultType="cn.com.ttblog.ssmbootstrap_table.model.Menu" parameterType="java.lang.Long">
+		select * from menu where parent_id = #{id}
+	</select>
+	
+
+</mapper>

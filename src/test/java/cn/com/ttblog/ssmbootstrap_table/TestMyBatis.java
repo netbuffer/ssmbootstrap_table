@@ -16,8 +16,10 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import cn.com.ttblog.ssmbootstrap_table.dao.IMenuDao;
 import cn.com.ttblog.ssmbootstrap_table.dao.IUserDao;
 import cn.com.ttblog.ssmbootstrap_table.dao2.IUserDaoTest;
+import cn.com.ttblog.ssmbootstrap_table.model.Menu;
 import cn.com.ttblog.ssmbootstrap_table.model.User;
 import cn.com.ttblog.ssmbootstrap_table.service.IUserService;
 import cn.com.ttblog.ssmbootstrap_table.serviceimpl.UserServiceImpl;
@@ -38,14 +40,23 @@ public class TestMyBatis {
 	private SqlSession sqlSession;
 	@Resource
 	private IUserDaoTest userDaoTest;
+	@Resource
+	private IMenuDao menuDao;
 	// @Before
 	// public void before() {
 	// ac = new ClassPathXmlApplicationContext("applicationContext.xml");
 	// userService = (IUserService) ac.getBean("userService");
 	// }
-
+	
 	@Test
-//	@Ignore
+	public void testMenu(){
+		Menu m=menuDao.getMenuById(1L);
+		logger.debug("menu:{}",m);
+		logger.debug("submenu:{}",m.getMenus().get(0));
+	}
+	
+	@Test
+	@Ignore
 	public void test1() {
 
 		// for(int i=0;i<10;i++){
