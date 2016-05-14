@@ -1,5 +1,7 @@
 package cn.com.ttblog.ssmbootstrap_table.model;
 
+import java.util.List;
+
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -27,6 +29,16 @@ public class User {
 	private String deliveryaddress;
 
 	private Integer adddate;
+	//用户使用的地址
+	List<Address> addresses;
+	
+	public List<Address> getAddresses() {
+		return addresses;
+	}
+
+	public void setAddresses(List<Address> addresses) {
+		this.addresses = addresses;
+	}
 
 	public Long getId() {
 		return id;

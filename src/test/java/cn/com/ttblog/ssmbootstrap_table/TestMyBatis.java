@@ -45,7 +45,7 @@ public class TestMyBatis {
 	// }
 
 	@Test
-	@Ignore
+//	@Ignore
 	public void test1() {
 
 		// for(int i=0;i<10;i++){
@@ -54,8 +54,11 @@ public class TestMyBatis {
 		// @Override
 		// public void run() {
 		// System.out.println("执行了"+index);
-		// User user = userService.getUserById(1);
-		// System.out.println("数据:"+user.getUserName());
+		 User user = userService.getUserById(1);
+		 logger.debug("user:"+user);
+		 
+		 User user2 = userDao.selectByPrimaryKey(1L);
+		 logger.debug("user2:"+user);
 		// logger.info(JSON.toJSONString(user));
 		// }
 		// }).start();
@@ -63,9 +66,9 @@ public class TestMyBatis {
 		// User user = userService.getUserById(1);
 		// System.out.println("数据:"+user.getUserName());
 		// logger.info(JSON.toJSONString(user));
-		for (int i = 0; i < 10; i++) {
-			System.out.println("\r\n" + new Random().nextInt(3));
-		}
+//		for (int i = 0; i < 10; i++) {
+//			System.out.println("\r\n" + new Random().nextInt(3));
+//		}
 	}
 
 	@Test
@@ -114,7 +117,7 @@ public class TestMyBatis {
 //		logger.debug("测试拦截器:{}",sqlSession.selectOne("cn.com.ttblog.ssmbootstrap_table.dao.IUserDao.selectByPrimaryKey",1L));
 		logger.debug("getdatasum:{}",userDao.getDataSum());
 	}
-	
+	@Ignore
 	@Test
 	public void testDataSource2(){
 		logger.debug("testDataSource2:{}",userDaoTest.getSum());
