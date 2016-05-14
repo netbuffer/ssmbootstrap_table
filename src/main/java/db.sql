@@ -16,6 +16,20 @@ CREATE TABLE `address` (
   `city` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+DROP TABLE IF EXISTS `menu`;
+CREATE TABLE `menu` (
+  `id` bigint(20) NOT NULL DEFAULT '0',
+  `name` varchar(255) DEFAULT NULL COMMENT '菜单名',
+  `parent_id` bigint(20) DEFAULT NULL COMMENT '父id',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of menu
+-- ----------------------------
+INSERT INTO `menu` VALUES ('1', 'menu', '0');
+INSERT INTO `menu` VALUES ('2', 'submenu', '1');
+
 -- ----------------------------
 -- Function structure for `fristPinyin`
 -- ----------------------------
