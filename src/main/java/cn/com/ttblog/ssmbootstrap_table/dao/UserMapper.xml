@@ -10,12 +10,18 @@
 		<result column="deliveryaddress" property="deliveryaddress"
 			jdbcType="VARCHAR" />
 		<result column="adddate" property="adddate" jdbcType="INTEGER" />
+		<association property="card"  javaType="cn.com.ttblog.ssmbootstrap_table.model.Card" select="selectCardByUserId" column="id"/>
 		<!--ofType指collection包含的元素的类型，此属性不可少。
 		column属性指把上述的selectByPrimaryKey的select语句中的id列的值作为参数
 		传递给将要引用到的下述的selectAddressByUserId的select语句，此属性不可少。
 		引用的形式为：命名空间.select语句id-->
 		<collection property="addresses" ofType="cn.com.ttblog.ssmbootstrap_table.model.Address" column="id" select="selectAddressByUserId"/>
 	</resultMap>
+	
+	<select id="selectCardByUserId"  resultType="cn.com.ttblog.ssmbootstrap_table.model.Card"
+		parameterType="java.lang.Long">
+		select * from card where user_id = #{id}
+	</select>
 	
 	<!-- <resultMap id="address" type="cn.com.ttblog.ssmbootstrap_table.model.Address">
         <id property="userId" column="user_id" />
