@@ -30,6 +30,18 @@ CREATE TABLE `menu` (
 INSERT INTO `menu` VALUES ('1', 'menu', '0');
 INSERT INTO `menu` VALUES ('2', 'submenu', '1');
 
+DROP TABLE IF EXISTS `card`;
+CREATE TABLE `card` (
+  `user_id` bigint(20) NOT NULL DEFAULT '0',
+  `card_no` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of card
+-- ----------------------------
+INSERT INTO `card` VALUES ('1', 'this is cardno');
+
 -- ----------------------------
 -- Function structure for `fristPinyin`
 -- ----------------------------

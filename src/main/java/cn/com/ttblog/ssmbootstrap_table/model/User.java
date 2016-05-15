@@ -32,6 +32,16 @@ public class User {
 	//用户使用的地址
 	List<Address> addresses;
 	
+	private Card card;
+	
+	public Card getCard() {
+		return card;
+	}
+
+	public void setCard(Card card) {
+		this.card = card;
+	}
+
 	public List<Address> getAddresses() {
 		return addresses;
 	}

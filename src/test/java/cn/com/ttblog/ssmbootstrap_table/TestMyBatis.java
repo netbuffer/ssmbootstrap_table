@@ -49,6 +49,7 @@ public class TestMyBatis {
 	// }
 	
 	@Test
+	@Ignore
 	public void testMenu(){
 		Menu m=menuDao.getMenuById(1L);
 		logger.debug("menu:{}",m);
@@ -56,7 +57,7 @@ public class TestMyBatis {
 	}
 	
 	@Test
-	@Ignore
+//	@Ignore
 	public void test1() {
 
 		// for(int i=0;i<10;i++){
@@ -66,10 +67,10 @@ public class TestMyBatis {
 		// public void run() {
 		// System.out.println("执行了"+index);
 		 User user = userService.getUserById(1);
-		 logger.debug("user:"+user);
+		 logger.debug("user1:{}",user);
 		 
-		 User user2 = userDao.selectByPrimaryKey(1L);
-		 logger.debug("user2:"+user);
+		 User user2 = userDao.selectByPrimaryKey(2L);
+		 logger.debug("user2:{}",user2);
 		// logger.info(JSON.toJSONString(user));
 		// }
 		// }).start();
