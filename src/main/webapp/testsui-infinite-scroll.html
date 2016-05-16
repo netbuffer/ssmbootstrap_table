@@ -21,13 +21,18 @@
 <script>
 	$(function(){
 		var totalPage=0;
-		$.getJSON("user/userlist?format=json&order=asc&limit=30&offset=0",function(data){
+		/* $.getJSON("user/userlist?format=json&order=asc&limit=30&offset=0",function(data){
 			totalPage=data.total%20==0?parseInt(data.total/20):parseInt(data.total/20)+1;
 			var gettpl = $('#list_tpl').html();
 			laytpl(gettpl).render(data, function(html){
 			    $('.infinite-scroll .list-container').append(html);
 			});
 		   console.log("totalPage:"+totalPage);
+		}); */
+		var data={rows:{}};
+		var gettpl = $('#list_tpl').html();
+		laytpl(gettpl).render(data, function(html){
+		    $('.infinite-scroll .list-container').append(html);
 		});
 		
 		$(document).on("pageInit", "#page-infinite-scroll-bottom", function(e, id, page) {
