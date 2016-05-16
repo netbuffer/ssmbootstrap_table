@@ -20,6 +20,7 @@
 <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
 <script>
 	$(function(){
+		
 		var totalPage=0;
 		/* $.getJSON("user/userlist?format=json&order=asc&limit=30&offset=0",function(data){
 			totalPage=data.total%20==0?parseInt(data.total/20):parseInt(data.total/20)+1;
@@ -29,6 +30,11 @@
 			});
 		   console.log("totalPage:"+totalPage);
 		}); */
+		if(totalPage==0){
+			//页数为0，删除加载提示符
+			console.log("hide preloader");
+			$(".infinite-scroll-preloader").hide();
+		}
 		var data={rows:{}};
 		var gettpl = $('#list_tpl').html();
 		laytpl(gettpl).render(data, function(html){

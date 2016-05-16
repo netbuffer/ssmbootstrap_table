@@ -49,15 +49,17 @@ public class TestMyBatis {
 	// }
 	
 	@Test
-	@Ignore
+//	@Ignore
 	public void testMenu(){
 		Menu m=menuDao.getMenuById(1L);
 		logger.debug("menu:{}",m);
-		logger.debug("submenu:{}",m.getMenus().get(0));
+		if(m.getMenus()!=null){
+			logger.debug("submenu:{}",m.getMenus().get(0));
+		}
 	}
 	
 	@Test
-//	@Ignore
+	@Ignore
 	public void test1() {
 
 		// for(int i=0;i<10;i++){
