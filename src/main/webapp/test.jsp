@@ -7,6 +7,6 @@
 <title>${test }</title>
 </head>
 <body>
-	${test }
+	${test }<hr/>${uri}
 </body>
 </html>

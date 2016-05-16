@@ -1,5 +1,6 @@
 package cn.com.ttblog.ssmbootstrap_table.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.validation.constraints.NotNull;
@@ -10,7 +11,11 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 import org.hibernate.validator.constraints.Range;
 
 @XmlRootElement
-public class User {
+public class User implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4193866401992779318L;
 	/**
 	 * 用户id
 	 */
@@ -19,8 +24,8 @@ public class User {
 	private String name;
 
 	private String sex;
-	
-	@NotNull(message="年龄不能为空")
+
+	@NotNull(message = "年龄不能为空")
 	@Range(min = 1, max = 150)
 	private Integer age;
 
@@ -29,11 +34,11 @@ public class User {
 	private String deliveryaddress;
 
 	private Integer adddate;
-	//用户使用的地址
+	// 用户使用的地址
 	List<Address> addresses;
-	
+
 	private Card card;
-	
+
 	public Card getCard() {
 		return card;
 	}
