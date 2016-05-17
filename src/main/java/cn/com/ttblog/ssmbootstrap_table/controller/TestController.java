@@ -1,9 +1,7 @@
 package cn.com.ttblog.ssmbootstrap_table.controller;
 
 import java.util.Properties;
-
 import javax.annotation.Resource;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
