@@ -23,4 +23,6 @@ public interface IUserDao {
 	int getNewData();
 
 	List<Map<String, Object>> getDataSum();
+	
+	List<User> getUsersByIds(List<Long> ids);
 }

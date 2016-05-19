@@ -1,6 +1,8 @@
 package cn.com.ttblog.ssmbootstrap_table;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Random;
 
 import javax.annotation.Resource;
@@ -49,7 +51,7 @@ public class TestMyBatis {
 	// }
 	
 	@Test
-//	@Ignore
+	@Ignore
 	public void testMenu(){
 		Menu m=menuDao.getMenuById(1L);
 		logger.debug("menu:{}",m);
@@ -135,5 +137,13 @@ public class TestMyBatis {
 	@Test
 	public void testDataSource2(){
 		logger.debug("testDataSource2:{}",userDaoTest.getSum());
+	}
+	@Test
+	public void testForeach(){
+		List<Long> ids=new ArrayList<Long>();
+		ids.add(1L);
+		ids.add(2L);
+		ids.add(3L);
+		logger.debug("id列表{},获取集合:{}",ids,userDao.getUsersByIds(ids));
 	}
 }
