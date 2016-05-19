@@ -175,6 +175,17 @@
 		select count(id) num,FROM_UNIXTIME(adddate,'%Y-%m-%d') adddate from user
 		group by FROM_UNIXTIME(adddate,'%Y-%m-%d')
 	</select>
+	
+	<select id="getUsersByIds" resultType="cn.com.ttblog.ssmbootstrap_table.model.User"
+		parameterType="java.util.List">
+		select * from user 
+		<where>
+			id in
+			<foreach collection="list" item="id" open="(" close=")" separator=",">
+				#{id,jdbcType=NUMERIC}
+			</foreach>
+		</where>
+	</select>
 
 </mapper>
 <!--java -jar mybatis-generator-core-1.3.2.jar -configfile generatorConfig.xml 
