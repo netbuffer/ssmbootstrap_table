@@ -6,6 +6,7 @@
 * bootstrap3
 * bootstrap-table1.9
 * druid
+* fastjson
 * weui
 * log4jdbc
 * hibernate-validator
