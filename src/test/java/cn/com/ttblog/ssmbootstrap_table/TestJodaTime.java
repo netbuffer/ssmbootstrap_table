@@ -1,5 +1,8 @@
 package cn.com.ttblog.ssmbootstrap_table;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import org.joda.time.DateTime;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -43,5 +46,11 @@ public class TestJodaTime {
 	@Test
 	public void testYearEnd(){
 		log.debug("本年度结束时间:{}",JodaTimeUtil.getYearEnd(new DateTime()).toString(FORMAT));
+	}
+	@Test
+	public void t(){
+		SimpleDateFormat fmt=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		System.out.println(fmt.format(new Date((long)System.currentTimeMillis())));
+		System.out.println(fmt.format(new Date(new Date().getTime())));
 	}
 }
