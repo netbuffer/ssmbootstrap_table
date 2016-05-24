@@ -14,7 +14,7 @@ import org.slf4j.LoggerFactory;
 public class TestPinyin4j {
 	
 	private static Logger logger = LoggerFactory.getLogger(TestMyBatis.class);
-
+	
     /** 
      * 提取每个汉字的首字母 
      * @param str 

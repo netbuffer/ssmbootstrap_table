@@ -33,6 +33,7 @@ public class TestController {
 	public String index(@PathVariable("id") int id,ModelMap m) {
 		logger.debug("template id:{}", id);
 		m.addAttribute("uri", id);
+		m.addAttribute("showTime", System.currentTimeMillis()/1000);
 		return "test";
 	}
 	
