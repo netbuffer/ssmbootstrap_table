@@ -7,7 +7,6 @@ import java.util.Random;
 
 import javax.annotation.Resource;
 
-import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,31 +21,21 @@ public class UserServiceImpl implements IUserService {
 	 */
 	@Resource
 	private IUserDao userDao;
-	@Resource
-	private SqlSessionTemplate sqlSession;
 
 	@Override
 	public User getUserById(long userId) {
-		return this.userDao.selectByPrimaryKey(userId);
+		return userDao.getUserById(userId);
 	}
 
 	@Transactional
 	@Override
 	public void addUser(User user) {
 		Random r = new Random();
-		sqlSession.insert(IUserDao.class.getName() + ".insert", user);
-		// 事务测试
-		// int i=1/0;
 	}
 
 	@Override
-	public List<User> getUserList(String order, int limit, int offset) {
-		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("order", order);
-		params.put("limit", limit);
-		params.put("offset", offset);
-		return sqlSession.selectList(IUserDao.class.getName() + ".selectList",
-				params);
+	public List<User> getUsersByIds(List<Long> ids) {
+		return userDao.getUsersByIds(ids);
 	}
 
 	@Override
@@ -57,8 +46,7 @@ public class UserServiceImpl implements IUserService {
 		params.put("limit", limit);
 		params.put("offset", offset);
 		params.put("search", search);
-		return sqlSession.selectList(IUserDao.class.getName() + ".selectListWithQuery",
-				params);
+		return userDao.getUserList(params);
 	}
 
 	@Override
@@ -74,6 +62,15 @@ public class UserServiceImpl implements IUserService {
 	@Override
 	public List<Map<String, Object>> getDataSum() {
 		return userDao.getDataSum();
+	}
+
+	@Override
+	public List<User> getUserList(String order, int limit, int offset) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("order", order);
+		params.put("limit", limit);
+		params.put("offset", offset);
+		return userDao.getUserList(params);
 	}
 
 }

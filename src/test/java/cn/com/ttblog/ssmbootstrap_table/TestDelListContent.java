@@ -20,7 +20,7 @@ import org.slf4j.LoggerFactory;
 
 public class TestDelListContent {
 	
-	private static Logger logger = LoggerFactory.getLogger(TestMyBatis.class);
+	private static Logger logger = LoggerFactory.getLogger(TestJdbcTemplate.class);
 
 	@Test
 	@Ignore
