@@ -1,6 +1,6 @@
 #ssmbootstrap_table demo
 ## 技术栈
-* spring+springmvc+mybatis
+* spring+springmvc+jdbcTemplate
 * poi3
 * 自定义标签开发
 * bootstrap3
