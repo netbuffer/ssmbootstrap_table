@@ -63,7 +63,7 @@
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean" name="sf">
 		<property name="dataSource" ref="dataSource" />
 		<!-- mybatis全局配置 -->
-		<property name="configLocation" value="classpath:mybatis-globalcfg.xml"></property>
+		<property name="configLocation" value="classpath:spring/mybatis-globalcfg.xml"></property>
 		<property name="mapperLocations"
 			value="classpath:cn/com/ttblog/ssmbootstrap_table/dao/*.xml"></property>
 	</bean>
