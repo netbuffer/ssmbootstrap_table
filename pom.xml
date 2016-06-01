@@ -233,9 +233,9 @@
 			<groupId>org.apache.cxf</groupId>
 			<version>${cxf.version}</version>
 		</dependency>
-		
+
 	</dependencies>
-	<build>
+	<build>	
 		<finalName>ssmbootstrap_table</finalName>
 		<plugins>
 			<plugin>
