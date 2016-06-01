@@ -20,7 +20,7 @@
 	<import resource="classpath:META-INF/cxf/cxf-servlet.xml" />
 
 
-	<context:component-scan base-package="org.exampledriven.cxfexample" />
+	<context:component-scan base-package="org.exampledriven.cxfexample,cn.com.ttblog.ssmbootstrap_table.webservice" />
 
 	<!-- PROVIDERS -->
 
@@ -66,7 +66,9 @@
 	<!-- SOAP SERVER -->
 	<jaxws:endpoint id="location" implementor="#locationService"
 		address="/soap" />
-
+	<jaxws:endpoint implementor="#userServiceWebservice"
+		address="/user" />
+	
 	<!-- CXF Message logging -->
 
 	<cxf:bus>

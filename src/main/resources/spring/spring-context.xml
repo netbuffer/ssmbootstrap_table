@@ -31,8 +31,12 @@
 	
 	<!-- 启用aop -->
 	<aop:aspectj-autoproxy />
+	
+	<!-- 加载资源文件 -->
 	<import resource="spring-mybatis.xml" />
 	<import resource="spring-jmx.xml" />
+	<import resource="classpath:cxf/cxf.xml" />
+	
 	<!-- jsonpfilter -->
 	<bean class="com.intera.util.web.servlet.filter.JsonpCallbackFilter"
 		id="jsonpCallbackFilter" />
