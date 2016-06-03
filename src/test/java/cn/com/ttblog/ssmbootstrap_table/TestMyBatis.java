@@ -30,7 +30,7 @@ import com.alibaba.fastjson.JSON;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 // 表示继承了SpringJUnit4ClassRunner类
-@ContextConfiguration(locations = { "classpath:spring-mybatis.xml","classpath:spring-context.xml" })
+@ContextConfiguration(locations = { "classpath:spring/spring-mybatis.xml","classpath:spring/spring-context.xml" })
 public class TestMyBatis {
 
 	private static Logger logger = LoggerFactory.getLogger(TestMyBatis.class);
