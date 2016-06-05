@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<title>test</title>
+</head>
+<body style="color:#00bbaa;">
+	"uri":$uri<br/>
+	"showTime":$showTime<br/>
+	中文<br/>
+	$session.getAttribute("islogin")-获取到session值$islogin<br/>
+	${request}
+</body>
+</html>

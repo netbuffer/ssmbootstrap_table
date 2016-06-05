@@ -233,9 +233,22 @@
 			<groupId>org.apache.cxf</groupId>
 			<version>${cxf.version}</version>
 		</dependency>
+		
+		<!-- velocity配置 -->
+		<dependency>
+			<groupId>org.apache.velocity</groupId>
+			<artifactId>velocity</artifactId>
+			<version>1.7</version>
+		</dependency>
+		
+		<!-- <dependency>
+			<groupId>org.apache.velocity</groupId>
+			<artifactId>velocity-tools</artifactId>
+			<version>2.0</version>
+		</dependency> -->
 
 	</dependencies>
-	<build>	
+	<build>
 		<finalName>ssmbootstrap_table</finalName>
 		<plugins>
 			<plugin>

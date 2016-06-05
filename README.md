@@ -2,7 +2,7 @@
 ## 技术栈
 * spring+springmvc+mybatis
 * poi3
-* 自定义标签开发
+* velocity	
 * bootstrap3
 * bootstrap-table1.9
 * druid

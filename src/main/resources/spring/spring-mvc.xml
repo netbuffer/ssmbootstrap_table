@@ -65,13 +65,21 @@
 			</list>
 		</property>
 	</bean>
+	<!-- velocity配置文件 -->
+	<bean
+		class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">
+		<property name="resourceLoaderPath" value="/" />
+		<property name="configLocation" value="classpath:velocity.properties" />
+	</bean>
 	<!-- 上面没匹配到则会使用这个视图解析器 -->
 	<bean
-		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		class="org.springframework.web.servlet.view.velocity.VelocityViewResolver">
 		<property name="prefix" value="/" />
-		<property name="suffix" value=".jsp" />
-		<property name="viewClass"
-			value="org.springframework.web.servlet.view.JstlView" />
+		<property name="suffix" value=".vm" />
+		<!-- 避免乱码 -->
+		<property name="contentType" value="text/html;charset=UTF-8" />
+		<property name="exposeRequestAttributes" value="true" />
+		<property name="exposeSessionAttributes" value="true" />
 	</bean>
 	<!-- <bean class="com.wonders.stpt.bid.controller.JXLExcelView"/> -->
 
