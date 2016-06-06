@@ -139,11 +139,20 @@ public class TestMyBatis {
 		logger.debug("testDataSource2:{}",userDaoTest.getSum());
 	}
 	@Test
+	@Ignore
 	public void testForeach(){
 		List<Long> ids=new ArrayList<Long>();
 		ids.add(1L);
 		ids.add(2L);
 		ids.add(3L);
 		logger.debug("id列表{},获取集合:{}",ids,userDao.getUsersByIds(ids));
+	}
+	
+	@Test
+	public void testInsert(){
+		//mybatis 开启BATCH处理，会导致insert返回值问题 http://www.cnblogs.com/seven7seven/p/4039622.html
+		User u=new User();
+		u.setName("ceshi");
+		logger.debug("insert return:{}",sqlSession.insert("cn.com.ttblog.ssmbootstrap_table.dao.IUserDao.insert",u));
 	}
 }
