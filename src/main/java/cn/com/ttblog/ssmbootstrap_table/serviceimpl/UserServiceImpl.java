@@ -34,7 +34,7 @@ public class UserServiceImpl implements IUserService {
 	@Override
 	public void addUser(User user) {
 		Random r = new Random();
-		sqlSession.insert(IUserDao.class.getName() + ".insert", user);
+		System.out.println("插入结果:"+sqlSession.insert(IUserDao.class.getName() + ".insert", user));
 		// 事务测试
 		// int i=1/0;
 	}
