@@ -1,0 +1,30 @@
+package cn.com.ttblog.ssmbootstrap_table.task;
+
+import java.util.concurrent.TimeUnit;
+
+import org.apache.commons.lang.math.RandomUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
+
+/**
+ * springtask定时任务测试
+ * 
+ * @author netbuffer
+ */
+@Component
+public class Task {
+
+	Logger log = LoggerFactory.getLogger(Task.class);
+
+	@Scheduled(cron = "0/10 * * * * ?")
+	public void testSchedule() {
+		log.debug("触发定时任务");
+		try {
+			TimeUnit.SECONDS.sleep(RandomUtils.nextInt(100));
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+}
