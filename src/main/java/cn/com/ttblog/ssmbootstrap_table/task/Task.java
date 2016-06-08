@@ -1,7 +1,6 @@
 package cn.com.ttblog.ssmbootstrap_table.task;
 
 import java.util.concurrent.TimeUnit;
-
 import org.apache.commons.lang.math.RandomUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,9 +19,10 @@ public class Task {
 
 	@Scheduled(cron = "0/10 * * * * ?")
 	public void testSchedule() {
-		log.debug("触发定时任务");
+		int sleep=RandomUtils.nextInt(100);
+		log.debug("触发定时任务,休眠:{}秒",sleep);
 		try {
-			TimeUnit.SECONDS.sleep(RandomUtils.nextInt(100));
+			TimeUnit.SECONDS.sleep(sleep);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
