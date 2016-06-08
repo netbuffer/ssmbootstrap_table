@@ -154,4 +154,7 @@
 		<!-- <mvc:interceptor> <mvc:mapping path="/test/number.do" /> <bean class="com.host.app.web.interceptor.LoginInterceptor" 
 			/> </mvc:interceptor> -->
 	</mvc:interceptors>
+	
+	<bean class="com.mangofactory.swagger.configuration.SpringSwaggerConfig" />
+	
 </beans>  
