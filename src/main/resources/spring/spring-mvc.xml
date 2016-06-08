@@ -155,6 +155,4 @@
 			/> </mvc:interceptor> -->
 	</mvc:interceptors>
 	
-	<bean class="com.mangofactory.swagger.configuration.SpringSwaggerConfig" />
-	
 </beans>  
