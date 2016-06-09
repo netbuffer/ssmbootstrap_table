@@ -24,6 +24,7 @@
 	</properties>
 
 	<dependencies>
+
 		<dependency>
 			<groupId>com.thoughtworks.xstream</groupId>
 			<artifactId>xstream</artifactId>
@@ -232,6 +233,12 @@
 			<artifactId>cxf-rt-frontend-jaxws</artifactId>
 			<groupId>org.apache.cxf</groupId>
 			<version>${cxf.version}</version>
+		</dependency>
+		<!-- swagger-springmvc http://blog.csdn.net/lw_power/article/details/50663812 -->
+		<dependency>
+			<groupId>com.mangofactory</groupId>
+			<artifactId>swagger-springmvc</artifactId>
+			<version>1.0.2</version>
 		</dependency>
 	</dependencies>
 	<build>
