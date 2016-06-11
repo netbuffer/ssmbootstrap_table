@@ -1,14 +1,11 @@
 package cn.com.ttblog.ssmbootstrap_table.controller;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.Arrays;
-
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,13 +16,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.wordnik.swagger.annotations.ApiOperation;
 import com.wordnik.swagger.annotations.ApiParam;
 import com.wordnik.swagger.annotations.ApiResponse;
-
+import cn.com.ttblog.ssmbootstrap_table.model.User;
 import cn.com.ttblog.ssmbootstrap_table.service.IUserService;
 
 /**
@@ -82,7 +78,7 @@ public class JsonpController {
 	 */
 	@ApiOperation(value = "获取用户信息")
 	@ApiParam(name="id",required=true,value="用户id")
-	@ApiResponse(message="返回的信息", code = 0)
+	@ApiResponse(message="返回的信息", code = 200)
 	@RequestMapping("/test/{id}")
 	public @ResponseBody String test(@PathVariable Long id,
 			@RequestParam String callback, HttpServletRequest request,
@@ -116,10 +112,13 @@ public class JsonpController {
 		}
 	}
 
+	@ApiOperation(value = "获取用户信息")
+	
+	@ApiResponse(message="返回的信息", code = 200)
 	@RequestMapping("/tj/{id}")
-	public JSONObject t(@PathVariable Long id, HttpServletRequest request,
+	public User t(@ApiParam(name="id",required=true,value="用户id") @PathVariable Long id, HttpServletRequest request,
 			HttpServletResponse response, Model model) {
-		return (JSONObject) JSON.toJSON(userService.getUserById(id));
+		return userService.getUserById(id);
 	}
 
 	@RequestMapping("/str")
