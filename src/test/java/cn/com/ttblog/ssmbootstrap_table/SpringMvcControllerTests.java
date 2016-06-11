@@ -19,9 +19,10 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.context.WebApplicationContext;
 
 import cn.com.ttblog.ssmbootstrap_table.controller.RegisterController;
+import cn.com.ttblog.ssmbootstrap_table.model.Card;
 
 @WebAppConfiguration
-@ContextConfiguration(locations={"classpath:spring-mvc.xml","classpath:spring-mybatis.xml"})
+@ContextConfiguration(locations={"classpath:spring/spring-mvc.xml","classpath:spring/spring-context.xml"})
 @RunWith(SpringJUnit4ClassRunner.class)
 public class SpringMvcControllerTests {
 	
