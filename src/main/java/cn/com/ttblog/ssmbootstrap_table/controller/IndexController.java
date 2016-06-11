@@ -35,7 +35,7 @@ import cn.com.ttblog.ssmbootstrap_table.service.IUserService;
 import cn.com.ttblog.ssmbootstrap_table.util.BeanMapUtil;
 import cn.com.ttblog.ssmbootstrap_table.util.POIExcelUtil;
 
-import com.alibaba.fastjson.JSONArray;
+//import com.alibaba.fastjson.JSONArray;
 
 @Controller(value="mainindex")
 @RequestMapping("/")
@@ -96,17 +96,18 @@ public class IndexController {
 			Model model) {
 		logger.debug("获取datacount");
 		List<Map<String, Object>> counts = userService.getDataSum();
-		JSONArray categorys = new JSONArray();
-		JSONArray nums = new JSONArray();
-		for (Map<String, Object> m : counts) {
-			categorys.add(m.get("adddate").toString());
-			nums.add(m.get("num").toString());
-		}
-		logger.debug("categorys:{},nums:{}", categorys, nums);
-		Map<String, Object> data = new HashMap<String, Object>();
-		data.put("c", categorys);
-		data.put("d", nums);
-		return data;
+//		JSONArray categorys = new JSONArray();
+//		JSONArray nums = new JSONArray();
+//		for (Map<String, Object> m : counts) {
+//			categorys.add(m.get("adddate").toString());
+//			nums.add(m.get("num").toString());
+//		}
+//		logger.debug("categorys:{},nums:{}", categorys, nums);
+//		Map<String, Object> data = new HashMap<String, Object>();
+//		data.put("c", categorys);
+//		data.put("d", nums);
+//		return data;
+		return null;
 	}
 
 	@RequestMapping("/export")
