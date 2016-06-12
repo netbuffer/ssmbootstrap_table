@@ -3,9 +3,9 @@ package cn.com.ttblog.ssmbootstrap_table.controller;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponse;
 
-import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.Arrays;
 
 import javax.annotation.Resource;
@@ -25,13 +25,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 //import com.alibaba.fastjson.JSON;
 //import com.alibaba.fastjson.JSONObject;
 
+
+
 import cn.com.ttblog.ssmbootstrap_table.model.User;
 import cn.com.ttblog.ssmbootstrap_table.service.IUserService;
 
 /**
  * jsonp测试
  */
-@Api(description="jsonp请求",value="jsonp测试",produces=MediaType.APPLICATION_JSON_VALUE)
+@Api(value="jsonp测试",produces=MediaType.APPLICATION_JSON_VALUE)
 @Controller
 @RequestMapping("/jsonp")
 public class JsonpController {
@@ -97,8 +99,9 @@ public class JsonpController {
 //		}
 	}
 	@ApiOperation(notes="获取用户信息", value = "获取用户信息")
+	@ApiResponse(code=200,message="返回用户对象信息")
 	@RequestMapping("/tj/{id}")
-	public User t(@PathVariable Long id,HttpServletRequest request,HttpServletResponse response) {
+	public User t(@ApiParam(name="id",required=true,value="用户id")@PathVariable Long id,HttpServletRequest request,HttpServletResponse response) {
 		return userService.getUserById(id);
 	}
 	

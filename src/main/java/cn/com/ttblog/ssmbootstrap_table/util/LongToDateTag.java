@@ -3,7 +3,6 @@ package cn.com.ttblog.ssmbootstrap_table.util;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
 /**
@@ -30,7 +29,7 @@ public class LongToDateTag extends SimpleTagSupport {
 	public void doTag() throws JspException, IOException {
 		if(getValue()!=null&&getFormat()!=null){
 			SimpleDateFormat fmt=new SimpleDateFormat(getFormat());
-			getJspContext().getOut().print(fmt.format(new Date((long)getValue())));
+			getJspContext().getOut().print(fmt.format(new Date(Long.parseLong(getValue().toString()))));
 		}
 		
 	}
