@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import cn.com.ttblog.ssmbootstrap_table.model.User;
@@ -26,6 +27,7 @@ import cn.com.ttblog.ssmbootstrap_table.service.IUserService;
  */
 @Controller
 @RequestMapping("/jsonp")
+@SessionAttributes("name")
 public class JsonpController {
 
 	@Resource
@@ -132,5 +134,16 @@ public class JsonpController {
 			@RequestParam(value = "v") String[] values, Model model) {
 		logger.debug("接收到的数组参数:{}", Arrays.deepToString(values));
 		return values;
+	}
+	
+	/**
+	 * 获取session中name的值
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping("/getSessionAttr")
+	public @ResponseBody String getSessionAttr(@ModelAttribute("name")String name,HttpSession session) {
+		logger.debug("name:{}",name);
+		return session.getAttribute("name").toString();
 	}
 }
