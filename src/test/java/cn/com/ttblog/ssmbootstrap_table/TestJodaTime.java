@@ -53,4 +53,12 @@ public class TestJodaTime {
 		System.out.println(fmt.format(new Date((long)System.currentTimeMillis())));
 		System.out.println(fmt.format(new Date(new Date().getTime())));
 	}
+	@Test
+	public void testCompare(){
+		Date yes=new DateTime().plusDays(-1).toDate();
+		Date today=new Date();
+		System.out.println("yes.compareTo(today):"+yes.compareTo(today));
+		System.out.println("today.compareTo(yes):"+today.compareTo(yes));
+		System.out.println("today.compareTo(today):"+today.compareTo(today));
+	}
 }

@@ -9,6 +9,8 @@
                             http://www.springframework.org/schema/context/spring-context-3.1.xsd    
                             http://www.springframework.org/schema/mvc    
                             http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
+	<bean class="cn.com.ttblog.ssmbootstrap_table.util.SwaggerConfig"></bean>
+	<bean class="com.mangofactory.swagger.configuration.SpringSwaggerConfig"></bean>
 	<!-- 自动扫描该包，使SpringMVC认为包下用了@controller注解的类是控制器 -->
 	<!-- 多包扫描测试 -->
 	<context:component-scan
@@ -154,4 +156,5 @@
 		<!-- <mvc:interceptor> <mvc:mapping path="/test/number.do" /> <bean class="com.host.app.web.interceptor.LoginInterceptor" 
 			/> </mvc:interceptor> -->
 	</mvc:interceptors>
+	
 </beans>  
