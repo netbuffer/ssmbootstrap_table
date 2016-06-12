@@ -18,9 +18,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.wordnik.swagger.annotations.ApiOperation;
-import com.wordnik.swagger.annotations.ApiParam;
-import com.wordnik.swagger.annotations.ApiResponse;
 import cn.com.ttblog.ssmbootstrap_table.model.User;
 import cn.com.ttblog.ssmbootstrap_table.service.IUserService;
 
@@ -76,9 +73,6 @@ public class JsonpController {
 	 * @param response
 	 * @return
 	 */
-	@ApiOperation(value = "获取用户信息")
-	@ApiParam(name="id",required=true,value="用户id")
-	@ApiResponse(message="返回的信息", code = 200)
 	@RequestMapping("/test/{id}")
 	public @ResponseBody String test(@PathVariable Long id,
 			@RequestParam String callback, HttpServletRequest request,
@@ -112,11 +106,8 @@ public class JsonpController {
 		}
 	}
 
-	@ApiOperation(value = "获取用户信息")
-	
-	@ApiResponse(message="返回的信息", code = 200)
 	@RequestMapping("/tj/{id}")
-	public User t(@ApiParam(name="id",required=true,value="用户id") @PathVariable Long id, HttpServletRequest request,
+	public User t(@PathVariable Long id, HttpServletRequest request,
 			HttpServletResponse response, Model model) {
 		return userService.getUserById(id);
 	}
