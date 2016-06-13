@@ -141,6 +141,13 @@
 			</list>
 		</property>
 	</bean> -->
+
+	<bean id="validator"
+		class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
+		<property name="providerClass" value="org.hibernate.validator.HibernateValidator" />
+		<property name="validationMessageSource" ref="messageSource" />
+	</bean>
+	
 	<!-- i18n资源 -->
 	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
 	    <!-- 如果在国际化资源文件中找不到对应代码的信息，就用这个代码作为名称  -->               
@@ -154,32 +161,20 @@
 			</list>
 		</property>
 	</bean>
-
-	<bean id="validator"
-		class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
-		<property name="providerClass" value="org.hibernate.validator.HibernateValidator" />
-		<property name="validationMessageSource" ref="messageSource" />
-	</bean>
-
+	<!-- AcceptHeaderLocaleResolver、CookieLocaleResolver、SessionLocaleResolver、LocaleChangeInterceptor这几种国际化方式 -->
+	<!-- 国际化，采用cookie实现 http://kiritor.github.io/2015/09/11/SpringMVC-i18n/ -->
+	<bean id="localeChangeInterceptor" class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+        <property name="paramName" value="lang"/>
+    </bean>
+	
 	<mvc:interceptors>
 	 	<!-- 国际化拦截器 -->
-		<bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor" />
+	 	<!-- <ref bean="localeChangeInterceptor"/> -->
 		<bean
 			class="cn.com.ttblog.ssmbootstrap_table.interceptor.SpringMVCInterceptor" />
 		<!-- 如果不配置或/*,将拦截所有的Controller 定义在mvc:interceptor下面的表示是对特定的请求才进行拦截的 -->
 		<!-- <mvc:interceptor> <mvc:mapping path="/test/number.do" /> <bean class="com.host.app.web.interceptor.LoginInterceptor" 
 			/> </mvc:interceptor> -->
 	</mvc:interceptors>
-	
-	<!-- 国际化，采用cookie实现 http://kiritor.github.io/2015/09/11/SpringMVC-i18n/ -->
-	<bean id="localeResolver"
-		class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
-		<!-- 设置cookieName名称，可以根据名称通过js来修改设置，默认的名称为 类名+.LOCALE -->
-		<property name="cookieName" value="lang" />
-		<!-- 设置最大有效时间，如果是-1，则不存储，浏览器关闭后即失效，默认为Integer.MAX_INT -->
-		<property name="cookieMaxAge" value="100000" />
-		<!-- 设置cookie可见的地址，默认是“/”即对网站所有地址都是可见的，如果设为其它地址，则只有该地址或其后的地址才可见 -->
-		<property name="cookiePath" value="/" />
-	</bean>
 	
 </beans>  
