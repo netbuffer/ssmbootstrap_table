@@ -11,12 +11,14 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.i18n.CookieLocaleResolver;
@@ -35,7 +37,9 @@ public class TestController {
 	private String url;
 	@Value("#{configProperties['mysql.connectTime']}")
 	private Integer connectTime;
-
+	@Autowired
+	private CookieLocaleResolver cookieResolver;
+	
 	@RequestMapping(value = { "", "/{id}", "/index/{id}" })
 	public String index(@PathVariable("id") int id, ModelMap m) {
 		logger.debug("template id:{}", id);
@@ -99,19 +103,19 @@ public class TestController {
 
 	@RequestMapping("/lang")
 	@ResponseBody
-	public String lang(String langType, HttpServletRequest request, HttpServletResponse response) {
+	public String lang(@RequestParam(defaultValue="zh",required=false,value="lang")String langType, HttpServletRequest request, HttpServletResponse response) {
 		if (langType.equals("zh")) {
 			Locale locale = new Locale("zh", "CN");
 			// request.getSession().setAttribute(SessionLocaleResolver.LOCALE_SESSION_ATTRIBUTE_NAME,
 			// locale);
-			new CookieLocaleResolver().setLocale(request, response, locale);
+			cookieResolver.setLocale(request, response, locale);
 		} else if (langType.equals("en")) {
 			Locale locale = new Locale("en", "US");
 			// request.getSession().setAttribute(SessionLocaleResolver.LOCALE_SESSION_ATTRIBUTE_NAME,
 			// locale);
-			new CookieLocaleResolver().setLocale(request, response, locale);
+			cookieResolver.setLocale(request, response, locale);
 		} else
-			new CookieLocaleResolver().setLocale(request, response, LocaleContextHolder.getLocale());
+			cookieResolver.setLocale(request, response, LocaleContextHolder.getLocale());
 		// request.getSession().setAttribute(SessionLocaleResolver.LOCALE_SESSION_ATTRIBUTE_NAME,
 		// LocaleContextHolder.getLocale());
 		return langType;
