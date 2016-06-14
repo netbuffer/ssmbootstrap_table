@@ -9,20 +9,24 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
-
+/**
+ * 如果我们需要在Spring容器完成Bean的实例化、配置和其他的初始化前后添加一些自己的逻辑处理需要用到
+ * @package cn.com.ttblog.ssmbootstrap_table.util
+ * @Description: TODO() 
+ */
 public class TestBeanPostProcessor implements BeanPostProcessor {
 	private static final Logger log = LoggerFactory
 			.getLogger(TestBeanPostProcessor.class);
 
 	public Object postProcessAfterInitialization(Object bean, String beanName)
 			throws BeansException {
-		log.info("postProcessAfterInitialization");
+		log.info("postProcess-[After]-init:{}",beanName);
 		return bean;
 	}
 
 	public Object postProcessBeforeInitialization(Object bean, String beanName)
 			throws BeansException {
-		log.info("postProcessBeforeInitialization");
+		log.info("postProcess-[Before]-init:{}",beanName);
 		List<Class<?>> clazzes = getAllClasses(bean);
 
 		for (Class<?> clazz : clazzes) {
@@ -39,7 +43,7 @@ public class TestBeanPostProcessor implements BeanPostProcessor {
 	 * @return
 	 */
 	private List<Class<?>> getAllClasses(Object bean) {
-		log.info("getAllClasses");
+//		log.info("getAllClasses");
 		Class<? extends Object> clazz = bean.getClass();
 		List<Class<?>> clazzes = new ArrayList<Class<?>>();
 		while (clazz != null) {

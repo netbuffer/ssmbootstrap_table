@@ -29,13 +29,8 @@ public class LongToDateTag extends SimpleTagSupport {
 	public void doTag() throws JspException, IOException {
 		if(getValue()!=null&&getFormat()!=null){
 			SimpleDateFormat fmt=new SimpleDateFormat(getFormat());
-			getJspContext().getOut().print(fmt.format(new Date((long)getValue())));
+			getJspContext().getOut().print(fmt.format(new Date(Long.parseLong(getValue().toString()))));
 		}
 		
 	}
-	public static void main(String[] args) {
-		long s=1454491047609L;
-		System.out.println(new Date(s).toGMTString());
-	}
-
 }
