@@ -13,7 +13,7 @@
                         http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
                         http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd">
 	<context:component-scan base-package="cn.com.ttblog.ssmbootstrap_table" />
-	
+
 	<bean id="configProperties"
 		class="org.springframework.beans.factory.config.PropertiesFactoryBean">
 		<property name="locations">
@@ -21,6 +21,7 @@
 				<value>classpath*:app.properties</value>
 				<value>classpath*:jdbc.properties</value>
 				<value>classpath*:jmx.properties</value>
+				<value>classpath*:swagger.properties</value>
 			</list>
 		</property>
 	</bean>
@@ -28,16 +29,25 @@
 		class="org.springframework.beans.factory.config.PreferencesPlaceholderConfigurer">
 		<property name="properties" ref="configProperties" />
 	</bean>
-	
+
 	<!-- 启用aop -->
 	<aop:aspectj-autoproxy />
-	
+
 	<!-- 加载资源文件 -->
 	<import resource="spring-mybatis.xml" />
 	<import resource="spring-jmx.xml" />
 	<import resource="classpath:cxf/cxf.xml" />
-	
+
 	<!-- jsonpfilter -->
 	<bean class="com.intera.util.web.servlet.filter.JsonpCallbackFilter"
 		id="jsonpCallbackFilter" />
+	<bean id="localeResolver"
+		class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
+		<!-- 设置cookieName名称，可以根据名称通过js来修改设置，默认的名称为 类名+.LOCALE -->
+		<property name="cookieName" value="lang" />
+		<!-- 设置最大有效时间，如果是-1，则不存储，浏览器关闭后即失效，默认为Integer.MAX_INT -->
+		<property name="cookieMaxAge" value="100000" />
+		<!-- 设置cookie可见的地址，默认是“/”即对网站所有地址都是可见的，如果设为其它地址，则只有该地址或其后的地址才可见 -->
+		<property name="cookiePath" value="/" />
+	</bean>
 </beans>
