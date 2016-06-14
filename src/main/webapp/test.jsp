@@ -10,6 +10,7 @@
 <title>${test }</title>
 </head>
 <body>
+	<a href="${pageContext.request.contextPath }/test/${test}?lang=zh">中文locale</a>&emsp;<a href="${pageContext.request.contextPath }/test/${test}?lang=en">英文locale</a>
 	${test }<hr/>${uri}<br/>
 	<l2d:l2d value="${showTime}" format="yyyy-MM-dd HH:mm:ss" /><br/>
 	<code>fmt:message key="header.language":</code><fmt:message key="header.language"/><br/>

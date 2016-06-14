@@ -30,6 +30,7 @@ import org.w3c.dom.Node;
 public class LicenseHandler implements SOAPHandler<SOAPMessageContext> {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public boolean handleMessage(SOAPMessageContext context) {
 		try {

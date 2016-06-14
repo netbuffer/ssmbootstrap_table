@@ -33,9 +33,4 @@ public class LongToDateTag extends SimpleTagSupport {
 		}
 		
 	}
-	public static void main(String[] args) {
-		long s=1454491047609L;
-		System.out.println(new Date(s).toGMTString());
-	}
-
 }
