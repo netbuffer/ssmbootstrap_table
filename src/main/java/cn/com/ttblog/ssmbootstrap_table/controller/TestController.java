@@ -39,6 +39,19 @@ public class TestController {
 	private Integer connectTime;
 	@Autowired
 	private CookieLocaleResolver cookieResolver;
+	//注入静态属性值
+	private static String  JDBCURL;
+	//注入方法
+	@Value("#{configProperties['url']}")
+    public void setJdbcUrl(String url) {
+		JDBCURL = url;
+    }
+	
+	@RequestMapping(value = {"/getJdbcUrl" })
+	public @ResponseBody String getJdbcUrl() {
+		logger.debug("静态属性值:{}",JDBCURL);
+		return JDBCURL;
+	}
 	
 	@RequestMapping(value = { "", "/{id}", "/index/{id}" })
 	public String index(@PathVariable("id") int id, ModelMap m) {
