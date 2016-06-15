@@ -18,12 +18,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.i18n.CookieLocaleResolver;
 
 import com.alibaba.fastjson.JSONObject;
+
+import cn.com.ttblog.ssmbootstrap_table.model.User;
 
 @Controller
 @RequestMapping("/test")
@@ -132,5 +135,17 @@ public class TestController {
 		// request.getSession().setAttribute(SessionLocaleResolver.LOCALE_SESSION_ATTRIBUTE_NAME,
 		// LocaleContextHolder.getLocale());
 		return langType;
+	}
+	
+	@RequestMapping(value="/form",method=RequestMethod.GET)
+	public String getform(){
+		logger.debug("test get form ");
+		return "user/add";
+	}
+	
+	@RequestMapping(value="/form",method=RequestMethod.POST)
+	public String postform(User u){
+		logger.debug("test post form:{}",u);
+		return "redirect:/register-success.html";
 	}
 }
