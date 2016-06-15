@@ -1,5 +1,7 @@
 package cn.com.ttblog.ssmbootstrap_table.model;
 
+import java.io.Serializable;
+
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,7 +15,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Card {
+public class Card implements Serializable{
 	private Long userId;
 	private String cardNo;
 	public String toString() {
