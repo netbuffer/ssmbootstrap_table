@@ -1,7 +1,6 @@
 package cn.com.ttblog.ssmbootstrap_table.filter;
 
 import java.io.IOException;
-
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -11,8 +10,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.apache.commons.lang3.builder.ToStringBuilder;
-
+import com.github.jscookie.javacookie.Cookies;
 import cn.com.ttblog.ssmbootstrap_table.Constant.ConfigConstant;
 
 
@@ -61,7 +59,9 @@ public class LoginFilter implements Filter {
 		}
 		
 		Cookie[] cookies=httpServletRequest.getCookies();
+		Cookies cs=Cookies.initFromServlet(httpServletRequest, httpServletResponse);
 		System.out.println("path:"+uri);
+		System.out.println("cookies:"+cs.get().toString());
 		Object islogin=httpServletRequest.getSession().getAttribute(ConfigConstant.ISLOGIN);
 		if ( islogin!= null&&Boolean.parseBoolean(islogin.toString())) {
 			System.out.println("p1");
@@ -75,7 +75,6 @@ public class LoginFilter implements Filter {
 			System.out.println("p2");
 			for(Cookie cookie:cookies){
 				if(cookie.getName().equals(ConfigConstant.USERNAME)){
-					System.out.println("cookie:"+ToStringBuilder.reflectionToString(cookie));
 					httpServletRequest.getSession().setAttribute(ConfigConstant.ISLOGIN, true);
 					httpServletRequest.getSession().setAttribute(ConfigConstant.USERNAME, cookie.getValue());
 					if(uri.endsWith(ConfigConstant.PROJECTNAME+"/")){
