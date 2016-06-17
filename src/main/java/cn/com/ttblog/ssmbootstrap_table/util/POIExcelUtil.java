@@ -124,7 +124,7 @@ public class POIExcelUtil {
 				Cell cell = rowIndex.createCell(k);
 				cell.setCellStyle(contentStyle);
 				String key = (String) d.next();
-				cell.setCellValue(data.get(key).toString());
+				cell.setCellValue(data.get(key)==null?"":data.get(key).toString());
 				k++;
 			}
 		}
