@@ -15,8 +15,7 @@ import javax.xml.ws.handler.MessageContext;
 import javax.xml.ws.handler.soap.SOAPHandler;
 import javax.xml.ws.handler.soap.SOAPMessageContext;
 import javax.xml.ws.soap.SOAPFaultException;
-
-import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Node;
@@ -30,6 +29,7 @@ import org.w3c.dom.Node;
 public class LicenseHandler implements SOAPHandler<SOAPMessageContext> {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public boolean handleMessage(SOAPMessageContext context) {
 		try {

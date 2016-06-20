@@ -2,16 +2,15 @@ package cn.com.ttblog.ssmbootstrap_table.model;
 
 import java.io.Serializable;
 import java.util.List;
-
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-
-import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.hibernate.validator.constraints.Range;
 
 @XmlRootElement
 public class User implements Serializable {
+
 	/**
 	 * 
 	 */
@@ -34,6 +33,17 @@ public class User implements Serializable {
 	private String deliveryaddress;
 
 	private Integer adddate;
+
+	private transient String comments;
+
+	public String getComments() {
+		return comments;
+	}
+
+	public void setComments(String comments) {
+		this.comments = comments;
+	}
+
 	// 用户使用的地址
 	List<Address> addresses;
 
@@ -100,8 +110,7 @@ public class User implements Serializable {
 	}
 
 	public void setDeliveryaddress(String deliveryaddress) {
-		this.deliveryaddress = deliveryaddress == null ? null : deliveryaddress
-				.trim();
+		this.deliveryaddress = deliveryaddress == null ? null : deliveryaddress.trim();
 	}
 
 	public Integer getAdddate() {
@@ -112,7 +121,26 @@ public class User implements Serializable {
 		this.adddate = adddate;
 	}
 
+	public User(String name, String sex, Integer age, String phone, String deliveryaddress, Integer adddate,
+			String comments, List<Address> addresses, Card card) {
+		super();
+		this.name = name;
+		this.sex = sex;
+		this.age = age;
+		this.phone = phone;
+		this.deliveryaddress = deliveryaddress;
+		this.adddate = adddate;
+		this.comments = comments;
+		this.addresses = addresses;
+		this.card = card;
+	}
+
+	public User() {
+
+	}
+
 	public String toString() {
-		return ToStringBuilder.reflectionToString(this);
+		//允许打印transient成员
+		return ToStringBuilder.reflectionToString(this,null,true);
 	}
 }

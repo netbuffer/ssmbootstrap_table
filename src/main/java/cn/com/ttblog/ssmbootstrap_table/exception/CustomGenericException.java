@@ -1,6 +1,6 @@
 package cn.com.ttblog.ssmbootstrap_table.exception;
 
-import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 /**
  * 自定义异常
