@@ -4,24 +4,18 @@ import java.util.List;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
-
-import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.DataBinder;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import cn.com.ttblog.ssmbootstrap_table.exception.CustomGenericException;
 import cn.com.ttblog.ssmbootstrap_table.model.User;
 import cn.com.ttblog.ssmbootstrap_table.model.UserListModel;
 import cn.com.ttblog.ssmbootstrap_table.service.IUserService;
-import cn.com.ttblog.ssmbootstrap_table.validator.UserValidator;
 
 @Controller
 @RequestMapping("/register")
