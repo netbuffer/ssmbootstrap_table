@@ -26,10 +26,10 @@ public class MybatisPagerInterceptor implements Interceptor {
 	private Properties properties;
 	@Override
 	public Object intercept(Invocation invocation) throws Throwable {
-		log.warn("===========================执行mybatis拦截器开始===========================");
 		if(!Boolean.parseBoolean(properties.getProperty("enable"))){
 			return invocation.proceed();
 		}
+		log.warn("===========================执行mybatis拦截器开始===========================");
 		StatementHandler stmt=(StatementHandler)invocation.getTarget();
 		StatementHandler delegate = (StatementHandler)ReflectUtil.getFieldValue(stmt, "delegate");
 		MappedStatement mappedStatement = (MappedStatement)ReflectUtil.getFieldValue(delegate, "mappedStatement");
