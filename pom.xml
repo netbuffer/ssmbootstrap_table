@@ -240,14 +240,20 @@
 			<artifactId>lombok</artifactId>
 			<version>1.16.8</version>
 		</dependency>
-		
+
 		<!-- cookieutil https://github.com/js-cookie/java-cookie -->
 		<dependency>
 			<groupId>com.github.js-cookie</groupId>
 			<artifactId>java-cookie</artifactId>
 			<version>0.0.2</version>
 		</dependency>
-		
+		<!-- https://github.com/SQiShER/java-object-diff -->
+		<dependency>
+			<groupId>de.danielbechler</groupId>
+			<artifactId>java-object-diff</artifactId>
+			<version>0.93.1</version>
+		</dependency>
+
 	</dependencies>
 
 	<repositories>
