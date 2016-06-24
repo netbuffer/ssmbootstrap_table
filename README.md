@@ -8,7 +8,7 @@
 * druid
 * fastjson
 * weui
-* log4jdbc
+* p6spy
 * hibernate-validator
 * [spring-jsonp-support](https://github.com/bhagyas/spring-jsonp-support)
 * SUI mobile
