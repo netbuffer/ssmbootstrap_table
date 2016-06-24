@@ -12,7 +12,7 @@
                         http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
                         http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
                         http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd">
-	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
+	<bean id="oridataSource" class="com.alibaba.druid.pool.DruidDataSource"
 		destroy-method="close">
 		<property name="driverClassName" value="${driver}" />
 		<property name="url" value="${url}" />
@@ -31,7 +31,12 @@
 		<!-- 配置监控统计拦截的filters,wall-sql防火墙支持 -->
 		<property name="filters" value="stat,wall" />
 	</bean>
-	
+
+	<!-- Log4jbdc-remix -->
+	<bean id="dataSource" class="net.sf.log4jdbc.Log4jdbcProxyDataSource">
+		<constructor-arg ref="oridataSource" />
+	</bean>
+
 	<!-- 多数据源配置 -->
 	<bean id="dataSource2" class="com.alibaba.druid.pool.DruidDataSource"
 		destroy-method="close">
@@ -40,7 +45,7 @@
 		<property name="username" value="${username2}" />
 		<property name="password" value="${password2}" />
 	</bean>
-	
+
 	<!-- spring方法调用监控 -->
 	<bean id="druid-stat-interceptor"
 		class="com.alibaba.druid.support.spring.stat.DruidStatInterceptor"></bean>
@@ -53,28 +58,30 @@
 			</list>
 		</property>
 	</bean>
-	
+
 	<aop:config>
 		<aop:advisor advice-ref="druid-stat-interceptor"
 			pointcut-ref="druid-stat-pointcut" />
 	</aop:config>
 
 	<!-- 使用mybatis进行数据处理有四种方式(SqlSessionTemplate/SqlSessionDaoSupport/MapperFactoryBean/MapperScannerConfigurer) -->
-	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean" name="sf">
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean"
+		name="sf">
 		<property name="dataSource" ref="dataSource" />
 		<!-- mybatis全局配置 -->
 		<property name="configLocation" value="classpath:spring/mybatis-globalcfg.xml"></property>
 		<property name="mapperLocations"
 			value="classpath:cn/com/ttblog/ssmbootstrap_table/dao/*.xml"></property>
 	</bean>
-	
+
 	<!-- sqlSessionFactory2 -->
-	<bean id="sqlSessionFactory2" class="org.mybatis.spring.SqlSessionFactoryBean" name="sf2">
+	<bean id="sqlSessionFactory2" class="org.mybatis.spring.SqlSessionFactoryBean"
+		name="sf2">
 		<property name="dataSource" ref="dataSource2" />
 		<property name="mapperLocations"
 			value="classpath:cn/com/ttblog/ssmbootstrap_table/dao2/*.xml"></property>
 	</bean>
-	
+
 	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
 		<constructor-arg index="0" ref="sqlSessionFactory" />
 	</bean>
@@ -105,19 +112,10 @@
 	</aop:config>
 
 	<!-- log4jdbc -->
-	<bean id="log4jdbcInterceptor" class="net.sf.log4jdbc.DataSourceSpyInterceptor" />
-	<bean id="dataSourceLog4jdbcAutoProxyCreator"
-		class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator">
-		<property name="interceptorNames">
-			<list>
-				<value>log4jdbcInterceptor</value>
-			</list>
-		</property>
-		<property name="beanNames">
-			<list>
-				<value>dataSource</value>
-			</list>
-		</property>
-	</bean>
+	<!-- <bean id="log4jdbcInterceptor" class="net.sf.log4jdbc.DataSourceSpyInterceptor" 
+		/> <bean id="dataSourceLog4jdbcAutoProxyCreator" class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator"> 
+		<property name="interceptorNames"> <list> <value>log4jdbcInterceptor</value> 
+		</list> </property> <property name="beanNames"> <list> <value>dataSource</value> 
+		</list> </property> </bean> -->
 
 </beans>
