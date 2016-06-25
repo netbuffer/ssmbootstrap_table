@@ -46,9 +46,9 @@
 	</settings>
 
 	<plugins>
-		<plugin
-			interceptor="cn.com.ttblog.ssmbootstrap_table.interceptor.MybatisPagerInterceptor">
-			<property name="enable" value="true"/>
+		<plugin interceptor="cn.com.ttblog.ssmbootstrap_table.interceptor.MybatisPagerInterceptor">
+			<!-- 是否启用标识 -->
+			<property name="enable" value="false"/>
 		</plugin>
 	</plugins>
 </configuration>
