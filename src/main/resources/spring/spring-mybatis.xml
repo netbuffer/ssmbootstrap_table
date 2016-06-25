@@ -33,7 +33,12 @@
 	</bean>
 
 	<!-- Log4jbdc-remix -->
-	<bean id="dataSource" class="net.sf.log4jdbc.Log4jdbcProxyDataSource">
+	<!-- <bean id="dataSource" class="net.sf.log4jdbc.Log4jdbcProxyDataSource">
+		<constructor-arg ref="oridataSource" />
+	</bean> -->
+	
+	<!--  log4jdbc-log4j2 -->
+	<bean id="dataSource" class="net.sf.log4jdbc.sql.jdbcapi.DataSourceSpy">
 		<constructor-arg ref="oridataSource" />
 	</bean>
 
