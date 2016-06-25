@@ -19,5 +19,5 @@
 
 git->clone;eclipse->File->Import->Existing Maven projects，导入到eclipse后，等maven依赖下载完，右键项目，run as->maven build->tomcat7:run
 
-#![](src/main/webapp/image/sys1.png)
-#![](src/main/webapp/image/sys2.png)
+#![登陆页面](src/main/webapp/image/sys1.png)
+#![数据列表页面](src/main/webapp/image/sys2.png)
