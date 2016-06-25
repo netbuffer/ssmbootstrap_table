@@ -7,7 +7,7 @@
 * bootstrap-table1.9
 * druid
 * weui
-* log4jdbc
+* log4jdbc/log4jdbc-remix/log4jdbc-log4j2
 * hibernate-validator
 * [spring-jsonp-support](https://github.com/bhagyas/spring-jsonp-support)
 * SUI mobile
