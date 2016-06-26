@@ -134,9 +134,28 @@
 	<listener>
 		<listener-class>cn.com.ttblog.ssmbootstrap_table.listener.ApplicationListener</listener-class>
 	</listener>
+	<!-- https://github.com/alibaba/druid/wiki/%E9%85%8D%E7%BD%AE_StatViewServlet%E9%85%8D%E7%BD%AE -->
 	<servlet>
 		<servlet-name>druidstat</servlet-name>
 		<servlet-class>com.alibaba.druid.support.http.StatViewServlet</servlet-class>
+		<init-param>
+			<!-- 用户名 -->
+			<param-name>loginUsername</param-name>
+			<param-value>admin</param-value>
+		</init-param>
+		<init-param>
+			<!-- 密码 -->
+			<param-name>loginPassword</param-name>
+			<param-value>admin</param-value>
+		</init-param>
+		<init-param>
+			<param-name>allow</param-name>
+			<param-value>127.0.0.1</param-value>
+		</init-param>
+		<!-- <init-param>
+			<param-name>deny</param-name>
+			<param-value>128.242.127.4</param-value>
+		</init-param> -->
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>druidstat</servlet-name>
