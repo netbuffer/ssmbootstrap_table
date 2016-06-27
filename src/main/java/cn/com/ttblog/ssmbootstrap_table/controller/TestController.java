@@ -1,5 +1,6 @@
 package cn.com.ttblog.ssmbootstrap_table.controller;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -147,5 +148,19 @@ public class TestController {
 	public String postform(User u){
 		logger.debug("test post form:{}",u);
 		return "redirect:/register-success.html";
+	}
+	
+	/**
+	 * 直接返回json数据 ,produces={"application/json"}
+	 */
+	@RequestMapping(value={"/uri"},method=RequestMethod.GET,headers={"Accept=application/json"})
+	public JSONObject uri(HttpServletRequest request){
+		JSONObject j=new JSONObject();
+		j.put("request.getRequestURI", request.getRequestURI());
+		j.put("request.getRequestURI().split(\"/\")", Arrays.deepToString(request.getRequestURI().split("/")));
+		j.put("request.getRequestURL", request.getRequestURL());
+		j.put("request.getServletContext().getContextPath", request.getServletContext().getContextPath());
+		j.put("request.getServletContext().getRealPath(\"/\")", request.getServletContext().getRealPath("/"));
+		return j;
 	}
 }
