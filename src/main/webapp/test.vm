@@ -9,6 +9,11 @@
 	"showTime":$showTime<br/>
 	中文<br/>
 	$session.getAttribute("islogin")-获取到session值$islogin<br/>
-	${request}
+	${request}<hr/>
+	#hello("this is a Directive test")<hr/>
+	#set($cookies = $cookie.getAll())
+	#foreach($c in $cookies)
+	  cookiename:$c.getName()<br/>
+	#end
 </body>
 </html>

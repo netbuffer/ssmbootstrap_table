@@ -80,6 +80,7 @@
 		<property name="contentType" value="text/html;charset=UTF-8" />
 		<property name="exposeRequestAttributes" value="true" />
 		<property name="exposeSessionAttributes" value="true" />
+		<property name="toolboxConfigLocation" value="classpath:velocityToolBox.xml" />
 	</bean>
 	<!-- <bean class="com.wonders.stpt.bid.controller.JXLExcelView"/> -->
 
