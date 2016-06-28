@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tools>
+	<toolbox scope="application">
+		<tool class="org.apache.velocity.tools.generic.ComparisonDateTool"
+			format="yyyy-MM-dd HH:mm:ss" />
+		<tool class="com.duxiu.modules.velocity.tools.EscapeTool" />
+		<tool class="org.apache.velocity.tools.generic.ConversionTool" />
+		<tool class="org.apache.velocity.tools.generic.DisplayTool" />
+		<tool class="org.apache.velocity.tools.generic.MathTool" />
+		<tool class="org.apache.velocity.tools.generic.NumberTool" />
+	</toolbox>
+	<toolbox scope="request">
+		<tool class="org.apache.velocity.tools.generic.ContextTool" />
+		<tool class="org.apache.velocity.tools.generic.LoopTool" />
+		<tool class="org.apache.velocity.tools.view.LinkTool" />
+		<tool class="org.apache.velocity.tools.view.PagerTool" />
+		<tool class="org.apache.velocity.tools.view.ParameterTool" />
+	</toolbox>
+</tools>
