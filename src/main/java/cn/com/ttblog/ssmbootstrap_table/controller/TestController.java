@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.i18n.CookieLocaleResolver;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.alibaba.fastjson.JSONObject;
 
@@ -57,7 +58,7 @@ public class TestController {
 		return JDBCURL;
 	}
 	
-	@RequestMapping(value = { "", "/{id}", "/index/{id}" })
+	@RequestMapping(value = {"/{id}", "/index/{id}" })
 	public String index(@PathVariable("id") int id, ModelMap m) {
 		logger.debug("template id:{}", id);
 		m.addAttribute("uri", id);
@@ -163,4 +164,24 @@ public class TestController {
 		j.put("request.getServletContext().getRealPath(\"/\")", request.getServletContext().getRealPath("/"));
 		return j;
 	}
+	
+	/**
+	 * 重定向拼接参数跳转
+	 * @return
+	 */
+	@RequestMapping(value={"/redirect"})
+	public String redirect(ModelMap m){
+		//spring自动做了参数拼接
+		logger.debug("redirect");
+		m.put("param", "this is parameter");
+		return "redirect:/test/1";
+	}
+	
+	@RequestMapping(value={"/redirect2"})
+	public String redirect2(RedirectAttributes attributes){
+		logger.debug("redirect2");
+		attributes.addAttribute("param", "this is parameter");
+		return "redirect:/test/1";
+	}
+	
 }
