@@ -15,5 +15,6 @@
 	#foreach($c in $cookies)
 	  cookiename:$c.getName()<br/>
 	#end
+	#vm("标题test","tag.vm")
 </body>
 </html>

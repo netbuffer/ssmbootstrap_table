@@ -1,0 +1,7 @@
+<h1>$!title</h1>
+<p style="color:green;">渲染后的文件</p>
+<script>
+	function test(){
+		alert("test");
+	}
+</script>
