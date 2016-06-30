@@ -15,6 +15,36 @@
 	#foreach($c in $cookies)
 	  cookiename:$c.getName()<br/>
 	#end
-	#vm("标题test","tag.vm")
+	#vm("标题test","tag.vm")<br/>
+	##request中拿值
+	$request.getParameter("name")<br/>
+	#evaluate('string with VTL #if(true)will be displayed#end')<br/>
+	#set($arr = [0, 1, 2, 3])<br/>
+	$arr.get(2)/$arr.get(3)
+	#[[
+	         这段内容将不被 Velocity 引擎解析，原文打出。
+	    * #define()
+	    * ${blah
+	]]#
+	转义$\name $\{name}
+	<hr/>
+	<h1>内置对象</h1>
+	<pre>
+		#[[$request, $response, $session]]#
+		#foreach($cookie in $request.getCookies())
+		    $cookie.name : $cookie.value
+		#end
+		获得 URL 中的参数：
+		#set($n = $!request.getParameter('n'))
+	</pre>
+	##macro(macroName)
+    ##subMacro("name", "value")
+	##end
+	-----------------------------------
+	#macro(subMacro $param1 $param2)
+	    <h1 style="color:#003399;">this is sub macro：$param1, $param2 .</h1>
+	#end
+	#subMacro("aaaaaaaaaa" "bbbbbbbbbbb")
+	
 </body>
 </html>
