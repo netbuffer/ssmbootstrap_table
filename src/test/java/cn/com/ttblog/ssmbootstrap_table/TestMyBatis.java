@@ -6,6 +6,7 @@ import java.util.Random;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -24,7 +25,7 @@ import cn.com.ttblog.ssmbootstrap_table.service.IUserService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 // 表示继承了SpringJUnit4ClassRunner类
-@ContextConfiguration(locations = { "classpath:spring/spring-mybatis.xml","classpath:spring/spring-context.xml" })
+@ContextConfiguration(locations = { "classpath:spring/spring-context.xml","classpath:spring/spring-mybatis.xml" })
 public class TestMyBatis {
 
 	private static Logger logger = LoggerFactory.getLogger(TestMyBatis.class);
@@ -143,10 +144,20 @@ public class TestMyBatis {
 	}
 	
 	@Test
+	@Ignore
 	public void testInsert(){
 		//mybatis 开启BATCH处理，会导致insert返回值问题 http://www.cnblogs.com/seven7seven/p/4039622.html
 		User u=new User();
 		u.setName("ceshi");
 		logger.debug("insert return:{}",sqlSession.insert("cn.com.ttblog.ssmbootstrap_table.dao.IUserDao.insert",u));
+	}
+	
+	@Test
+	public void testInsertSelectKey(){
+		User u=new User();
+		String str=RandomStringUtils.randomAlphabetic(6);
+		u.setName(str);
+		logger.debug("test testInsertSelectKey:{}",str);
+		logger.debug("insert return:{},插入记录的user id:{}",userDao.insert(u),u.getId());
 	}
 }

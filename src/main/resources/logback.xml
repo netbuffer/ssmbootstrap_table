@@ -46,6 +46,7 @@
 	<logger name="java.sql" level="DEBUG" />
 	<!-- mybatis使用slf4j作为日志实现，需要配置dao或者mapper namespace的日志级别，就可以打印sql了-->
 	<logger name="cn.com.ttblog.ssmbootstrap_table.dao" level="INFO" />
+	<logger name="cn.com.ttblog.ssmbootstrap_table" level="DEBUG" />
 	<!-- log4j-jdbc-remix/log4jdbc-log4j2 result以表格打印结果 -->
 	<logger name="jdbc.resultsettable" level="INFO" />
 	<logger name="jdbc.connection" level="OFF" />
