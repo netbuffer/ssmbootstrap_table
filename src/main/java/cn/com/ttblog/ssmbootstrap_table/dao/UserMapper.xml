@@ -66,7 +66,11 @@
 		delete from user
 		where id = #{id,jdbcType=BIGINT}
 	</delete>
+	<!-- http://www.mybatis.org/mybatis-3/zh/sqlmap-xml.html -->
 	<insert id="insert" parameterType="cn.com.ttblog.ssmbootstrap_table.model.User">
+		<selectKey keyProperty="id" resultType="java.lang.Long" order="AFTER">
+			select LAST_INSERT_ID() as id
+		</selectKey>
 		insert into user (name, sex,
 		age, phone, deliveryaddress,
 		adddate)
