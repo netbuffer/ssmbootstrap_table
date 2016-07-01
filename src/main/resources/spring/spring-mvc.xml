@@ -36,7 +36,7 @@
 		class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
 		<property name="favorParameter" value="true" />
 		<property name="favorPathExtension" value="true" />
-		<property name="ignoreAcceptHeader" value="true" />
+		<property name="ignoreAcceptHeader" value="false" />
 		<property name="defaultContentType" value="text/html" />
 		<property name="mediaTypes">
 			<map>
