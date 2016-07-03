@@ -110,14 +110,13 @@ public class TestMyBatis {
 	}
 	
 	@Test
-	@Ignore
 	public void testAddUserTran(){
 		User u=new User();
 		u.setName("事务测试");
 		u.setAge(10);
 		u.setSex("男");
 		u.setPhone("13833422322");
-		u.setAdddate((int)System.currentTimeMillis()/1000);
+		u.setAdddate((int)(System.currentTimeMillis() / 1000));
 		userService.addUser(u);
 	}
 	
@@ -153,6 +152,7 @@ public class TestMyBatis {
 	}
 	
 	@Test
+	@Ignore
 	public void testInsertSelectKey(){
 		User u=new User();
 		String str=RandomStringUtils.randomAlphabetic(6);
