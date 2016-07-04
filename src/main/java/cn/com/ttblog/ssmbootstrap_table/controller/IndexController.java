@@ -32,6 +32,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import com.alibaba.fastjson.JSONArray;
+import com.github.jscookie.javacookie.Cookies;
+
 import cn.com.ttblog.ssmbootstrap_table.event.LoginEvent;
 
 import cn.com.ttblog.ssmbootstrap_table.model.User;
@@ -71,6 +73,23 @@ public class IndexController {
 		}
 	}
 
+	@RequestMapping("/exit")
+	public String exit(HttpSession session,HttpServletRequest request,
+			HttpServletResponse response) {
+		logger.debug("用户{}退出系统",session.getAttribute(ConfigConstant.USERNAME));
+		Cookies c=Cookies.initFromServlet(request, response);
+		c.remove(ConfigConstant.USERNAME);
+		
+		
+//		Cookie cookie = new Cookie(ConfigConstant.USERNAME, null); 
+//		cookie.setMaxAge(-1);
+//		response.addCookie(cookie); 
+		
+		
+		session.invalidate();
+		return "redirect:/index.html";
+	}
+	
 	@RequestMapping("/newdata")
 	public String newdata(HttpSession session, Model model) {
 		DecimalFormat df = new DecimalFormat("0.00");

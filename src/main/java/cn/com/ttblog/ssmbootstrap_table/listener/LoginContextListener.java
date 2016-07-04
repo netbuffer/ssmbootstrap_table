@@ -16,8 +16,7 @@ public class LoginContextListener implements ApplicationListener<ApplicationEven
 	
 	@Override
 	public void onApplicationEvent(ApplicationEvent e) {
-
-		System.out.println(e.getClass().toString());
+//		http://jinnianshilongnian.iteye.com/blog/1902886
 		if (e instanceof ContextStartedEvent) {
 			log.warn("it was contextStartedEvent!");
 		}
