@@ -19,6 +19,8 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -29,13 +31,13 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import com.alibaba.fastjson.JSONArray;
+import cn.com.ttblog.ssmbootstrap_table.event.LoginEvent;
 
 import cn.com.ttblog.ssmbootstrap_table.model.User;
 import cn.com.ttblog.ssmbootstrap_table.service.IUserService;
 import cn.com.ttblog.ssmbootstrap_table.util.BeanMapUtil;
 import cn.com.ttblog.ssmbootstrap_table.util.POIExcelUtil;
-
-import com.alibaba.fastjson.JSONArray;
 
 @Controller(value="mainindex")
 @RequestMapping("/")
@@ -45,7 +47,10 @@ public class IndexController {
 	private IUserService userService;
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
-
+	
+	@Autowired  
+    private ApplicationContext applicationContext;  
+	
 	@RequestMapping("/login")
 	public String login(HttpSession session, HttpServletRequest request,
 			HttpServletResponse response, String username, String password) {
@@ -57,6 +62,9 @@ public class IndexController {
 			Cookie c = new Cookie(ConfigConstant.USERNAME, username);
 			c.setMaxAge(86400);
 			response.addCookie(c);
+			Map<String, String> param=new HashMap<String,String>();
+			param.put("loginname", username);
+			applicationContext.publishEvent(new LoginEvent(param));  
 			return "redirect:/manage.html";
 		} else {
 			return "redirect:/index.html";
