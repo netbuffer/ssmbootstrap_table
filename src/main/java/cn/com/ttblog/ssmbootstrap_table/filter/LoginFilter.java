@@ -73,8 +73,10 @@ public class LoginFilter implements Filter {
 			}
 		} else if(cookies!=null){
 			System.out.println("p2");
+			boolean find=false;
 			for(Cookie cookie:cookies){
-				if(cookie.getName().equals(ConfigConstant.USERNAME)){
+				if(cookie.getName().equals(ConfigConstant.USERNAME)&&cookie.getValue().length()>0){
+					find=true;
 					httpServletRequest.getSession().setAttribute(ConfigConstant.ISLOGIN, true);
 					httpServletRequest.getSession().setAttribute(ConfigConstant.USERNAME, cookie.getValue());
 					if(uri.endsWith(ConfigConstant.PROJECTNAME+"/")){
@@ -83,11 +85,13 @@ public class LoginFilter implements Filter {
 					}else{
 						filterChain.doFilter(httpServletRequest, httpServletResponse);
 					}
-					return ;
 				}
 			}
-			httpServletResponse.sendRedirect(httpServletRequest
-					.getContextPath() + "/index.html");
+			if(!find){
+				httpServletResponse.sendRedirect(httpServletRequest
+						.getContextPath() + "/index.html");
+				return ;
+			}
 		}else{
 			System.out.println("^^^");
 		}

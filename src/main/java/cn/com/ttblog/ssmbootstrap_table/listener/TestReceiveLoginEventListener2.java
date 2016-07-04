@@ -1,13 +1,11 @@
 package cn.com.ttblog.ssmbootstrap_table.listener;
 
-import java.util.Map;
-
+import java.util.HashMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationEvent;
 import org.springframework.context.event.SmartApplicationListener;
 import org.springframework.stereotype.Component;
-
 import cn.com.ttblog.ssmbootstrap_table.event.LoginEvent;
 
 @Component
@@ -22,12 +20,12 @@ public class TestReceiveLoginEventListener2 implements SmartApplicationListener 
 
 	@Override
 	public boolean supportsSourceType(final Class<?> sourceType) {
-		return sourceType == Map.class;
+		return sourceType == HashMap.class;
 	}
 
 	@Override
 	public void onApplicationEvent(final ApplicationEvent event) {
-		log.info("{}收到loginevent:{}" ,this.getClass().getName(), event.getSource());
+		log.info("{}收到loginevent:{}" ,this.getClass().getName(), ((LoginEvent)event).getSource());
 	}
 
 	@Override
