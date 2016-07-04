@@ -17,8 +17,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.FileUtils;
+import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -30,12 +33,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.alibaba.fastjson.JSONArray;
+import com.github.jscookie.javacookie.Cookies;
+
+import cn.com.ttblog.ssmbootstrap_table.event.LoginEvent;
 import cn.com.ttblog.ssmbootstrap_table.model.User;
 import cn.com.ttblog.ssmbootstrap_table.service.IUserService;
 import cn.com.ttblog.ssmbootstrap_table.util.BeanMapUtil;
 import cn.com.ttblog.ssmbootstrap_table.util.POIExcelUtil;
-
-import com.alibaba.fastjson.JSONArray;
 
 @Controller(value="mainindex")
 @RequestMapping("/")
@@ -45,7 +50,10 @@ public class IndexController {
 	private IUserService userService;
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
-
+	
+	@Autowired  
+    private ApplicationContext applicationContext;  
+	
 	@RequestMapping("/login")
 	public String login(HttpSession session, HttpServletRequest request,
 			HttpServletResponse response, String username, String password) {
@@ -57,12 +65,30 @@ public class IndexController {
 			Cookie c = new Cookie(ConfigConstant.USERNAME, username);
 			c.setMaxAge(86400);
 			response.addCookie(c);
+			Map<String, String> param=new HashMap<String,String>();
+			param.put("loginname", username);
+			param.put("logintime", new DateTime().toString("yyyy-MM-dd HH:mm:ss"));
+			param.put("loginip", request.getRemoteAddr());
+			applicationContext.publishEvent(new LoginEvent(param));  
 			return "redirect:/manage.html";
 		} else {
 			return "redirect:/index.html";
 		}
 	}
 
+	@RequestMapping("/exit")
+	public String exit(HttpSession session,HttpServletRequest request,
+			HttpServletResponse response) {
+		logger.debug("用户{}退出系统",session.getAttribute(ConfigConstant.USERNAME));
+		//删除cookie
+		Cookie cookie = new Cookie(ConfigConstant.USERNAME, null); 
+		cookie.setMaxAge(0);
+		session.invalidate();
+		logger.debug("exit c2:{}",cookie);
+		response.addCookie(cookie);
+		return "redirect:/index.html";
+	}
+	
 	@RequestMapping("/newdata")
 	public String newdata(HttpSession session, Model model) {
 		DecimalFormat df = new DecimalFormat("0.00");
@@ -78,8 +104,7 @@ public class IndexController {
 		System.out.println(df.format(freeMem) + " MB");
 		logger.info("执行前:{}", model);
 		int newcount = userService.getNewData();
-		String username = session.getAttribute(ConfigConstant.USERNAME)
-				.toString();
+		String username = session.getAttribute(ConfigConstant.USERNAME).toString();
 		model.addAttribute("newcount", newcount);
 		model.addAttribute("username", username);
 		logger.info("执行后:{}", model);
