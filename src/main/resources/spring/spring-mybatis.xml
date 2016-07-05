@@ -99,7 +99,7 @@
 		<property name="sqlSessionFactoryBeanName" value="sf2"></property>
 	</bean>
 
-	<!-- 声明式事务配置 -->
+	<!-- 声明式事务配置 http://docs.spring.io/spring/docs/3.0.x/reference/transaction.html#transaction-declarative-rolling-back -->
 	<bean id="transactionManager"
 		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource"></property>
