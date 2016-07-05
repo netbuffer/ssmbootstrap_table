@@ -10,6 +10,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.alibaba.fastjson.JSONObject;
 
+import cn.com.ttblog.ssmbootstrap_table.annotation.Token;
 import cn.com.ttblog.ssmbootstrap_table.model.User;
 
 @Controller
@@ -139,16 +141,20 @@ public class TestController {
 		return langType;
 	}
 	
+	@Token(save=true)
 	@RequestMapping(value="/form",method=RequestMethod.GET)
 	public String getform(){
 		logger.debug("test get form ");
 		return "user/add";
 	}
 	
+	@Token(remove=true)
 	@RequestMapping(value="/form",method=RequestMethod.POST)
 	public String postform(User u){
 		logger.debug("test post form:{}",u);
-		return "redirect:/register-success.html";
+//		return "redirect:/register-success.html";
+		//forward请求导致表单重复提交问题
+		return "user/success";
 	}
 	
 	/**
@@ -182,6 +188,19 @@ public class TestController {
 		logger.debug("redirect2");
 		attributes.addAttribute("param", "this is parameter");
 		return "redirect:/test/1";
+	}
+	
+	@RequestMapping(value={"/error"})
+	public String error(ModelMap m){
+		logger.debug("test error");
+//		int i=1/0;
+		try{
+			throw new RuntimeException("test");
+		}catch(Exception ex){
+			m.put("ex",ExceptionUtils.getStackTrace(ex));
+		}
+		
+		return "error";
 	}
 	
 }
