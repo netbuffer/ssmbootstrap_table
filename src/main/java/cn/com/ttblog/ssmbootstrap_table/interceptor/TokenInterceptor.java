@@ -12,6 +12,9 @@ import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 import cn.com.ttblog.ssmbootstrap_table.annotation.Token;
 
+/**
+ * token form
+ */
 public class TokenInterceptor extends HandlerInterceptorAdapter {
 
 	private static final Logger log = LoggerFactory.getLogger(TokenInterceptor.class);
@@ -21,7 +24,6 @@ public class TokenInterceptor extends HandlerInterceptorAdapter {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-		log.warn(" token 拦截器");
 		if (handler instanceof HandlerMethod) {
 			HandlerMethod handlerMethod = (HandlerMethod) handler;
 			Method method = handlerMethod.getMethod();
@@ -56,7 +58,6 @@ public class TokenInterceptor extends HandlerInterceptorAdapter {
 	private boolean isRepeatSubmit(HttpServletRequest request) {
 		String tokenname = request.getParameter(TOKENFLAGNAME);
 		String serverToken = (String) request.getSession(false).getAttribute(tokenname);
-		log.debug("tokenname:{},serverToken:{}",tokenname,serverToken);
 		if (serverToken == null) {
 			log.warn("发现重复表单提交请求serverToken==null");
 			return true;
