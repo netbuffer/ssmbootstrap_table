@@ -14,4 +14,5 @@ public interface IUserService {
 	public long getUserListCount();
 	public int getNewData();
 	public List<Map<String, Object>> getDataSum();
+	public void addUM();
 }

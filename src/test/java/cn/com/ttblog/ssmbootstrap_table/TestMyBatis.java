@@ -110,6 +110,7 @@ public class TestMyBatis {
 	}
 	
 	@Test
+	@Ignore
 	public void testAddUserTran(){
 		User u=new User();
 		u.setName("事务测试");
@@ -118,6 +119,11 @@ public class TestMyBatis {
 		u.setPhone("13833422322");
 		u.setAdddate((int)(System.currentTimeMillis() / 1000));
 		userService.addUser(u);
+	}
+	
+	@Test
+	public void testTran(){
+		userService.addUM();
 	}
 	
 	@Test

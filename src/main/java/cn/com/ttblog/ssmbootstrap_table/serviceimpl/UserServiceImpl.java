@@ -7,11 +7,15 @@ import java.util.Random;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
+import cn.com.ttblog.ssmbootstrap_table.dao.IMenuDao;
 import cn.com.ttblog.ssmbootstrap_table.dao.IUserDao;
+import cn.com.ttblog.ssmbootstrap_table.model.Menu;
 import cn.com.ttblog.ssmbootstrap_table.model.User;
 import cn.com.ttblog.ssmbootstrap_table.service.IUserService;
 
@@ -24,7 +28,8 @@ public class UserServiceImpl implements IUserService {
 	private IUserDao userDao;
 	@Resource
 	private SqlSessionTemplate sqlSession;
-
+	@Resource
+	private IMenuDao menuDao;
 	@Override
 	public User getUserById(long userId) {
 		return this.userDao.selectByPrimaryKey(userId);
@@ -37,7 +42,20 @@ public class UserServiceImpl implements IUserService {
 		// 事务测试
 //		 int i=1/0;
 	}
-
+	
+	@Override
+	public void addUM(){
+		System.out.println(String.format("tran1:%s  %n tran1detail:%s", TransactionAspectSupport.currentTransactionStatus().toString(),ToStringBuilder.reflectionToString(TransactionAspectSupport.currentTransactionStatus())));
+		User u=new User();
+		u.setName(RandomStringUtils.randomAlphabetic(4));
+		addUser(u);
+		Menu m=new Menu();
+		m.setName(RandomStringUtils.randomAlphabetic(4));
+		menuDao.insert(m);
+		System.out.println(String.format("tran2:%s  %n tran2detail:%s", TransactionAspectSupport.currentTransactionStatus().toString(),ToStringBuilder.reflectionToString(TransactionAspectSupport.currentTransactionStatus())));
+		throw new RuntimeException("error");
+	}
+	
 	@Override
 	public List<User> getUserList(String order, int limit, int offset) {
 		Map<String, Object> params = new HashMap<String, Object>();
