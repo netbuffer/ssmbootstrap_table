@@ -15,7 +15,8 @@
 </head>
 <body>
 	<div class="container">
-		发生错误啦:
+		发生错误啦:<br/>
+		${ex}<hr/>
 		<c:if test="${not empty errCode&&not empty errMsg}">
 			<h1>错误信息</h1>
 			<hr/>

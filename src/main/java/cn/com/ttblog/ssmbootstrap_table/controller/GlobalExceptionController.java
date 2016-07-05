@@ -18,7 +18,7 @@ public class GlobalExceptionController {
 	Logger log=LoggerFactory.getLogger(getClass());
 	@ExceptionHandler(CustomGenericException.class)
 	public ModelAndView handleCustomException(CustomGenericException ex) {
-		log.info("发生错误1:{}",ToStringBuilder.reflectionToString(ex));
+		log.error("发生错误1:{}",ToStringBuilder.reflectionToString(ex));
 		ModelAndView model = new ModelAndView("error");
 		model.addObject("errCode", ex.getErrCode());
 		model.addObject("errMsg", ex.getErrMsg());
@@ -27,10 +27,11 @@ public class GlobalExceptionController {
 	}
 
 	@ExceptionHandler(Exception.class)
-	public ModelAndView handleAllException(Exception ex) {
-		log.info("发生错误2:{}",ToStringBuilder.reflectionToString(ex));
+	public ModelAndView handleAllException(Exception ex){
+		log.error("发生错误2:{}\r\nstacktrace:{}",ToStringBuilder.reflectionToString(ex),ex.getStackTrace());
 		ModelAndView model = new ModelAndView("error");
 		model.addObject("errMsg",ex.getMessage());
+		model.addObject("ex",ex);
 		return model;
 	}
 
