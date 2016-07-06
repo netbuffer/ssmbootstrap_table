@@ -10,6 +10,7 @@
                         http://www.springframework.org/schema/cache  
         				http://www.springframework.org/schema/cache/spring-cache-3.2.xsd
                         ">
+	<!-- http://blog.csdn.net/clj198606061111/article/details/41121437 -->
 	<cache:annotation-driven cache-manager="cacheManager" />
 	<bean id="cacheManagerFactory"
 		class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
