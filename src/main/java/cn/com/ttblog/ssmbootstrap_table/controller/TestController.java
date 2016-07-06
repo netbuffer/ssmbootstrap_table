@@ -143,14 +143,14 @@ public class TestController {
 		return langType;
 	}
 	
-	@Token(save=true)
+	@Token(save=true,tokenname="testformtoken")
 	@RequestMapping(value="/form",method=RequestMethod.GET)
 	public String getform(){
 		logger.debug("test get form ");
 		return "user/add";
 	}
 	
-	@Token(remove=true)
+	@Token(remove=true,tokenname="testformtoken")
 	@RequestMapping(value="/form",method=RequestMethod.POST)
 	public String postform(User u){
 		logger.debug("test post form:{}",u);
