@@ -35,11 +35,12 @@ public class TokenInterceptor extends HandlerInterceptorAdapter {
 				boolean needRemoveSession = annotation.remove();
 				if (needRemoveSession) {
 					if (isRepeatSubmit(request,annotation.tokenname())) {
-						log.debug("重复提交表单提示");
 						if(AjaxUtils.isAjaxRequest(request)){
+							log.warn("ajax提交表单失败");
 							response.getWriter().write("deny");
 						}else{
-							request.getRequestDispatcher("/user/error.jsp").forward(request, response);
+							log.warn("提交表单失败，跳转:{}",annotation.failuri());
+							request.getRequestDispatcher(annotation.failuri()).forward(request, response);
 							return false;
 						}
 						

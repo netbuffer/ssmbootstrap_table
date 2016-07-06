@@ -151,7 +151,7 @@ public class TestController {
 		return "user/add";
 	}
 	
-	@Token(remove=true,tokenname="testformtoken")
+	@Token(remove=true,tokenname="testformtoken",failuri="/user/error.jsp")
 	@RequestMapping(value="/form",method=RequestMethod.POST)
 	public String postform(User u){
 		logger.debug("test post form:{}",u);
