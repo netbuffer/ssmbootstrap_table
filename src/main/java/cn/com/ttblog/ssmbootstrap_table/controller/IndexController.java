@@ -32,6 +32,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.support.RequestContextUtils;
 
 import com.alibaba.fastjson.JSONArray;
 import com.github.jscookie.javacookie.Cookies;
@@ -57,6 +58,7 @@ public class IndexController {
 	@RequestMapping("/login")
 	public String login(HttpSession session, HttpServletRequest request,
 			HttpServletResponse response, String username, String password) {
+//		RequestContextUtils.getWebApplicationContext(request)
 		logger.info("进入username:{},pwd:{}", username, password);
 		if (username.equals(ConfigConstant.VAL_USERNAME)
 				&& password.equals(ConfigConstant.VAL_PWD)) {
