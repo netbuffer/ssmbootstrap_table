@@ -110,6 +110,7 @@ public class TestMyBatis {
 	}
 	
 	@Test
+	@Ignore
 	public void testAddUserTran(){
 		User u=new User();
 		u.setName("事务测试");
@@ -118,6 +119,19 @@ public class TestMyBatis {
 		u.setPhone("13833422322");
 		u.setAdddate((int)(System.currentTimeMillis() / 1000));
 		userService.addUser(u);
+	}
+	
+	@Test
+	@Ignore
+	public void testTran(){
+		userService.addUM();
+	}
+	
+	@Test
+	public void testSelectCache(){
+		//mapper中需要配置<cache />节点，会开启缓存
+		logger.debug("select1：{}",userService.getUserById(1));
+		logger.debug("select2：{}",userService.getUserById(1));
 	}
 	
 	@Test
