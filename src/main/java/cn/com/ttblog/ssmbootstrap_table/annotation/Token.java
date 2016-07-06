@@ -18,4 +18,8 @@ public @interface Token {
 	 * @return
 	 */
 	String tokenname() default "token";
+	/**
+	 * 校验不通过后跳转url
+	 */
+	String failuri() default "error";
 }
