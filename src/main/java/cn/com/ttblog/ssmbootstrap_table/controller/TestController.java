@@ -33,6 +33,7 @@ import com.alibaba.fastjson.JSONObject;
 
 import cn.com.ttblog.ssmbootstrap_table.annotation.Token;
 import cn.com.ttblog.ssmbootstrap_table.model.User;
+import cn.com.ttblog.ssmbootstrap_table.util.AjaxUtils;
 
 @Controller
 @RequestMapping("/test")
@@ -210,5 +211,12 @@ public class TestController {
 	public String status(){
 		logger.debug("status");
 		return "error";
+	}
+	
+	@RequestMapping(value={"/ajax"})
+	public String ajax(HttpServletRequest request){
+		logger.debug("request.getHeader(\"X-Requested-With\"):{}",request.getHeader("X-Requested-With"));
+		logger.debug("is ajax:{}",AjaxUtils.isAjaxRequest(request));
+		return "index";
 	}
 }

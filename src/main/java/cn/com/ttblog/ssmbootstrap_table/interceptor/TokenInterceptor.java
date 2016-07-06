@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 import cn.com.ttblog.ssmbootstrap_table.annotation.Token;
+import cn.com.ttblog.ssmbootstrap_table.util.AjaxUtils;
 
 /**
  * token form
@@ -35,8 +36,13 @@ public class TokenInterceptor extends HandlerInterceptorAdapter {
 				if (needRemoveSession) {
 					if (isRepeatSubmit(request,annotation.tokenname())) {
 						log.debug("重复提交表单提示");
-						request.getRequestDispatcher("/user/error.jsp").forward(request, response);
-						return false;
+						if(AjaxUtils.isAjaxRequest(request)){
+							response.getWriter().write("deny");
+						}else{
+							request.getRequestDispatcher("/user/error.jsp").forward(request, response);
+							return false;
+						}
+						
 					}
 					request.getSession(false).removeAttribute(annotation.tokenname());
 				}
@@ -64,4 +70,5 @@ public class TokenInterceptor extends HandlerInterceptorAdapter {
 		}
 		return false;
 	}
+	
 }
