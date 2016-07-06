@@ -1,35 +1,27 @@
 package cn.com.ttblog.ssmbootstrap_table.controller;
 
 import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.validation.DataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-
 import com.alibaba.fastjson.JSON;
-
 import cn.com.ttblog.ssmbootstrap_table.model.User;
 import cn.com.ttblog.ssmbootstrap_table.model.query.QueryUser;
 import cn.com.ttblog.ssmbootstrap_table.service.IUserService;
-import cn.com.ttblog.ssmbootstrap_table.validator.UserValidator;
 
 @Controller
 @RequestMapping("/user")
@@ -73,6 +65,7 @@ public class UserController {
 	 */
 	@RequestMapping("/userlist")
 	public String userlist(@RequestParam(value="search",required=false)String search,String order, int limit, int offset, Model model) {
+		long startTime = System.nanoTime();
 		logger.info("参数:{},{},{}", order, limit, offset);
 		if(search!=null){
 			try {
@@ -90,6 +83,8 @@ public class UserController {
 		model.addAttribute("total", total);
 		model.addAttribute("rows", users);
 		logger.info("结果:{}", params);
+		long estimatedTime = System.nanoTime() - startTime;
+		logger.debug("userlist execute with:{}",estimatedTime);
 		return "userlist";
 	}
 	
