@@ -13,4 +13,9 @@ import java.lang.annotation.Target;
 public @interface Token {
 	boolean save() default false;
 	boolean remove() default false;
+	/**
+	 * 默认值token
+	 * @return
+	 */
+	String tokenname() default "token";
 }

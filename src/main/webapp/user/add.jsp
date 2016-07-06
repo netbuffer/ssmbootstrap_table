@@ -73,8 +73,7 @@
 	            </div>
 	        </div>
 	        <div class="weui_btn_area">
-	        	<input type="hidden" name="${tokenflag}" value="${token}"> 
-	        	<input type="hidden" name="tokenflag" value="${tokenflag}">
+	        	<input type="hidden" name="testformtoken" value="${testformtoken}"> 
 		        <button type="submit" class="weui_btn weui_btn_primary">注册</button>
 		    </div>
    </form>
