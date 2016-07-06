@@ -37,7 +37,8 @@
 	<import resource="spring-mybatis.xml" />
 	<import resource="spring-jmx.xml" />
 	<import resource="classpath:cxf/cxf.xml" />
-
+	<import resource="spring-ehcache.xml"/>
+	  
 	<!-- jsonpfilter -->
 	<bean class="com.intera.util.web.servlet.filter.JsonpCallbackFilter"
 		id="jsonpCallbackFilter" />

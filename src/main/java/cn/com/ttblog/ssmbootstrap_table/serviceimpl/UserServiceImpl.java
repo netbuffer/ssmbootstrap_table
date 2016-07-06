@@ -10,6 +10,7 @@ import javax.annotation.Resource;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
@@ -30,6 +31,8 @@ public class UserServiceImpl implements IUserService {
 	private SqlSessionTemplate sqlSession;
 	@Resource
 	private IMenuDao menuDao;
+	
+	@Cacheable(value = { "userCache" })
 	@Override
 	public User getUserById(long userId) {
 		return this.userDao.selectByPrimaryKey(userId);
@@ -56,6 +59,7 @@ public class UserServiceImpl implements IUserService {
 		throw new RuntimeException("error");
 	}
 	
+	@Cacheable(value = { "userCache" })
 	@Override
 	public List<User> getUserList(String order, int limit, int offset) {
 		Map<String, Object> params = new HashMap<String, Object>();
@@ -66,6 +70,7 @@ public class UserServiceImpl implements IUserService {
 				params);
 	}
 
+	@Cacheable(value = { "userCache" })
 	@Override
 	public List<User> getUserList(String search, String order, int limit,
 			int offset) {
