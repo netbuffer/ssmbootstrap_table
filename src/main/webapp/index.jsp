@@ -6,6 +6,14 @@
 <html>
 <head>
 	<title>Hello World</title>
+	<script src="http://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+	<script type="text/javascript">
+		function test(){
+			$.post('${pageContext.request.contextPath }/test/ajax', function(data) {
+			   alert(data);
+			});
+		}
+	</script>
 </head>
 <body>
 	<h2>Hello World!</h2>
@@ -30,5 +38,6 @@
 	${pageContext.session.id}               取得session 的ID
 	${pageContext.servletContext.serverInfo}   取得主机端的服务信息
 	</pre>
+	<button onclick="test();">ajax</button>
 </body>
 </html>
