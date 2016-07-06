@@ -17,5 +17,8 @@
 		select * from menu where parent_id = #{id}
 	</select>
 	
+	<insert id="insert" parameterType="cn.com.ttblog.ssmbootstrap_table.model.Menu">
+		insert into menu(name,parent_id) values(#{name},#{parentId})
+	</insert>
 
 </mapper>
