@@ -32,7 +32,7 @@
 		<filter-name>encodingFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
-
+	
 	<filter>
 		<filter-name>injectionAttackFilter</filter-name>
 		<filter-class>cn.com.ttblog.ssmbootstrap_table.filter.InjectionAttackFilter</filter-class>
@@ -124,7 +124,17 @@
 		<filter-name>trimFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
-
+	
+	<!-- ehcache缓存 -->
+	<filter>  
+	    <filter-name>pagefilter</filter-name>  
+	    <filter-class>net.sf.ehcache.constructs.web.filter.SimplePageCachingFilter</filter-class>  
+  	</filter>  
+    <filter-mapping>  
+    	<filter-name>pagefilter</filter-name>  
+    	<url-pattern>/*</url-pattern>  
+  	</filter-mapping>  
+  
 	<listener>
 		<listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
 	</listener>

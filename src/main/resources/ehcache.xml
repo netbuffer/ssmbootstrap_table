@@ -36,4 +36,14 @@
 		diskPersistent="false"
 		diskExpiryThreadIntervalSeconds="100"
 		memoryStoreEvictionPolicy="LRU"/>
+		
+	<cache name="SimplePageCachingFilter"
+		   statistics="true"  
+           maxElementsInMemory="10000"  
+           maxElementsOnDisk="1000"  
+           eternal="false"  
+           overflowToDisk="true"  
+           timeToIdleSeconds="5"  
+           timeToLiveSeconds="10"  
+           memoryStoreEvictionPolicy="LFU"/>
 </ehcache>

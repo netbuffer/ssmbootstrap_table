@@ -5,13 +5,17 @@ import java.util.Arrays;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * TrimRequestWrapper 删除多余空格,装饰HttpServletRequest对象,装饰模式的使用
  * @author netbuffer
  *
  */
 public class TrimRequestWrapper extends HttpServletRequestWrapper {
-
+	private static final Logger trimWrapperlogger = LoggerFactory
+			.getLogger(TrimRequestWrapper.class);
 	public TrimRequestWrapper(HttpServletRequest request) {
 		super(request);
 	}
@@ -28,7 +32,7 @@ public class TrimRequestWrapper extends HttpServletRequestWrapper {
 		for (int i = 0; i < count; i++) {
 			trimResults[i] = results[i].trim();
 		}
-		System.out.println("过滤空格:"+Arrays.toString(trimResults));
+		trimWrapperlogger.trace("过滤空格:"+Arrays.toString(trimResults));
 		return trimResults;
 	}
 	/**
