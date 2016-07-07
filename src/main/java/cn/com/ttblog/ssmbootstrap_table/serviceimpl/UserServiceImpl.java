@@ -59,7 +59,7 @@ public class UserServiceImpl implements IUserService {
 		throw new RuntimeException("error");
 	}
 	
-//	@Cacheable(value = { "userCache" })
+	@Cacheable(value = { "userCache" })
 	@Override
 	public List<User> getUserList(String order, int limit, int offset) {
 		Map<String, Object> params = new HashMap<String, Object>();
