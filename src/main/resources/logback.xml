@@ -40,7 +40,7 @@
 	<logger name="org.springframework.beans" level="DEBUG" />
 	<logger name="org.springframework.context" level="DEBUG" />
 	<logger name="org.springframework.http" level="DEBUG" /> -->
-	<logger name="org.springframework" level="DEBUG" />
+	<logger name="org.springframework" level="WARN" />
 	<logger name="org.mybatis" level="OFF" />
 	<logger name="com.ibatis" level="DEBUG" />
 	<logger name="java.sql" level="DEBUG" />
