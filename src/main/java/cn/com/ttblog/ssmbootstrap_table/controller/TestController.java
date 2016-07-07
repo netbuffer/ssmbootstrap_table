@@ -9,7 +9,9 @@ import java.util.Properties;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,6 +21,7 @@ import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -153,8 +156,13 @@ public class TestController {
 	
 	@Token(remove=true,tokenname="testformtoken",failuri="/user/error.jsp")
 	@RequestMapping(value="/form",method=RequestMethod.POST)
-	public String postform(User u){
+	public String postform(@Valid User u){
+//		,BindingResult result
 		logger.debug("test post form:{}",u);
+//		if(result.hasErrors()){
+//			logger.info("校验user出错:"+ToStringBuilder.reflectionToString(result));
+//			throw new RuntimeException("请填写正确的用户信息");
+//		}
 //		return "redirect:/register-success.html";
 		//forward请求导致表单重复提交问题
 		return "user/success";
