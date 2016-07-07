@@ -84,7 +84,7 @@ public class UserController {
 		model.addAttribute("rows", users);
 		logger.info("结果:{}", params);
 		long estimatedTime = System.nanoTime() - startTime;
-		logger.debug("userlist execute with:{}",estimatedTime);
+		logger.debug("userlist execute with:{}ns",estimatedTime);
 		return "userlist";
 	}
 	

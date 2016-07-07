@@ -10,14 +10,18 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * 过滤空白符号filter
  * 
- * @author champ
+ * @author netbuffer
  *
  */
 public class TrimFilter implements Filter {
-
+	private static final Logger trimFilterlogger = LoggerFactory
+			.getLogger(TrimFilter.class);
 	private FilterConfig filterConfig;
 
 	public void init(FilterConfig filterConfig) throws ServletException {
@@ -32,12 +36,12 @@ public class TrimFilter implements Filter {
 		boolean enable = Boolean.parseBoolean(filterConfig
 				.getInitParameter("enable"));
 		if (enable) {
-			System.out.println("清除空白");
+			trimFilterlogger.trace("清除空白");
 			chain.doFilter(
 					new TrimRequestWrapper((HttpServletRequest) request),
 					response);
 		} else {
-			System.out.println("直接放行");
+			trimFilterlogger.trace("直接放行");
 			chain.doFilter(request, response);
 		}
 	}
