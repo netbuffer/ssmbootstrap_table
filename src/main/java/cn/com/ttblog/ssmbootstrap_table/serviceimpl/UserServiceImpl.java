@@ -32,7 +32,7 @@ public class UserServiceImpl implements IUserService {
 	@Resource
 	private IMenuDao menuDao;
 	
-	@Cacheable(value = { "userCache" })
+//	@Cacheable(value = { "userCache" })
 	@Override
 	public User getUserById(long userId) {
 		return this.userDao.selectByPrimaryKey(userId);
@@ -59,7 +59,7 @@ public class UserServiceImpl implements IUserService {
 		throw new RuntimeException("error");
 	}
 	
-	@Cacheable(value = { "userCache" })
+//	@Cacheable(value = { "userCache" })
 	@Override
 	public List<User> getUserList(String order, int limit, int offset) {
 		Map<String, Object> params = new HashMap<String, Object>();
@@ -70,7 +70,7 @@ public class UserServiceImpl implements IUserService {
 				params);
 	}
 
-	@Cacheable(value = { "userCache" })
+//	@Cacheable(value = { "userCache" })
 	@Override
 	public List<User> getUserList(String search, String order, int limit,
 			int offset) {

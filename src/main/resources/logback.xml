@@ -55,6 +55,7 @@
 	<logger name="jdbc.sqlonly" level="OFF" />
 	<logger name="jdbc.sqltiming" level="INFO" />
 	<logger name="log4jdbc.debug" level="DEBUG" />
+	<logger name="net.sf.ehcache" level="ALL"/>
 	<root>
 		<level value="DEBUG" />
 		<appender-ref ref="stdout" />
