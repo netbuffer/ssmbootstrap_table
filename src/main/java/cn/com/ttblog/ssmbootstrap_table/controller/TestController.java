@@ -43,7 +43,7 @@ import cn.com.ttblog.ssmbootstrap_table.util.AjaxUtils;
 @SessionAttributes("name")
 public class TestController {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
-
+	private Logger loggerAccess = LoggerFactory.getLogger("access");
 	@Resource
 	private Properties configProperties;
 	@Value("#{configProperties['url2']}")
@@ -225,6 +225,12 @@ public class TestController {
 	public String ajax(HttpServletRequest request){
 		logger.debug("request.getHeader(\"X-Requested-With\"):{}",request.getHeader("X-Requested-With"));
 		logger.debug("is ajax:{}",AjaxUtils.isAjaxRequest(request));
+		return "index";
+	}
+	
+	@RequestMapping(value={"/access"})
+	public String access(){
+		loggerAccess.info("access");
 		return "index";
 	}
 }
