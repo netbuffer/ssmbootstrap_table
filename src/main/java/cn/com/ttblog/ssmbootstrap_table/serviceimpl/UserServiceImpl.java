@@ -59,6 +59,17 @@ public class UserServiceImpl implements IUserService {
 		throw new RuntimeException("error");
 	}
 	
+	@Override
+	public void addUMtest() throws IllegalArgumentException {
+		User u=new User();
+		u.setName(RandomStringUtils.randomAlphabetic(4));
+		addUser(u);
+		Menu m=new Menu();
+		m.setName(RandomStringUtils.randomAlphabetic(4));
+		menuDao.insert(m);
+//		throw new IllegalArgumentException("test");
+	}
+	
 	@Cacheable(value = { "userCache" })
 	@Override
 	public List<User> getUserList(String order, int limit, int offset) {
