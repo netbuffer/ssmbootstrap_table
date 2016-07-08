@@ -15,4 +15,5 @@ public interface IUserService {
 	public int getNewData();
 	public List<Map<String, Object>> getDataSum();
 	public void addUM();
+	public void addUMtest() throws IllegalArgumentException;
 }

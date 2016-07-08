@@ -128,6 +128,11 @@ public class TestMyBatis {
 	}
 	
 	@Test
+	public void testTrantest(){
+		userService.addUMtest();
+	}
+	
+	@Test
 	public void testSelectCache(){
 		//mapper中需要配置<cache />节点，会开启缓存
 		logger.debug("select1：{}",userService.getUserById(1));
@@ -141,11 +146,13 @@ public class TestMyBatis {
 //		logger.debug("测试拦截器:{}",sqlSession.selectOne("cn.com.ttblog.ssmbootstrap_table.dao.IUserDao.selectByPrimaryKey",1L));
 		logger.debug("getdatasum:{}",userDao.getDataSum());
 	}
+	
 	@Ignore
 	@Test
 	public void testDataSource2(){
 		logger.debug("testDataSource2:{}",userDaoTest.getSum());
 	}
+	
 	@Test
 	@Ignore
 	public void testForeach(){
