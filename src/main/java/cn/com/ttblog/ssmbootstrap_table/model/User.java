@@ -35,7 +35,7 @@ public class User implements Serializable {
 	private Integer adddate;
 
 	private transient String comments;
-
+	
 	public String getComments() {
 		return comments;
 	}
@@ -137,6 +137,10 @@ public class User implements Serializable {
 
 	public User() {
 
+	}
+	
+	public void init(){
+		System.out.println("user init!");
 	}
 
 	public String toString() {

@@ -17,6 +17,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -44,6 +45,10 @@ import cn.com.ttblog.ssmbootstrap_table.util.AjaxUtils;
 public class TestController {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	private Logger loggerAccess = LoggerFactory.getLogger("access");
+	
+	@Autowired  
+	private ApplicationContext applicationContext;
+	
 	@Resource
 	private Properties configProperties;
 	@Value("#{configProperties['url2']}")
@@ -64,6 +69,11 @@ public class TestController {
 	public @ResponseBody String getJdbcUrl() {
 		logger.debug("静态属性值:{}",JDBCURL);
 		return JDBCURL;
+	}
+	
+	@RequestMapping(value = {"/getbean/{name}" })
+	public @ResponseBody Object getbean(@PathVariable("name") String name) {
+		return applicationContext.getBean(name);
 	}
 	
 	@RequestMapping(value = {"/{id}", "/index/{id}" })
