@@ -114,7 +114,7 @@
 		<bean class="cn.com.ttblog.ssmbootstrap_table.interceptor.SpringMVCInterceptor" />
 		<!-- 如果不配置或/*,将拦截所有的Controller 定义在mvc:interceptor下面的表示是对特定的请求才进行拦截的 -->
 		<!-- <mvc:interceptor>
-			<mvc:mapping path="/test/number.do" />
+			<mvc:mapping path="/commonsvalidator/number.do" />
 			<bean class="com.host.app.web.interceptor.LoginInterceptor" />
 		</mvc:interceptor> -->
 	</mvc:interceptors>
