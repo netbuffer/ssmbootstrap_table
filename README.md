@@ -8,7 +8,7 @@
 * druid
 * weui
 * log4jdbc
-* hibernate-validator
+* commons-validator
 * mybatis mapper
 * mybatis pagehelper
 

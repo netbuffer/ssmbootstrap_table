@@ -3,17 +3,21 @@ package cn.com.ttblog.ssmbootstrap_table.controller;
 import java.util.List;
 
 import javax.annotation.Resource;
+
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.DataBinder;
+import org.springframework.validation.Validator;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+
 import cn.com.ttblog.ssmbootstrap_table.exception.CustomGenericException;
 import cn.com.ttblog.ssmbootstrap_table.model.User;
 import cn.com.ttblog.ssmbootstrap_table.model.UserListModel;
@@ -26,7 +30,10 @@ public class RegisterController {
 
 	@Resource
 	private IUserService userService;
-
+	
+	@Autowired(required=false)  
+    private Validator validator;  
+	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	/**
@@ -45,6 +52,8 @@ public class RegisterController {
 
 	@RequestMapping("/save")
 	public String save(User user,BindingResult result,Model model) {
+		validator.validate(user, result);
+		logger.warn("校验结果:{}",result);
 		if(result.hasErrors()){
 			logger.info("校验user出错:"+ToStringBuilder.reflectionToString(result));
 			model.addAttribute("result", result);

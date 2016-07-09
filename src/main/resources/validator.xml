@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE form-validation PUBLIC "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.1//EN" "http://jakarta.apache.org/commons/dtds/validator_1_1.dtd">
+
+<form-validation>
+     <global>
+        <constant>
+            <constant-name>number</constant-name>
+            <constant-value>^\d+$</constant-value>
+        </constant>
+        <constant>
+            <constant-name>englishName</constant-name>
+            <constant-value>^[A-Z0-9a-z\s]+$</constant-value>
+        </constant>
+        <constant>
+        <constant-name>invalidCharacter</constant-name>
+            <constant-value><![CDATA[$%'*+:;<=>?@^_`{|}]]></constant-value>
+        </constant>
+        <constant>
+        <constant-name>invalidDiscussionCharacter</constant-name>
+            <constant-value><![CDATA[$%'*+;<=>?@^_`{|}]]></constant-value>
+        </constant>
+        <constant>
+            <constant-name>validDiscussionCharacterReguler</constant-name>
+            <constant-value><![CDATA[^[^${invalidCharacterForFilter}]*$]]></constant-value>
+        </constant>
+
+        <constant>
+        <constant-name>invalidBulletinBoardCharacter</constant-name>
+            <constant-value><![CDATA[$<>^`|]]></constant-value>
+        </constant>
+        <constant>
+            <constant-name>validBulletinBoardCharacterReguler</constant-name>
+            <constant-value><![CDATA[^[^${invalidBulletinBoardCharacter}]*$]]></constant-value>
+        </constant>
+
+        <constant>
+            <constant-name>invalidEmailCharacter</constant-name>
+            <constant-value><![CDATA[$%'*+:;<=>?^_`{|}]]></constant-value>
+        </constant>
+        <constant>
+            <constant-name>validCharacterReguler</constant-name>
+            <constant-value><![CDATA[^[^${invalidCharacter}]*$]]></constant-value>
+        </constant>
+        <constant>
+            <constant-name>validEmail</constant-name>
+            <constant-value><![CDATA[^[^${invalidEmailCharacter}]*$]]></constant-value>
+        </constant>
+        <constant>
+            <constant-name>defaultDateFormat</constant-name>
+            <constant-value><![CDATA[MM/dd/yyyy]]></constant-value>
+        </constant>
+        <constant>
+            <constant-name>invalidCharacterForFilter</constant-name>
+            <constant-value><![CDATA[$%'*:'<=>^`{|}]]></constant-value>
+        </constant>
+        <constant>
+            <constant-name>validCharacterRegulerForFilter</constant-name>
+            <constant-value><![CDATA[^[^${invalidCharacterForFilter}]*$]]></constant-value>
+        </constant>
+   </global>
+
+  <formset>
+        <form name="user">
+        	<field property="name" depends="maxlength,required">
+        		<arg0 key="user.name.displayName" />
+        		<arg1 name="maxlength" key="${var:maxlength}" resource="false" />
+        		<var>
+        			<var-name>maxlength</var-name>
+        			<var-value>10</var-value>
+        		</var>
+        	</field>
+        	<field property="age" depends="maxlength,required">
+        		<arg0 key="user.age.displayName" />
+        		<arg1 name="maxlength" key="${var:maxlength}" resource="false" />
+        		<var>
+        			<var-name>maxlength</var-name>
+        			<var-value>3</var-value>
+        		</var>
+        	</field>
+        	<!-- <field property="author" depends="maxlength">
+        		<arg0 key="book.author.displayName" />
+        		<arg1 name="maxlength" key="${var:maxlength}" resource="false" />
+        		<var>
+        			<var-name>maxlength</var-name>
+        			<var-value>5</var-value>
+        		</var>
+        	</field>
+        	<field property="price" depends="float">
+        		<arg0 key="book.price.displayName" />
+        		arg1 name="number" key="${var:mask}" resource="false" />
+        		<var>
+        			<var-name>mask</var-name>
+        			<var-value>^[0-9]</var-value>
+        		</var
+        	</field>
+        	<field property="isbn" depends="required, mask">
+        		<arg0 key="book.isbn.displayName" />
+        		<arg1 key="${var:mask}" resource="false" />
+        		<var>
+        			<var-name>mask</var-name>
+        			<var-value>^\d{3}-\d-\d{3}-\d{5}-\d$</var-value>
+        		</var>
+        	</field> -->
+        </form>
+  </formset>
+</form-validation>
