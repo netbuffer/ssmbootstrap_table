@@ -133,6 +133,7 @@ public class TestMyBatis {
 	}
 	
 	@Test
+	@Ignore
 	public void testSelectCache(){
 		//mapper中需要配置<cache />节点，会开启缓存
 		logger.debug("select1：{}",userService.getUserById(1));
