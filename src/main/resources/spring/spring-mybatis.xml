@@ -98,8 +98,8 @@
 		<property name="basePackage" value="cn.com.ttblog.ssmbootstrap_table.dao2" />
 		<property name="sqlSessionFactoryBeanName" value="sf2"></property>
 	</bean>
-
-	<!-- 声明式事务配置 http://docs.spring.io/spring/docs/3.0.x/reference/transaction.html#transaction-declarative-rolling-back -->
+	
+	<!-- 方式一声明式事务配置 http://docs.spring.io/spring/docs/3.0.x/reference/transaction.html#transaction-declarative-rolling-back -->
 	<bean id="transactionManager"
 		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource"></property>
@@ -113,9 +113,12 @@
 		<aop:pointcut
 			expression="execution(* cn.com.ttblog.ssmbootstrap_table.serviceimpl.*.*(..))"
 			id="trasactionService" />
-		<aop:advisor pointcut-ref="trasactionService" advice-ref="trasactionAdvice" />
+		<aop:advisor pointcut-ref="trasactionService" advice-ref="trasactionAdvice" order="1" />
 	</aop:config>
-
+	
+	<!-- 方式二注解事务,两种配置可以并存 http://blog.csdn.net/feng27156/article/details/8740223  -->
+	<!-- <tx:annotation-driven order="0" transaction-manager="transactionManager"/> -->	
+	
 	<!-- log4jdbc -->
 	<!-- <bean id="log4jdbcInterceptor" class="net.sf.log4jdbc.DataSourceSpyInterceptor" 
 		/> <bean id="dataSourceLog4jdbcAutoProxyCreator" class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator"> 

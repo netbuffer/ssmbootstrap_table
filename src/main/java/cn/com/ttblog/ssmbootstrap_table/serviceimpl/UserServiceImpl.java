@@ -12,6 +12,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import cn.com.ttblog.ssmbootstrap_table.dao.IMenuDao;
@@ -59,6 +60,7 @@ public class UserServiceImpl implements IUserService {
 		throw new RuntimeException("error");
 	}
 	
+//	@Transactional
 	@Override
 	public void addUMtest() throws IllegalArgumentException {
 		User u=new User();
@@ -67,7 +69,7 @@ public class UserServiceImpl implements IUserService {
 		Menu m=new Menu();
 		m.setName(RandomStringUtils.randomAlphabetic(4));
 		menuDao.insert(m);
-//		throw new IllegalArgumentException("test");
+		throw new IllegalArgumentException("test");
 	}
 	
 	@Cacheable(value = { "userCache" })
