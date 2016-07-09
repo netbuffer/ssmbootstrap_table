@@ -6,6 +6,10 @@
 
 	<display-name>ssmbootstrap-table</display-name>
 	<context-param>
+		<param-name>spring.profiles.active</param-name>
+		<param-value>production</param-value>
+	</context-param>
+	<context-param>
 		<param-name>webAppRootKey</param-name>
 		<param-value>webapp.root</param-value>
 	</context-param>
