@@ -35,6 +35,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.support.RequestContextUtils;
 
 import com.alibaba.fastjson.JSONArray;
+import com.codahale.metrics.annotation.Timed;
 import com.github.jscookie.javacookie.Cookies;
 
 import cn.com.ttblog.ssmbootstrap_table.event.LoginEvent;
@@ -91,6 +92,7 @@ public class IndexController {
 		return "redirect:/index.html";
 	}
 	
+	@Timed
 	@RequestMapping("/newdata")
 	public String newdata(HttpSession session, Model model) {
 		DecimalFormat df = new DecimalFormat("0.00");
