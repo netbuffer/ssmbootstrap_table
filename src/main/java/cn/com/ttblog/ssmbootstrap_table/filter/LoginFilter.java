@@ -88,8 +88,11 @@ public class LoginFilter implements Filter {
 				}
 			}
 			if(!find){
-				httpServletResponse.sendRedirect(httpServletRequest
-						.getContextPath() + "/index.html");
+				//关于committed状态 http://blog.csdn.net/jubincn/article/details/8920573
+				if(!httpServletResponse.isCommitted()){
+					httpServletResponse.sendRedirect(httpServletRequest
+							.getContextPath() + "/index.html");
+				}
 				return ;
 			}
 		}else{

@@ -18,7 +18,7 @@
 		引用的形式为：命名空间.select语句id-->
 		<collection property="addresses" ofType="cn.com.ttblog.ssmbootstrap_table.model.Address" column="id" select="selectAddressByUserId"/>
 	</resultMap>
-	
+	<!-- useCache="false" 禁用缓存 -->
 	<select id="selectCardByUserId"  resultType="cn.com.ttblog.ssmbootstrap_table.model.Card"
 		parameterType="java.lang.Long">
 		select * from card where user_id = #{id}

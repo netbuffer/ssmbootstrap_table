@@ -51,4 +51,16 @@
 		<!-- 设置cookie可见的地址，默认是“/”即对网站所有地址都是可见的，如果设为其它地址，则只有该地址或其后的地址才可见 -->
 		<property name="cookiePath" value="/" />
 	</bean>
+	<beans profile="develop">
+		<bean id="userFromSpring" class="cn.com.ttblog.ssmbootstrap_table.model.User" lazy-init="false" init-method="init">
+			 <property name="id" value="1" />
+             <property name="name" value="develop-user" />
+		</bean>
+	</beans>
+	<beans profile="production">
+		<bean id="userFromSpring" class="cn.com.ttblog.ssmbootstrap_table.model.User" lazy-init="false" init-method="init">
+			 <property name="id" value="2" />
+             <property name="name" value="production-user" />
+		</bean>
+	</beans>
 </beans>

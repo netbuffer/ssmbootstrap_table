@@ -9,20 +9,26 @@ import java.util.Properties;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.i18n.CookieLocaleResolver;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -31,13 +37,18 @@ import com.alibaba.fastjson.JSONObject;
 
 import cn.com.ttblog.ssmbootstrap_table.annotation.Token;
 import cn.com.ttblog.ssmbootstrap_table.model.User;
+import cn.com.ttblog.ssmbootstrap_table.util.AjaxUtils;
 
 @Controller
 @RequestMapping("/test")
 @SessionAttributes("name")
 public class TestController {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
-
+	private Logger loggerAccess = LoggerFactory.getLogger("access");
+	
+	@Autowired  
+	private ApplicationContext applicationContext;
+	
 	@Resource
 	private Properties configProperties;
 	@Value("#{configProperties['url2']}")
@@ -58,6 +69,11 @@ public class TestController {
 	public @ResponseBody String getJdbcUrl() {
 		logger.debug("静态属性值:{}",JDBCURL);
 		return JDBCURL;
+	}
+	
+	@RequestMapping(value = {"/getbean/{name}" })
+	public @ResponseBody Object getbean(@PathVariable("name") String name) {
+		return applicationContext.getBean(name);
 	}
 	
 	@RequestMapping(value = {"/{id}", "/index/{id}" })
@@ -141,17 +157,22 @@ public class TestController {
 		return langType;
 	}
 	
-	@Token(save=true)
+	@Token(save=true,tokenname="testformtoken")
 	@RequestMapping(value="/form",method=RequestMethod.GET)
 	public String getform(){
 		logger.debug("test get form ");
 		return "user/add";
 	}
 	
-	@Token(remove=true)
+	@Token(remove=true,tokenname="testformtoken",failuri="/user/error.jsp")
 	@RequestMapping(value="/form",method=RequestMethod.POST)
-	public String postform(User u){
+	public String postform(@Valid User u){
+//		,BindingResult result
 		logger.debug("test post form:{}",u);
+//		if(result.hasErrors()){
+//			logger.info("校验user出错:"+ToStringBuilder.reflectionToString(result));
+//			throw new RuntimeException("请填写正确的用户信息");
+//		}
 //		return "redirect:/register-success.html";
 		//forward请求导致表单重复提交问题
 		return "user/success";
@@ -203,4 +224,23 @@ public class TestController {
 		return "error";
 	}
 	
+	@ResponseStatus(reason="test",value=HttpStatus.NO_CONTENT)
+	@RequestMapping(value={"/status"})
+	public String status(){
+		logger.debug("status");
+		return "error";
+	}
+	
+	@RequestMapping(value={"/ajax"})
+	public String ajax(HttpServletRequest request){
+		logger.debug("request.getHeader(\"X-Requested-With\"):{}",request.getHeader("X-Requested-With"));
+		logger.debug("is ajax:{}",AjaxUtils.isAjaxRequest(request));
+		return "index";
+	}
+	
+	@RequestMapping(value={"/access"})
+	public String access(){
+		loggerAccess.info("access");
+		return "index";
+	}
 }

@@ -5,7 +5,7 @@
 <configuration>
 	<!-- 配置mybatis的缓存，延迟加载等等一系列属性 -->
     <settings>
-		<!-- 全局映射器启用缓存 -->
+		<!-- 全局映射器启用缓存,指定为false则不会开启缓存不会使用mapper中配置的ehcache缓存-->
 		<setting name="cacheEnabled" value="true" />
 		<!-- 查询时，关闭关联对象即时加载以提高性能 -->
 		<setting name="lazyLoadingEnabled" value="false" />

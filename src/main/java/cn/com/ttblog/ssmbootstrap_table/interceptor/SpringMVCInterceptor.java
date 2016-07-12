@@ -27,7 +27,7 @@ public class SpringMVCInterceptor implements HandlerInterceptor {
 	public boolean preHandle(HttpServletRequest request,
 			HttpServletResponse response, Object handler) throws Exception {
 		// 拿到requet数据处理，response处理
-		logger.debug("执行拦截器:{}", getClass().getName());
+		logger.trace("执行拦截器:{}", getClass().getName());
 		return true;
 	}
 
