@@ -15,8 +15,10 @@
 </head>
 <body>
 	<div class="container">
-		发生错误啦:<br/>
+		<h1>发生错误啦:</h1><br/>
 		${ex}<hr/>
+		<h2>错误堆栈</h2><hr>
+		${stackTrace}
 		<c:if test="${not empty errCode&&not empty errMsg}">
 			<h1>错误信息</h1>
 			<hr/>

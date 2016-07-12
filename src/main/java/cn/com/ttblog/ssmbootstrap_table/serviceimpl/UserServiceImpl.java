@@ -12,6 +12,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import cn.com.ttblog.ssmbootstrap_table.dao.IMenuDao;
@@ -32,7 +33,7 @@ public class UserServiceImpl implements IUserService {
 	@Resource
 	private IMenuDao menuDao;
 	
-	@Cacheable(value = { "userCache" })
+//	@Cacheable(value = { "userCache" })
 	@Override
 	public User getUserById(long userId) {
 		return this.userDao.selectByPrimaryKey(userId);
@@ -59,6 +60,18 @@ public class UserServiceImpl implements IUserService {
 		throw new RuntimeException("error");
 	}
 	
+//	@Transactional
+	@Override
+	public void addUMtest() throws IllegalArgumentException {
+		User u=new User();
+		u.setName(RandomStringUtils.randomAlphabetic(4));
+		addUser(u);
+		Menu m=new Menu();
+		m.setName(RandomStringUtils.randomAlphabetic(4));
+		menuDao.insert(m);
+		throw new IllegalArgumentException("test");
+	}
+	
 	@Cacheable(value = { "userCache" })
 	@Override
 	public List<User> getUserList(String order, int limit, int offset) {
@@ -70,7 +83,7 @@ public class UserServiceImpl implements IUserService {
 				params);
 	}
 
-	@Cacheable(value = { "userCache" })
+//	@Cacheable(value = { "userCache" })
 	@Override
 	public List<User> getUserList(String search, String order, int limit,
 			int offset) {

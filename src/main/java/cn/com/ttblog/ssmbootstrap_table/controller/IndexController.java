@@ -32,8 +32,10 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.support.RequestContextUtils;
 
 import com.alibaba.fastjson.JSONArray;
+import com.codahale.metrics.annotation.Timed;
 import com.github.jscookie.javacookie.Cookies;
 
 import cn.com.ttblog.ssmbootstrap_table.event.LoginEvent;
@@ -57,6 +59,7 @@ public class IndexController {
 	@RequestMapping("/login")
 	public String login(HttpSession session, HttpServletRequest request,
 			HttpServletResponse response, String username, String password) {
+//		RequestContextUtils.getWebApplicationContext(request)
 		logger.info("进入username:{},pwd:{}", username, password);
 		if (username.equals(ConfigConstant.VAL_USERNAME)
 				&& password.equals(ConfigConstant.VAL_PWD)) {
@@ -89,6 +92,7 @@ public class IndexController {
 		return "redirect:/index.html";
 	}
 	
+	@Timed
 	@RequestMapping("/newdata")
 	public String newdata(HttpSession session, Model model) {
 		DecimalFormat df = new DecimalFormat("0.00");
