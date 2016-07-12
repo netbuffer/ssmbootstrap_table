@@ -62,6 +62,7 @@ public class JsonpController {
 	}
 
 	/**
+	 * 手动构建jsonp支持
 	 * 前端使用jquery调用demo $.getJSON(
 	 * "http://localhost:8080/ssmbootstrap_table/jsonp/test/1?callback=?"
 	 * ,function(data){ $("body").append(data.name); console.log(data); });
@@ -93,7 +94,7 @@ public class JsonpController {
 		logger.debug("返回结果:{}", result);
 		return result;
 	}
-
+	
 	@RequestMapping("/t/{id}")
 	public void t(@PathVariable Long id, @RequestParam String callback,
 			HttpServletRequest request, HttpServletResponse response, Model model) {
@@ -112,6 +113,20 @@ public class JsonpController {
 		}
 	}
 
+	/**
+	 * 使用spring-jsonp-support库 jsonp调用
+	 * $.ajax({ 
+			url:"http://localhost:8080/ssmbootstrap_table/tj/3.json", 
+			dataType:"jsonp", 
+			jsonp: "callback", 
+			success: function(data) {
+				console.log(data);
+			}, 
+			error: function(jqXHR){ 
+				console.log(jqXHR); 
+			}
+		});
+	 */
 	@RequestMapping("/tj/{id}")
 	public User t(@PathVariable Long id, HttpServletRequest request,
 			HttpServletResponse response, Model model) {
