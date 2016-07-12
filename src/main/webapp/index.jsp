@@ -24,7 +24,7 @@
 	${pageContext.request.contextPath }<br/>
 	通过EL设置basepath
 	<c:set var="basepath">
-		${pageContext.request.scheme}://${pageContext.request.serverName}<c:if test="${pageContext.request.serverPort!=80 }">${pageContext.request.serverPort}</c:if>${pageContext.request.contextPath }
+		${pageContext.request.scheme}://${pageContext.request.serverName}<c:if test="${pageContext.request.serverPort!=80 }">:${pageContext.request.serverPort}</c:if>${pageContext.request.contextPath }
 	</c:set>
 	${basepath }<hr/>
 	<pre>
@@ -39,5 +39,7 @@
 	${pageContext.servletContext.serverInfo}   取得主机端的服务信息
 	</pre>
 	<button onclick="test();">ajax</button>
+	<hr/>
+	<a href="${basepath}/metrics">metrics</a>
 </body>
 </html>
