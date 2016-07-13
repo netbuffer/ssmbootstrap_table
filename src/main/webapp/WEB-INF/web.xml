@@ -102,6 +102,25 @@
 		<filter-name>jsonpCallbackFilter</filter-name>
 		<url-pattern>*.json</url-pattern>
 	</filter-mapping>
+	
+	<!-- jsonp refer检测 -->
+	<filter>
+		<filter-name>jsonpReferFilter</filter-name>
+		<filter-class>cn.com.ttblog.ssmbootstrap_table.filter.JsonpReferFilter</filter-class>
+		<init-param>
+			<param-name>enable</param-name>
+			<param-value>true</param-value>
+		</init-param>
+		<init-param>
+			<param-name>refers</param-name>
+			<param-value>www.abc.com;www.bcd.com</param-value>
+		</init-param>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>jsonpReferFilter</filter-name>
+		<url-pattern>*.json</url-pattern>
+	</filter-mapping>
 
 	<filter>
 		<filter-name>timerFilter</filter-name>
@@ -208,7 +227,7 @@
 		<servlet-name>CXFServlet</servlet-name>
 		<url-pattern>/cxf/*</url-pattern>
 	</servlet-mapping>
-	<!-- http://localhost:8080/ssmbootstrap_table/metrics  -->
+	<!-- http://localhost:8080/ssmbootstrap_table/metrics -->
 	<servlet>
 		<servlet-name>metrics</servlet-name>
 		<servlet-class>com.codahale.metrics.servlets.AdminServlet</servlet-class>
