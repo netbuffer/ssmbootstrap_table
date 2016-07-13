@@ -13,6 +13,21 @@
 			   alert(data);
 			});
 		}
+		
+		function testjsonp(){
+			$.ajax({ 
+				url:"http://localhost:8080/ssmbootstrap_table/jsonp/tj/1.json", 
+				dataType:"jsonp",
+				data:{"productType":"01"}, 
+				jsonp: "callback", 
+				success: function(data) {
+					alert(JSON.stringify(data));
+				}, 
+				error: function(jqXHR){ 
+					console.log(jqXHR); 
+				}
+			});
+		}
 	</script>
 </head>
 <body>
@@ -38,7 +53,7 @@
 	${pageContext.session.id}               取得session 的ID
 	${pageContext.servletContext.serverInfo}   取得主机端的服务信息
 	</pre>
-	<button onclick="test();">ajax</button>
+	<button onclick="test();">ajax</button>&emsp; <button onclick="testjsonp();">testjsonp</button>
 	<hr/>
 	<a href="${basepath}/metrics">metrics</a>
 </body>
