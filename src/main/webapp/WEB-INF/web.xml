@@ -91,17 +91,6 @@
 		<filter-name>druidfilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
-
-	<!-- jsonp支持 -->
-	<filter>
-		<filter-name>jsonpCallbackFilter</filter-name>
-		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
-	</filter>
-
-	<filter-mapping>
-		<filter-name>jsonpCallbackFilter</filter-name>
-		<url-pattern>*.json</url-pattern>
-	</filter-mapping>
 	
 	<!-- jsonp refer检测 -->
 	<filter>
@@ -119,6 +108,17 @@
 
 	<filter-mapping>
 		<filter-name>jsonpReferFilter</filter-name>
+		<url-pattern>*.json</url-pattern>
+	</filter-mapping>
+	
+	<!-- jsonp支持 -->
+	<filter>
+		<filter-name>jsonpCallbackFilter</filter-name>
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>jsonpCallbackFilter</filter-name>
 		<url-pattern>*.json</url-pattern>
 	</filter-mapping>
 
