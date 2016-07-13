@@ -36,6 +36,7 @@ public class JsonpReferFilter implements Filter {
 		// 不起用的情况下直接通过
 		if (!enable) {
 			filterChain.doFilter(httpServletRequest, httpServletResponse);
+			return ;
 		}
 		String callback=httpServletRequest.getParameter("callback");
 		if(callback==null){
