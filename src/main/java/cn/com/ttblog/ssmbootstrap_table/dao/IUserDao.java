@@ -3,6 +3,8 @@ package cn.com.ttblog.ssmbootstrap_table.dao;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
+
 import cn.com.ttblog.ssmbootstrap_table.model.User;
 
 public interface IUserDao {
@@ -25,4 +27,6 @@ public interface IUserDao {
 	List<Map<String, Object>> getDataSum();
 	
 	List<User> getUsersByIds(List<Long> ids);
+	
+	List<User> selectWhen(@Param("id")Integer id);
 }
