@@ -128,6 +128,7 @@ public class TestMyBatis {
 	}
 	
 	@Test
+	@Ignore
 	public void testTrantest(){
 		userService.addUMtest();
 	}
@@ -181,5 +182,11 @@ public class TestMyBatis {
 		u.setName(str);
 		logger.debug("test testInsertSelectKey:{}",str);
 		logger.debug("insert return:{},插入记录的user id:{}",userDao.insert(u),u.getId());
+	}
+	
+	@Test
+	public void testselectWhen(){
+		logger.debug("userDao.selectWhen(null):{}",userDao.selectWhen(null));
+		logger.debug("userDao.selectWhen(2):{}",userDao.selectWhen(2));
 	}
 }
