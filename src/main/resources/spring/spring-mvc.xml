@@ -81,9 +81,10 @@
 		<property name="exposeRequestAttributes" value="true" />
 		<property name="exposeSessionAttributes" value="true" />
 		<property name="exposeSpringMacroHelpers" value="true" />
-		<!-- classpath:velocityToolBox.xml -->
-		<property name="toolboxConfigLocation" value="/WEB-INF/velocityToolBox.xml" />
-		<property name="viewClass" value="org.springframework.web.servlet.view.velocity.VelocityToolbox2View"></property>
+		<!-- classpath:toolbox.xml-->
+		<!-- <property name="viewClass" value="org.springframework.web.servlet.view.velocity.VelocityToolbox2View"></property> -->
+		<property name="toolboxConfigLocation" value="/WEB-INF/toolbox.xml" />
+		
 	</bean>
 	<!-- <bean class="com.wonders.stpt.bid.controller.JXLExcelView"/> -->
 

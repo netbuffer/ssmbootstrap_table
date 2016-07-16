@@ -10,4 +10,9 @@
 		<scope>request</scope>
 		<class>org.apache.velocity.tools.view.tools.CookieTool</class>
 	</tool>
+	<tool>
+	   <key>util</key>
+	   <scope>application</scope>
+	   <class>cn.com.ttblog.ssmbootstrap_table.directive.UtilTag</class>
+	</tool>
 </toolbox>

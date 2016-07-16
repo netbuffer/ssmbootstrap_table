@@ -37,14 +37,15 @@
 		获得 URL 中的参数：
 		#set($n = $!request.getParameter('n'))
 	</pre>
-	##macro(macroName)
+	##macro(macroName)	
     ##subMacro("name", "value")
 	##end
 	-----------------------------------
 	#macro(subMacro $param1 $param2)
 	    <h1 style="color:#003399;">this is sub macro：$param1, $param2 .</h1>
 	#end
-	#subMacro("aaaaaaaaaa" "bbbbbbbbbbb")
-	
+	#subMacro("aaaaaaaaaa" "bbbbbbbbbbb")<br/>
+	$util<br/>
+	$util.test("你好")
 </body>
 </html>
