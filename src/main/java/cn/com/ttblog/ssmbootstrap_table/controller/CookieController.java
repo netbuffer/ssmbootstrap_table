@@ -52,12 +52,11 @@ public class CookieController {
 				break;
 			}
 		}
-		
 		logger.debug("del cookie:{},cookie:{}",name,ToStringBuilder.reflectionToString(s));
 		if(s!=null){
-			s.setValue(null);
+			s.setValue("");
 			s.setMaxAge(0);
-			s.setHttpOnly(false);
+			s.setHttpOnly(true);
 			response.addCookie(s);
 		}
 		return true;
