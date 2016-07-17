@@ -26,18 +26,73 @@ public class CookieController {
 		logger.debug("cookies:{}",cookies.get());
 		return cookies;
 	}
+	/**
+	 * 添加httponly cookie
+	 * @param name
+	 * @param session
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping("/addh/{name}")
+	public boolean addh(@PathVariable("name") String name,HttpSession session, HttpServletRequest request,
+			HttpServletResponse response) {
+		Cookie c=new Cookie(name, name);
+//		c.setComment("purpose");
+		c.setHttpOnly(true);
+		c.setMaxAge(3600);
+//		c.setDomain("localhost");
+//		c.setPath("/ssmbootstrap_table");
+		response.addCookie(c);
+		logger.debug("addh cookie:{}",ToStringBuilder.reflectionToString(c));
+		return true;
+	}
 	
+
 	@RequestMapping("/add/{name}")
 	public boolean add(@PathVariable("name") String name,HttpSession session, HttpServletRequest request,
 			HttpServletResponse response) {
 		Cookie c=new Cookie(name, name);
 		c.setComment("purpose");
-		c.setHttpOnly(true);
 		c.setMaxAge(3600);
-		c.setDomain("localhost");
-		c.setPath("/ssmbootstrap_table");
 		response.addCookie(c);
 		logger.debug("add cookie:{}",ToStringBuilder.reflectionToString(c));
+		return true;
+	}
+	
+	/**
+	 * 删除http only cookie，必须保证和添加的cookie参数是一致的才能删除成功
+	 * @param name
+	 * @param session
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping("/delh/{name}")
+	public boolean delh(@PathVariable("name") String name,HttpSession session, HttpServletRequest request,
+			HttpServletResponse response) {
+		Cookie[] cookies=request.getCookies();
+		Cookie s=null;
+		for(Cookie c:cookies){
+			if(c.getName().equals(name)){
+				s=c;
+				break;
+			}
+		}
+		logger.debug("delh cookie:{},cookie:{}",name,ToStringBuilder.reflectionToString(s));
+		if(s!=null){
+			//清除cookie        
+			Cookie c=new Cookie(s.getName(), s.getValue());
+//			c.setComment("purpose");
+			c.setHttpOnly(true);
+			c.setMaxAge(0);
+//			c.setDomain("localhost");
+//			c.setPath("/ssmbootstrap_table");
+//			s.setValue("");
+//			s.setMaxAge(0);
+//			s.setHttpOnly(true);
+			response.addCookie(c);
+		}
 		return true;
 	}
 	
@@ -54,12 +109,12 @@ public class CookieController {
 		}
 		logger.debug("del cookie:{},cookie:{}",name,ToStringBuilder.reflectionToString(s));
 		if(s!=null){
+			//清除cookie        
 			s.setValue("");
 			s.setMaxAge(0);
-			s.setHttpOnly(true);
 			response.addCookie(s);
 		}
 		return true;
-	}
+	}	
 
 }
