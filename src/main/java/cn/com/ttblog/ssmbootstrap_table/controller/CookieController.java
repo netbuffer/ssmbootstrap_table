@@ -115,6 +115,36 @@ public class CookieController {
 			response.addCookie(s);
 		}
 		return true;
-	}	
+	}
+	
+	/**
+	 * 测试清除tomcat中JSESSIONID
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping("/delsession")
+	public boolean delJsessionid(HttpServletRequest request,
+			HttpServletResponse response) {
+		Cookie[] cookies=request.getCookies();
+		Cookie s=null;
+		for(Cookie c:cookies){
+			if(c.getName().equals("JSESSIONID")){
+				s=c;
+				break;
+			}
+		}
+		logger.debug("JSESSIONID:{}",ToStringBuilder.reflectionToString(s));
+		if(s!=null){
+			//清除cookie        
+			s.setValue("");
+			s.setMaxAge(0);
+			s.setDomain("localhost");
+			s.setPath("/ssmbootstrap_table/");
+			s.setHttpOnly(true);
+			response.addCookie(s);
+		}
+		return true;
+	}
 
 }
