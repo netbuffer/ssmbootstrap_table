@@ -24,6 +24,22 @@
 		select * from card where user_id = #{id}
 	</select>
 	
+	<select id="selectWhen"  resultType="cn.com.ttblog.ssmbootstrap_table.model.User"
+		parameterType="int">
+		select * from user
+		<where>
+			id=
+			<choose>
+				<when test="id!=null">
+					#{id}
+				</when>
+				<otherwise>
+					1
+				</otherwise>
+			</choose>
+		</where>
+	</select>
+	
 	<!-- <resultMap id="address" type="cn.com.ttblog.ssmbootstrap_table.model.Address">
         <id property="userId" column="user_id" />
         <result property="province" column="province" />
