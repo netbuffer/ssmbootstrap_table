@@ -56,6 +56,7 @@
 			<param-name>click_jacking_header</param-name>
 			<param-value>true</param-value>
 		</init-param>
+		<async-supported>true</async-supported>
 	</filter>
 	<filter-mapping>
 		<filter-name>injectionAttackFilter</filter-name>
@@ -73,6 +74,7 @@
 			<param-name>enable</param-name>
 			<param-value>true</param-value>
 		</init-param>
+		<async-supported>true</async-supported>
 	</filter>
 	<filter-mapping>
 		<filter-name>LoginFilter</filter-name>
@@ -86,6 +88,7 @@
 			<param-name>exclusions</param-name>
 			<param-value>*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*</param-value>
 		</init-param>
+		<async-supported>true</async-supported>
 	</filter>
 	<filter-mapping>
 		<filter-name>druidfilter</filter-name>
@@ -104,6 +107,7 @@
 			<param-name>refers</param-name>
 			<param-value>www.abc.com;www.bcd.com</param-value>
 		</init-param>
+		<async-supported>true</async-supported>
 	</filter>
 
 	<filter-mapping>
@@ -115,6 +119,7 @@
 	<filter>
 		<filter-name>jsonpCallbackFilter</filter-name>
 		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+		<async-supported>true</async-supported>
 	</filter>
 
 	<filter-mapping>
@@ -129,6 +134,7 @@
 			<param-name>enable</param-name>
 			<param-value>true</param-value>
 		</init-param>
+		<async-supported>true</async-supported>
 	</filter>
 	<filter-mapping>
 		<filter-name>timerFilter</filter-name>
@@ -142,6 +148,7 @@
 			<param-name>enable</param-name>
 			<param-value>true</param-value>
 		</init-param>
+		<async-supported>true</async-supported>
 	</filter>
 	<filter-mapping>
 		<filter-name>trimFilter</filter-name>
@@ -208,6 +215,7 @@
 			<param-value>0</param-value>
 		</init-param>
 		<load-on-startup>0</load-on-startup>
+		<!-- http://www.lai18.com/content/2483896.html filter中也需要开启异步支持 -->
 		<async-supported>true</async-supported>
 	</servlet>
 	<servlet-mapping>
