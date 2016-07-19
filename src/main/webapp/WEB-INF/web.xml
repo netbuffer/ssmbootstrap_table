@@ -35,11 +35,17 @@
 	<filter-mapping>
 		<filter-name>encodingFilter</filter-name>
 		<url-pattern>/*</url-pattern>
+		<dispatcher>ASYNC</dispatcher>
+		<dispatcher>ERROR</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+		<dispatcher>INCLUDE</dispatcher>
+		<dispatcher>REQUEST</dispatcher>
 	</filter-mapping>
 
 	<filter>
 		<filter-name>injectionAttackFilter</filter-name>
 		<filter-class>cn.com.ttblog.ssmbootstrap_table.filter.InjectionAttackFilter</filter-class>
+		<async-supported>true</async-supported>
 		<!-- optional parameters. values given are the defaults. they can be set 
 			to false or removed to disable. -->
 		<init-param>
@@ -56,16 +62,21 @@
 			<param-name>click_jacking_header</param-name>
 			<param-value>true</param-value>
 		</init-param>
-		<async-supported>true</async-supported>
 	</filter>
 	<filter-mapping>
 		<filter-name>injectionAttackFilter</filter-name>
 		<url-pattern>/*</url-pattern>
+		<dispatcher>ASYNC</dispatcher>
+		<dispatcher>ERROR</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+		<dispatcher>INCLUDE</dispatcher>
+		<dispatcher>REQUEST</dispatcher>
 	</filter-mapping>
 
 	<filter>
 		<filter-name>LoginFilter</filter-name>
 		<filter-class>cn.com.ttblog.ssmbootstrap_table.filter.LoginFilter</filter-class>
+		<async-supported>true</async-supported>
 		<init-param>
 			<param-name>noFilterTags</param-name>
 			<param-value>index.html;login;register;captcha;.css;.js;.jpg;jsonp;/cxf</param-value>
@@ -74,31 +85,41 @@
 			<param-name>enable</param-name>
 			<param-value>true</param-value>
 		</init-param>
-		<async-supported>true</async-supported>
 	</filter>
 	<filter-mapping>
 		<filter-name>LoginFilter</filter-name>
 		<url-pattern>/*</url-pattern>
+		<dispatcher>ASYNC</dispatcher>
+		<dispatcher>ERROR</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+		<dispatcher>INCLUDE</dispatcher>
+		<dispatcher>REQUEST</dispatcher>
 	</filter-mapping>
 
 	<filter>
 		<filter-name>druidfilter</filter-name>
 		<filter-class>com.alibaba.druid.support.http.WebStatFilter</filter-class>
+		<async-supported>true</async-supported>
 		<init-param>
 			<param-name>exclusions</param-name>
 			<param-value>*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*</param-value>
 		</init-param>
-		<async-supported>true</async-supported>
 	</filter>
 	<filter-mapping>
 		<filter-name>druidfilter</filter-name>
 		<url-pattern>/*</url-pattern>
+		<dispatcher>ASYNC</dispatcher>
+		<dispatcher>ERROR</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+		<dispatcher>INCLUDE</dispatcher>
+		<dispatcher>REQUEST</dispatcher>
 	</filter-mapping>
 
 	<!-- jsonp refer检测 -->
 	<filter>
 		<filter-name>jsonpReferFilter</filter-name>
 		<filter-class>cn.com.ttblog.ssmbootstrap_table.filter.JsonpReferFilter</filter-class>
+		<async-supported>true</async-supported>
 		<init-param>
 			<param-name>enable</param-name>
 			<param-value>true</param-value>
@@ -107,12 +128,16 @@
 			<param-name>refers</param-name>
 			<param-value>www.abc.com;www.bcd.com</param-value>
 		</init-param>
-		<async-supported>true</async-supported>
 	</filter>
 
 	<filter-mapping>
 		<filter-name>jsonpReferFilter</filter-name>
 		<url-pattern>*.json</url-pattern>
+		<dispatcher>ASYNC</dispatcher>
+		<dispatcher>ERROR</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+		<dispatcher>INCLUDE</dispatcher>
+		<dispatcher>REQUEST</dispatcher>
 	</filter-mapping>
 
 	<!-- jsonp支持 -->
@@ -130,29 +155,39 @@
 	<filter>
 		<filter-name>timerFilter</filter-name>
 		<filter-class>cn.com.ttblog.ssmbootstrap_table.filter.TimerFilter</filter-class>
+		<async-supported>true</async-supported>
 		<init-param>
 			<param-name>enable</param-name>
 			<param-value>true</param-value>
 		</init-param>
-		<async-supported>true</async-supported>
 	</filter>
 	<filter-mapping>
 		<filter-name>timerFilter</filter-name>
 		<url-pattern>/*</url-pattern>
+		<dispatcher>ASYNC</dispatcher>
+		<dispatcher>ERROR</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+		<dispatcher>INCLUDE</dispatcher>
+		<dispatcher>REQUEST</dispatcher>
 	</filter-mapping>
 
 	<filter>
 		<filter-name>trimFilter</filter-name>
 		<filter-class>cn.com.ttblog.ssmbootstrap_table.filter.TrimFilter</filter-class>
+		<async-supported>true</async-supported>
 		<init-param>
 			<param-name>enable</param-name>
 			<param-value>true</param-value>
 		</init-param>
-		<async-supported>true</async-supported>
 	</filter>
 	<filter-mapping>
 		<filter-name>trimFilter</filter-name>
 		<url-pattern>/*</url-pattern>
+		<dispatcher>ASYNC</dispatcher>
+		<dispatcher>ERROR</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+		<dispatcher>INCLUDE</dispatcher>
+		<dispatcher>REQUEST</dispatcher>
 	</filter-mapping>
 
 	<!-- ehcache缓存 -->
@@ -261,14 +296,14 @@
 	
 	<session-config>
 		<session-timeout>30</session-timeout>
-		<!-- Servlet3.0规范中的<tracking-mode>允许你定义JSESSIONID是存储在cookie中还是URL参数中 -->
-		<tracking-mode>COOKIE</tracking-mode>
 		<cookie-config>
-			<!-- 防止信息泄露，在https中传输启用 -->
-			<secure>false</secure>
 			<!-- http-only:true-确保cookie不能被客户端脚本访问 -->
 			<http-only>false</http-only>
+			<!-- 防止信息泄露，在https中传输启用 -->
+			<secure>false</secure>
 		</cookie-config>
+		<!-- Servlet3.0规范中的<tracking-mode>允许你定义JSESSIONID是存储在cookie中还是URL参数中 -->
+		<tracking-mode>COOKIE</tracking-mode>
 	</session-config>
 
 	<error-page>

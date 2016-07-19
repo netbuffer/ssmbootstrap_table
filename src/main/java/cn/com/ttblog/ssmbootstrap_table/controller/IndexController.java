@@ -92,7 +92,6 @@ public class IndexController {
 		return "redirect:/index.html";
 	}
 	
-	@Timed
 	@RequestMapping("/newdata")
 	public String newdata(HttpSession session, Model model) {
 		DecimalFormat df = new DecimalFormat("0.00");
@@ -119,7 +118,8 @@ public class IndexController {
 	public @ResponseBody String teststr() {
 		return "this is str";
 	}
-
+	
+	@Timed
 	@RequestMapping("/datacount")
 	public @ResponseBody Map<String, Object> datacount(HttpSession session,
 			Model model) {

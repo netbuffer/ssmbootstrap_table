@@ -93,9 +93,22 @@
 				<property name="fastJsonConfig" ref="fastJsonConfig" />
 			</bean>
 		</mvc:message-converters>
-		<mvc:async-support default-timeout="5" />
+		<mvc:async-support default-timeout="5000" task-executor="asyncThreadPool">
+			<mvc:callable-interceptors>
+				<bean class="cn.com.ttblog.ssmbootstrap_table.interceptor.AsyncInterceptor"></bean>
+			</mvc:callable-interceptors>
+		</mvc:async-support>
 	</mvc:annotation-driven>
-
+	
+	<bean id="asyncThreadPool"
+		class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+			<property name="corePoolSize" value="1" />
+			<property name="maxPoolSize" value="10" />
+			<property name="queueCapacity" value="50" />
+			<property name="threadNamePrefix" value="async-" />
+			<property name="keepAliveSeconds" value="30" />
+	</bean>
+	
 	<!-- 设定全局的validator -->
 	<!-- <mvc:annotation-driven validator="" /> -->
 	<!-- 静态资源等，默认行为 -->
