@@ -3,6 +3,7 @@ package cn.com.ttblog.ssmbootstrap_table.controller;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.concurrent.Callable;
+import java.util.concurrent.TimeUnit;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -21,8 +22,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.context.request.async.DeferredResult;
+
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+
 import cn.com.ttblog.ssmbootstrap_table.model.User;
 import cn.com.ttblog.ssmbootstrap_table.service.IUserService;
 
@@ -46,7 +50,8 @@ public class JsonpController {
 	public void testModelAttr(HttpSession session, Model model) {
 		JSONObject j = new JSONObject();
 		if (session.getAttribute(ConfigConstant.ISLOGIN) != null) {
-			if (Boolean.parseBoolean(session.getAttribute(ConfigConstant.ISLOGIN).toString())) {
+			if (Boolean.parseBoolean(session.getAttribute(
+					ConfigConstant.ISLOGIN).toString())) {
 				j.put("msg", "^true");
 				logger.debug("^true");
 			} else {
@@ -60,16 +65,35 @@ public class JsonpController {
 		model.addAttribute("j", j);
 	}
 
-	@RequestMapping(value="/async",method = RequestMethod.GET)
+	@RequestMapping(value = "/asyncc", method = RequestMethod.GET)
 	@ResponseBody
-	public Callable<String> testAsync(String str) {
+	public Callable<String> asyncc(final String str) {
 		logger.debug("async test");
 		return new Callable<String>() {
 			public String call() throws Exception {
 				logger.debug("async thread");
-				return "hello:"+str;
+				TimeUnit.SECONDS.sleep(10);
+				return "hello:" + str;
 			}
 		};
+	}
+
+	@RequestMapping(value = "/asyncd", method = RequestMethod.GET)
+	@ResponseBody
+	public DeferredResult<String> asyncd(final String str) {
+		DeferredResult<String> dr = new DeferredResult<String>();
+		dr.onCompletion(new Runnable() {
+			@Override
+			public void run() {
+				try {
+					TimeUnit.SECONDS.sleep(3);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				logger.debug("run with:{}",str);
+			}
+		});
+		return dr;
 	}
 
 	/**
@@ -91,26 +115,30 @@ public class JsonpController {
 	 * @return
 	 */
 	@RequestMapping("/test/{id}")
-	public @ResponseBody String test(@PathVariable Long id, @RequestParam String callback, HttpServletRequest request,
+	public @ResponseBody String test(@PathVariable Long id,
+			@RequestParam String callback, HttpServletRequest request,
 			HttpServletResponse response, Model model) {
 		logger.debug("model:{}", model);
 		response.setContentType("application/javascript");
 		response.setCharacterEncoding("utf-8");
 		logger.info("request:{}", ToStringBuilder.reflectionToString(request));
 		logger.info("id:{}", id);
-		String result = callback + "(" + JSON.toJSONString(userService.getUserById(id)) + ")";
+		String result = callback + "("
+				+ JSON.toJSONString(userService.getUserById(id)) + ")";
 		logger.debug("返回结果:{}", result);
 		return result;
 	}
 
 	@RequestMapping("/t/{id}")
-	public void t(@PathVariable Long id, @RequestParam String callback, HttpServletRequest request,
-			HttpServletResponse response, Model model) {
+	public void t(@PathVariable Long id, @RequestParam String callback,
+			HttpServletRequest request, HttpServletResponse response,
+			Model model) {
 		response.setContentType("application/javascript");
 		response.setCharacterEncoding("utf-8");
 		logger.info("request:{}", ToStringBuilder.reflectionToString(request));
 		logger.info("id:{}", id);
-		String result = callback + "(" + JSON.toJSONString(userService.getUserById(id)) + ")";
+		String result = callback + "("
+				+ JSON.toJSONString(userService.getUserById(id)) + ")";
 		logger.debug("返回结果:{}", result);
 		try {
 			response.getWriter().write(result);
@@ -127,7 +155,8 @@ public class JsonpController {
 	 * console.log(data); }, error: function(jqXHR){ console.log(jqXHR); } });
 	 */
 	@RequestMapping("/tj/{id}")
-	public User t(@PathVariable Long id, HttpServletRequest request, HttpServletResponse response, Model model) {
+	public User t(@PathVariable Long id, HttpServletRequest request,
+			HttpServletResponse response, Model model) {
 		return userService.getUserById(id);
 	}
 
@@ -147,7 +176,8 @@ public class JsonpController {
 	 * @return
 	 */
 	@RequestMapping("/testarr")
-	public @ResponseBody String[] testarr(@RequestParam(value = "v") String[] values, Model model) {
+	public @ResponseBody String[] testarr(
+			@RequestParam(value = "v") String[] values, Model model) {
 		logger.debug("接收到的数组参数:{}", Arrays.deepToString(values));
 		return values;
 	}
@@ -159,7 +189,8 @@ public class JsonpController {
 	 * @return
 	 */
 	@RequestMapping("/getSessionAttr")
-	public @ResponseBody String getSessionAttr(@ModelAttribute("name") String name, HttpSession session) {
+	public @ResponseBody String getSessionAttr(
+			@ModelAttribute("name") String name, HttpSession session) {
 		logger.debug("name:{}", name);
 		return session.getAttribute("name").toString();
 	}
