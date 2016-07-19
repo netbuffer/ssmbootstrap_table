@@ -93,6 +93,7 @@
 				<property name="fastJsonConfig" ref="fastJsonConfig" />
 			</bean>
 		</mvc:message-converters>
+		<mvc:async-support default-timeout="5" />
 	</mvc:annotation-driven>
 
 	<!-- 设定全局的validator -->

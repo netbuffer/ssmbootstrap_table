@@ -2,6 +2,7 @@ package cn.com.ttblog.ssmbootstrap_table.controller;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.concurrent.Callable;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -16,13 +17,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
-
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-
 import cn.com.ttblog.ssmbootstrap_table.model.User;
 import cn.com.ttblog.ssmbootstrap_table.service.IUserService;
 
@@ -46,8 +46,7 @@ public class JsonpController {
 	public void testModelAttr(HttpSession session, Model model) {
 		JSONObject j = new JSONObject();
 		if (session.getAttribute(ConfigConstant.ISLOGIN) != null) {
-			if (Boolean.parseBoolean(session.getAttribute(
-					ConfigConstant.ISLOGIN).toString())) {
+			if (Boolean.parseBoolean(session.getAttribute(ConfigConstant.ISLOGIN).toString())) {
 				j.put("msg", "^true");
 				logger.debug("^true");
 			} else {
@@ -61,9 +60,20 @@ public class JsonpController {
 		model.addAttribute("j", j);
 	}
 
+	@RequestMapping(value="/async",method = RequestMethod.GET)
+	@ResponseBody
+	public Callable<String> testAsync(String str) {
+		logger.debug("async test");
+		return new Callable<String>() {
+			public String call() throws Exception {
+				logger.debug("async thread");
+				return "hello:"+str;
+			}
+		};
+	}
+
 	/**
-	 * 手动构建jsonp支持
-	 * 前端使用jquery调用demo $.getJSON(
+	 * 手动构建jsonp支持 前端使用jquery调用demo $.getJSON(
 	 * "http://localhost:8080/ssmbootstrap_table/jsonp/test/1?callback=?"
 	 * ,function(data){ $("body").append(data.name); console.log(data); });
 	 * 
@@ -81,29 +91,26 @@ public class JsonpController {
 	 * @return
 	 */
 	@RequestMapping("/test/{id}")
-	public @ResponseBody String test(@PathVariable Long id,
-			@RequestParam String callback, HttpServletRequest request,
+	public @ResponseBody String test(@PathVariable Long id, @RequestParam String callback, HttpServletRequest request,
 			HttpServletResponse response, Model model) {
-		logger.debug("model:{}",model);
+		logger.debug("model:{}", model);
 		response.setContentType("application/javascript");
 		response.setCharacterEncoding("utf-8");
 		logger.info("request:{}", ToStringBuilder.reflectionToString(request));
 		logger.info("id:{}", id);
-		String result = callback + "("
-				+ JSON.toJSONString(userService.getUserById(id)) + ")";
+		String result = callback + "(" + JSON.toJSONString(userService.getUserById(id)) + ")";
 		logger.debug("返回结果:{}", result);
 		return result;
 	}
-	
+
 	@RequestMapping("/t/{id}")
-	public void t(@PathVariable Long id, @RequestParam String callback,
-			HttpServletRequest request, HttpServletResponse response, Model model) {
+	public void t(@PathVariable Long id, @RequestParam String callback, HttpServletRequest request,
+			HttpServletResponse response, Model model) {
 		response.setContentType("application/javascript");
 		response.setCharacterEncoding("utf-8");
 		logger.info("request:{}", ToStringBuilder.reflectionToString(request));
 		logger.info("id:{}", id);
-		String result = callback + "("
-				+ JSON.toJSONString(userService.getUserById(id)) + ")";
+		String result = callback + "(" + JSON.toJSONString(userService.getUserById(id)) + ")";
 		logger.debug("返回结果:{}", result);
 		try {
 			response.getWriter().write(result);
@@ -114,22 +121,13 @@ public class JsonpController {
 	}
 
 	/**
-	 * 使用spring-jsonp-support库 jsonp调用
-	 * $.ajax({ 
-			url:"http://localhost:8080/ssmbootstrap_table/tj/3.json", 
-			dataType:"jsonp", 
-			jsonp: "callback", 
-			success: function(data) {
-				console.log(data);
-			}, 
-			error: function(jqXHR){ 
-				console.log(jqXHR); 
-			}
-		});
+	 * 使用spring-jsonp-support库 jsonp调用 $.ajax({
+	 * url:"http://localhost:8080/ssmbootstrap_table/tj/3.json",
+	 * dataType:"jsonp", jsonp: "callback", success: function(data) {
+	 * console.log(data); }, error: function(jqXHR){ console.log(jqXHR); } });
 	 */
 	@RequestMapping("/tj/{id}")
-	public User t(@PathVariable Long id, HttpServletRequest request,
-			HttpServletResponse response, Model model) {
+	public User t(@PathVariable Long id, HttpServletRequest request, HttpServletResponse response, Model model) {
 		return userService.getUserById(id);
 	}
 
@@ -149,20 +147,20 @@ public class JsonpController {
 	 * @return
 	 */
 	@RequestMapping("/testarr")
-	public @ResponseBody String[] testarr(
-			@RequestParam(value = "v") String[] values, Model model) {
+	public @ResponseBody String[] testarr(@RequestParam(value = "v") String[] values, Model model) {
 		logger.debug("接收到的数组参数:{}", Arrays.deepToString(values));
 		return values;
 	}
-	
+
 	/**
 	 * 获取session中name的值
+	 * 
 	 * @param model
 	 * @return
 	 */
 	@RequestMapping("/getSessionAttr")
-	public @ResponseBody String getSessionAttr(@ModelAttribute("name")String name,HttpSession session) {
-		logger.debug("name:{}",name);
+	public @ResponseBody String getSessionAttr(@ModelAttribute("name") String name, HttpSession session) {
+		logger.debug("name:{}", name);
 		return session.getAttribute("name").toString();
 	}
 }
