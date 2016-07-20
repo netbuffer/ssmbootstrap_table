@@ -64,7 +64,8 @@ public class JsonpController {
 		}
 		model.addAttribute("j", j);
 	}
-
+	
+	//http://mvc.linesh.tw/publish/21-3/4-asynchronous-request-processing.html
 	@RequestMapping(value = "/asyncc", method = RequestMethod.GET)
 	@ResponseBody
 	public Callable<String> asyncc(final String str) {
