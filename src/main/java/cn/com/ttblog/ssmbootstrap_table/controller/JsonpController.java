@@ -66,6 +66,14 @@ public class JsonpController {
 	}
 	
 	//http://mvc.linesh.tw/publish/21-3/4-asynchronous-request-processing.html
+	/**
+	 * 通过Spring MVC所管理的线程来产生返回值。与此同时，Servlet容器的主线程则可以退出并释放其资源了，同时也允许容器去处理其他的请求。
+	 * 通过一个TaskExecutor，Spring
+	 * MVC可以在另外的线程中调用Callable。当Callable返回时，请求再携带Callable返回的值
+	 * ，再次被分配到Servlet容器中恢复处理流程
+	 * @param str
+	 * @return
+	 */
 	@RequestMapping(value = "/asyncc", method = RequestMethod.GET)
 	@ResponseBody
 	public Callable<String> asyncc(final String str) {
