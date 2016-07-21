@@ -7,6 +7,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>ssmbootstrap_table Maven Webapp</name>
 	<url>http://netbuffer.github.io</url>
+
 	<developers>
 		<developer>
 			<id>netbuffer</id>
@@ -15,6 +16,18 @@
 			<url>http://netbuffer.github.io</url>
 		</developer>
 	</developers>
+
+	<scm>
+		<url>https://github.com/netbuffer/ssmbootstrap_table/</url>
+		<connection>scm:git:git://github.com/netbuffer/ssmbootstrap_table.git</connection>
+		<developerConnection>scm:git:ssh://git@github.com:netbuffer/ssmbootstrap_table.git</developerConnection>
+	</scm>
+
+	<issueManagement>
+		<system>Github</system>
+		<url>https://github.com/netbuffer/ssmbootstrap_table/issues</url>
+	</issueManagement>
+
 	<properties>
 		<spring.version>4.0.2.RELEASE</spring.version>
 		<mybatis.version>3.3.0</mybatis.version>
@@ -288,29 +301,29 @@
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/com.ryantenney.metrics/metrics-spring -->
 		<dependency>
-		    <groupId>com.ryantenney.metrics</groupId>
-		    <artifactId>metrics-spring</artifactId>
-		    <version>3.1.3</version>
+			<groupId>com.ryantenney.metrics</groupId>
+			<artifactId>metrics-spring</artifactId>
+			<version>3.1.3</version>
 		</dependency>
 		<dependency>
-		    <groupId>io.dropwizard.metrics</groupId>
-		    <artifactId>metrics-jvm</artifactId>
-		    <version>3.1.2</version>
+			<groupId>io.dropwizard.metrics</groupId>
+			<artifactId>metrics-jvm</artifactId>
+			<version>3.1.2</version>
 		</dependency>
 		<dependency>
-		    <groupId>com.codahale.metrics</groupId>
-		    <artifactId>metrics-servlets</artifactId>
-		    <version>3.0.2</version>
+			<groupId>com.codahale.metrics</groupId>
+			<artifactId>metrics-servlets</artifactId>
+			<version>3.0.2</version>
 		</dependency>
 		<dependency>
-		    <groupId>com.codahale.metrics</groupId>
-		    <artifactId>metrics-healthchecks</artifactId>
-		    <version>3.0.2</version>
+			<groupId>com.codahale.metrics</groupId>
+			<artifactId>metrics-healthchecks</artifactId>
+			<version>3.0.2</version>
 		</dependency>
 		<dependency>
-		    <groupId>javax.transaction</groupId>
-		    <artifactId>jta</artifactId>
-		    <version>1.1</version>
+			<groupId>javax.transaction</groupId>
+			<artifactId>jta</artifactId>
+			<version>1.1</version>
 		</dependency>
 	</dependencies>
 
@@ -339,6 +352,25 @@
 				<groupId>org.apache.tomcat.maven</groupId>
 				<artifactId>tomcat7-maven-plugin</artifactId>
 				<version>2.2</version>
+			</plugin>
+			<!-- http://maven.apache.org/plugins/maven-javadoc-plugin/usage.html http://maven.apache.org/plugins/maven-javadoc-plugin/faq.html 
+				javadoc:javadoc -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>2.10.4</version>
+			</plugin>
+			<!-- http://maven.apache.org/plugins/maven-changelog-plugin/ changelog:changelog -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-changelog-plugin</artifactId>
+				<version>2.3</version>
+			</plugin>
+			<!-- http://maven.apache.org/plugins/maven-site-plugin/usage.html -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-site-plugin</artifactId>
+				<version>3.5.1</version>
 			</plugin>
 		</plugins>
 	</build>
