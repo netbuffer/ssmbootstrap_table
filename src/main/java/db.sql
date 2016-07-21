@@ -75,3 +75,18 @@ SET c =
 UPDATE STATISTICS
 SET usertotal = c; END;
 update statistics set usertotal=0;
+
+CREATE DEFINER=`root`@`%` PROCEDURE `insert_touser`(in start int(10),in max_num int(10))
+begin
+declare i int default 0;
+ -- set autocommit =0 把autocommit设置成0 不自动提交，循环完统一提交
+ set autocommit = 0;  
+ repeat
+ set i = i + 1;
+ insert into user(name,phone,adddate) values ((start+i),'test',UNIX_TIMESTAMP(NOW()));
+  until i = max_num
+ end repeat;
+   commit;
+ end
+ -- 添加1w个用户
+call insert_touser(1,10000);
