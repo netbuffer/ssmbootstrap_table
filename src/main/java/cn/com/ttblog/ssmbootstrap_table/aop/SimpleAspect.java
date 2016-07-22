@@ -18,43 +18,47 @@ import org.springframework.stereotype.Component;
 @Aspect
 public class SimpleAspect {
 	private Logger log = LoggerFactory.getLogger(getClass());
-
+	//http://jinnianshilongnian.iteye.com/blog/1415606  切入点语法
 	@Pointcut("execution(* cn.com.ttblog.ssmbootstrap_table.service.*Service*.*(..))")
 	public void pointCut() {
 	}
 
 	@After("pointCut()")
 	public void after(JoinPoint joinPoint) {
-		log.debug("after aspect executed");
+		log.warn("after aspect executed");
 	}
 
 	@Before("pointCut()")
 	public void before(JoinPoint joinPoint) {
 		// 如果需要这里可以取出参数进行处理
 		// Object[] args = joinPoint.getArgs();
-		log.debug("before aspect executing param:{}",ToStringBuilder.reflectionToString(joinPoint));
+		log.warn("before aspect executing param:{}",ToStringBuilder.reflectionToString(joinPoint));
 		Object[] arr=joinPoint.getArgs();
 		if(arr.length>0){
-			log.debug("method param:{}",ToStringBuilder.reflectionToString(joinPoint.getArgs()[0]));
+			log.warn("method param:{}",ToStringBuilder.reflectionToString(joinPoint.getArgs()[0]));
 		}
 	}
 
 	@AfterReturning(pointcut = "pointCut()", returning = "returnVal")
 	public void afterReturning(JoinPoint joinPoint, Object returnVal) {
-		log.debug("afterReturning executed, return result is " + returnVal);
+		log.warn("afterReturning executed, return result is " + returnVal);
 	}
 
 	@Around("pointCut()")
 	public Object around(ProceedingJoinPoint pjp) throws Throwable {
-		log.debug("around start..");
+		log.warn("around start..");
 		Object obj = null;
+		long startTime=System.nanoTime();
+		long endTime;
 		try {
 			obj = pjp.proceed();
+			endTime=System.nanoTime();
 		} catch (Throwable ex) {
-			log.debug("error in around");
+			log.warn("error in around");
 			throw ex;
 		}
-		log.debug("around end");
+		log.warn("around end");
+		log.warn(pjp.getSignature()+"-time consume is " + (endTime-startTime)/1000/1000/1000*0.1+"s");
 		return obj;
 	}
 
