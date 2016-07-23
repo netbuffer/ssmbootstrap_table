@@ -5,8 +5,10 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Properties;
+import java.util.concurrent.TimeUnit;
 
 import javax.annotation.Resource;
+import javax.management.RuntimeErrorException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -242,5 +244,21 @@ public class TestController {
 	public String access(){
 		loggerAccess.info("access");
 		return "index";
+	}
+	
+	@RequestMapping(value={"/syn"})
+	public synchronized String testSynchronized(ModelMap model){
+		logger.warn("{}-执行synchronized操作!", Thread.currentThread().getName());
+		try {
+			TimeUnit.SECONDS.sleep(10);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+			throw new RuntimeException("服务器错误");
+		}
+		if(model.get("syn")==null){
+			model.put("syn", Thread.currentThread().getName());
+		}
+		logger.warn("{}-执行synchronized操作完成", Thread.currentThread().getName());
+		return "test";
 	}
 }
