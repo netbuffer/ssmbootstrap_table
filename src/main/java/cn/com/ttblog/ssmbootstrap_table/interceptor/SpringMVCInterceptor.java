@@ -5,8 +5,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.util.UrlPathHelper;
 
 /**
  * http://haohaoxuexi.iteye.com/blog/1750680 拦截器测试
@@ -28,6 +30,14 @@ public class SpringMVCInterceptor implements HandlerInterceptor {
 			HttpServletResponse response, Object handler) throws Exception {
 		// 拿到requet数据处理，response处理
 		logger.trace("执行拦截器:{}", getClass().getName());
+		UrlPathHelper ut=new UrlPathHelper();
+		logger.info("ut.getLookupPathForRequest(request):{}",ut.getLookupPathForRequest(request));
+		if(handler.getClass().equals(HandlerMethod.class)){
+            String invokeControllerClassName=((HandlerMethod)handler).getBeanType().toString();
+            String invokeControllerMethodName=((HandlerMethod)handler).getMethod().getName();
+            String invokeControllerFullMethodSign=handler.toString();
+            logger.info("控制器名称:{},方法名称:{},方法签名:{}.",new String[]{invokeControllerClassName,invokeControllerMethodName,invokeControllerFullMethodSign});
+		}
 		return true;
 	}
 

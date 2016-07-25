@@ -2,6 +2,8 @@ package cn.com.ttblog.ssmbootstrap_table.controller;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.concurrent.Callable;
+import java.util.concurrent.TimeUnit;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -16,9 +18,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.context.request.async.DeferredResult;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
@@ -60,10 +64,49 @@ public class JsonpController {
 		}
 		model.addAttribute("j", j);
 	}
+	
+	//http://mvc.linesh.tw/publish/21-3/4-asynchronous-request-processing.html
+	/**
+	 * 通过Spring MVC所管理的线程来产生返回值。与此同时，Servlet容器的主线程则可以退出并释放其资源了，同时也允许容器去处理其他的请求。
+	 * 通过一个TaskExecutor，Spring
+	 * MVC可以在另外的线程中调用Callable。当Callable返回时，请求再携带Callable返回的值
+	 * ，再次被分配到Servlet容器中恢复处理流程
+	 * @param str
+	 * @return
+	 */
+	@RequestMapping(value = "/asyncc", method = RequestMethod.GET)
+	@ResponseBody
+	public Callable<String> asyncc(final String str) {
+		logger.debug("async test");
+		return new Callable<String>() {
+			public String call() throws Exception {
+				logger.debug("async thread");
+				TimeUnit.SECONDS.sleep(10);
+				return "hello:" + str;
+			}
+		};
+	}
+
+	@RequestMapping(value = "/asyncd", method = RequestMethod.GET)
+	@ResponseBody
+	public DeferredResult<String> asyncd(final String str) {
+		DeferredResult<String> dr = new DeferredResult<String>();
+		dr.onCompletion(new Runnable() {
+			@Override
+			public void run() {
+				try {
+					TimeUnit.SECONDS.sleep(3);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				logger.debug("run with:{}",str);
+			}
+		});
+		return dr;
+	}
 
 	/**
-	 * 手动构建jsonp支持
-	 * 前端使用jquery调用demo $.getJSON(
+	 * 手动构建jsonp支持 前端使用jquery调用demo $.getJSON(
 	 * "http://localhost:8080/ssmbootstrap_table/jsonp/test/1?callback=?"
 	 * ,function(data){ $("body").append(data.name); console.log(data); });
 	 * 
@@ -84,7 +127,7 @@ public class JsonpController {
 	public @ResponseBody String test(@PathVariable Long id,
 			@RequestParam String callback, HttpServletRequest request,
 			HttpServletResponse response, Model model) {
-		logger.debug("model:{}",model);
+		logger.debug("model:{}", model);
 		response.setContentType("application/javascript");
 		response.setCharacterEncoding("utf-8");
 		logger.info("request:{}", ToStringBuilder.reflectionToString(request));
@@ -94,10 +137,11 @@ public class JsonpController {
 		logger.debug("返回结果:{}", result);
 		return result;
 	}
-	
+
 	@RequestMapping("/t/{id}")
 	public void t(@PathVariable Long id, @RequestParam String callback,
-			HttpServletRequest request, HttpServletResponse response, Model model) {
+			HttpServletRequest request, HttpServletResponse response,
+			Model model) {
 		response.setContentType("application/javascript");
 		response.setCharacterEncoding("utf-8");
 		logger.info("request:{}", ToStringBuilder.reflectionToString(request));
@@ -114,18 +158,10 @@ public class JsonpController {
 	}
 
 	/**
-	 * 使用spring-jsonp-support库 jsonp调用
-	 * $.ajax({ 
-			url:"http://localhost:8080/ssmbootstrap_table/tj/3.json", 
-			dataType:"jsonp", 
-			jsonp: "callback", 
-			success: function(data) {
-				console.log(data);
-			}, 
-			error: function(jqXHR){ 
-				console.log(jqXHR); 
-			}
-		});
+	 * 使用spring-jsonp-support库 jsonp调用 $.ajax({
+	 * url:"http://localhost:8080/ssmbootstrap_table/tj/3.json",
+	 * dataType:"jsonp", jsonp: "callback", success: function(data) {
+	 * console.log(data); }, error: function(jqXHR){ console.log(jqXHR); } });
 	 */
 	@RequestMapping("/tj/{id}")
 	public User t(@PathVariable Long id, HttpServletRequest request,
@@ -154,15 +190,17 @@ public class JsonpController {
 		logger.debug("接收到的数组参数:{}", Arrays.deepToString(values));
 		return values;
 	}
-	
+
 	/**
 	 * 获取session中name的值
+	 * 
 	 * @param model
 	 * @return
 	 */
 	@RequestMapping("/getSessionAttr")
-	public @ResponseBody String getSessionAttr(@ModelAttribute("name")String name,HttpSession session) {
-		logger.debug("name:{}",name);
+	public @ResponseBody String getSessionAttr(
+			@ModelAttribute("name") String name, HttpSession session) {
+		logger.debug("name:{}", name);
 		return session.getAttribute("name").toString();
 	}
 }
