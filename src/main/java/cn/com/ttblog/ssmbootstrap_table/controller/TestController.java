@@ -261,4 +261,10 @@ public class TestController {
 		logger.warn("{}-执行synchronized操作完成", Thread.currentThread().getName());
 		return "test";
 	}
+	
+	@RequestMapping(value={"/ue"})
+	public String ue(ModelMap model){
+		logger.debug("open ueditor");
+		return "ueditor/index";
+	}
 }
