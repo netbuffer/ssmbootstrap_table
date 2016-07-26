@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.io.FileUtils;
 import org.joda.time.DateTime;
 import org.slf4j.Logger;
@@ -30,6 +31,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.support.RequestContextUtils;
@@ -58,9 +60,9 @@ public class IndexController {
 	
 	@RequestMapping("/login")
 	public String login(HttpSession session, HttpServletRequest request,
-			HttpServletResponse response, String username, String password) {
+			HttpServletResponse response, String username, String password,@RequestParam(value="requri",required=false) String requri) {
 //		RequestContextUtils.getWebApplicationContext(request)
-		logger.info("进入username:{},pwd:{}", username, password);
+		logger.info("进入username:{},pwd:{},requri:{}", username, password,requri);
 		if (username.equals(ConfigConstant.VAL_USERNAME)
 				&& password.equals(ConfigConstant.VAL_PWD)) {
 			session.setAttribute(ConfigConstant.ISLOGIN, true);
@@ -73,9 +75,17 @@ public class IndexController {
 			param.put("logintime", new DateTime().toString("yyyy-MM-dd HH:mm:ss"));
 			param.put("loginip", request.getRemoteAddr());
 			applicationContext.publishEvent(new LoginEvent(param));  
+			if(requri!=null&&requri.length()>0){
+				String uri=new String(Base64.decodeBase64(requri));
+				String touri=uri.substring(request.getContextPath().length()+1);
+				logger.debug("request.getContextPath():{}  decode-requri:{}  touri:{}",request.getContextPath(),uri,touri);
+//				/ssmbootstrap_table
+//				/ssmbootstrap_table/test/form?null
+				return "redirect:/"+touri;
+			}
 			return "redirect:/manage.html";
 		} else {
-			return "redirect:/index.html";
+			return "redirect:/index.html?requri="+requri;
 		}
 	}
 
