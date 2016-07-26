@@ -27,6 +27,27 @@
 					console.log(jqXHR); 
 				}
 			});
+			var head = document.head || $('head')[0] || document.documentElement; // code from jquery
+			  var script = $(head).find('script')[0];
+			  script.onerror = function(evt) {
+				alert("网络超时,请稍后再试!");
+			    // do some clean
+			    // delete script node
+			    if (script.parentNode) {
+			      script.parentNode.removeChild(script);
+			    }
+			    // delete jsonCallback global function
+			    var src = script.src || '';
+			    var idx = src.indexOf('callback=');
+			    if (idx != -1) {
+			      var idx2 = src.indexOf('&');
+			      if (idx2 == -1) {
+			        idx2 = src.length;
+			      }
+			      var jsonCallback = src.substring(idx + 13, idx2);
+			      delete window[jsonCallback];
+			    }
+			  };
 		}
 	</script>
 </head>

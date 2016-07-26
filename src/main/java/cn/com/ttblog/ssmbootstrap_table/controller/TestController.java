@@ -267,4 +267,10 @@ public class TestController {
 		logger.debug("open ueditor");
 		return "ueditor/index";
 	}
+	
+	@RequestMapping(value={"/{no}/uri"})
+	public String uri(ModelMap model){
+		return "redirect:/{no}/index";//springmvc会对模板变量中的值解析处理
+//		return "{no}/index";
+	}
 }
