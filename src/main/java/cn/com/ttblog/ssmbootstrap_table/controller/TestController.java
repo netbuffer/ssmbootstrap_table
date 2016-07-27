@@ -65,4 +65,13 @@ public class TestController {
 		res.put("key2", "v2");
 		return res;
 	}
+	
+	@RequestMapping(value = {"/aaa"})
+	public  String aaa(){
+		logger.debug("aaa");
+		Map<String, Object> res=new HashMap<String, Object>();
+		res.put("key1", "v1");
+		res.put("key2", "v2");
+		return "test";
+	}
 }

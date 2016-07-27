@@ -209,7 +209,12 @@
 			<artifactId>jackson-databind</artifactId>
 			<version>2.7.4</version>
 		</dependency>
-
+		<!--http://tuckey.org/urlrewrite/ url重写-->
+		<dependency>
+		    <groupId>org.tuckey</groupId>
+		    <artifactId>urlrewritefilter</artifactId>
+		    <version>4.0.3</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<finalName>ssmbootstrap_table</finalName>

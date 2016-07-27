@@ -36,8 +36,8 @@
             <password>root</password>  
         </connectionSource>  
     </appender> -->
-	<!-- <logger name="org.springframework.core" level="DEBUG" />
-	<logger name="org.springframework.beans" level="DEBUG" />
+	<logger name="org.springframework" level="DEBUG" />
+	<!-- <logger name="org.springframework.beans" level="DEBUG" />
 	<logger name="org.springframework.context" level="DEBUG" />
 	<logger name="org.springframework.http" level="DEBUG" />
 	<logger name="org.springframework.web" level="DEBUG" /> -->
