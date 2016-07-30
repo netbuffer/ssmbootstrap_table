@@ -79,6 +79,7 @@
 		<level value="DEBUG" />
 		<appender-ref ref="stdout" />
 		<appender-ref ref="logfile" />
+		<appender-ref ref="ACCESS" />
 		<!-- 数据库日志 -->
 		<!-- <appender-ref ref="db-classic-mysql" /> -->
 	</root>

@@ -11,13 +11,11 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import javax.annotation.Resource;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.io.FileUtils;
 import org.joda.time.DateTime;
@@ -39,10 +37,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-
 import com.alibaba.fastjson.JSONArray;
 import com.codahale.metrics.annotation.Timed;
-
 import cn.com.ttblog.ssmbootstrap_table.event.LoginEvent;
 import cn.com.ttblog.ssmbootstrap_table.model.User;
 import cn.com.ttblog.ssmbootstrap_table.service.IUserService;
@@ -158,6 +154,15 @@ public class IndexController {
 		List<User> users = userService.getUserList("desc", 10, 0);
 		String projectPath = request.getServletContext().getRealPath("export")
 				+ File.separator;
+		File dir=new File(projectPath);
+		if(!dir.exists()){
+			if(dir.mkdir()){
+				logger.debug("创建目录:{}",dir.getAbsolutePath());
+			}else{
+				logger.debug("创建目录:{}失败!,请检查权限!",dir.getAbsolutePath());
+				throw new RuntimeException("没有创建:"+dir.getAbsolutePath()+"目录的权限!");
+			}
+		}
 		int userCount = users.size();
 		List<Map<String, Object>> mps = new ArrayList<Map<String, Object>>(
 				users.size());

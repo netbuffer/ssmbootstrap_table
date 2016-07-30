@@ -45,8 +45,9 @@ import cn.com.ttblog.ssmbootstrap_table.util.AjaxUtils;
 @RequestMapping("/test")
 @SessionAttributes("name")
 public class TestController {
-	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	private Logger loggerAccess = LoggerFactory.getLogger("access");
+//	private Logger logger = LoggerFactory.getLogger(this.getClass());
+	private Logger logger = loggerAccess;
 	
 	@Autowired  
 	private ApplicationContext applicationContext;
