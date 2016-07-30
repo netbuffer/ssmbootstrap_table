@@ -14,7 +14,7 @@
 		<property name="targetObject">
 			<ref bean="quartzTask" />
 		</property>
-		  <!-- 要执行的方法名称 -->
+		<!-- 要执行的方法名称 -->
 		<property name="targetMethod">
 			<value>run</value>
 		</property>
@@ -24,7 +24,6 @@
 		<property name="jobDetail" ref="quartzJob" />
 		<property name="cronExpression" value="0 */1 * * * ?" />
 	</bean>
-
 	<bean id="schedulerFactoryBean"
 		class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
 		<property name="triggers">

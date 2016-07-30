@@ -6,7 +6,8 @@
 	<appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
 		<encoder charset="utf-8">
 			<pattern>
-				%date [%thread] %-5level %logger{80} - %msg%n
+				<!-- http://aub.iteye.com/blog/1103685 pattern -->
+				%date [%thread] %-5level %logger{10}-%caller{1} - %msg%n
 			</pattern>
 		</encoder>
 	</appender>
