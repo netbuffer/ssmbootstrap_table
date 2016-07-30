@@ -2,6 +2,8 @@ package cn.com.ttblog.ssmbootstrap_table.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -23,6 +25,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -30,15 +33,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.support.RequestContextUtils;
 
 import com.alibaba.fastjson.JSONArray;
 import com.codahale.metrics.annotation.Timed;
-import com.github.jscookie.javacookie.Cookies;
 
 import cn.com.ttblog.ssmbootstrap_table.event.LoginEvent;
 import cn.com.ttblog.ssmbootstrap_table.model.User;
@@ -177,18 +180,32 @@ public class IndexController {
 		POIExcelUtil.export(titles, mps, file);
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
-		headers.setContentDispositionFormData("attachment",
-				file.replace(projectPath, ""));
+		String filename="test";
 		try {
+			filename = URLEncoder.encode(file.replace(projectPath, ""),"UTF-8");
+		} catch (UnsupportedEncodingException e1) {
+			e1.printStackTrace();
+		}
+		logger.debug("下载文件名字:{}",filename);
+		headers.setContentDispositionFormData("attachment",filename);
+		try {
+//			http://stackoverflow.com/questions/11203111/downloading-a-spring-mvc-generated-file-not-working-in-ie ie下载问题
 			return new ResponseEntity<byte[]>(
 					FileUtils.readFileToByteArray(new File(file)), headers,
-					HttpStatus.CREATED);
+					HttpStatus.OK);
+//			HttpStatus.CREATED
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		return null;
 	}
-
+	
+	@RequestMapping(value = "/files/{file_name}", method = RequestMethod.GET)
+//	@ResponseBody
+	public FileSystemResource getFile(@PathVariable("file_name") String fileName,HttpServletRequest request) {
+	    return new FileSystemResource(new File(request.getServletContext().getRealPath("export")+ File.separator+fileName+".xls")); 
+	}
+	
 	@RequestMapping("/testerror")
 	public String testthrowException() {
 		throw new RuntimeException("test error");
