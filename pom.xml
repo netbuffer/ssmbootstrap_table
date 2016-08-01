@@ -216,7 +216,17 @@
 		    <artifactId>quartz</artifactId>
 		    <version>${org.quartz-scheduler.version}</version>
 		</dependency>
-
+		<dependency>
+		    <groupId>com.mycila</groupId>
+		    <artifactId>mycila-junit</artifactId>
+		    <version>1.4.ga</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.testng</groupId>
+		    <artifactId>testng</artifactId>
+		    <version>6.9.10</version>
+		    <scope>test</scope>
+		</dependency>
 	</dependencies>
 		<repositories>
 		<repository>

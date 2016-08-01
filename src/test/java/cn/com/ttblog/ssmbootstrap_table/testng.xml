@@ -1,0 +1,8 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="Test-method Suite" parallel="methods" thread-count="3">
+  <test name="Test-method test" group-by-instances="true">
+    <classes>
+      <class name="cn.com.ttblog.ssmbootstrap_table.TestNGLearn1" />
+    </classes>
+  </test>
+</suite>

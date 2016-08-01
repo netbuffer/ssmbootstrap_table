@@ -5,10 +5,15 @@ import java.util.concurrent.TimeUnit;
 import org.apache.commons.lang.math.RandomUtils;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.mycila.junit.concurrent.Concurrency;
+import com.mycila.junit.concurrent.ConcurrentJunitRunner;
 //http://darrendu.iteye.com/blog/765733 关于junit中测试多线程疑问
 // http://my.oschina.net/ydsakyclguozi/blog/400691 junit+GroboUtils 多线程测试
+//http://www.whiteboxtest.com/JUnit4-Multithreading-And-Concurrency-Testing.php
 public class TestSynchronized {
 	public static final Logger log=LoggerFactory.getLogger(TestSynchronized.class);
 	@Test
