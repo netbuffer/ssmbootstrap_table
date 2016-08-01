@@ -11,7 +11,10 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
+
 import javax.annotation.Resource;
+import javax.mail.internet.MimeUtility;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -185,12 +188,29 @@ public class IndexController {
 		POIExcelUtil.export(titles, mps, file);
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
-		String filename="test";
+//		String filename="中文";
+		String filename="";
 		try {
 			filename = URLEncoder.encode(file.replace(projectPath, ""),"UTF-8");
 		} catch (UnsupportedEncodingException e1) {
 			e1.printStackTrace();
 		}
+		
+//		try {
+//			filename=MimeUtility.encodeWord(filename);
+//		} catch (UnsupportedEncodingException e1) {
+//			// TODO Auto-generated catch block
+//			e1.printStackTrace();
+//		}
+		
+//		try {
+////			"gbk"
+//			filename=new String(filename.getBytes(),"iso-8859-1");
+//		} catch (UnsupportedEncodingException e1) {
+//			e1.printStackTrace();
+//			throw new RuntimeException(e1.getMessage());
+//		}
+		
 		logger.debug("下载文件名字:{}",filename);
 		headers.setContentDispositionFormData("attachment",filename);
 		try {
