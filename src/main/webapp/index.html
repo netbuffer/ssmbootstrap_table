@@ -12,6 +12,13 @@
 <link href="css/font-awesome.css" rel="stylesheet">
 <link href="css/form-elements.css" rel="stylesheet">
 <link href="css/style.css" rel="stylesheet">
+<script src="http://cdn.bootcss.com/jquery/2.1.3/jquery.js"></script>
+<script src="//cdn.bootcss.com/jquery-url-parser/2.3.1/purl.min.js"></script>
+<script type="text/javascript">
+	$(function(){
+		$("input[name='requri']").val($.url(window.location.href).param('requri'));
+	});
+</script>
 </head>
 <body>
 	<div class="container">
@@ -56,6 +63,7 @@
 											class="form-password form-control input-error"
 											id="form-password" type="password">
 									</div>
+									<input name="requri" type="hidden" value=""/>
 									<button type="submit" class="btn">登陆</button>
 								</form>
 							</div>

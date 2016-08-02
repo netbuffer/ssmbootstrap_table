@@ -1,5 +1,7 @@
 package cn.com.ttblog.ssmbootstrap_table;
 
+import java.util.Arrays;
+
 import org.junit.Test;
 
 /**
@@ -25,5 +27,13 @@ public class TestStringFormat {
 		System.out.printf("上面价格的指数和浮点数结果的长度较短的是：%g %n", 50 * 0.85);
 		System.out.printf("上面的折扣是%d%% %n", 85);
 		System.out.printf("字母A的散列码是：%h %n", 'A');
+	}
+	
+	@Test
+	public void testStringCompare(){
+		String[] str=new String[]{"01","04","03","02"};
+		System.out.println("01".compareTo("02"));
+		Arrays.sort(str);
+		System.out.println(Arrays.deepToString(str));
 	}
 }
