@@ -10,6 +10,9 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.codec.binary.Base64;
+
 import com.github.jscookie.javacookie.Cookies;
 import cn.com.ttblog.ssmbootstrap_table.Constant.ConfigConstant;
 
@@ -90,8 +93,11 @@ public class LoginFilter implements Filter {
 			if(!find){
 				//关于committed状态 http://blog.csdn.net/jubincn/article/details/8920573
 				if(!httpServletResponse.isCommitted()){
+					//记录之前访问的参数
+					String requrib=httpServletRequest.getRequestURI()+"?"+httpServletRequest.getQueryString();
+					String requri=Base64.encodeBase64String(requrib.getBytes());
 					httpServletResponse.sendRedirect(httpServletRequest
-							.getContextPath() + "/index.html");
+							.getContextPath() + "/index.html?requri="+requri);
 				}
 				return ;
 			}

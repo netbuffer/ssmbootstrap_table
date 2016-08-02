@@ -2,6 +2,8 @@ package cn.com.ttblog.ssmbootstrap_table.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -9,19 +11,22 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.annotation.Resource;
+import javax.mail.internet.MimeUtility;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
+import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.io.FileUtils;
 import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -29,15 +34,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.support.RequestContextUtils;
-
 import com.alibaba.fastjson.JSONArray;
 import com.codahale.metrics.annotation.Timed;
-import com.github.jscookie.javacookie.Cookies;
-
 import cn.com.ttblog.ssmbootstrap_table.event.LoginEvent;
 import cn.com.ttblog.ssmbootstrap_table.model.User;
 import cn.com.ttblog.ssmbootstrap_table.service.IUserService;
@@ -58,9 +62,9 @@ public class IndexController {
 	
 	@RequestMapping("/login")
 	public String login(HttpSession session, HttpServletRequest request,
-			HttpServletResponse response, String username, String password) {
+			HttpServletResponse response, String username, String password,@RequestParam(value="requri",required=false) String requri) {
 //		RequestContextUtils.getWebApplicationContext(request)
-		logger.info("进入username:{},pwd:{}", username, password);
+		logger.info("进入username:{},pwd:{},requri:{}", username, password,requri);
 		if (username.equals(ConfigConstant.VAL_USERNAME)
 				&& password.equals(ConfigConstant.VAL_PWD)) {
 			session.setAttribute(ConfigConstant.ISLOGIN, true);
@@ -73,9 +77,17 @@ public class IndexController {
 			param.put("logintime", new DateTime().toString("yyyy-MM-dd HH:mm:ss"));
 			param.put("loginip", request.getRemoteAddr());
 			applicationContext.publishEvent(new LoginEvent(param));  
+			if(requri!=null&&requri.length()>0){
+				String uri=new String(Base64.decodeBase64(requri));
+				String touri=uri.substring(request.getContextPath().length()+1);
+				logger.debug("request.getContextPath():{}  decode-requri:{}  touri:{}",request.getContextPath(),uri,touri);
+//				/ssmbootstrap_table
+//				/ssmbootstrap_table/test/form?null
+				return "redirect:/"+touri;
+			}
 			return "redirect:/manage.html";
 		} else {
-			return "redirect:/index.html";
+			return "redirect:/index.html?requri="+requri;
 		}
 	}
 
@@ -145,6 +157,15 @@ public class IndexController {
 		List<User> users = userService.getUserList("desc", 10, 0);
 		String projectPath = request.getServletContext().getRealPath("export")
 				+ File.separator;
+		File dir=new File(projectPath);
+		if(!dir.exists()){
+			if(dir.mkdir()){
+				logger.debug("创建目录:{}",dir.getAbsolutePath());
+			}else{
+				logger.debug("创建目录:{}失败!,请检查权限!",dir.getAbsolutePath());
+				throw new RuntimeException("没有创建:"+dir.getAbsolutePath()+"目录的权限!");
+			}
+		}
 		int userCount = users.size();
 		List<Map<String, Object>> mps = new ArrayList<Map<String, Object>>(
 				users.size());
@@ -167,18 +188,49 @@ public class IndexController {
 		POIExcelUtil.export(titles, mps, file);
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
-		headers.setContentDispositionFormData("attachment",
-				file.replace(projectPath, ""));
+//		String filename="中文";
+		String filename="";
 		try {
+			filename = URLEncoder.encode(file.replace(projectPath, ""),"UTF-8");
+		} catch (UnsupportedEncodingException e1) {
+			e1.printStackTrace();
+		}
+		
+//		try {
+//			filename=MimeUtility.encodeWord(filename);
+//		} catch (UnsupportedEncodingException e1) {
+//			// TODO Auto-generated catch block
+//			e1.printStackTrace();
+//		}
+		
+//		try {
+////			"gbk"
+//			filename=new String(filename.getBytes(),"iso-8859-1");
+//		} catch (UnsupportedEncodingException e1) {
+//			e1.printStackTrace();
+//			throw new RuntimeException(e1.getMessage());
+//		}
+		
+		logger.debug("下载文件名字:{}",filename);
+		headers.setContentDispositionFormData("attachment",filename);
+		try {
+//			http://stackoverflow.com/questions/11203111/downloading-a-spring-mvc-generated-file-not-working-in-ie ie下载问题
 			return new ResponseEntity<byte[]>(
 					FileUtils.readFileToByteArray(new File(file)), headers,
-					HttpStatus.CREATED);
+					HttpStatus.OK);
+//			HttpStatus.CREATED
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		return null;
 	}
-
+	
+	@RequestMapping(value = "/files/{file_name}", method = RequestMethod.GET)
+//	@ResponseBody
+	public FileSystemResource getFile(@PathVariable("file_name") String fileName,HttpServletRequest request) {
+	    return new FileSystemResource(new File(request.getServletContext().getRealPath("export")+ File.separator+fileName+".xls")); 
+	}
+	
 	@RequestMapping("/testerror")
 	public String testthrowException() {
 		throw new RuntimeException("test error");

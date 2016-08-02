@@ -45,8 +45,9 @@ import cn.com.ttblog.ssmbootstrap_table.util.AjaxUtils;
 @RequestMapping("/test")
 @SessionAttributes("name")
 public class TestController {
-	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	private Logger loggerAccess = LoggerFactory.getLogger("access");
+//	private Logger logger = LoggerFactory.getLogger(this.getClass());
+	private Logger logger = loggerAccess;
 	
 	@Autowired  
 	private ApplicationContext applicationContext;
@@ -266,5 +267,11 @@ public class TestController {
 	public String ue(ModelMap model){
 		logger.debug("open ueditor");
 		return "ueditor/index";
+	}
+	
+	@RequestMapping(value={"/{no}/uri"})
+	public String uri(ModelMap model){
+		return "redirect:/{no}/index";//springmvc会对模板变量中的值解析处理
+//		return "{no}/index";
 	}
 }
