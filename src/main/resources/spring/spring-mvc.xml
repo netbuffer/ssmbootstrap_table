@@ -194,4 +194,6 @@
 			/> </mvc:interceptor> -->
 	</mvc:interceptors>
 	
+	<bean name="swagger" class="cn.com.ttblog.ssmbootstrap_table.util.SwaggerConfig"></bean>
+    <mvc:resources mapping="/webjars/**" location="classpath:/META-INF/resources/webjars/"/>
 </beans>  
