@@ -38,7 +38,8 @@
 	<import resource="spring-jmx.xml" />
 	<import resource="classpath:cxf/cxf.xml" />
 	<import resource="spring-ehcache.xml"/>
-	  
+	<import resource="spring-websocket.xml"/>
+	
 	<!-- jsonpfilter -->
 	<bean class="com.intera.util.web.servlet.filter.JsonpCallbackFilter"
 		id="jsonpCallbackFilter" />

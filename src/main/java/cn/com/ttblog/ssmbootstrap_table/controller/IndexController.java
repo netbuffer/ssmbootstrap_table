@@ -133,14 +133,13 @@ public class IndexController {
 	
 	@Timed
 	@RequestMapping("/datacount")
-	public @ResponseBody Map<String, Object> datacount(HttpSession session,
-			Model model) {
+	public @ResponseBody Map<String, Object> datacount() {
 		logger.debug("获取datacount");
 		List<Map<String, Object>> counts = userService.getDataSum();
 		JSONArray categorys = new JSONArray();
 		JSONArray nums = new JSONArray();
 		for (Map<String, Object> m : counts) {
-			categorys.add(m.get("adddate").toString());
+			categorys.add(m.get("adddate")==null?"":m.get("adddate").toString());
 			nums.add(m.get("num").toString());
 		}
 		logger.debug("categorys:{},nums:{}", categorys, nums);
