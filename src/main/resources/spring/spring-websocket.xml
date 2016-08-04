@@ -10,8 +10,13 @@
                         http://www.springframework.org/schema/websocket 
                         http://www.springframework.org/schema/websocket/spring-websocket.xsd
                         ">
+	<!-- http://blog.csdn.net/gisredevelopment/article/details/38392629 -->
+	<!-- websocket通信配置-->
 	<websocket:handlers>
 		<websocket:mapping path="/ws" handler="myHandler" />
+		<websocket:handshake-interceptors>  
+	    	<bean class="cn.com.ttblog.ssmbootstrap_table.interceptor.HandshakeInterceptor"/>  
+	    </websocket:handshake-interceptors>
 	</websocket:handlers>
 	<websocket:handlers>
 		<websocket:mapping path="/wsockjs" handler="myHandler" />

@@ -274,4 +274,9 @@ public class TestController {
 		return "redirect:/{no}/index";//springmvc会对模板变量中的值解析处理
 //		return "{no}/index";
 	}
+	
+	@RequestMapping(value={"/websocket"})
+	public String websocket(ModelMap model){
+		return "websocket";
+	}
 }

@@ -14,8 +14,10 @@
 <link href="css/style.css" rel="stylesheet">
 <script src="http://cdn.bootcss.com/jquery/2.1.3/jquery.js"></script>
 <script src="//cdn.bootcss.com/jquery-url-parser/2.3.1/purl.min.js"></script>
+<script src="//cdn.bootcss.com/jquery-backstretch/2.0.4/jquery.backstretch.min.js"></script>
 <script type="text/javascript">
 	$(function(){
+		 $.backstretch("image/backimg.jpg");
 		$("input[name='requri']").val($.url(window.location.href).param('requri'));
 	});
 </script>
@@ -82,12 +84,6 @@
 				</div>
 			</div>
 		</div>
-	</div>
-	<div
-		style="left: 0px; top: 0px; overflow: hidden; margin: 0px; padding: 0px; height:100%; width:100%; z-index: -999999; position: fixed;"
-		class="backstretch">
-		<img src="image/backimg.jpg"
-			style="position: absolute; margin: 0px; padding: 0px; border: medium none; width: 100%; height: 100%; max-height: none; max-width: none; z-index: -999999; left: 0px; top: -141.333px;">
 	</div>
 </body>
 </html>
