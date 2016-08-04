@@ -12,6 +12,13 @@
 <link href="css/font-awesome.css" rel="stylesheet">
 <link href="css/form-elements.css" rel="stylesheet">
 <link href="css/style.css" rel="stylesheet">
+<script src="http://cdn.bootcss.com/jquery/2.1.3/jquery.js"></script>
+<script src="//cdn.bootcss.com/jquery-backstretch/2.0.4/jquery.backstretch.min.js"></script>
+<script type="text/javascript">
+	$(function(){
+		 $.backstretch("image/backimg.jpg");
+	});
+</script>
 </head>
 <body>
 	<div class="container">
@@ -56,6 +63,12 @@
 											class="form-password form-control input-error"
 											id="form-password" type="password">
 									</div>
+									<div class="form-group">
+										<label class="sr-only" for="form-password">验证码</label> 
+										<input name="captcha" placeholder="输入验证码..." class="form-password form-control input-error" type="text">
+										<img src="test/jcaptcha" class="pull-right" style="position: absolute; top:280px;right:47px"/>
+									</div>
+									
 									<button type="submit" class="btn">登陆</button>
 								</form>
 							</div>
@@ -74,12 +87,6 @@
 				</div>
 			</div>
 		</div>
-	</div>
-	<div
-		style="left: 0px; top: 0px; overflow: hidden; margin: 0px; padding: 0px; height: 730px; width: 1519px; z-index: -999999; position: fixed;"
-		class="backstretch">
-		<img src="image/backimg.jpg"
-			style="position: absolute; margin: 0px; padding: 0px; border: medium none; width: 1519px; height: 1012.67px; max-height: none; max-width: none; z-index: -999999; left: 0px; top: -141.333px;">
 	</div>
 </body>
 </html>

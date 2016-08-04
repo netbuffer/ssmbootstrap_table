@@ -31,6 +31,7 @@
 	<!-- 启用aop -->
 	<aop:aspectj-autoproxy />
 	<import resource="classpath:spring-JdbcTemplate.xml"/>
+	<import resource="classpath:spring-jcaptcha.xml"/>
 	<!-- jsonpfilter -->
 	<bean class="com.intera.util.web.servlet.filter.JsonpCallbackFilter"
 		id="jsonpCallbackFilter" />
