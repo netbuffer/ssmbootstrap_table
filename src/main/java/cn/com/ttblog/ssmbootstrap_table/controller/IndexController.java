@@ -19,6 +19,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -30,12 +31,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.alibaba.fastjson.JSONArray;
+import com.octo.captcha.service.image.ImageCaptchaService;
+
 import cn.com.ttblog.ssmbootstrap_table.model.User;
 import cn.com.ttblog.ssmbootstrap_table.service.IUserService;
 import cn.com.ttblog.ssmbootstrap_table.util.BeanMapUtil;
 import cn.com.ttblog.ssmbootstrap_table.util.POIExcelUtil;
-
-import com.alibaba.fastjson.JSONArray;
 
 @Controller(value="mainindex")
 @RequestMapping("/")
@@ -43,13 +45,19 @@ public class IndexController {
 
 	@Resource
 	private IUserService userService;
-
+	@Autowired
+	private ImageCaptchaService imageCaptchaService;
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
-
+//	http://www.tuicool.com/articles/rMzAFj
 	@RequestMapping("/login")
 	public String login(HttpSession session, HttpServletRequest request,
-			HttpServletResponse response, String username, String password) {
-		logger.info("进入username:{},pwd:{}", username, password);
+			HttpServletResponse response, String username, String captcha, String password) {
+		logger.info("进入username:{},pwd:{},session captcha:{},captcha:{}", username, password,
+				imageCaptchaService.getChallengeForID(request.getSession().getId().toString(), request.getLocale()),captcha);
+		if(!imageCaptchaService.validateResponseForID(request.getSession().getId(), captcha)){
+			logger.info("验证码未通过!");
+			return "redirect:/index.html";
+		}
 		if (username.equals(ConfigConstant.VAL_USERNAME)
 				&& password.equals(ConfigConstant.VAL_PWD)) {
 			session.setAttribute(ConfigConstant.ISLOGIN, true);
@@ -62,7 +70,20 @@ public class IndexController {
 			return "redirect:/index.html";
 		}
 	}
-
+	
+	@RequestMapping("/exit")
+	public String exit(HttpSession session,HttpServletRequest request,
+			HttpServletResponse response) {
+		logger.debug("用户{}退出系统",session.getAttribute(ConfigConstant.USERNAME));
+		//删除cookie
+		Cookie cookie = new Cookie(ConfigConstant.USERNAME, null); 
+		cookie.setMaxAge(0);
+		session.invalidate();
+		logger.debug("exit c2:{}",cookie);
+		response.addCookie(cookie);
+		return "redirect:/index.html";
+	}
+	
 	@RequestMapping("/newdata")
 	public String newdata(HttpSession session, Model model) {
 		DecimalFormat df = new DecimalFormat("0.00");
