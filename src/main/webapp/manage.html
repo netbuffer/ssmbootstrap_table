@@ -325,10 +325,12 @@
 			<span class="glyphicon glyphicon-arrow-down"></span> 导出历史数据到excel
 		</button>
 		<p class="text-center text-success">支持中文首字母查询</p>
+		<!-- data-page-size设定分页大小 -->
 		<table id="dtb" data-toggle="table"
 			data-url="user/userlist?format=json" class="table table-hover"
 			data-show-columns="true" data-search="true" data-show-refresh="true"
 			data-show-toggle="true" data-show-export="true"
+			data-page-size="50" 
 			data-export-types="['json', 'xml', 'csv', 'txt', 'sql', 'excel']"
 			data-height="450" data-side-pagination="server"
 			data-pagination="true" data-page-list="[5, 10, 20, 50, 100, 200]"
