@@ -122,7 +122,7 @@
 		<async-supported>true</async-supported>
 		<init-param>
 			<param-name>enable</param-name>
-			<param-value>true</param-value>
+			<param-value>false</param-value>
 		</init-param>
 		<init-param>
 			<param-name>refers</param-name>
@@ -188,6 +188,20 @@
 		<dispatcher>FORWARD</dispatcher>
 		<dispatcher>INCLUDE</dispatcher>
 		<dispatcher>REQUEST</dispatcher>
+	</filter-mapping>
+	
+	<!-- 跨域支持 http://software.dzhuvinov.com/cors-filter-installation.html-->
+	<filter>
+		<filter-name>CORS</filter-name>
+		<filter-class>com.thetransactioncompany.cors.CORSFilter</filter-class>
+		<init-param>
+			<param-name>cors.allowOrigin</param-name>
+			<param-value>*</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+	        <filter-name>CORS</filter-name>
+	        <url-pattern>/*</url-pattern>
 	</filter-mapping>
 
 	<!-- ehcache缓存 -->
@@ -293,7 +307,7 @@
 			清除jsp中由于page指令引入带来的空行 <trim-directive-whitespaces>true</trim-directive-whitespaces> 
 			</jsp-property-group> -->
 	</jsp-config>
-	
+
 	<session-config>
 		<session-timeout>30</session-timeout>
 		<cookie-config>
