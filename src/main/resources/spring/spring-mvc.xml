@@ -155,8 +155,8 @@
 		<property name="fallbackToSystemLocale" value="true" />
 		<property name="basenames">
 			<list>
-				<value>classpath:messages</value>
-				<value>classpath:i18n.messages</value>
+				<value>classpath*:messages</value>
+				<value>classpath*:i18n.messages</value>
 			</list>
 		</property>
 	</bean> -->
@@ -204,5 +204,5 @@
 	</mvc:interceptors>
 	
 	<bean name="swagger" class="cn.com.ttblog.ssmbootstrap_table.util.SwaggerConfig"></bean>
-    <mvc:resources mapping="/webjars/**" location="classpath:/META-INF/resources/webjars/"/>
+    <mvc:resources mapping="/webjars/**" location="classpath*:/META-INF/resources/webjars/"/>
 </beans>  

@@ -36,7 +36,7 @@
 	<!-- 加载资源文件 -->
 	<import resource="spring-mybatis.xml" />
 	<import resource="spring-jmx.xml" />
-	<import resource="classpath:cxf/cxf.xml" />
+	<import resource="classpath*:cxf/cxf.xml" />
 	<import resource="spring-ehcache.xml"/>
 	<import resource="spring-websocket.xml"/>
 	
