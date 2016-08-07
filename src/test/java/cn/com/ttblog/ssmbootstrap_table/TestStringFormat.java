@@ -3,6 +3,7 @@ package cn.com.ttblog.ssmbootstrap_table;
 import java.util.Arrays;
 
 import org.junit.Test;
+import org.springframework.util.AntPathMatcher;
 
 /**
  * http://blog.csdn.net/lonely_fireworks/article/details/7962171

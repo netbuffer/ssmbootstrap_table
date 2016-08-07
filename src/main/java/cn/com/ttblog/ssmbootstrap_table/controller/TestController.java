@@ -1,5 +1,8 @@
 package cn.com.ttblog.ssmbootstrap_table.controller;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Locale;
@@ -8,12 +11,12 @@ import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 import javax.annotation.Resource;
-import javax.management.RuntimeErrorException;
+import javax.imageio.ImageIO;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
-import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,7 +27,6 @@ import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -32,14 +34,30 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.i18n.CookieLocaleResolver;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import com.alibaba.fastjson.JSONObject;
 
 import cn.com.ttblog.ssmbootstrap_table.annotation.Token;
 import cn.com.ttblog.ssmbootstrap_table.model.User;
 import cn.com.ttblog.ssmbootstrap_table.util.AjaxUtils;
+
+import com.alibaba.fastjson.JSONObject;
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.Binarizer;
+import com.google.zxing.BinaryBitmap;
+import com.google.zxing.DecodeHintType;
+import com.google.zxing.EncodeHintType;
+import com.google.zxing.LuminanceSource;
+import com.google.zxing.MultiFormatReader;
+import com.google.zxing.MultiFormatWriter;
+import com.google.zxing.NotFoundException;
+import com.google.zxing.Result;
+import com.google.zxing.WriterException;
+import com.google.zxing.client.j2se.BufferedImageLuminanceSource;
+import com.google.zxing.client.j2se.MatrixToImageWriter;
+import com.google.zxing.common.BitMatrix;
+import com.google.zxing.common.HybridBinarizer;
 
 @Controller
 @RequestMapping("/test")
@@ -278,5 +296,60 @@ public class TestController {
 	@RequestMapping(value={"/websocket"})
 	public String websocket(ModelMap model){
 		return "websocket";
+	}
+	
+	/**
+	 * 创建二维码
+	 * @param response
+	 * @param param
+	 * @throws IOException
+	 * @throws WriterException
+	 */
+	@RequestMapping(value={"/qr"},method=RequestMethod.GET)
+	public void qr(HttpServletResponse response,@RequestParam(value="param",defaultValue="test",required=false) String param) 
+			throws IOException, WriterException{
+		logger.debug("使用zxing生成二维码,内容:{}",param);
+		int width = 200; // 图像宽度  
+        int height = 200; // 图像高度  
+        String format = "png";// 图像类型  
+        Map<EncodeHintType, Object> hints = new HashMap<EncodeHintType, Object>();  
+        hints.put(EncodeHintType.CHARACTER_SET, "UTF-8");  
+        BitMatrix bitMatrix = new MultiFormatWriter().encode(param,  
+                BarcodeFormat.QR_CODE, width, height, hints);// 生成矩阵  
+        ByteArrayOutputStream jpegOutputStream = new ByteArrayOutputStream();
+		response.setHeader("Cache-Control", "no-store");
+		response.setHeader("Pragma", "no-cache");
+		response.setDateHeader("Expires", 0L);
+		response.setContentType("image/jpeg");
+		ImageIO.write(MatrixToImageWriter.toBufferedImage(bitMatrix), "jpeg", jpegOutputStream);
+		byte[] captchaChallengeAsJpeg = jpegOutputStream.toByteArray();
+		ServletOutputStream respOs = response.getOutputStream();
+		respOs.write(captchaChallengeAsJpeg);
+		respOs.flush();
+		respOs.close();
+	}
+	
+	@RequestMapping(value={"/decodeqr"},method=RequestMethod.GET)
+	public String decodeqr(){
+		logger.debug("二维码解析");
+		return "decodeqr";
+	}
+	
+	@RequestMapping(value={"/decodeqr"},method=RequestMethod.POST)
+	@ResponseBody
+	public String decodeqr(HttpServletRequest request,@RequestParam(value="qrimg",required=true)CommonsMultipartFile file) throws NotFoundException, IOException{
+		if(file.isEmpty()){
+			throw new RuntimeException("请上传文件");
+		}
+		BufferedImage image = ImageIO.read(file.getInputStream());  
+        LuminanceSource source = new BufferedImageLuminanceSource(image);  
+        Binarizer binarizer = new HybridBinarizer(source);  
+        BinaryBitmap binaryBitmap = new BinaryBitmap(binarizer);  
+        Map<DecodeHintType, Object> hints = new HashMap<DecodeHintType, Object>();  
+        hints.put(DecodeHintType.CHARACTER_SET, "UTF-8");
+        //对图像进行解码 
+        Result result = new MultiFormatReader().decode(binaryBitmap, hints); 
+        logger.debug("zxing解析二维码结果:{}",result);
+        return result.getText();
 	}
 }
