@@ -71,7 +71,7 @@
 	<logger name="log4jdbc.debug" level="DEBUG" />
 	<logger name="net.sf.ehcache" level="ALL"/>
 	
-	<logger name="access" level="info">
+	<logger name="access" level="DEBUG">
         <appender-ref ref="ACCESS"/>
     </logger>
     
