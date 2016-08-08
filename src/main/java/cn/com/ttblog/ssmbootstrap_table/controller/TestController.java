@@ -1,5 +1,6 @@
 package cn.com.ttblog.ssmbootstrap_table.controller;
 
+import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -55,9 +56,11 @@ import com.google.zxing.NotFoundException;
 import com.google.zxing.Result;
 import com.google.zxing.WriterException;
 import com.google.zxing.client.j2se.BufferedImageLuminanceSource;
+import com.google.zxing.client.j2se.MatrixToImageConfig;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.common.HybridBinarizer;
+import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 
 @Controller
 @RequestMapping("/test")
@@ -312,7 +315,11 @@ public class TestController {
 		int width = 200; // 图像宽度  
         int height = 200; // 图像高度  
         String format = "png";// 图像类型  
-        Map<EncodeHintType, Object> hints = new HashMap<EncodeHintType, Object>();  
+        Map<EncodeHintType, Object> hints = new HashMap<EncodeHintType, Object>();
+//        http://www.tuicool.com/articles/vQFZNfq
+        hints.put(EncodeHintType.CHARACTER_SET, "utf-8"); //编码
+        hints.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.M); //容错率
+        hints.put(EncodeHintType.MARGIN, 0);  //二维码边框宽度，这里文档说设置0-4
         hints.put(EncodeHintType.CHARACTER_SET, "UTF-8");  
         BitMatrix bitMatrix = new MultiFormatWriter().encode(param,  
                 BarcodeFormat.QR_CODE, width, height, hints);// 生成矩阵  
@@ -321,7 +328,9 @@ public class TestController {
 		response.setHeader("Pragma", "no-cache");
 		response.setDateHeader("Expires", 0L);
 		response.setContentType("image/jpeg");
-		ImageIO.write(MatrixToImageWriter.toBufferedImage(bitMatrix), "jpeg", jpegOutputStream);
+		//颜色
+		MatrixToImageConfig config = new MatrixToImageConfig(Color.yellow.getRGB(),0xFFFFFFFF);
+		ImageIO.write(MatrixToImageWriter.toBufferedImage(bitMatrix,config), "jpeg", jpegOutputStream);
 		byte[] captchaChallengeAsJpeg = jpegOutputStream.toByteArray();
 		ServletOutputStream respOs = response.getOutputStream();
 		respOs.write(captchaChallengeAsJpeg);
