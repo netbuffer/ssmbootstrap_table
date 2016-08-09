@@ -361,4 +361,10 @@ public class TestController {
         logger.debug("zxing解析二维码结果:{}",result);
         return result.getText();
 	}
+	
+	@RequestMapping(value={"/server"},method=RequestMethod.GET)
+	@ResponseBody
+	public String server(HttpServletRequest request){
+		return request.getServerName();
+	}
 }
