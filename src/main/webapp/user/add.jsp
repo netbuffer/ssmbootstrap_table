@@ -72,6 +72,9 @@
 	                <div class="weui_textarea_counter"><span>0</span>/200</div>
 	            </div>
 	        </div>
+	        <input name="img" value="img1">
+	        <input name="img" value="img2">
+	        <input name="img" value="img3">
 	        <div class="weui_btn_area">
 	        	<input type="hidden" name="testformtoken" value="${testformtoken}"> 
 		        <button type="submit" class="weui_btn weui_btn_primary">注册</button>

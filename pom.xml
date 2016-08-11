@@ -386,9 +386,9 @@
 			</snapshots>
 		</repository>
 		<repository>
-			<id>osc</id>
-			<name>osc</name>
-			<url>http://maven.oschina.net/content/groups/public/</url>
+			<id>aliyun</id>
+			<name>aliyun</name>
+			<url>http://maven.aliyun.com/nexus/content/groups/public/</url>
 			<snapshots>
 				<enabled>true</enabled>
 			</snapshots>
