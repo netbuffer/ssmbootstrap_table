@@ -41,16 +41,6 @@
 		<dispatcher>INCLUDE</dispatcher>
 		<dispatcher>REQUEST</dispatcher>
 	</filter-mapping>
-	
-	<filter-mapping>
-		<filter-name>domainFilter</filter-name>
-		<url-pattern>/*</url-pattern>
-		<dispatcher>ASYNC</dispatcher>
-		<dispatcher>ERROR</dispatcher>
-		<dispatcher>FORWARD</dispatcher>
-		<dispatcher>INCLUDE</dispatcher>
-		<dispatcher>REQUEST</dispatcher>
-	</filter-mapping>
 
 	<filter>
 		<filter-name>domainFilter</filter-name>
@@ -58,7 +48,7 @@
 		<async-supported>true</async-supported>
 		<init-param>
 			<param-name>enable</param-name>
-			<param-value>true</param-value>
+			<param-value>false</param-value>
 		</init-param>
 	</filter>
 	<filter-mapping>
@@ -108,7 +98,17 @@
 		<async-supported>true</async-supported>
 		<init-param>
 			<param-name>noFilterTags</param-name>
-			<param-value>index.html;login;register;captcha;.css;.js;.jpg;jsonp;/cxf</param-value>
+			<param-value>
+				/*/index.html*
+				/*/login/**
+				/*/register/**
+				/*/captcha/**
+				/*/css/**
+				/*/js/**
+				/*/image/**
+				/*/jsonp/**
+				/*/cxf/**
+			</param-value>
 		</init-param>
 		<init-param>
 			<param-name>enable</param-name>
@@ -223,6 +223,7 @@
 	<filter>
 		<filter-name>CORS</filter-name>
 		<filter-class>com.thetransactioncompany.cors.CORSFilter</filter-class>
+		<async-supported>true</async-supported>
 		<init-param>
 			<param-name>cors.allowOrigin</param-name>
 			<param-value>*</param-value>
