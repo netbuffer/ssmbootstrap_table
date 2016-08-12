@@ -22,6 +22,10 @@ public class TestAntPath {
 		System.out.println("ap.isPattern('/static*'):" + ap.isPattern("/static*"));
 		System.out.println("ap.isPattern('/static?'):" + ap.isPattern("/static?"));
 		System.out.println("ap.isPattern('/static'):" + ap.isPattern("/static"));
+		System.out.println("/*/index.html:"+ap.match("/*/index.html", "/ssmbootstrap_table/a/index.html"));
+		System.out.println("/*/index.html:"+ap.match("/*/index.html", "/ssmbootstrap_table/index.html"));
+		System.out.println("/*/index.html*:"+ap.match("/*/index.html*", "/ssmbootstrap_table/index.html?id=sss"));
+		System.out.println("/*/image/**:"+ap.match("/*/image/**", "/ssmbootstrap_table/image/backimg.jpg"));
 	}
 
 	@Test
