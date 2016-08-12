@@ -14,6 +14,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.aop.support.AopUtils;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -120,6 +121,11 @@ public class TestMyBatis {
 		u.setPhone("13833422322");
 		u.setAdddate((int)(System.currentTimeMillis() / 1000));
 		userService.addUser(u);
+		logger.info("AopUtils.isAopProxy(userService):{}",AopUtils.isAopProxy(userService));
+		//cglib
+		logger.info("AopUtils.isCglibProxy(userService):{}",AopUtils.isCglibProxy(userService)); 
+		//jdk动态代理
+		logger.info("AopUtils.isJdkDynamicProxy(userService):{}",AopUtils.isJdkDynamicProxy(userService)); 
 	}
 	
 	@Test
