@@ -1,6 +1,8 @@
 package cn.com.ttblog.ssmbootstrap_table.filter;
 
 import java.io.IOException;
+import java.util.Arrays;
+
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -12,15 +14,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.codec.binary.Base64;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.util.AntPathMatcher;
 
+import com.alibaba.druid.support.logging.Log;
 import com.github.jscookie.javacookie.Cookies;
+
 import cn.com.ttblog.ssmbootstrap_table.Constant.ConfigConstant;
+import cn.com.ttblog.ssmbootstrap_table.util.AntPathMatcherUtil;
 
 
 public class LoginFilter implements Filter {
 
 	private FilterConfig filterConfig;
-
+	private static final Logger LOG=LoggerFactory.getLogger(LoginFilter.class);
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
 		this.filterConfig = filterConfig;
@@ -42,10 +50,16 @@ public class LoginFilter implements Filter {
 					httpServletResponse);
 			return ;
 		}
-		String[] noFilterTags = noFilterTagString.split(";");
-
+		String[] noFilterTags = noFilterTagString.split("\n");
+		LOG.debug("放行路径:{}-{},访问路径:{}",Arrays.toString(noFilterTags),noFilterTags.length,httpServletRequest.getRequestURI());
+		if(AntPathMatcherUtil.isMatch(noFilterTags,httpServletRequest.getRequestURI())){
+			filterChain.doFilter(httpServletRequest,
+					httpServletResponse);
+			LOG.debug("非拦截uri");
+			return ;
+		}
 		String uri = httpServletRequest.getRequestURI();
-		System.out.println("过滤路径:"+uri);
+		LOG.debug("过滤路径:{}",uri);
 		// 配置文件中允许放行的关键字
 		if (noFilterTags != null) {
 			for (String noFilterTag : noFilterTags) {
@@ -53,7 +67,7 @@ public class LoginFilter implements Filter {
 					continue;
 				}
 				if (uri.indexOf(noFilterTag.trim()) != -1) {
-					System.out.println("uri:"+uri);
+					LOG.debug("uri:"+uri);
 					filterChain.doFilter(httpServletRequest,
 							httpServletResponse);
 					return;
@@ -63,11 +77,11 @@ public class LoginFilter implements Filter {
 		
 		Cookie[] cookies=httpServletRequest.getCookies();
 		Cookies cs=Cookies.initFromServlet(httpServletRequest, httpServletResponse);
-		System.out.println("path:"+uri);
-		System.out.println("cookies:"+cs.get().toString());
+		LOG.debug("path:"+uri);
+		LOG.debug("cookies:"+cs.get().toString());
 		Object islogin=httpServletRequest.getSession().getAttribute(ConfigConstant.ISLOGIN);
 		if ( islogin!= null&&Boolean.parseBoolean(islogin.toString())) {
-			System.out.println("p1");
+			LOG.debug("p1");
 			if(uri.endsWith(ConfigConstant.PROJECTNAME+"/")){
 				httpServletResponse.sendRedirect(httpServletRequest
 						.getContextPath() + "/manage.html");
@@ -75,7 +89,7 @@ public class LoginFilter implements Filter {
 				filterChain.doFilter(httpServletRequest, httpServletResponse);
 			}
 		} else if(cookies!=null){
-			System.out.println("p2");
+			LOG.debug("p2");
 			boolean find=false;
 			for(Cookie cookie:cookies){
 				if(cookie.getName().equals(ConfigConstant.USERNAME)&&cookie.getValue().length()>0){
@@ -102,7 +116,7 @@ public class LoginFilter implements Filter {
 				return ;
 			}
 		}else{
-			System.out.println("^^^");
+			LOG.debug("^^^");
 		}
 		
 	}
