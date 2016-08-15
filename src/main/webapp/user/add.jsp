@@ -18,6 +18,7 @@
 </style>
 <script type="text/javascript">
 	$(function(){
+// 		https://github.com/blueimp/jQuery-File-Upload/wiki/Frequently-Asked-Questions
 		$('#fileupload').fileupload({
 		    url: "${pageContext.request.contextPath }/fileupload/ajaxupload",
 		    dataType: 'json',

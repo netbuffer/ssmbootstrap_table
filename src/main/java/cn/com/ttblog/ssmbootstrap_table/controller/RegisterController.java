@@ -3,7 +3,9 @@ package cn.com.ttblog.ssmbootstrap_table.controller;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+
 import cn.com.ttblog.ssmbootstrap_table.exception.CustomGenericException;
 import cn.com.ttblog.ssmbootstrap_table.model.User;
 import cn.com.ttblog.ssmbootstrap_table.model.UserListModel;
@@ -91,5 +94,11 @@ public class RegisterController {
 	public String testRedirect(Model model){
 		model.addAttribute("param", "test");
 		return "redirect:/register-success.html?id={param}";
+	}
+	
+	@RequestMapping("/req")
+	public void req(HttpServletRequest request){
+		logger.info("Protocol:{}\r\n"
+				+ "servername:{},\r\ngetScheme:{}",request.getProtocol(),request.getServerName(),request.getScheme());
 	}
 }
