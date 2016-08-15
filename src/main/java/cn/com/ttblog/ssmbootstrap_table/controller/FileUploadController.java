@@ -2,12 +2,13 @@ package cn.com.ttblog.ssmbootstrap_table.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 
 import javax.servlet.http.HttpServletRequest;
 
 import net.coobird.thumbnailator.Thumbnails;
 
-import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -52,15 +53,27 @@ public class FileUploadController {
 	public FileMsgBean ajaxUpload(@RequestParam MultipartFile file, HttpServletRequest request) throws IOException {
 		log.info("ajax文件上传信息：{}",ToStringBuilder.reflectionToString(file));
 		String filename=System.getProperty("webapp.root")+File.separator+"image"+File.separator+file.getOriginalFilename();
-		String url=request.getContextPath()+"/image/"+file.getOriginalFilename();
+		String relativePath=request.getServletContext().getRealPath("image")+File.separator;
+		String originName=file.getOriginalFilename();
+		String ext=originName.split("\\.")[1];
+		log.info("file.getName()：{},file.getOriginalFilename()：{},originName.split(\".\")：{}",file.getName(),file.getOriginalFilename(),Arrays.deepToString(originName.split("\\.")));
+		String usedName=Base64.encodeBase64String(originName.getBytes())+"."+ext;
+		String savePath=relativePath+usedName;
+		String host=request.getHeader("host");
+		String contextPath=request.getContextPath();
+		String url=request.getScheme()+"://"+host+contextPath+"/image/"+usedName;
+		log.info("host:{},contextPath:{},relativePath:{},savePath:{}",host,contextPath,relativePath,savePath);
 		//缩率图
-//		Thumbnails.of(f.getAbsolutePath()).scale(1.10f).toFile("thumbnailator"+RandomStringUtils.randomAlphabetic(5)+".jpg");
-		log.info("ajax文件上传,存储路径：{},url:{}",filename,url);
+		File saveFile=new File(savePath);
+		log.info("ajax文件上传：{},存储路径：{},url:{}--name:{}",ToStringBuilder.reflectionToString(new File(filename)),filename,url,file.getName());
+		file.transferTo(saveFile);
+		String thumbFileName=Base64.encodeBase64String((originName+"scale030").getBytes())+"."+ext;
+		Thumbnails.of(saveFile).scale(0.30f).toFile(relativePath+thumbFileName);
 		FileMsgBean bean=new FileMsgBean();
 		bean.setName(file.getOriginalFilename());
 		bean.setSize(file.getSize());
 		bean.setUrl(url);
-		bean.setThumbnailUrl("url");
+		bean.setThumbnailUrl(request.getScheme()+"://"+host+contextPath+"/image/"+thumbFileName);
 		bean.setDeleteUrl("url");
 		return bean;
 	}
