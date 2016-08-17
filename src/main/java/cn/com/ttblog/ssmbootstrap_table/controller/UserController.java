@@ -32,6 +32,12 @@ public class UserController {
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
+	@RequestMapping(value="/photos",method={RequestMethod.GET,RequestMethod.HEAD})
+	public String photos() {
+		logger.debug("go to user-photos");
+		return "user/photos";
+	}
+	
 	@RequestMapping("/showUser/{id}")
 	public String toIndex(@PathVariable("id") int id,
 			HttpServletRequest request, Model model) {

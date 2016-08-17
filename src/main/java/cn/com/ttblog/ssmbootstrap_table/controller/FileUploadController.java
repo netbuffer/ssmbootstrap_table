@@ -2,13 +2,19 @@ package cn.com.ttblog.ssmbootstrap_table.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import net.coobird.thumbnailator.Thumbnails;
 
 import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.lang3.RandomUtils;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import cn.com.ttblog.ssmbootstrap_table.model.FileMsgBean;
 import cn.com.ttblog.ssmbootstrap_table.util.AjaxUtils;
@@ -77,4 +84,27 @@ public class FileUploadController {
 		bean.setDeleteUrl("url");
 		return bean;
 	}
+	
+	@RequestMapping(value="/multiupload", method = RequestMethod.POST)
+    public @ResponseBody List<FileMsgBean> upload(MultipartHttpServletRequest request, HttpServletResponse response) {
+        log.debug("ajax多文件上传:{}",ToStringBuilder.reflectionToString(request.getFileNames()));
+		int sleep=RandomUtils.nextInt(2, 6);
+        log.debug("upload-sleep:{}s",sleep);
+		try {
+			TimeUnit.SECONDS.sleep(sleep);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+        List<FileMsgBean> beans=new ArrayList<FileMsgBean>(2);
+        for(int i=0;i<2;i++){
+        	FileMsgBean bean=new FileMsgBean();
+    		bean.setName(String.valueOf(i));
+    		bean.setSize((long)i);
+    		bean.setUrl(String.valueOf(i));
+    		bean.setThumbnailUrl("");
+    		bean.setDeleteUrl("url");
+    		beans.add(bean);
+        }
+		return beans;
+    }
 }
