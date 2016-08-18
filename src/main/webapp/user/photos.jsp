@@ -79,11 +79,11 @@
         });  
 		
 		$("#uploads").fileupload({  
-            url: '${pageContext.request.contextPath }/fileupload/ajaxupload'
+            url: '${pageContext.request.contextPath }/fileupload/multiupload'
 		});
 		
 		$('#uploads').fileupload('option', {
-            url: '${pageContext.request.contextPath }/fileupload/ajaxupload',
+            url: '${pageContext.request.contextPath }/fileupload/multiupload',
             // Enable image resizing, except for Android and Opera,
             // which actually support image resizing, but fail to
             // send Blob objects via XHR requests:
@@ -98,7 +98,9 @@
 </head>
 <body>
 	<div class="container">
-	
+		<div class="page-header">
+		  <h1>多文件上传 <small>Subtext for header</small></h1>
+		</div>
 		<!-- <div class="row fileupload-buttonbar" style="padding-left: 15px;">
 			<div class="thumbnail col-sm-6">
 				<img id="weixin_show"
@@ -118,7 +120,7 @@
 			</div>
 		</div> -->
 		
-        <form id="uploads" action="//jquery-file-upload.appspot.com/" method="POST" enctype="multipart/form-data">
+        <form id="uploads" action="${pageContext.request.contextPath }/fileupload/multiupload" method="POST" enctype="multipart/form-data">
 	        <!-- Redirect browsers with JavaScript disabled to the origin page -->
 	        <noscript><input type="hidden" name="redirect" value="https://blueimp.github.io/jQuery-File-Upload/"></noscript>
 	        <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
@@ -127,12 +129,12 @@
 	                <!-- The fileinput-button span is used to style the file input field as button -->
 	                <span class="btn btn-success fileinput-button">
 	                    <i class="glyphicon glyphicon-plus"></i>
-	                    <span>Add files...</span>
-	                    <input type="file" name="files[]" multiple>
+	                    <span>添加文件...</span>
+	                    <input type="file" name="files[]" multiple="multiple">
 	                </span>
 	                <button type="submit" class="btn btn-primary start">
 	                    <i class="glyphicon glyphicon-upload"></i>
-	                    <span>Start upload</span>
+	                    <span>开始上传</span>
 	                </button>
 	                <button type="reset" class="btn btn-warning cancel">
 	                    <i class="glyphicon glyphicon-ban-circle"></i>
@@ -160,16 +162,16 @@
 	        <table role="presentation" class="table table-striped"><tbody class="files"></tbody></table>
 	    </form>
 		<!-- The blueimp Gallery widget -->
-<div id="blueimp-gallery" class="blueimp-gallery blueimp-gallery-controls" data-filter=":even">
-    <div class="slides"></div>
-    <h3 class="title"></h3>
-    <a class="prev">‹</a>
-    <a class="next">›</a>
-    <a class="close">×</a>
-    <a class="play-pause"></a>
-    <ol class="indicator"></ol>
-</div>
-<!-- The template to display files available for upload -->
+		<div id="blueimp-gallery" class="blueimp-gallery blueimp-gallery-controls" data-filter=":even">
+		    <div class="slides"></div>
+		    <h3 class="title"></h3>
+		    <a class="prev">‹</a>
+		    <a class="next">›</a>
+		    <a class="close">×</a>
+		    <a class="play-pause"></a>
+		    <ol class="indicator"></ol>
+		</div>
+		<!-- The template to display files available for upload -->
 <script id="template-upload" type="text/x-tmpl">
 {% for (var i=0, file; file=o.files[i]; i++) { %}
     <tr class="template-upload fade">

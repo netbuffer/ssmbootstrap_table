@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import javax.servlet.http.HttpServletRequest;
@@ -87,14 +88,16 @@ public class FileUploadController {
 	
 	@RequestMapping(value="/multiupload", method = RequestMethod.POST)
     public @ResponseBody List<FileMsgBean> upload(MultipartHttpServletRequest request, HttpServletResponse response) {
-        log.debug("ajax多文件上传:{}",ToStringBuilder.reflectionToString(request.getFileNames()));
-		int sleep=RandomUtils.nextInt(2, 6);
-        log.debug("upload-sleep:{}s",sleep);
-		try {
-			TimeUnit.SECONDS.sleep(sleep);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+		log.debug("ajax多文件上传:1{},2{},getMultiFileMap:{}",request.getFiles("files"),request.getFiles("files[]"),request.getMultiFileMap());
+        Map<String, MultipartFile> files=request.getFileMap();
+        log.debug("files：",files);
+//		int sleep=RandomUtils.nextInt(2, 6);
+//        log.debug("upload-sleep:{}s",sleep);
+//		try {
+//			TimeUnit.SECONDS.sleep(sleep);
+//		} catch (InterruptedException e) {
+//			e.printStackTrace();
+//		}
         List<FileMsgBean> beans=new ArrayList<FileMsgBean>(2);
         for(int i=0;i<2;i++){
         	FileMsgBean bean=new FileMsgBean();
