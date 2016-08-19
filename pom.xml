@@ -34,6 +34,7 @@
 		<slf4j.version>1.7.7</slf4j.version>
 		<logback.version>1.1.3</logback.version>
 		<cxf.version>2.5.2</cxf.version>
+		<mockito.version>1.10.19</mockito.version>
 	</properties>
 
 	<dependencies>
@@ -384,6 +385,16 @@
 		    <groupId>net.coobird</groupId>
 		    <artifactId>thumbnailator</artifactId>
 		    <version>0.4.8</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.mockito</groupId>
+		    <artifactId>mockito-all</artifactId>
+		    <version>${mockito.version}</version>
+		</dependency>
+		<dependency>
+		    <groupId>net.sourceforge.jwebunit</groupId>
+		    <artifactId>jwebunit-core</artifactId>
+		    <version>3.3</version>
 		</dependency>
 	</dependencies>
 
