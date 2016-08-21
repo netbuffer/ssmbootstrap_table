@@ -48,10 +48,15 @@ import cn.com.ttblog.ssmbootstrap_table.service.IUserService;
 import cn.com.ttblog.ssmbootstrap_table.util.BeanMapUtil;
 import cn.com.ttblog.ssmbootstrap_table.util.POIExcelUtil;
 
+/**
+ * index
+ */
 @Controller(value="mainindex")
 @RequestMapping("/")
 public class IndexController {
-
+	public IndexController(){
+		
+	}
 	@Resource
 	private IUserService userService;
 
