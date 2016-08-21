@@ -8,6 +8,40 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>添加用户</title>
+<script src="http://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+
+<script src="//cdn.bootcss.com/blueimp-file-upload/9.12.5/js/vendor/jquery.ui.widget.min.js"></script>
+<script src="//cdn.bootcss.com/blueimp-file-upload/9.12.5/js/jquery.iframe-transport.min.js"></script>
+<script src="//cdn.bootcss.com/blueimp-file-upload/9.12.5/js/jquery.fileupload.min.js"></script>
+<style type="text/css">
+.bar { height: 18px; background: green; }
+</style>
+<script type="text/javascript">
+	$(function(){
+// 		https://github.com/blueimp/jQuery-File-Upload/wiki/Frequently-Asked-Questions
+		$('#fileupload').fileupload({
+		    url: "${pageContext.request.contextPath }/fileupload/ajaxupload",
+		    dataType: 'json',
+		    done: function (e, data) {
+		    	console.log(data.result);
+		    	alert(JSON.stringify(data.result));
+		    	$('#fileupload').next().attr("src",data.result.url);
+// 		        $.each(data.result, function (index, file) {
+// 		        	alert(file.url);
+// 		            $('#fileupload').next().attr("src",file.url);
+// 		        });
+		    },
+		    progressall: function (e, data) {
+// 		        var progress = parseInt(data.loaded / data.total * 100, 10);
+// 		        $('#progress .progress-bar').css(
+// 		            'width',
+// 		            progress + '%'
+// 		        );
+		    }
+		}).prop('disabled', !$.support.fileInput)
+		    .parent().addClass($.support.fileInput ? undefined : 'disabled');
+	});
+</script>	
 </head>
 <body>
 	<form action="${pageContext.request.contextPath }/test/form" method="post">
@@ -72,6 +106,13 @@
 	                <div class="weui_textarea_counter"><span>0</span>/200</div>
 	            </div>
 	        </div>
+	        
+	        <div id="files">
+			    <input type="file" name="file" id="fileupload">
+			    <img src=""/>
+			</div>
+			<div id="progress"> <div class="bar" style="width: 0%;"></div> </div>
+			
 	        <input name="img" value="img1">
 	        <input name="img" value="img2">
 	        <input name="img" value="img3">

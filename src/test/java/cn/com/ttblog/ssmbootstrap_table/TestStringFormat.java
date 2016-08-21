@@ -37,4 +37,12 @@ public class TestStringFormat {
 		Arrays.sort(str);
 		System.out.println(Arrays.deepToString(str));
 	}
+	
+	@Test
+	public void testStringSplit(){
+		String filename="未标题-1.jpg";
+		System.out.println("Arrays.deepToString(filename.split(\"\\.\"):"+Arrays.deepToString(filename.split("\\.")));
+	}
+	
+	
 }

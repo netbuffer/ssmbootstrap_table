@@ -41,17 +41,22 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import com.alibaba.fastjson.JSONArray;
-import com.codahale.metrics.annotation.Timed;
+//import com.codahale.metrics.annotation.Timed;
 import cn.com.ttblog.ssmbootstrap_table.event.LoginEvent;
 import cn.com.ttblog.ssmbootstrap_table.model.User;
 import cn.com.ttblog.ssmbootstrap_table.service.IUserService;
 import cn.com.ttblog.ssmbootstrap_table.util.BeanMapUtil;
 import cn.com.ttblog.ssmbootstrap_table.util.POIExcelUtil;
 
+/**
+ * index
+ */
 @Controller(value="mainindex")
 @RequestMapping("/")
 public class IndexController {
-
+	public IndexController(){
+		
+	}
 	@Resource
 	private IUserService userService;
 
@@ -131,7 +136,7 @@ public class IndexController {
 		return "this is str";
 	}
 	
-	@Timed
+//	@Timed
 	@RequestMapping("/datacount")
 	public @ResponseBody Map<String, Object> datacount() {
 		logger.debug("获取datacount");
