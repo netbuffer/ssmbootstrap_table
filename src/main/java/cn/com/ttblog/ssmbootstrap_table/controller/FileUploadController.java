@@ -98,14 +98,17 @@ public class FileUploadController {
 //		} catch (InterruptedException e) {
 //			e.printStackTrace();
 //		}
+        String host=request.getHeader("host");
+		String contextPath=request.getContextPath();
+		String url=request.getScheme()+"://"+host+contextPath+"/image/backimg.jpg";
         List<FileMsgBean> beans=new ArrayList<FileMsgBean>(2);
         for(int i=0;i<2;i++){
         	FileMsgBean bean=new FileMsgBean();
     		bean.setName(String.valueOf(i));
     		bean.setSize((long)i);
-    		bean.setUrl(String.valueOf(i));
-    		bean.setThumbnailUrl("");
-    		bean.setDeleteUrl("url");
+    		bean.setUrl(url);
+    		bean.setThumbnailUrl(url);
+    		bean.setDeleteUrl(url);
     		beans.add(bean);
         }
 		return beans;
