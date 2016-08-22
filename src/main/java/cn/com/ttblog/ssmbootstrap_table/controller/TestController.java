@@ -27,6 +27,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -366,5 +367,12 @@ public class TestController {
 	@ResponseBody
 	public String server(HttpServletRequest request){
 		return request.getServerName();
+	}
+	
+	@RequestMapping(value={"/pdf"},method=RequestMethod.GET)
+	public String pdf(Model model){
+		User u=new User();
+		u.setName("test");
+		return "pdf";
 	}
 }
