@@ -4,3 +4,4 @@
 * `ApiController`-@RestController注解测试，编写http接口使用很方便，开发restful接口好用
 * `GlobalExceptionController`-全局异常捕获处理
 * `TestController`-一些乱七八糟的测试...
+* `MySpringTextWsHandler`spring-websocket测试
