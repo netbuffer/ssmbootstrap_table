@@ -3,6 +3,7 @@ package cn.com.ttblog.ssmbootstrap_table.controller;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import javax.annotation.Resource;
@@ -57,6 +58,23 @@ public class UserController {
 		u.setDeliveryaddress("收货地址");
 		mav.addObject("model", u);
 		return mav;
+	}
+	
+	/**
+	 * 访问pdf视图 http://localhost:8080/ssmbootstrap_table/user/userpdfview.pdf
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping("/userpdfview")
+	public String userpdfview(Model model) {
+		model.addAttribute("users",userService.getUserList("desc",10,0));
+		List<String> columns=new ArrayList<>();
+		columns.add("姓名");
+		columns.add("性别");
+		columns.add("年龄");
+		columns.add("手机号");
+		model.addAttribute("columns", columns);
+		return "userpdfview";
 	}
 
 	/**
