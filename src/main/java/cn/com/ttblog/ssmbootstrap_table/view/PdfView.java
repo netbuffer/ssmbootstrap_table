@@ -70,7 +70,9 @@ public class PdfView extends AbstractIText5PdfView {
 		LOG.debug("[PdfView]-users：{}",users);
 		for (User u : users) {
 			table.addCell(u.getName());
-			table.addCell(u.getSex());
+			PdfPCell sexCell = new PdfPCell();
+			sexCell.setPhrase(new Phrase(u.getSex(), font));
+			table.addCell(sexCell);
 			table.addCell(String.valueOf(u.getAge()));
 			table.addCell(u.getPhone());
 		}

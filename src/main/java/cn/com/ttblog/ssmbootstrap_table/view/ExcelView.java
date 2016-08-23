@@ -68,15 +68,15 @@ public class ExcelView extends AbstractExcelView {
 		CellStyle contentStyle = wb.createCellStyle();
 		cellStyle.setAlignment(CellStyle.ALIGN_CENTER);
 		cellStyle.setVerticalAlignment(CellStyle.VERTICAL_CENTER);
-		List<User> datas=(List<User>) model.get("users");
-		int dataCount=datas.size();
-		for(int i=1;i<dataCount;i++){
-			Row rowIndex = sheet.createRow((short) i);
-			for(int k=0;k<4;k++){
-				Cell cell = rowIndex.createCell(k);
-				cell.setCellStyle(contentStyle);
-				cell.setCellValue(datas.get(i).getName());
-			}
-		}
+//		List<User> datas=(List<User>) model.get("users");
+//		int dataCount=datas.size();
+//		for(int i=1;i<dataCount;i++){
+//			Row rowIndex = sheet.createRow((short) i);
+//			for(int k=0;k<4;k++){
+//				Cell cell = rowIndex.createCell(k);
+//				cell.setCellStyle(contentStyle);
+//				cell.setCellValue(datas.get(i).getName());
+//			}
+//		}
 	}
 }
