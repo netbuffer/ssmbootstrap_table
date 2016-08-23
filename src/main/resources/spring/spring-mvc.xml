@@ -64,6 +64,8 @@
 				</bean>
 				<!--  PDF view -->
           		<bean class="cn.com.ttblog.ssmbootstrap_table.view.PdfView" />
+          		<!--  excel view -->
+          		<bean class="cn.com.ttblog.ssmbootstrap_table.view.ExcelView" />
 			</list>
 		</property>
 	</bean>

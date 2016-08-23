@@ -36,7 +36,7 @@ public class PdfView extends AbstractIText5PdfView {
 		document.addTitle("title");
 		document.addSubject("subject");
 		document.addHeader("heaer-name","header-content");
-		// document.add(new Paragraph("测试", getChineseFont(12)));
+		 document.add(new Paragraph("测试", getChineseFont()));
 		PdfPTable table = new PdfPTable(4);
 		table.setWidthPercentage(100.0f);
 		table.setWidths(new float[] { 3.0f, 2.0f, 2.0f, 3.0f});
@@ -44,8 +44,7 @@ public class PdfView extends AbstractIText5PdfView {
 		// define font for table header row
 //		FontFactory.getFont(FontFactory.HELVETICA)
 		Font font = getChineseFont();
-//		font.setColor(BaseColor.WHITE);
-		font.setColor(BaseColor.RED);
+		font.setColor(BaseColor.CYAN);
 		// define table header cell
 		PdfPCell cell = new PdfPCell();
 		cell.setBackgroundColor(new BaseColor(66,133,244));
