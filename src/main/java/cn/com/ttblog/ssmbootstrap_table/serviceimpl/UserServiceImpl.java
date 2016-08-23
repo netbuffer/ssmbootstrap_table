@@ -71,7 +71,11 @@ public class UserServiceImpl implements IUserService {
 		menuDao.insert(m);
 		throw new IllegalArgumentException("test");
 	}
-	
+
+	/**
+	 * getUserList
+	 * @param order order by adddate ${order} asc desc
+	 */
 	@Cacheable(value = { "userCache" })
 	@Override
 	public List<User> getUserList(String order, int limit, int offset) {

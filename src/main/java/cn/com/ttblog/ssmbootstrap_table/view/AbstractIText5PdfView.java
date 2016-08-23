@@ -1,4 +1,4 @@
-package cn.com.ttblog.ssmbootstrap_table.util;
+package cn.com.ttblog.ssmbootstrap_table.view;
 
 import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;

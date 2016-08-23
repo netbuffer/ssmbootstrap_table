@@ -368,11 +368,5 @@ public class TestController {
 	public String server(HttpServletRequest request){
 		return request.getServerName();
 	}
-	
-	@RequestMapping(value={"/pdf"},method=RequestMethod.GET)
-	public String pdf(Model model){
-		User u=new User();
-		u.setName("test");
-		return "pdf";
-	}
+
 }
