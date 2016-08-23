@@ -3,7 +3,6 @@ package cn.com.ttblog.ssmbootstrap_table.controller;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import javax.annotation.Resource;
@@ -75,6 +74,21 @@ public class UserController {
 		columns.add("手机号");
 		model.addAttribute("columns", columns);
 		return "userpdfview";
+	}
+	
+	/**
+	 * 访问excel视图 http://localhost:8080/ssmbootstrap_table/user/userxlsview.xls 
+	 */
+	@RequestMapping("/userxlsview")
+	public String userxlsview(Model model) {
+		model.addAttribute("users",userService.getUserList("desc",10,0));
+		List<String> columns=new ArrayList<>();
+		columns.add("姓名");
+		columns.add("性别");
+		columns.add("年龄");
+		columns.add("手机号");
+		model.addAttribute("columns", columns);
+		return "userxlsview";
 	}
 
 	/**
