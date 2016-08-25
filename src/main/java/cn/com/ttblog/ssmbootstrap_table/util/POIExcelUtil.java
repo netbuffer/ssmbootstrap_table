@@ -19,6 +19,7 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.util.CellUtil;
+import org.joda.time.DateTime;
 
 public class POIExcelUtil {
 	public static void exec(String path) {
@@ -83,7 +84,7 @@ public class POIExcelUtil {
 
 	}
 	
-	public static void export(List<String> titles,List<Map<String, Object>> datas,String path) {
+	public static void export(List<String> titles,List<String> columns, List<Map<String, Object>> datas,String path) {
 		Workbook wb = new HSSFWorkbook();
 		CreationHelper createHelper = wb.getCreationHelper();
 		Sheet sheet = wb.createSheet(titles.get(0));
@@ -107,7 +108,7 @@ public class POIExcelUtil {
 		cellStyle.setFont(titleFont);
 		for(int i=0;i<titleCount;i++){
 			Cell cell = row.createCell(i);
-			cell.setCellValue(titles.get(i));
+			cell.setCellValue(columns.get(i));
 			cell.setCellStyle(cellStyle);
 		}
 		CellStyle contentStyle = wb.createCellStyle();
@@ -117,15 +118,16 @@ public class POIExcelUtil {
 		for(int i=1;i<dataCount+1;i++){
 			Row rowIndex = sheet.createRow((short) i);
 			Map<String, Object> data=datas.get(i-1);
-			Set<String> dataSet=data.keySet();
-			Iterator<String> d=dataSet.iterator();
-			int k=0;
-			while (d.hasNext()) {
+			for(int k=0;k<titleCount;k++){
 				Cell cell = rowIndex.createCell(k);
 				cell.setCellStyle(contentStyle);
-				String key = (String) d.next();
-				cell.setCellValue(data.get(key)==null?"":data.get(key).toString());
-				k++;
+				Object cv=data.get(titles.get(k));
+				if(titles.get(k).equals("adddate")){
+					if(cv!=null){
+						cv=new DateTime(Long.valueOf(((int)cv)*1000L)).toString("yyyy-MM-dd HH:mm:ss");
+					}
+				}
+				cell.setCellValue(cv==null?"":cv.toString());
 			}
 		}
 //		CellStyle hlink_style = wb.createCellStyle();

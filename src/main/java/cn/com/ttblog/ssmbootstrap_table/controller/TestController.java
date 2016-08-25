@@ -392,4 +392,11 @@ public class TestController {
 		logger.debug("test receive bean2:{}",result);
 		return result;
 	}
+	
+	@RequestMapping(value={"/getids"},method=RequestMethod.GET)
+	@ResponseBody
+	public String getids(String ids){
+		logger.debug("用户输入ids格式:{}",ids);
+		return ids;
+	}
 }
