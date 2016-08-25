@@ -22,6 +22,7 @@ import com.alibaba.fastjson.JSON;
 import cn.com.ttblog.ssmbootstrap_table.model.User;
 import cn.com.ttblog.ssmbootstrap_table.model.query.QueryUser;
 import cn.com.ttblog.ssmbootstrap_table.service.IUserService;
+import cn.com.ttblog.ssmbootstrap_table.util.BeanMapUtil;
 
 @Controller
 @RequestMapping("/user")
@@ -57,6 +58,52 @@ public class UserController {
 		u.setDeliveryaddress("收货地址");
 		mav.addObject("model", u);
 		return mav;
+	}
+	
+	/**
+	 * 访问pdf视图 http://localhost:8080/ssmbootstrap_table/user/userpdfview.pdf
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping("/userpdfview")
+	public String userpdfview(Model model) {
+		model.addAttribute("users",userService.getUserList("desc",10,0));
+		List<String> columns=new ArrayList<>();
+		columns.add("姓名");
+		columns.add("性别");
+		columns.add("年龄");
+		columns.add("手机号");
+		model.addAttribute("columns", columns);
+		return "userpdfview";
+	}
+	
+	/**
+	 * 访问excel视图 http://localhost:8080/ssmbootstrap_table/user/userxlsview.xls 
+	 */
+	@RequestMapping("/userxlsview")
+	public String userxlsview(Model model) {
+		List<User> users=userService.getUserList("desc",10,0);
+		List<Map<String, Object>> mps = new ArrayList<Map<String, Object>>(
+				users.size());
+		int userCount=users.size();
+		for (int i = 0; i < userCount; i++) {
+			Map<String, Object> m = BeanMapUtil.transBean2Map(users.get(i));
+			mps.add(m);
+		}
+		model.addAttribute("users",mps);
+		List<String> columns=new ArrayList<>();
+		columns.add("姓名");
+		columns.add("性别");
+		columns.add("年龄");
+		columns.add("手机号");
+		List<String> keys=new ArrayList<>();
+		keys.add("name");
+		keys.add("sex");
+		keys.add("age");
+		keys.add("phone");
+		model.addAttribute("keys", keys);
+		model.addAttribute("columns", columns);
+		return "userxlsview";
 	}
 
 	/**

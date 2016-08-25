@@ -42,6 +42,7 @@
 				<entry key="json" value="application/json" />
 				<entry key="xml" value="application/xml" />
 				<entry key="xls" value="application/vnd.ms-excel" />
+				<entry key="pdf" value="application/pdf" />
 			</map>
 		</property>
 
@@ -61,6 +62,10 @@
 						</bean>
 					</constructor-arg>
 				</bean>
+				<!--  PDF view -->
+          		<bean class="cn.com.ttblog.ssmbootstrap_table.view.PdfView" />
+          		<!--  excel view -->
+          		<bean class="cn.com.ttblog.ssmbootstrap_table.view.ExcelView" />
 			</list>
 		</property>
 	</bean>

@@ -2,15 +2,28 @@ package cn.com.ttblog.ssmbootstrap_table;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.RandomStringUtils;
+import org.junit.Ignore;
+import org.junit.Test;
 
 /**
  * 临时文件使用
  * http://it.deepinmind.com/examples/io/2014/09/21/java-io-tmpdir-example.html
+ * 
  * @package cn.com.ttblog.ssmbootstrap_table
  * @author netbuffer
  */
 public class TestTmpDirExample {
-	public static void main(String[] args) {
+	
+	Logger log=Logger.getLogger("TestTmpDirExample");
+	
+	@Test
+	@Ignore
+	public void main() {
 		String tmpdir = System.getProperty("java.io.tmpdir");
 		System.out.println("The default value of the java.io.tmpdir system property is: \"" + tmpdir + "\"\n");
 
@@ -58,5 +71,21 @@ public class TestTmpDirExample {
 			System.out.println("Successfully deleted the file with name: \"" + tempFile3.getName() + "\"");
 		else
 			System.out.println("Couldn't delete the file with name: \"" + tmpdir + "\"");
+	}
+	
+	@Test
+	public void test() throws IOException{
+		log.log(Level.INFO,"写文件测试");
+		for(int i=0;i<10;i++){
+			log.log(Level.WARNING,"循环"+i);
+			FileUtils.writeStringToFile(new File("d:/text.txt"),"第"+i+"次写入:"+ RandomStringUtils.randomAscii(10)+"\r\n", true);
+		}
+	}
+	
+	public static void main(String[] args) {
+		Scanner scan=new Scanner(System.in);
+		System.out.println("输入:");
+		String str=scan.nextLine();
+		System.out.println("输出:"+str);
 	}
 }
