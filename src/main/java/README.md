@@ -5,3 +5,4 @@
 * `GlobalExceptionController`-全局异常捕获处理
 * `TestController`-一些乱七八糟的测试...
 * `MySpringTextWsHandler`spring-websocket测试
+* `UserController`测试数据获取、json/pdf/excel视图
