@@ -186,10 +186,18 @@ public class IndexController {
 		titles.add("name");
 		titles.add("phone");
 		titles.add("sex");
+		List<String> columns = new ArrayList<String>(mps.get(0).size() - 1);
+		columns.add("添加时间");
+		columns.add("年龄");
+		columns.add("收货地址");
+		columns.add("ID");
+		columns.add("名字");
+		columns.add("手机");
+		columns.add("性别");
 		String file = projectPath + format.format(new Date()) + "."
 				+ ConfigConstant.EXCELSTR;
 		logger.info("文件路径:{}", file);
-		POIExcelUtil.export(titles, mps, file);
+		POIExcelUtil.export(titles,columns, mps, file);
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
 //		String filename="中文";

@@ -1,7 +1,9 @@
 package cn.com.ttblog.ssmbootstrap_table;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 import javax.annotation.Resource;
@@ -173,7 +175,7 @@ public class TestMyBatis {
 	}
 	
 	@Test
-//	@Ignore
+	@Ignore
 	public void testInsert(){
 		//mybatis 开启BATCH处理，会导致insert返回值问题 http://www.cnblogs.com/seven7seven/p/4039622.html
 		User u=new User();
@@ -201,5 +203,15 @@ public class TestMyBatis {
 	public void testselectWhen(){
 		logger.debug("userDao.selectWhen(null):{}",userDao.selectWhen(null));
 		logger.debug("userDao.selectWhen(2):{}",userDao.selectWhen(2));
+	}
+	
+	@Test
+	public void testSelectByName(){
+		Map<String, Object> param=new HashMap<String, Object>(2);
+		param.put("param1", "a");
+		param.put("param2", "a");
+		//生成的sql:select * from user WHERE name='a' and sex='a' ,mybatis动态拼接sql，不许自己控制and /,等麻烦的拼接了
+		logger.debug("sqlSession.selectList(\"cn.com.ttblog.ssmbootstrap_table.dao.IUserDao.selectUserByName\", param):{}",
+				sqlSession.selectList("cn.com.ttblog.ssmbootstrap_table.dao.IUserDao.selectUserByName", param));
 	}
 }

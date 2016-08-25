@@ -2,6 +2,8 @@ package cn.com.ttblog.ssmbootstrap_table.model;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
+
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -152,9 +154,39 @@ public class User implements Serializable {
 	public void init(){
 		System.out.println("user init!");
 	}
+	
+//	public synchronized void syn(){
+//		System.out.println("syn!");
+//		try {
+//			TimeUnit.SECONDS.sleep(20);
+//		} catch (InterruptedException e) {
+//			e.printStackTrace();
+//		}
+//	}
+	
+	public void syn(){
+		synchronized(this){
+			System.out.println("syn!");
+			try {
+				TimeUnit.SECONDS.sleep(20);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	public synchronized void syn2() {
+		System.out.println("syn2!");
+		try {
+			TimeUnit.SECONDS.sleep(20);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
 
 	public String toString() {
 		//允许打印transient成员
 		return ToStringBuilder.reflectionToString(this,null,true);
 	}
+
 }

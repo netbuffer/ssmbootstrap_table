@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeUtils;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -74,6 +75,7 @@ public class TestJodaTime {
 		System.out.println("today.compareTo(today):"+today.compareTo(today));
 	}
 	@Test
+	@Ignore
 	public void testFormat(){
 		System.out.println("-----------------------------------");
 		String yDate="2016-07-15";
@@ -104,5 +106,14 @@ public class TestJodaTime {
 			}
 			System.out.println("******limit:"+new DateTime(limit).toString("yyyy-MM-dd HH:mm:ss")+",current:"+new DateTime(current).toString("yyyy-MM-dd HH:mm:ss"));
 		}
+	}
+	
+	@Test
+	public void parse(){
+		Integer time=1469151612;
+		System.out.println("日期:"+new DateTime(new Date(time*1000L)).toString("yyyy-MM-dd HH:mm:ss"));
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String date = sdf.format(new Date(time*1000L));
+		System.out.println(date); 
 	}
 }
