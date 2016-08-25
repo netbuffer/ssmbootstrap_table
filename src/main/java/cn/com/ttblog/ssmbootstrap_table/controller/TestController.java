@@ -41,6 +41,8 @@ import org.springframework.web.servlet.i18n.CookieLocaleResolver;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import cn.com.ttblog.ssmbootstrap_table.annotation.Token;
+import cn.com.ttblog.ssmbootstrap_table.model.Address;
+import cn.com.ttblog.ssmbootstrap_table.model.ExtendUser;
 import cn.com.ttblog.ssmbootstrap_table.model.User;
 import cn.com.ttblog.ssmbootstrap_table.util.AjaxUtils;
 
@@ -368,5 +370,26 @@ public class TestController {
 	public String server(HttpServletRequest request){
 		return request.getServerName();
 	}
-
+	
+	@RequestMapping(value={"/bean"},method=RequestMethod.GET)
+	@ResponseBody
+	public Map<String, Object> bean(User u,Address a){
+		//访问http://localhost:8080/ssmbootstrap_table/test/bean?name=mingzi&province=aaa&userId=1&sex=n，会自动组装对应的bean字段值
+		Map<String, Object> result=new HashMap<>(2);
+		result.put("u", u);
+		result.put("a", a);
+		logger.debug("test receive bean1:{}",result);
+		return result;
+	}
+	
+	@RequestMapping(value={"/beans"},method=RequestMethod.GET)
+	@ResponseBody
+	public Map<String, Object> beansame(User u,ExtendUser eu){
+		//http://localhost:8080/ssmbootstrap_table/test/beans?name=mingzisex=n ,会自动组装到所有的bean中
+		Map<String, Object> result=new HashMap<>(2);
+		result.put("u", u);
+		result.put("eu", eu);
+		logger.debug("test receive bean2:{}",result);
+		return result;
+	}
 }

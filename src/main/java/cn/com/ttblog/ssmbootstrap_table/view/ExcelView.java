@@ -25,6 +25,7 @@ public class ExcelView extends AbstractExcelView {
 	protected void buildExcelDocument(Map<String, Object> model, HSSFWorkbook workbook, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		List<String> columns=(List<String>) model.get("columns");
+		List<String> keys=(List<String>) model.get("keys");
 		CreationHelper createHelper = workbook.getCreationHelper();
 		Sheet sheet = workbook.createSheet("sheet");
 		// 冻结该行，使其无法移动
@@ -47,14 +48,17 @@ public class ExcelView extends AbstractExcelView {
 		CellStyle contentStyle = workbook.createCellStyle();
 		cellStyle.setAlignment(CellStyle.ALIGN_CENTER);
 		cellStyle.setVerticalAlignment(CellStyle.VERTICAL_CENTER);
-		List<User> datas=(List<User>) model.get("users");
+		List<Map<String, Object>> datas=(List<Map<String, Object>>) model.get("users");
+		LOG.debug("[excel-view]-columns:{},keys:{},datas:{}",columns,keys,datas);
 		int dataCount=datas.size();
-		for(int i=1;i<dataCount;i++){
-			Row rowIndex = sheet.createRow((short) i);
-			for(int k=0;k<4;k++){
+		for(int i=1;i<dataCount+1;i++){
+			Row rowIndex = sheet.createRow(i);
+			for(int k=0;k<titleCount;k++){
 				Cell cell = rowIndex.createCell(k);
 				cell.setCellStyle(contentStyle);
-				cell.setCellValue(datas.get(i).getName());
+				LOG.debug("datas.get(i-1):{},keys.get(k):{}",datas.get(i-1),keys.get(k));
+				Object cv=datas.get(i-1).get(keys.get(k).toString());
+				cell.setCellValue(cv==null?"":cv.toString());
 			}
 		}
 	}
