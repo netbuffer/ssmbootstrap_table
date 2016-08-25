@@ -5,7 +5,7 @@ import cn.com.ttblog.ssmbootstrap_table.model.User;
 public class TestSynchronize {
 	
 	public static void main(String[] args) {
-		User u=new User();
+		final User u=new User();
 		for (int i = 0; i < 10; i++) {
 			new Thread(new Runnable() {
 				@Override
