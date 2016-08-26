@@ -116,7 +116,11 @@ public class LoginFilter implements Filter {
 				return ;
 			}
 		}else{
-			LOG.debug("^^^");
+			LOG.debug("^^^no cookie，no session");
+			if(uri.endsWith(ConfigConstant.PROJECTNAME+"/")){
+				httpServletResponse.sendRedirect(httpServletRequest
+						.getContextPath() + "/index.html");
+			}
 		}
 		
 	}
