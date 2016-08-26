@@ -19,3 +19,14 @@ LOCK TABLES user READ;
 LOCK TABLES user WRITE;
 -- 解锁表，释放当前线程加的锁
 UNLOCK TABLES;
+
+-- mysql行级锁
+-- 启两个控制台窗口,执行，update都会成功
+SELECT * FROM user WHERE id=2 FOR UPDATE;
+update user set sex='男' where id=2;
+--for update要放在一个事务中,这时候其它线程写操作会阻塞掉，普通select可以执行,执行select.. WHERE id=2 FOR UPDATE会被阻塞掉
+begin
+	SELECT * FROM user WHERE id=2 FOR UPDATE;
+	update user set sex='女' where id=2;
+commit;
+end 
