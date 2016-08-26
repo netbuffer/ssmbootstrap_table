@@ -11,14 +11,13 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.annotation.Resource;
-import javax.mail.internet.MimeUtility;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.io.FileUtils;
 import org.joda.time.DateTime;
@@ -40,7 +39,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+
 import com.alibaba.fastjson.JSONArray;
+
 //import com.codahale.metrics.annotation.Timed;
 import cn.com.ttblog.ssmbootstrap_table.event.LoginEvent;
 import cn.com.ttblog.ssmbootstrap_table.model.User;
@@ -94,6 +95,12 @@ public class IndexController {
 		} else {
 			return "redirect:/index.html?requri="+requri;
 		}
+	}
+	
+	@RequestMapping("/demo")
+	public String demolist() {
+		logger.debug("demo");
+		return "redirect:/demolist.html";
 	}
 
 	@RequestMapping("/exit")
@@ -156,7 +163,7 @@ public class IndexController {
 
 	@RequestMapping("/export")
 	public ResponseEntity<byte[]> export(HttpSession session,
-			HttpServletRequest request, HttpServletResponse response) {
+			HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
 		SimpleDateFormat format = new SimpleDateFormat("yyyyMMddHHmmss");
 		List<User> users = userService.getUserList("desc", 10, 0);
 		String projectPath = request.getServletContext().getRealPath("export")
@@ -222,6 +229,14 @@ public class IndexController {
 //			e1.printStackTrace();
 //			throw new RuntimeException(e1.getMessage());
 //		}
+//		中文编码
+//		String userAgentStr = request.getHeader("user-agent");
+//		if(userAgentStr!=null&&userAgentStr.toLowerCase().indexOf("msie")!=-1){//ie浏览器
+//			filename = URLEncoder.encode(filename,"utf-8");
+//		}else if(userAgentStr!=null&&userAgentStr.toLowerCase().indexOf("trident")!=-1){//ie11浏览器
+//			filename = URLEncoder.encode(filename,"utf-8");
+//		}
+//		filename = new String(filename.getBytes(),"ISO8859-1");
 		
 		logger.debug("下载文件名字:{}",filename);
 		headers.setContentDispositionFormData("attachment",filename);
