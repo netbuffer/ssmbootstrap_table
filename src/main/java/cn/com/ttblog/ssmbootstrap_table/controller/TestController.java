@@ -10,6 +10,8 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 import javax.annotation.Resource;
 import javax.imageio.ImageIO;
@@ -84,6 +86,8 @@ public class TestController {
 	private Integer connectTime;
 	@Autowired
 	private CookieLocaleResolver cookieResolver;
+	//锁
+	private Lock lock=new ReentrantLock();
 	//注入静态属性值
 	private static String  JDBCURL;
 	//注入方法
@@ -284,6 +288,24 @@ public class TestController {
 			model.put("syn", Thread.currentThread().getName());
 		}
 		logger.warn("{}-执行synchronized操作完成", Thread.currentThread().getName());
+		return "test";
+	}
+
+	@RequestMapping(value={"/syn2"})
+	public String testSynchronized2(ModelMap model){
+		lock.lock();
+		logger.warn("{}-执行synchronized2操作!", Thread.currentThread().getName());
+		try {
+			TimeUnit.SECONDS.sleep(10);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+			throw new RuntimeException("服务器错误2");
+		}
+		if(model.get("syn")==null){
+			model.put("syn", Thread.currentThread().getName());
+		}
+		logger.warn("{}-执行synchronized操作完成2", Thread.currentThread().getName());
+		lock.unlock();
 		return "test";
 	}
 	
