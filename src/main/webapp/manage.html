@@ -175,7 +175,7 @@
 			console.log(value, row, index);
 		},
 		'click .edit' : function(e, value, row, index) {
-			alert($("[data-index=" + index + "]").find('td').eq(8).html());
+			console.log($("[data-index=" + index + "]").find('td').eq(8).html());
 			//alert($("[data-index="+index+"]").find('td').eq(3).text());
 			$("#waitph").val(
 					$("[data-index=" + index + "]").find('td').eq(3).text());
