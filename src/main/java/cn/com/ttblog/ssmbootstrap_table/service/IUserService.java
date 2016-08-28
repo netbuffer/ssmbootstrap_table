@@ -16,4 +16,5 @@ public interface IUserService {
 	public List<Map<String, Object>> getDataSum();
 	public void addUM();
 	public void addUMtest() throws IllegalArgumentException;
+	public void deleteById(Long id);
 }
