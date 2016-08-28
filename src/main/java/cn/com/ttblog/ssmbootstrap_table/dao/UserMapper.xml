@@ -83,6 +83,11 @@
 		delete from user
 		where id = #{id,jdbcType=BIGINT}
 	</delete>
+	
+	<delete id="deleteById" parameterType="java.lang.Long">
+		delete from user where id = #{id,jdbcType=BIGINT}
+	</delete>
+	
 	<!-- http://www.mybatis.org/mybatis-3/zh/sqlmap-xml.html -->
 	<insert id="insert" parameterType="cn.com.ttblog.ssmbootstrap_table.model.User">
 		<selectKey keyProperty="id" resultType="java.lang.Long" order="AFTER">
