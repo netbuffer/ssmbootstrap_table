@@ -42,5 +42,8 @@
 	<!-- jsonpfilter -->
 	<bean class="com.intera.util.web.servlet.filter.JsonpCallbackFilter"
 		id="jsonpCallbackFilter" />
-	<import resource="spring-quartz.xml"/>
+	<!-- simple test -->
+<!-- 	<import resource="spring-quartz-simple.xml"/> -->
+	<!-- with jdbc test -->
+	<import resource="spring-quartz-jdbc.xml"/>
 </beans>

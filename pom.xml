@@ -174,11 +174,6 @@
 			<version>1.10</version>
 		</dependency>
 		<dependency>
-			<groupId>com.googlecode.log4jdbc</groupId>
-			<artifactId>log4jdbc</artifactId>
-			<version>1.2</version>
-		</dependency>
-		<dependency>
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi</artifactId>
 			<version>3.13</version>
@@ -210,25 +205,30 @@
 			<artifactId>jackson-databind</artifactId>
 			<version>2.7.4</version>
 		</dependency>
-		
+
 		<dependency>
-		    <groupId>org.quartz-scheduler</groupId>
-		    <artifactId>quartz</artifactId>
-		    <version>${org.quartz-scheduler.version}</version>
+			<groupId>org.quartz-scheduler</groupId>
+			<artifactId>quartz</artifactId>
+			<version>${org.quartz-scheduler.version}</version>
 		</dependency>
 		<dependency>
-		    <groupId>com.mycila</groupId>
-		    <artifactId>mycila-junit</artifactId>
-		    <version>1.4.ga</version>
+			<groupId>com.mycila</groupId>
+			<artifactId>mycila-junit</artifactId>
+			<version>1.4.ga</version>
 		</dependency>
 		<dependency>
-		    <groupId>org.testng</groupId>
-		    <artifactId>testng</artifactId>
-		    <version>6.9.10</version>
-		    <scope>test</scope>
+			<groupId>org.testng</groupId>
+			<artifactId>testng</artifactId>
+			<version>6.9.10</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.bgee.log4jdbc-log4j2</groupId>
+			<artifactId>log4jdbc-log4j2-jdbc4.1</artifactId>
+			<version>1.16</version>
 		</dependency>
 	</dependencies>
-		<repositories>
+	<repositories>
 		<repository>
 			<id>offical</id>
 			<name>Maven Official Repository</name>
@@ -246,7 +246,7 @@
 			</snapshots>
 		</repository>
 	</repositories>
-	
+
 	<build>
 		<finalName>ssmbootstrap_table</finalName>
 		<plugins>

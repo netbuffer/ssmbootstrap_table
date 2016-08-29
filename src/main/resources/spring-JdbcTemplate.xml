@@ -33,6 +33,11 @@
 		<property name="filters" value="stat,wall" />
 	</bean>
 	
+	<!-- log4jdbc-log4j2 -->
+	<bean id="dbSource" class="net.sf.log4jdbc.sql.jdbcapi.DataSourceSpy">
+		<constructor-arg ref="dataSource" />
+	</bean>
+	
 	<!-- jdbcTemplate -->
 	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
 		<property name="dataSource" ref="dataSource" />
@@ -74,21 +79,6 @@
 		<aop:advisor pointcut-ref="trasactionService" advice-ref="trasactionAdvice" />
 	</aop:config>
 
-	<!-- log4jdbc -->
-	<bean id="log4jdbcInterceptor" class="net.sf.log4jdbc.DataSourceSpyInterceptor" />
-	<bean id="dataSourceLog4jdbcAutoProxyCreator"
-		class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator">
-		<property name="interceptorNames">
-			<list>
-				<value>log4jdbcInterceptor</value>
-			</list>
-		</property>
-		<property name="beanNames">
-			<list>
-				<value>dataSource</value>
-			</list>
-		</property>
-	</bean>
 	<!-- 配置数据库连接池、数据源 -->
 	<beans profile="develop">
 		<context:property-placeholder location="classpath:jdbc.properties" />

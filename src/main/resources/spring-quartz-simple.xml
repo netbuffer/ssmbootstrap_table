@@ -22,10 +22,12 @@
 	</bean>
 	<bean id="cronTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
 		<property name="jobDetail" ref="quartzJob" />
-		<property name="cronExpression" value="0 */1 * * * ?" />
+<!-- 		"0 15 10 ? * 6L 2002-2005" 2002年至2005年的每月的最后一个星期五上午10:15触发  http://www.quartz-scheduler.org/documentation/quartz-2.2.x/tutorials/crontrigger.html -->
+		<!-- */1和0/1测试没发现区别 -->
+		<property name="cronExpression" value="0 0/1 * * * ? 2001-2005" />
 	</bean>
 	<bean id="schedulerFactoryBean"
-		class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		class="org.springframework.scheduling.quartz.SchedulerFactoryBean" lazy-init="false">
 		<property name="triggers">
 			<list>
 				<ref bean="cronTrigger" />
