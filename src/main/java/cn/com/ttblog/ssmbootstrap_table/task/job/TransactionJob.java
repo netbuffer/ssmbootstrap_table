@@ -1,5 +1,6 @@
 package cn.com.ttblog.ssmbootstrap_table.task.job;
 
+import org.apache.commons.lang.RandomStringUtils;
 import org.quartz.DisallowConcurrentExecution;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
@@ -9,8 +10,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.scheduling.quartz.QuartzJobBean;
-import org.springframework.transaction.annotation.Transactional;
-
 import cn.com.ttblog.ssmbootstrap_table.model.User;
 import cn.com.ttblog.ssmbootstrap_table.service.IUserService;
 
@@ -19,7 +18,6 @@ public class TransactionJob extends QuartzJobBean{
 
 	private static final Logger LOG=LoggerFactory.getLogger(TransactionJob.class);
 	
-//	@Transactional
 	@Override
 	protected void executeInternal(JobExecutionContext context) throws JobExecutionException {
 		LOG.debug("[TransactionJob] execute:{}",context);
@@ -31,8 +29,13 @@ public class TransactionJob extends QuartzJobBean{
 		} catch (SchedulerException e) {
 			e.printStackTrace();
 		}
+        
 		IUserService userService=springContext.getBean("userService",IUserService.class);
-		userService.addUser(new User("test"));
+		User user=new User("定时任务添加:"+RandomStringUtils.randomAlphabetic(6));
+		/**
+		 * addUser中添加事务处理会生效
+		 */
+		userService.addUser(user);
 		throw new RuntimeException("add user error");
 	}
 }
