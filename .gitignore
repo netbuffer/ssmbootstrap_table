@@ -1,0 +1,8 @@
+/target/
+/catalina.base_IS_UNDEFINED/
+/.classpath
+!/.gitignore
+/.project
+/.settings/
+/catalina.base_IS_UNDEFINED
+/reports
