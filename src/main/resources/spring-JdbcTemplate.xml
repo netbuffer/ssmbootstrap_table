@@ -40,7 +40,7 @@
 	
 	<!-- jdbcTemplate -->
 	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
-		<property name="dataSource" ref="dataSource" />
+		<property name="dataSource" ref="dbSource" />
 		<property name="fetchSize" value="30" />
 	</bean>
 	

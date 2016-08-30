@@ -56,7 +56,7 @@
 	<logger name="jdbc.sqltiming" level="INFO" />
 	<logger name="log4jdbc.debug" level="OFF" />
 	<!-- quartz log -->
-	<logger name="org.quartz" level="DEBUG" />
+	<logger name="org.quartz" level="INFO" />
 	<logger name="org.terracotta" level="OFF" />
 	<root>
 		<level value="DEBUG" />

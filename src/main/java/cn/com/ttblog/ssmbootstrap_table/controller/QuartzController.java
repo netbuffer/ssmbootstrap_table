@@ -10,6 +10,7 @@ import java.util.Set;
 
 import org.joda.time.DateTime;
 import org.quartz.CronScheduleBuilder;
+import org.quartz.Job;
 import org.quartz.JobDetail;
 import org.quartz.JobKey;
 import org.quartz.Scheduler;
@@ -21,6 +22,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.quartz.QuartzJobBean;
 import org.springframework.scheduling.quartz.SchedulerFactoryBean;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -60,16 +62,19 @@ public class QuartzController {
 		return jobList;
 	}
 
-	@RequestMapping("/addjob")
-	private Object addjob() {
+	@RequestMapping("/addjob/{class}/{jobName}")
+	private Object addjob(@PathVariable("class") String className,@PathVariable("jobName") String jobName) throws InstantiationException, IllegalAccessException, ClassNotFoundException {
 		logger.debug("add job");
 		Scheduler scheduler = schedulerFactoryBean.getScheduler();
-		JobKey jk=new JobKey("job1", "group1");
-		JobDetail job = newJob(HelloJob.class).withIdentity(jk).storeDurably().build();
+		className="cn.com.ttblog.ssmbootstrap_table.task.job."+className;
+		logger.debug("实例化类名:{}",className);
+		JobKey jk=new JobKey(jobName, "group1");
+//		Class.forName(className).newInstance().getClass()
+		JobDetail job = newJob(((Job)(Class.forName(className).newInstance())).getClass()).withIdentity(jk).storeDurably().build();
 		Date runTime = new DateTime().plusMillis(2).toDate();
 		// Trigger the job to run on the next round minute
 //		Trigger trigger = newTrigger().withIdentity("trigger1", "group1").forJob(job).startAt(runTime).build();
-		Trigger trigger = newTrigger().withIdentity("trigger1", "group1").forJob(job).withSchedule(CronScheduleBuilder.cronSchedule("0 0/1 * * * ?")).build();
+		Trigger trigger = newTrigger().withIdentity(jobName, "group1").forJob(job).withSchedule(CronScheduleBuilder.cronSchedule("0 0/1 * * * ?")).build();
 		try {
 			if(scheduler.checkExists(new JobKey("job1","group1"))){
 				logger.debug("任务:{}已存在,删除处理!",jk);
