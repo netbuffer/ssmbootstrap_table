@@ -39,6 +39,13 @@ public class User implements Serializable {
 
 	private Card card;
 
+	public User(String name){
+		this.name=name;
+	}
+	
+	public User(){
+	}
+	
 	public Card getCard() {
 		return card;
 	}

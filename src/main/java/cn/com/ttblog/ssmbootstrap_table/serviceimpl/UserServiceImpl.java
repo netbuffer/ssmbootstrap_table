@@ -3,19 +3,16 @@ package cn.com.ttblog.ssmbootstrap_table.serviceimpl;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
-
 import javax.annotation.Resource;
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import cn.com.ttblog.ssmbootstrap_table.dao.IUserDao;
 import cn.com.ttblog.ssmbootstrap_table.model.User;
 import cn.com.ttblog.ssmbootstrap_table.service.IUserService;
 
 @Service("userService")
 public class UserServiceImpl implements IUserService {
+	
 	/**
 	 * @resource 是按照name注入，@autowired是按照type注入
 	 */
@@ -30,7 +27,7 @@ public class UserServiceImpl implements IUserService {
 	@Transactional
 	@Override
 	public void addUser(User user) {
-		Random r = new Random();
+		userDao.insert(user);
 	}
 
 	@Override

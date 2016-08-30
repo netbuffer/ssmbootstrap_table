@@ -41,10 +41,10 @@
 	<logger name="org.springframework.beans" level="DEBUG" />
 	<logger name="org.springframework.context" level="DEBUG" />
 	<logger name="org.springframework.http" level="DEBUG" /> -->
-	<logger name="org.springframework.web" level="DEBUG" />
+	<logger name="org.springframework" level="DEBUG" />
 	<logger name="org.mybatis" level="OFF" />
-	<logger name="com.ibatis" level="OFF" />
-	<logger name="java.sql" level="OFF" />
+	<logger name="com.ibatis" level="DEBUG" />
+	<logger name="java.sql" level="DEBUG" />
 	<!-- mybatis使用slf4j作为日志实现，需要配置dao或者mapper namespace的日志级别，就可以打印sql了-->
 	<logger name="cn.com.ttblog.ssmbootstrap_table.dao" level="INFO" />
 	<logger name="cn.com.ttblog.ssmbootstrap_table" level="DEBUG" />
@@ -55,11 +55,11 @@
 	<logger name="jdbc.sqlonly" level="OFF" />
 	<logger name="jdbc.sqltiming" level="INFO" />
 	<logger name="log4jdbc.debug" level="OFF" />
-<!-- 	quartz log -->
+	<!-- quartz log -->
 	<logger name="org.quartz" level="DEBUG" />
-	<logger name="org.terracotta" level="DEBUG" />
+	<logger name="org.terracotta" level="OFF" />
 	<root>
-		<level value="INFO" />
+		<level value="DEBUG" />
 		<appender-ref ref="stdout" />
 		<appender-ref ref="logfile" />
 		<!-- 数据库日志 -->

@@ -13,5 +13,6 @@
 		<property name="configLocation" value="classpath:quartz.properties" />
 		<property name="applicationContextSchedulerContextKey" value="applicationContextKey" />
 		<property name="autoStartup" value="true" />
+		<property name="transactionManager" ref="transactionManager" />
 	</bean>
 </beans>
