@@ -29,7 +29,6 @@ public class TransactionJob extends QuartzJobBean{
 		} catch (SchedulerException e) {
 			e.printStackTrace();
 		}
-        
 		IUserService userService=springContext.getBean("userService",IUserService.class);
 		User user=new User("定时任务添加:"+RandomStringUtils.randomAlphabetic(6));
 		/**
