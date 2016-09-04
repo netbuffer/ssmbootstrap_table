@@ -29,4 +29,6 @@ public interface IUserDao {
 	List<User> getUsersByIds(List<Long> ids);
 	
 	List<User> selectWhen(@Param("id")Integer id);
+
+	void deleteById(Long id);
 }

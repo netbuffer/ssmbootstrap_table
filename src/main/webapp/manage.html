@@ -21,6 +21,8 @@
 <script
 	src="//rawgit.com/hhurz/tableExport.jquery.plugin/master/tableExport.js"></script>
 <script src="//cdn.bootcss.com/echarts/3.0.0/echarts.min.js"></script>
+<!-- http://bootboxjs.com/ -->
+<script src="//cdn.bootcss.com/bootbox.js/4.4.0/bootbox.min.js"></script>
 <script src="js/moment.min.js"></script>
 <script src="js/moment.zh-cn.js"></script>
 <script type="text/javascript">
@@ -175,7 +177,7 @@
 			console.log(value, row, index);
 		},
 		'click .edit' : function(e, value, row, index) {
-			alert($("[data-index=" + index + "]").find('td').eq(8).html());
+			console.log($("[data-index=" + index + "]").find('td').eq(8).html());
 			//alert($("[data-index="+index+"]").find('td').eq(3).text());
 			$("#waitph").val(
 					$("[data-index=" + index + "]").find('td').eq(3).text());
@@ -187,13 +189,24 @@
 			//alert('You click remove icon, row: ' + JSON.stringify(row));
 			var delid = $("[data-index=" + index + "]").find('td').eq(0)
 					.children().first().val();
-			if (confirm("确定删除该条记录吗？" + delid)) {
-				$.getJSON('user/delete', {
-					"id" : delid
-				}, function(data) {
-					$("#dtb").bootstrapTable('refresh');
-				});
-			}
+			bootbox.confirm("确定删除该条记录吗？", function(result) {
+				if(result){
+				  $.getJSON('user/delete', {
+						"id" : delid
+					}, function(data) {
+						$("#dtb").bootstrapTable('refresh');
+					});
+				}else{
+					bootbox.alert("操作取消");
+				}
+			}); 
+// 			if (confirm("确定删除该条记录吗？" + delid)) {
+// 				$.getJSON('user/delete', {
+// 					"id" : delid
+// 				}, function(data) {
+// 					$("#dtb").bootstrapTable('refresh');
+// 				});
+// 			}
 			console.log(value, row, index);
 		}
 	};
@@ -240,9 +253,14 @@
 	}
 
 	function sys_Exit() {
-		if (confirm("确定退出系统吗")) {
-			window.location.href = "exit";
-		}
+		bootbox.confirm("确定退出系统吗？", function(result) {
+			if(result){
+				window.location.href = "exit";
+			}
+		}); 
+// 		if (confirm("确定退出系统吗")) {
+// 			window.location.href = "exit";
+// 		}
 	}
 	function exporyToday() {
 		if (confirm("确定导出当天记录吗？")) {
