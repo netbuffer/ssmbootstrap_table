@@ -150,6 +150,14 @@ public class UserController {
 		logger.debug("querystr:{}",querystr);
 		return "testquery";
 	}
+	
+	@RequestMapping("/delete")
+	@ResponseBody
+	public String delete(@RequestParam(value="id",required=false,defaultValue="0") String id) {
+		logger.info("删除用户:{}", id);
+		userService.deleteById(Long.parseLong(id));
+		return "delete";
+	}
 
 	@RequestMapping("/showUserXML")
 	public ModelAndView showUserXML(HttpServletRequest request, Model model) {

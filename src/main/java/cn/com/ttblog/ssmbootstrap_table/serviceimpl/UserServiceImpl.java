@@ -115,4 +115,9 @@ public class UserServiceImpl implements IUserService {
 		return userDao.getDataSum();
 	}
 
+	@Override
+	public void deleteById(Long id) {
+		userDao.deleteById(id);
+	}
+
 }
