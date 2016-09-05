@@ -73,4 +73,24 @@ public class UserServiceImpl implements IUserService {
 		return userDao.getUserList(params);
 	}
 
+	@Override
+	public User login(String username, String password) {
+//		return null;
+		User u=new User();
+		u.setName(username);
+		u.setPhone("1111111");
+		return u;
+	}
+
+	@Override
+	public List<String> listRoleSnByUser(Long uid) {
+		return null;
+	}
+
+	@Override
+	public List<cn.com.ttblog.ssmbootstrap_table.model.Resource> listAllResource(
+			Long uid) {
+		return null;
+	}
+
 }

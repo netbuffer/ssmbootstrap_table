@@ -54,10 +54,10 @@ public class IndexController {
 			HttpServletResponse response, String username, String captcha, String password) {
 		logger.info("进入username:{},pwd:{},session captcha:{},captcha:{}", username, password,
 				imageCaptchaService.getChallengeForID(request.getSession().getId().toString(), request.getLocale()),captcha);
-		if(!imageCaptchaService.validateResponseForID(request.getSession().getId(), captcha)){
+		/*if(!imageCaptchaService.validateResponseForID(request.getSession().getId(), captcha)){
 			logger.info("验证码未通过!");
 			return "redirect:/index.html";
-		}
+		}*/
 		if (username.equals(ConfigConstant.VAL_USERNAME)
 				&& password.equals(ConfigConstant.VAL_PWD)) {
 			session.setAttribute(ConfigConstant.ISLOGIN, true);
