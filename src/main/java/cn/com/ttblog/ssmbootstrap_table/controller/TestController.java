@@ -29,7 +29,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -41,12 +40,6 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.i18n.CookieLocaleResolver;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import cn.com.ttblog.ssmbootstrap_table.annotation.Token;
-import cn.com.ttblog.ssmbootstrap_table.model.Address;
-import cn.com.ttblog.ssmbootstrap_table.model.ExtendUser;
-import cn.com.ttblog.ssmbootstrap_table.model.User;
-import cn.com.ttblog.ssmbootstrap_table.util.AjaxUtils;
 
 import com.alibaba.fastjson.JSONObject;
 import com.google.zxing.BarcodeFormat;
@@ -66,6 +59,13 @@ import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.common.HybridBinarizer;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
+
+import cn.com.ttblog.ssmbootstrap_table.annotation.Token;
+import cn.com.ttblog.ssmbootstrap_table.model.Address;
+import cn.com.ttblog.ssmbootstrap_table.model.ExtendUser;
+import cn.com.ttblog.ssmbootstrap_table.model.User;
+import cn.com.ttblog.ssmbootstrap_table.util.AjaxUtils;
+import eu.bitwalker.useragentutils.UserAgent;
 
 @Controller
 @RequestMapping("/test")
@@ -420,5 +420,13 @@ public class TestController {
 	public String getids(String ids){
 		logger.debug("用户输入ids格式:{}",ids);
 		return ids;
+	}
+	
+	@RequestMapping(value={"/ua"},method=RequestMethod.GET)
+	@ResponseBody
+	public UserAgent ua(HttpServletRequest request){
+		UserAgent userAgent = UserAgent.parseUserAgentString(request.getHeader("User-Agent"));
+		logger.debug("用户ua:{}",userAgent);
+		return userAgent;
 	}
 }
