@@ -10,6 +10,8 @@ import javax.annotation.Resource;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.mybatis.spring.SqlSessionTemplate;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,6 +25,7 @@ import cn.com.ttblog.ssmbootstrap_table.service.IUserService;
 
 @Service("userService")
 public class UserServiceImpl implements IUserService {
+	private Logger logger=LoggerFactory.getLogger(getClass());
 	/**
 	 * @resource 是按照name注入，@autowired是按照type注入
 	 */
