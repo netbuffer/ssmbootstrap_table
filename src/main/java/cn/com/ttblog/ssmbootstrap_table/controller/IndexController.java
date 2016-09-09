@@ -17,6 +17,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,12 +30,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.alibaba.fastjson.JSONArray;
 import com.octo.captcha.service.image.ImageCaptchaService;
 
+import cn.com.ttblog.ssmbootstrap_table.filter.CusAuthenticationFilter;
 import cn.com.ttblog.ssmbootstrap_table.model.User;
 import cn.com.ttblog.ssmbootstrap_table.service.IUserService;
 import cn.com.ttblog.ssmbootstrap_table.util.BeanMapUtil;
@@ -49,24 +53,37 @@ public class IndexController {
 	private ImageCaptchaService imageCaptchaService;
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 //	http://www.tuicool.com/articles/rMzAFj
+//	@RequestMapping("/login")
+//	public String login(HttpSession session, HttpServletRequest request,
+//			HttpServletResponse response, String username, String captcha, String password) {
+//		logger.info("进入username:{},pwd:{},session captcha:{},captcha:{}", username, password,
+//				imageCaptchaService.getChallengeForID(request.getSession().getId().toString(), request.getLocale()),captcha);
+//		/*if(!imageCaptchaService.validateResponseForID(request.getSession().getId(), captcha)){
+//			logger.info("验证码未通过!");
+//			return "redirect:/index.html";
+//		}*/
+//		if (username.equals(ConfigConstant.VAL_USERNAME)
+//				&& password.equals(ConfigConstant.VAL_PWD)) {
+//			session.setAttribute(ConfigConstant.ISLOGIN, true);
+//			session.setAttribute(ConfigConstant.USERNAME, username);
+//			Cookie c = new Cookie(ConfigConstant.USERNAME, username);
+//			c.setMaxAge(86400);
+//			response.addCookie(c);
+//			return "redirect:/manage.html";
+//		} else {
+//			return "redirect:/index.html";
+//		}
+//	}
+	
 	@RequestMapping("/login")
-	public String login(HttpSession session, HttpServletRequest request,
-			HttpServletResponse response, String username, String captcha, String password) {
-		logger.info("进入username:{},pwd:{},session captcha:{},captcha:{}", username, password,
-				imageCaptchaService.getChallengeForID(request.getSession().getId().toString(), request.getLocale()),captcha);
-		/*if(!imageCaptchaService.validateResponseForID(request.getSession().getId(), captcha)){
-			logger.info("验证码未通过!");
-			return "redirect:/index.html";
-		}*/
-		if (username.equals(ConfigConstant.VAL_USERNAME)
-				&& password.equals(ConfigConstant.VAL_PWD)) {
-			session.setAttribute(ConfigConstant.ISLOGIN, true);
-			session.setAttribute(ConfigConstant.USERNAME, username);
-			Cookie c = new Cookie(ConfigConstant.USERNAME, username);
-			c.setMaxAge(86400);
-			response.addCookie(c);
+	public String login(@RequestParam(value=CusAuthenticationFilter.DEFAULT_USERNAME_PARAM,required=true) String username) {
+		logger.info("username:{}", username);
+		Subject subject=SecurityUtils.getSubject();
+		if(subject.isAuthenticated()){
+			logger.debug("登陆成功,跳转管理页面");
 			return "redirect:/manage.html";
-		} else {
+		}else{
+			logger.debug("登陆失败");
 			return "redirect:/index.html";
 		}
 	}

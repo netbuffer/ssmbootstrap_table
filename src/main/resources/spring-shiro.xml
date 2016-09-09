@@ -24,13 +24,35 @@
 		<property name="authenticationCacheName" value="shiro-authenticationCache" />
 		<property name="authorizationCachingEnabled" value="true" />
 		<property name="authorizationCacheName" value="shiro-authorizationCache" />
-		<property name="credentialsMatcher" ref="hashMatcher" />
+<!-- 		<property name="credentialsMatcher" ref="hashMatcher" /> -->
 	</bean>
-
+	
+	<!-- 用户Session信息DAO, 采用EhCache -->
+	<bean id="sessionDAO"
+		class="org.apache.shiro.session.mgt.eis.EnterpriseCacheSessionDAO">
+		<property name="activeSessionsCacheName" value="shiro-activeSessionCache" />
+	</bean>
+	
+	<!-- 指定本系统SESSIONID, 默认为: JSESSIONID 问题: 与SERVLET容器名冲突, 如JETTY, TOMCAT 等默认JSESSIONID,当跳出SHIRO 
+		SERVLET时如ERROR-PAGE 容器会为JSESSIONID重新分配值导致登录会话丢失! -->
+	<bean id="shiroSessionIdCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
+		 <constructor-arg name="name" value="SSESSIONID" />
+	</bean>
+	
+	<!-- 使用默认session管理类 -->
+	<bean id="defaultWebSessionManager"
+		class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
+		<property name="sessionDAO" ref="sessionDAO" />
+		<property name="globalSessionTimeout" value="3600000" />
+		<property name="sessionIdCookie" ref="shiroSessionIdCookie" />
+	</bean>
+	
 	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
 		<property name="realm" ref="userRealm" />
 <!-- 		<property name="cacheManager" ref="cacheManager" /> -->
 		<property name="authorizer.permissionResolver" ref="urlPermissionResolver" />
+		<!-- 默认session管理类 -->
+		<property name="sessionManager" ref="defaultWebSessionManager" />
 	</bean>
 
 	<bean id="resourceCheckFilter" class="cn.com.ttblog.ssmbootstrap_table.shiro.ResourceCheckFilter">
@@ -53,7 +75,7 @@
 		<property name="filterChainDefinitions">
 			<value>
 				/admin/**=authc,resourceCheckFilter
-				/login=anon
+				/login=cfauth
 				/logout = logout
 			</value>
 		</property>
