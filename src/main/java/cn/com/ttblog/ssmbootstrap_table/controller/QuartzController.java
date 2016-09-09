@@ -62,6 +62,15 @@ public class QuartzController {
 		return jobList;
 	}
 
+	/**
+	 * 添加定时任务
+	 * @param className 定时任务类名
+	 * @param jobName 任务名
+	 * @return
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
+	 * @throws ClassNotFoundException
+	 */
 	@RequestMapping("/addjob/{class}/{jobName}")
 	private Object addjob(@PathVariable("class") String className,@PathVariable("jobName") String jobName) throws InstantiationException, IllegalAccessException, ClassNotFoundException {
 		logger.debug("add job");
@@ -89,10 +98,16 @@ public class QuartzController {
 		return job;
 	}
 	
-	@RequestMapping("/deljob")
-	private Object deljob() {
+	/**
+	 * 删除定时任务
+	 * @param jobName
+	 * @param group
+	 * @return
+	 */
+	@RequestMapping("/deljob/{jobName}/{group}")
+	private Object deljob(@PathVariable("jobName") String jobName,@PathVariable("group") String group) {
 		Scheduler scheduler = schedulerFactoryBean.getScheduler();
-		JobKey key=new JobKey("", "");
+		JobKey key=new JobKey(jobName,group);
 		logger.debug("删除任务:{}",key);
 		try {
 			scheduler.deleteJob(key);

@@ -17,4 +17,4 @@
 
 #quartz
 #![quartz](src/main/webapp/image/quartzdemo.png)
-> 发现quartz持久化到数据库的任务，如果期间改变了job的包名，类名等，需要去数据库中同步修改掉这个任务才行，否则启动会失败
+> 发现quartz持久化到数据库的任务，如果期间改变了job的包名，类名等，需要去数据库中同步修改掉这个任务才行，否则启动会失败,`JOB_DATA`使用的blob存储
