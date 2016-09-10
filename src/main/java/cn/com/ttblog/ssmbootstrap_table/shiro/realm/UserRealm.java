@@ -93,6 +93,7 @@ public class UserRealm extends AuthorizingRealm {
 			throw new LockedAccountException("账户被锁定");
 //			throw new DisabledAccountException("该账户被禁用");
 		}
+		LOG.debug("拿到用户信息:{},表单密码:{}",user,password);
 		SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(user,password, this.getName());
 		info.setCredentialsSalt(ByteSource.Util.bytes(user.getName()));
 		LOG.debug("认证完成:{}",info);
