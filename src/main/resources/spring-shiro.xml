@@ -10,7 +10,7 @@
          http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
          http://www.springframework.org/schema/tx 
          http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
-
+	<description>Shiro安全配置</description>
 <!-- 	<bean id="cacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager" /> -->
 	<bean id="urlPermissionResolver" class="cn.com.ttblog.ssmbootstrap_table.shiro.UrlPermissionResovler" />
 	<bean id="hashMatcher"
@@ -24,7 +24,7 @@
 		<property name="authenticationCacheName" value="shiro-authenticationCache" />
 		<property name="authorizationCachingEnabled" value="true" />
 		<property name="authorizationCacheName" value="shiro-authorizationCache" />
-<!-- 		<property name="credentialsMatcher" ref="hashMatcher" /> -->
+		<property name="credentialsMatcher" ref="hashMatcher" />
 	</bean>
 	
 	<!-- 用户Session信息DAO, 采用EhCache -->
@@ -61,9 +61,9 @@
 	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
 		<property name="securityManager" ref="securityManager" />
 		<property name="loginUrl" value="/login" />
-		<!-- override these for application-specific URLs if you like: <property 
-			name="loginUrl" value="/login.jsp"/> <property name="successUrl" value="/home.jsp"/> 
-			<property name="unauthorizedUrl" value="/unauthorized.jsp"/> -->
+		<!-- override these for application-specific URLs if you like:  -->
+		<property name="successUrl" value="/index.jsp"/> 
+		<property name="unauthorizedUrl" value="/unauth.jsp"/>
 		<!-- The 'filters' property is not necessary since any declared javax.servlet.Filter 
 			bean -->
 		<!-- defined will be automatically acquired and available via its beanName 
@@ -74,9 +74,21 @@
 			</util:map> </property> -->
 		<property name="filterChainDefinitions">
 			<value>
+				/=anon
+				/unauth.jsp=anon
+				/favicon.ico=anon
+				/css/**=anon
+				/image/**=anon
+				/js/**=anon
 				/admin/**=authc,resourceCheckFilter
 				/login=cfauth
+				/test/jcaptcha=anon
 				/logout = logout
+				/index.html=anon
+				/register=anon
+				/captcha=anon
+				/jsonp=anon
+				/** = resourceCheckFilter
 			</value>
 		</property>
 	</bean>

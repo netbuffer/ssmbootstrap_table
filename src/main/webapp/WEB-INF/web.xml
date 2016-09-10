@@ -73,23 +73,6 @@
 	</filter-mapping>
 
 	<filter>
-		<filter-name>LoginFilter</filter-name>
-		<filter-class>cn.com.ttblog.ssmbootstrap_table.filter.LoginFilter</filter-class>
-		<init-param>
-			<param-name>noFilterTags</param-name>
-			<param-value>index.html;login;register;captcha;.css;.js;.jpg;jsonp</param-value>
-		</init-param>
-		<init-param>
-			<param-name>enable</param-name>
-			<param-value>true</param-value>
-		</init-param>
-	</filter>
-	<filter-mapping>
-		<filter-name>LoginFilter</filter-name>
-		<url-pattern>/*</url-pattern>
-	</filter-mapping>
-
-	<filter>
 		<filter-name>druidfilter</filter-name>
 		<filter-class>com.alibaba.druid.support.http.WebStatFilter</filter-class>
 		<init-param>

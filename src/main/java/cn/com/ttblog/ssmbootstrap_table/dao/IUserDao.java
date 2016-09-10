@@ -21,4 +21,6 @@ public interface IUserDao {
 
 	User getUserById(long userId);
 
+	User findByUserName(String username);
+
 }

@@ -3,7 +3,6 @@ package cn.com.ttblog.ssmbootstrap_table.shiro.realm;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.authc.AccountException;
 import org.apache.shiro.authc.AuthenticationException;
@@ -23,7 +22,6 @@ import org.apache.shiro.util.ByteSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import cn.com.ttblog.ssmbootstrap_table.model.Resource;
 import cn.com.ttblog.ssmbootstrap_table.model.User;
 import cn.com.ttblog.ssmbootstrap_table.service.IUserService;
@@ -33,6 +31,9 @@ public class UserRealm extends AuthorizingRealm {
 	@Autowired
 	private IUserService userService;
 	
+	/**
+	 * 授权流程
+	 */
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(
 			PrincipalCollection principals) {
@@ -50,25 +51,48 @@ public class UserRealm extends AuthorizingRealm {
 		return info;
 	}
 	
-
+	/**
+	 * 认证流程
+	 */
 	@Override
 	protected AuthenticationInfo doGetAuthenticationInfo(
 			AuthenticationToken token) throws AuthenticationException {
 		UsernamePasswordToken usernamePasswordToken = (UsernamePasswordToken) token;
 		LOG.debug("认证信息:{}",usernamePasswordToken);
+		if(usernamePasswordToken==null||usernamePasswordToken.getPrincipal()==null){
+			LOG.error("用户名或密码不能为空");
+			throw new AccountException("用户名或密码不能为空");
+		}
 		String username = token.getPrincipal().toString();
 		if(StringUtils.isEmpty(username)){
+			LOG.error("用户名不能为空");
 			throw new AccountException("用户名不能为空");
+		}
+		if(token.getCredentials()==null||StringUtils.isEmpty(token.getCredentials().toString())){
+			LOG.error("密码不能为空");
+			throw new AccountException("密码不能为空");
 		}
 		//清空上次权限缓存
 		SimplePrincipalCollection principals = new SimplePrincipalCollection(
 				token.getPrincipal(), getName());
 		clearCachedAuthorizationInfo(principals);
 		String password = new String((char[])token.getCredentials());
-		User user = userService.login(username, password);
-//		throw new UnknownAccountException("用户不存在");
-//		throw new DisabledAccountException("该账户被禁用");
-//		throw new LockedAccountException("账户被锁定")
+		User user = null;
+		try{
+			user=userService.findByUserName(username);
+		}catch(Exception e){
+			LOG.error("查询用户:{},发生错误:",username,e);
+			throw new AccountException("请重试~");
+		}
+		if(user==null){
+			LOG.error("用户不存在");
+			throw new UnknownAccountException("用户不存在");
+		}
+		if(user.getIsLock()==1){
+			LOG.error("用户被锁定");
+			throw new LockedAccountException("账户被锁定");
+//			throw new DisabledAccountException("该账户被禁用");
+		}
 		SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(user,password, this.getName());
 		info.setCredentialsSalt(ByteSource.Util.bytes(user.getName()));
 		LOG.debug("认证完成:{}",info);

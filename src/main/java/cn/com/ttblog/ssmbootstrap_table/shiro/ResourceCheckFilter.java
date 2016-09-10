@@ -6,9 +6,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.filter.AccessControlFilter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class ResourceCheckFilter extends AccessControlFilter {
-	
+	private static final Logger LOG=LoggerFactory.getLogger(ResourceCheckFilter.class);
 	private String errorUrl;
 	
 	public String getErrorUrl() {
@@ -24,7 +26,9 @@ public class ResourceCheckFilter extends AccessControlFilter {
 			ServletResponse response, Object mappedValue) throws Exception {
 		Subject subject = getSubject(request, response);
 		String url = getPathWithinApplication(request);
-		return subject.isPermitted(url);
+		boolean isPermit=subject.isPermitted(url);
+		LOG.debug("shiro resource check,url:{},ispermitted:{}",url,isPermit);
+		return isPermit;
 	}
 
 	@Override
@@ -32,7 +36,7 @@ public class ResourceCheckFilter extends AccessControlFilter {
 			ServletResponse response) throws Exception {
 		HttpServletResponse hsp = (HttpServletResponse)response;
 		HttpServletRequest hReq = (HttpServletRequest)request;
-		hsp.sendRedirect(hReq.getContextPath()+"/"+this.errorUrl);
+		hsp.sendRedirect(hReq.getContextPath()+this.errorUrl);
 		return false;
 	}
 

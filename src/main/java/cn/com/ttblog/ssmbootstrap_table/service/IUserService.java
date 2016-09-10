@@ -16,7 +16,7 @@ public interface IUserService {
 	public long getUserListCount();
 	public int getNewData();
 	public List<Map<String, Object>> getDataSum();
-	public User login(String username, String password);
 	public List<String> listRoleSnByUser(Long uid);
 	public List<Resource> listAllResource(Long uid);
+	public User findByUserName(String username);
 }

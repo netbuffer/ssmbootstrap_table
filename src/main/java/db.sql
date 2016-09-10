@@ -1,27 +1,62 @@
-CREATE TABLE `user` (
-  `id` bigint(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE IF NOT EXISTS `user` (
+  `id` bigint(11) NOT NULL auto_increment,
   `name` varchar(50) NOT NULL COMMENT '姓名',
-  `sex` varchar(2) NOT NULL COMMENT '性别',
-  `age` int(3) NOT NULL COMMENT '年龄',
-  `phone` varchar(11) NOT NULL DEFAULT '0' COMMENT '手机',
-  `deliveryaddress` varchar(200) DEFAULT NULL COMMENT '收货地址',
-  `adddate` int(11) NOT NULL COMMENT '添加时间',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+  `password` varchar(255) default NULL,
+  `sex` varchar(2) default NULL COMMENT '性别',
+  `age` int(3) default NULL COMMENT '年龄',
+  `phone` varchar(11) default '0' COMMENT '手机',
+  `deliveryaddress` varchar(200) default NULL COMMENT '收货地址',
+  `adddate` int(11) unsigned default NULL COMMENT '添加时间',
+  `islock` tinyint(1) default NULL COMMENT '是否锁定1锁定 0未锁定',
+  PRIMARY KEY  (`id`),
+  UNIQUE KEY `a` (`name`),
+  UNIQUE KEY `n&p` (`name`,`phone`)
+) ENGINE=InnoDB AUTO_INCREMENT=100027 DEFAULT CHARSET=utf8;
 
-DROP TABLE IF EXISTS `address`;
-CREATE TABLE `address` (
+CREATE TABLE IF NOT EXISTS `address` (
   `user_id` bigint(20) DEFAULT NULL,
   `province` varchar(255) DEFAULT NULL,
   `city` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-DROP TABLE IF EXISTS `menu`;
-CREATE TABLE `menu` (
+CREATE TABLE IF NOT EXISTS  `menu` (
   `id` bigint(20) NOT NULL DEFAULT '0',
   `name` varchar(255) DEFAULT NULL COMMENT '菜单名',
   `parent_id` bigint(20) DEFAULT NULL COMMENT '父id',
   PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- 权限
+CREATE TABLE IF NOT EXISTS `permission` (
+  `id` bigint(11) NOT NULL auto_increment,
+  `permission_name` varchar(50) NOT NULL COMMENT '权限名',
+  `permission_url` varchar(100) NOT NULL COMMENT '权限url',
+  `permission_code` varchar(30) NOT NULL,
+  `permission_parentcode` varchar(30) NOT NULL,
+  PRIMARY KEY  (`id`),
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+-- 角色
+CREATE TABLE IF NOT EXISTS  `role` (
+  `id` bigint(11) NOT NULL auto_increment,
+  `role_name` varchar(50) NOT NULL COMMENT '角色名',
+  `role_description` varchar(200) default NULL COMMENT '角色描述',
+  PRIMARY KEY  (`id`),
+) ENGINE=InnoDB AUTO_INCREMENT=100027 DEFAULT CHARSET=utf8;
+-- 用户-角色
+CREATE TABLE IF NOT EXISTS `user_role` (
+  `id` bigint(11) NOT NULL auto_increment,
+  `user_id` bigint(50) NOT NULL COMMENT '用户id',
+  `role_id` int(2) default NULL COMMENT '角色id',
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+-- 角色权限
+CREATE TABLE IF NOT EXISTS `role_permission` (
+  `id` bigint(11) NOT NULL auto_increment,
+  `role_id` bigint(11) NOT NULL COMMENT '角色id',
+  `permission_id` bigint(2) NOT NULL COMMENT '权限id',
+  PRIMARY KEY  (`id`),
+  UNIQUE KEY `a` (`role_id`),
+  UNIQUE KEY `n&p` (`role_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------

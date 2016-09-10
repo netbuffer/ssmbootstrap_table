@@ -155,4 +155,26 @@ public class UserDaoImpl implements IUserDao {
 		// return u;
 	}
 
+	@Override
+	public User findByUserName(String username) {
+		return jdbcTemple.query("select * from user where name=?",
+				new Object[] { username }, new RowMapper<User>() {
+			@Override
+			public User mapRow(ResultSet rs, int rowNum)
+					throws SQLException {
+				User u = new User();
+				u.setId(rs.getLong("id"));
+				u.setAdddate(rs.getInt("adddate"));
+				u.setName(rs.getString("name"));
+				u.setSex(rs.getString("sex"));
+				u.setAge(rs.getInt("age"));
+				u.setDeliveryaddress(rs.getString("deliveryaddress"));
+				u.setPhone(rs.getString("phone"));
+				u.setPassword(rs.getString("password"));
+				u.setIsLock(rs.getShort("islock"));
+				return u;
+			}
+		}).get(0);
+	}
+
 }

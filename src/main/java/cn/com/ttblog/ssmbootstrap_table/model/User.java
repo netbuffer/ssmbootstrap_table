@@ -38,6 +38,27 @@ public class User implements Serializable {
 	List<Address> addresses;
 
 	private Card card;
+	
+	private String password;
+	
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public short getIsLock() {
+		return isLock;
+	}
+
+	public void setIsLock(short isLock) {
+		this.isLock = isLock;
+	}
+
+	private short isLock;
+	
 
 	public Card getCard() {
 		return card;
