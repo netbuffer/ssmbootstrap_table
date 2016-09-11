@@ -33,14 +33,14 @@ CREATE TABLE IF NOT EXISTS `permission` (
   `permission_url` varchar(100) NOT NULL COMMENT '权限url',
   `permission_code` varchar(30) NOT NULL,
   `permission_parentcode` varchar(30) NOT NULL,
-  PRIMARY KEY  (`id`),
+  PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- 角色
 CREATE TABLE IF NOT EXISTS  `role` (
   `id` bigint(11) NOT NULL auto_increment,
   `role_name` varchar(50) NOT NULL COMMENT '角色名',
   `role_description` varchar(200) default NULL COMMENT '角色描述',
-  PRIMARY KEY  (`id`),
+  PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=100027 DEFAULT CHARSET=utf8;
 -- 用户-角色
 CREATE TABLE IF NOT EXISTS `user_role` (
