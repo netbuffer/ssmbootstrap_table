@@ -20,7 +20,7 @@ public class CusAuthenticationFilter extends FormAuthenticationFilter {
 	protected boolean executeLogin(ServletRequest request,
 			ServletResponse response) throws Exception {
 		boolean login=super.executeLogin(request, response);
-		LOG.debug("执行登陆,登录结果:{}",login);
+		LOG.debug("executeLogin:{}",login);
 		return login;
 	}
 	
@@ -34,7 +34,8 @@ public class CusAuthenticationFilter extends FormAuthenticationFilter {
 	protected boolean onLoginSuccess(AuthenticationToken token, Subject subject,
             ServletRequest request, ServletResponse response) throws Exception {
 		boolean success=super.onLoginSuccess(token, subject, request, response);
-		LOG.debug("login success:{}",success);
+		LOG.debug("login success execute:{}",success);
+		//success为false使得阻止向下传递chain，进行重定向操作
 		return success;
 	}
 	
@@ -42,7 +43,8 @@ public class CusAuthenticationFilter extends FormAuthenticationFilter {
 	protected boolean onLoginFailure(AuthenticationToken token, AuthenticationException e,
             ServletRequest request, ServletResponse response) {
 		boolean fail=super.onLoginFailure(token, e, request, response);
-		LOG.debug("login fail：{}",fail);
+		//fail为true使得返回到登陆页
+		LOG.debug("login fail execute:{}",fail);
 		return fail;
 	}
 }

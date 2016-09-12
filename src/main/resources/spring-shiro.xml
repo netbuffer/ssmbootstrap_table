@@ -15,7 +15,7 @@
 	<bean id="urlPermissionResolver" class="cn.com.ttblog.ssmbootstrap_table.shiro.UrlPermissionResovler" />
 <!-- 	http://jinnianshilongnian.iteye.com/blog/2021439 shiro密码加密解密 -->
 	<bean id="hashMatcher"
-		class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">
+		class="cn.com.ttblog.ssmbootstrap_table.shiro.realm.CustomCredentialsMatcher">
 		<property name="hashAlgorithmName" value="md5" />
 	</bean>
 	

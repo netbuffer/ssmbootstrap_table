@@ -96,7 +96,8 @@ public class UserRealm extends AuthorizingRealm {
 		LOG.debug("拿到用户信息:{},表单密码:{}",user,password);
 		//set的是数据库中加密后的密码
 		SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(user,user.getPassword(), this.getName());
-//		info.setCredentialsSalt(ByteSource.Util.bytes(user.getName()));
+		//设置加密盐
+		info.setCredentialsSalt(ByteSource.Util.bytes(user.getName()));
 		LOG.debug("认证完成:{}",info);
 		return info;
 	}
