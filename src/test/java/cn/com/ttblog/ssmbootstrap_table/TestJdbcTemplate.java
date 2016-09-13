@@ -82,7 +82,21 @@ public class TestJdbcTemplate {
 	}
 	
 	@Test
+	@Ignore
 	public void testGetUserList() {
 		logger.debug("获取userlist:{}", userService.getUserList("desc", 10, 0));
+	}
+	
+	@Test
+	public void testAddUserWithPwd() {
+		User u = new User();
+		u.setName("a");
+		u.setSex("男");
+		u.setAge(29);
+		u.setPhone("13823883883");
+		u.setDeliveryaddress("这是收获地址的测试");
+		u.setAdddate((int) ((System.currentTimeMillis() / 1000)));
+		u.setPassword("a");
+		userService.addUser(u);
 	}
 }

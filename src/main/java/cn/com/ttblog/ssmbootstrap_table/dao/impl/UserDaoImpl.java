@@ -4,11 +4,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
+
 import cn.com.ttblog.ssmbootstrap_table.dao.IUserDao;
+import cn.com.ttblog.ssmbootstrap_table.model.Resource;
 import cn.com.ttblog.ssmbootstrap_table.model.User;
 import cn.com.ttblog.ssmbootstrap_table.util.BeanMapUtil;
 
@@ -21,7 +24,7 @@ public class UserDaoImpl implements IUserDao {
 	@Override
 	public int insert(User record) {
 		return jdbcTemple
-				.update("insert into user(name,password,salt,sex,age,phone,deliveryaddress,adddate,islock) values(?,?,?,?,?,?,?,?)",
+				.update("insert into user(name,password,salt,sex,age,phone,deliveryaddress,adddate,islock) values(?,?,?,?,?,?,?,?,?)",
 						new Object[] { record.getName(),record.getPassword(),record.getSalt(),record.getSex(),
 								record.getAge(), record.getPhone(),
 								record.getDeliveryaddress(),
@@ -172,6 +175,7 @@ public class UserDaoImpl implements IUserDao {
 				u.setPhone(rs.getString("phone"));
 				u.setPassword(rs.getString("password"));
 				u.setIsLock(rs.getShort("islock"));
+				u.setSalt(rs.getString("salt"));
 				return u;
 			}
 		}).get(0);
@@ -180,6 +184,22 @@ public class UserDaoImpl implements IUserDao {
 	@Override
 	public void addUser(User user) {
 		this.insert(user);
+	}
+
+	@Override
+	public List<String> listRolesByUser(Long uid) {
+		return jdbcTemple.queryForList("select r.role_name from role r,user_role ur where ur.role_id=r.id and ur.user_id=?", String.class,uid);
+	}
+
+	@Override
+	public List<Resource> listAllResource(Long uid) {
+//		return jdbcTemple.query(sql, param, new RowMapper<User>() {
+//			@Override
+//			public Resource mapRow(ResultSet rs, int rowNum) throws SQLException {
+//				return null;
+//			}
+//		});;
+		return null;
 	}
 
 }

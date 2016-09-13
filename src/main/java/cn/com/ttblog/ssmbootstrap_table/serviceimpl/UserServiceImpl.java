@@ -3,10 +3,14 @@ package cn.com.ttblog.ssmbootstrap_table.serviceimpl;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.codec.binary.Hex;
+import org.apache.shiro.crypto.SecureRandomNumberGenerator;
+import org.apache.shiro.crypto.hash.SimpleHash;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,12 +20,12 @@ import cn.com.ttblog.ssmbootstrap_table.service.IUserService;
 
 @Service("userService")
 public class UserServiceImpl implements IUserService {
+	private static final Logger LOG = LoggerFactory.getLogger(UserServiceImpl.class);
 	/**
 	 * @resource 是按照name注入，@autowired是按照type注入
 	 */
 	@Resource
 	private IUserDao userDao;
-
 	@Override
 	public User getUserById(long userId) {
 		return userDao.getUserById(userId);
@@ -31,6 +35,14 @@ public class UserServiceImpl implements IUserService {
 	@Override
 	public void addUser(User user) {
 //		Random r = new Random();
+		if(null!=user.getPassword()){
+			SecureRandomNumberGenerator randomNumberGenerator =  new SecureRandomNumberGenerator();
+			String salt=randomNumberGenerator.nextBytes().toHex()+new String(Hex.encodeHex(user.getName().getBytes(), true));
+			SimpleHash hash = new SimpleHash("md5",user.getPassword(),salt,1); 
+			user.setPassword(hash.toHex());
+			user.setSalt(salt);
+		}
+		LOG.debug("service层保存用户信息:{}",user);
 		userDao.addUser(user);
 	}
 
@@ -74,20 +86,21 @@ public class UserServiceImpl implements IUserService {
 		return userDao.getUserList(params);
 	}
 
-	@Override
-	public List<String> listRoleSnByUser(Long uid) {
-		return null;
-	}
 
 	@Override
 	public List<cn.com.ttblog.ssmbootstrap_table.model.Resource> listAllResource(
 			Long uid) {
-		return null;
+		return userDao.listAllResource(uid);
 	}
 
 	@Override
 	public User findByUserName(String username) {
 		return userDao.findByUserName(username);
+	}
+
+	@Override
+	public List<String> listRolesByUser(Long uid) {
+		return userDao.listRolesByUser(uid);
 	}
 
 }

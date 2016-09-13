@@ -78,7 +78,15 @@ public class IndexController {
 	
 	@RequestMapping(value="/login",method=RequestMethod.GET)
 	public String login(){
+		if(SecurityUtils.getSubject().isAuthenticated()){
+			return "redirect:/manage.html";
+		}
 		return "redirect:/index.html";
+	}
+	
+	@RequestMapping(value="/logout",method=RequestMethod.GET)
+	public void logout(){
+		SecurityUtils.getSubject().logout();
 	}
 	
 	@RequestMapping(value="/login",method=RequestMethod.POST)

@@ -39,7 +39,7 @@ public class UserRealm extends AuthorizingRealm {
 			PrincipalCollection principals) {
 		User user = ((User)principals.getPrimaryPrincipal());
 		Long uid = user.getId();
-		List<String> roles = userService.listRoleSnByUser(uid);
+		List<String> roles = userService.listRolesByUser(uid);
 		List<Resource> reses = userService.listAllResource(uid);
 		List<String> permissions = new ArrayList<String>();
 		for(Resource r:reses) {
@@ -97,7 +97,7 @@ public class UserRealm extends AuthorizingRealm {
 		//set的是数据库中加密后的密码
 		SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(user,user.getPassword(), this.getName());
 		//设置加密盐
-		info.setCredentialsSalt(ByteSource.Util.bytes(user.getName()));
+		info.setCredentialsSalt(ByteSource.Util.bytes(user.getSalt()));
 		LOG.debug("认证完成:{}",info);
 		return info;
 	}

@@ -25,4 +25,9 @@ public interface IUserDao {
 
 	void addUser(User user);
 
+	List<String> listRolesByUser(Long uid);
+
+	List<cn.com.ttblog.ssmbootstrap_table.model.Resource> listAllResource(
+			Long uid);
+
 }

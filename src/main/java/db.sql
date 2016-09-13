@@ -11,7 +11,9 @@ CREATE TABLE IF NOT EXISTS `user` (
   PRIMARY KEY  (`id`),
   UNIQUE KEY `a` (`name`),
   UNIQUE KEY `n&p` (`name`,`phone`)
-) ENGINE=InnoDB AUTO_INCREMENT=100027 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+ALTER TABLE `user`
+ADD COLUMN `salt`  varchar(255) NULL AFTER `password`;
 
 CREATE TABLE IF NOT EXISTS `address` (
   `user_id` bigint(20) DEFAULT NULL,
