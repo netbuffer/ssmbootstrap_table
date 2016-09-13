@@ -58,6 +58,8 @@ public class User implements Serializable {
 	}
 
 	private short isLock;
+	//加密盐
+	private String salt;
 	
 
 	public Card getCard() {
@@ -133,7 +135,16 @@ public class User implements Serializable {
 		this.adddate = adddate;
 	}
 
+	public String getSalt() {
+		return salt;
+	}
+	
+	public void setSalt(String salt) {
+		this.salt=salt;
+	}
+
 	public String toString() {
 		return ToStringBuilder.reflectionToString(this);
 	}
+
 }

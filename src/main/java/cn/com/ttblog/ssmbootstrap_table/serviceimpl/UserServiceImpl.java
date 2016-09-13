@@ -30,7 +30,8 @@ public class UserServiceImpl implements IUserService {
 	@Transactional
 	@Override
 	public void addUser(User user) {
-		Random r = new Random();
+//		Random r = new Random();
+		userDao.addUser(user);
 	}
 
 	@Override

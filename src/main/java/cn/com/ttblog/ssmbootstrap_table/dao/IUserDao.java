@@ -23,4 +23,6 @@ public interface IUserDao {
 
 	User findByUserName(String username);
 
+	void addUser(User user);
+
 }

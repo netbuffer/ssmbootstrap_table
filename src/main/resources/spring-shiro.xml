@@ -14,6 +14,12 @@
 <!-- 	<bean id="cacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager" /> -->
 	<bean id="urlPermissionResolver" class="cn.com.ttblog.ssmbootstrap_table.shiro.UrlPermissionResovler" />
 <!-- 	http://jinnianshilongnian.iteye.com/blog/2021439 shiro密码加密解密 -->
+	
+	<bean id="pwdService"
+		class="org.apache.shiro.authc.credential.DefaultPasswordService">
+		<property name="algorithmName" value="md5" />
+	</bean>
+	
 	<bean id="hashMatcher"
 		class="cn.com.ttblog.ssmbootstrap_table.shiro.realm.CustomCredentialsMatcher">
 		<property name="hashAlgorithmName" value="md5" />

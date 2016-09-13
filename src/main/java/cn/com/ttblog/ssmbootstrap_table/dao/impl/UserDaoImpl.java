@@ -21,11 +21,11 @@ public class UserDaoImpl implements IUserDao {
 	@Override
 	public int insert(User record) {
 		return jdbcTemple
-				.update("insert into user(name,sex,age,phone,deliveryaddress,adddate) values(?,?,?,?,?,?)",
-						new Object[] { record.getName(), record.getSex(),
+				.update("insert into user(name,password,salt,sex,age,phone,deliveryaddress,adddate,islock) values(?,?,?,?,?,?,?,?)",
+						new Object[] { record.getName(),record.getPassword(),record.getSalt(),record.getSex(),
 								record.getAge(), record.getPhone(),
 								record.getDeliveryaddress(),
-								record.getAdddate() });
+								record.getAdddate(),record.getIsLock() });
 	}
 
 	@Override
@@ -175,6 +175,11 @@ public class UserDaoImpl implements IUserDao {
 				return u;
 			}
 		}).get(0);
+	}
+
+	@Override
+	public void addUser(User user) {
+		this.insert(user);
 	}
 
 }

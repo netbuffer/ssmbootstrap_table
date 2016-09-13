@@ -49,7 +49,21 @@ public class UserController {
 		model.addAttribute("user", user);
 		return "su";
 	}
+	
+	@RequestMapping(value="/add",method=RequestMethod.GET)
+	public String add(){
+		logger.debug("添加用户页面 ");
+		return "user/add";
+	}
 
+	@RequestMapping(value="/add",method=RequestMethod.POST)
+	public String save(User user,ModelMap m){
+		logger.debug("保存用户:{}",user);
+		userService.addUser(user);
+		m.addAttribute("msg", "保存成功");
+		return "user/add";
+	}
+	
 	@RequestMapping("/testmodel")
 	public ModelAndView model() {
 		ModelAndView mav = new ModelAndView();
