@@ -2,7 +2,7 @@ package cn.com.ttblog.ssmbootstrap_table.model;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 
-public class Resource {
+public class Permission {
 	private int id;
 	private String name;
 	private String permission;

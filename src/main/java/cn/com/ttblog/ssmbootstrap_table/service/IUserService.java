@@ -3,7 +3,7 @@ package cn.com.ttblog.ssmbootstrap_table.service;
 import java.util.List;
 import java.util.Map;
 
-import cn.com.ttblog.ssmbootstrap_table.model.Resource;
+import cn.com.ttblog.ssmbootstrap_table.model.Permission;
 import cn.com.ttblog.ssmbootstrap_table.model.User;
 
 public interface IUserService {
@@ -16,7 +16,7 @@ public interface IUserService {
 	public long getUserListCount();
 	public int getNewData();
 	public List<Map<String, Object>> getDataSum();
-	public List<Resource> listAllResource(Long uid);
+	public List<Permission> listAllResource(Long uid);
 	public User findByUserName(String username);
 	public List<String> listRolesByUser(Long uid);
 }

@@ -11,7 +11,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import cn.com.ttblog.ssmbootstrap_table.dao.IUserDao;
-import cn.com.ttblog.ssmbootstrap_table.model.Resource;
+import cn.com.ttblog.ssmbootstrap_table.model.Permission;
 import cn.com.ttblog.ssmbootstrap_table.model.User;
 import cn.com.ttblog.ssmbootstrap_table.util.BeanMapUtil;
 
@@ -192,13 +192,13 @@ public class UserDaoImpl implements IUserDao {
 	}
 
 	@Override
-	public List<Resource> listAllResource(Long uid) {
+	public List<Permission> listAllResource(Long uid) {
 		return jdbcTemple.query("select * from permission where id in("
 		+"select rp.permission_id from role_permission rp INNER JOIN role where rp.role_id in"
-		+"(select r.id from role r,user_role ur where ur.role_id=r.id and ur.user_id=?))", new Object[]{uid}, new RowMapper<Resource>() {
+		+"(select r.id from role r,user_role ur where ur.role_id=r.id and ur.user_id=?))", new Object[]{uid}, new RowMapper<Permission>() {
 			@Override
-			public Resource mapRow(ResultSet rs, int rowNum) throws SQLException {
-				Resource r=new Resource();
+			public Permission mapRow(ResultSet rs, int rowNum) throws SQLException {
+				Permission r=new Permission();
 				r.setId(rs.getInt("id"));
 				r.setName(rs.getString("permission_name"));
 				r.setUrl(rs.getString("permission_url"));

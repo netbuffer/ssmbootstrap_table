@@ -22,7 +22,7 @@ import org.apache.shiro.util.ByteSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import cn.com.ttblog.ssmbootstrap_table.model.Resource;
+import cn.com.ttblog.ssmbootstrap_table.model.Permission;
 import cn.com.ttblog.ssmbootstrap_table.model.User;
 import cn.com.ttblog.ssmbootstrap_table.service.IUserService;
 
@@ -40,9 +40,9 @@ public class UserRealm extends AuthorizingRealm {
 		User user = ((User)principals.getPrimaryPrincipal());
 		Long uid = user.getId();
 		List<String> roles = userService.listRolesByUser(uid);
-		List<Resource> reses = userService.listAllResource(uid);
+		List<Permission> reses = userService.listAllResource(uid);
 		List<String> permissions = new ArrayList<String>();
-		for(Resource r:reses) {
+		for(Permission r:reses) {
 			permissions.add(r.getUrl());
 		}
 		SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();

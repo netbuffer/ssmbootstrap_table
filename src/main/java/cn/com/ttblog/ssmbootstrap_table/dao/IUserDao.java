@@ -27,7 +27,7 @@ public interface IUserDao {
 
 	List<String> listRolesByUser(Long uid);
 
-	List<cn.com.ttblog.ssmbootstrap_table.model.Resource> listAllResource(
+	List<cn.com.ttblog.ssmbootstrap_table.model.Permission> listAllResource(
 			Long uid);
 
 }

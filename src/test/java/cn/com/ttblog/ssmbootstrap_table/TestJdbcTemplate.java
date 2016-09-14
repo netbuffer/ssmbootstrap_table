@@ -1,11 +1,8 @@
 package cn.com.ttblog.ssmbootstrap_table;
 
-
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.annotation.Resource;
-
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,9 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
-import com.mysql.fabric.xmlrpc.base.Array;
-
 import cn.com.ttblog.ssmbootstrap_table.dao.IMenuDao;
 import cn.com.ttblog.ssmbootstrap_table.dao.IUserDao;
 import cn.com.ttblog.ssmbootstrap_table.model.User;
@@ -88,6 +82,7 @@ public class TestJdbcTemplate {
 	}
 	
 	@Test
+	@Ignore
 	public void testAddUserWithPwd() {
 		User u = new User();
 		u.setName("admin");

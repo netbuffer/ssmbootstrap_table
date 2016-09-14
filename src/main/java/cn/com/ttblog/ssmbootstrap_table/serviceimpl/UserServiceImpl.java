@@ -88,7 +88,7 @@ public class UserServiceImpl implements IUserService {
 
 
 	@Override
-	public List<cn.com.ttblog.ssmbootstrap_table.model.Resource> listAllResource(
+	public List<cn.com.ttblog.ssmbootstrap_table.model.Permission> listAllResource(
 			Long uid) {
 		return userDao.listAllResource(uid);
 	}
