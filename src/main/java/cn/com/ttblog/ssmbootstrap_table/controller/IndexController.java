@@ -52,7 +52,7 @@ public class IndexController {
 	private IUserService userService;
 	@Autowired
 	private ImageCaptchaService imageCaptchaService;
-	private Logger logger = LoggerFactory.getLogger(this.getClass());
+	private static final Logger logger = LoggerFactory.getLogger(IndexController.class);
 //	http://www.tuicool.com/articles/rMzAFj
 //	@RequestMapping("/login")
 //	public String login(HttpSession session, HttpServletRequest request,
@@ -76,8 +76,9 @@ public class IndexController {
 //		}
 //	}
 	
-	@RequestMapping(value="/login",method=RequestMethod.GET)
+	@RequestMapping(value={"/","/login"},method=RequestMethod.GET)
 	public String login(){
+		logger.debug("index");
 		if(SecurityUtils.getSubject().isAuthenticated()){
 			logger.debug("已经认证，进入管理页");
 			return "redirect:/manage.html";

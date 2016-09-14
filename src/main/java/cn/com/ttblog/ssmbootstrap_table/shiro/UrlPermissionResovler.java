@@ -12,7 +12,7 @@ public class UrlPermissionResovler implements PermissionResolver {
 	
 	@Override
 	public Permission resolvePermission(String permissionString) {
-		LOG.debug("resolvePermission:{}",permissionString);
+		LOG.debug("resolve permission:{}",permissionString);
 		if(permissionString.startsWith("/")) {
 			LOG.debug("use UrlPermission!");
 			return new UrlPermission(permissionString);

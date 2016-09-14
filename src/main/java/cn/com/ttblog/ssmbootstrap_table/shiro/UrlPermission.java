@@ -33,7 +33,7 @@ public class UrlPermission implements Permission {
 		UrlPermission up = (UrlPermission)p;
 		// /admin/role/**
 		PatternMatcher patternMatcher = new AntPathMatcher();
-		LOG.debug(this.getUrl()+","+up.getUrl()+","+patternMatcher.matches(this.getUrl(), up.getUrl()));
+		LOG.debug("权限比较:"+this.getUrl()+","+up.getUrl()+","+patternMatcher.matches(this.getUrl(), up.getUrl()));
 		return patternMatcher.matches(this.getUrl(), up.getUrl());
 	}
 	

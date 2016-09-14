@@ -101,3 +101,6 @@ INSERT INTO `user_role` VALUES ('1', '1', '1');
 INSERT INTO `permission` VALUES ('1', 'manage', '/manage.html', 'manage', '');
 INSERT INTO `permission` VALUES ('2', 'index', '/index.jsp', 'index', '');
 INSERT INTO `permission` VALUES ('3', 'user', '/user/userlist', 'user', 'user');
+INSERT INTO `role_permission` VALUES ('1', '1', '1');
+INSERT INTO `role_permission` VALUES ('2', '1', '2');
+INSERT INTO `role_permission` VALUES ('3', '1', '3');
