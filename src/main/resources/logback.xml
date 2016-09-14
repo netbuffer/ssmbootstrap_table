@@ -45,14 +45,16 @@
 	<logger name="com.ibatis" level="OFF" />
 	<logger name="java.sql" level="OFF" />
 	<!-- mybatis使用slf4j作为日志实现，需要配置dao或者mapper namespace的日志级别，就可以打印sql了-->
-	<logger name="cn.com.ttblog.ssmbootstrap_table.dao" level="OFF" />
+	<logger name="cn.com.ttblog.ssmbootstrap_table.dao" level="INFO" />
 	<logger name="cn.com.ttblog.ssmbootstrap_table" level="DEBUG" />
 	<logger name="jdbc.connection" level="OFF" />
 	<logger name="jdbc.audit" level="OFF" />
 	<logger name="jdbc.resultset" level="OFF" />
 	<logger name="jdbc.sqlonly" level="OFF" />
+	<logger name="jdbc.resultsettable" level="INFO" />
 	<logger name="jdbc.sqltiming" level="INFO" />
 	<logger name="log4jdbc.debug" level="OFF" />
+	<logger name="cn.com.ttblog.ssmbootstrap_table.aop" level="OFF" />
 	<root>
 		<level value="INFO" />
 		<appender-ref ref="stdout" />

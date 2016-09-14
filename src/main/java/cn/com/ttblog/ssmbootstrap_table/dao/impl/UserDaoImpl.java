@@ -193,13 +193,20 @@ public class UserDaoImpl implements IUserDao {
 
 	@Override
 	public List<Resource> listAllResource(Long uid) {
-//		return jdbcTemple.query(sql, param, new RowMapper<User>() {
-//			@Override
-//			public Resource mapRow(ResultSet rs, int rowNum) throws SQLException {
-//				return null;
-//			}
-//		});;
-		return null;
+		return jdbcTemple.query("select * from permission where id in("
+		+"select rp.permission_id from role_permission rp INNER JOIN role where rp.role_id in"
+		+"(select r.id from role r,user_role ur where ur.role_id=r.id and ur.user_id=?))", new Object[]{uid}, new RowMapper<Resource>() {
+			@Override
+			public Resource mapRow(ResultSet rs, int rowNum) throws SQLException {
+				Resource r=new Resource();
+				r.setId(rs.getInt("id"));
+				r.setName(rs.getString("permission_name"));
+				r.setUrl(rs.getString("permission_url"));
+				r.setPermission(rs.getString("permission_code"));
+				r.setParentPermission(rs.getString("permission_parentcode"));
+				return r;
+			}
+		});
 	}
 
 }

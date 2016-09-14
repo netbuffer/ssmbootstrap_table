@@ -7,7 +7,8 @@ public class Resource {
 	private String name;
 	private String permission;
 	private String url;
-	
+	private String parentPermission;
+
 	public int getId() {
 		return id;
 	}
@@ -32,6 +33,14 @@ public class Resource {
 	public void setUrl(String url) {
 		this.url = url;
 	}
+	
+	public String getParentPermission() {
+		return parentPermission;
+	}
+	public void setParentPermission(String parentPermission) {
+		this.parentPermission = parentPermission;
+	}
+	
 	@Override
 	public String toString() {
 		return ToStringBuilder.reflectionToString(this);

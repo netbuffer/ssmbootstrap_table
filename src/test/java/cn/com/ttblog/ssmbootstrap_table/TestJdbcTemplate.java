@@ -90,13 +90,13 @@ public class TestJdbcTemplate {
 	@Test
 	public void testAddUserWithPwd() {
 		User u = new User();
-		u.setName("a");
+		u.setName("admin");
 		u.setSex("男");
 		u.setAge(29);
 		u.setPhone("13823883883");
 		u.setDeliveryaddress("这是收获地址的测试");
 		u.setAdddate((int) ((System.currentTimeMillis() / 1000)));
-		u.setPassword("a");
+		u.setPassword("admin");
 		userService.addUser(u);
 	}
 }

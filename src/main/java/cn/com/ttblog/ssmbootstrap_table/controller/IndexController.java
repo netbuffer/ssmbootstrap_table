@@ -79,8 +79,10 @@ public class IndexController {
 	@RequestMapping(value="/login",method=RequestMethod.GET)
 	public String login(){
 		if(SecurityUtils.getSubject().isAuthenticated()){
+			logger.debug("已经认证，进入管理页");
 			return "redirect:/manage.html";
 		}
+		logger.debug("未认证，打开login页");
 		return "redirect:/index.html";
 	}
 	

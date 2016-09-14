@@ -43,7 +43,7 @@ CREATE TABLE IF NOT EXISTS  `role` (
   `role_name` varchar(50) NOT NULL COMMENT '角色名',
   `role_description` varchar(200) default NULL COMMENT '角色描述',
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=100027 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 -- 用户-角色
 CREATE TABLE IF NOT EXISTS `user_role` (
   `id` bigint(11) NOT NULL auto_increment,
@@ -96,3 +96,8 @@ BEGIN
 END
 ;;
 DELIMITER ;
+INSERT INTO `role` VALUES ('1', 'admin', 'admin角色');
+INSERT INTO `user_role` VALUES ('1', '1', '1');
+INSERT INTO `permission` VALUES ('1', 'manage', '/manage.html', 'manage', '');
+INSERT INTO `permission` VALUES ('2', 'index', '/index.jsp', 'index', '');
+INSERT INTO `permission` VALUES ('3', 'user', '/user/userlist', 'user', 'user');
