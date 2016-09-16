@@ -9,10 +9,13 @@
                             http://www.springframework.org/schema/context/spring-context-4.0.xsd    
                             http://www.springframework.org/schema/mvc    
                             http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
+    <description>springmvc配置文件,springmvc容器中能看到spring容器的bean</description>
 	<!-- 自动扫描该包，使SpringMVC认为包下用了@controller注解的类是控制器 -->
 	<!-- 多包扫描测试 -->
-	<context:component-scan
-		base-package="cn.com.ttblog.ssmbootstrap_table.controller,com.other.**" />
+	<context:component-scan base-package="cn.com.ttblog.ssmbootstrap_table.controller,com.other.**" use-default-filters="false">
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller" />
+        <context:include-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice" />
+    </context:component-scan>
 
 	<bean id="logBeanPocessor"
 		class="cn.com.ttblog.ssmbootstrap_table.util.TestBeanPostProcessor"
@@ -154,4 +157,9 @@
 		<!-- <mvc:interceptor> <mvc:mapping path="/test/number.do" /> <bean class="com.host.app.web.interceptor.LoginInterceptor" 
 			/> </mvc:interceptor> -->
 	</mvc:interceptors>
+	<bean id="controllerAdvisorAutoProxyCreator" class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"
+		  depends-on="lifecycleBeanPostProcessor"/>
+	<bean id="controllerAuthorizationAttributeSourceAdvisor"  class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+		<property name="securityManager" ref="securityManager"/>
+	</bean>
 </beans>  

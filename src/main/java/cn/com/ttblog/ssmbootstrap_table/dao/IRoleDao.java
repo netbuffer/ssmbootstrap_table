@@ -1,10 +1,10 @@
-package cn.com.ttblog.ssmbootstrap_table.service;
+package cn.com.ttblog.ssmbootstrap_table.dao;
 
 import java.util.List;
 
 import cn.com.ttblog.ssmbootstrap_table.model.Role;
 
-public interface IRoleService {
+public interface IRoleDao {
 	public void addRole(Role r);
 
 	public List<Role> listRoles();

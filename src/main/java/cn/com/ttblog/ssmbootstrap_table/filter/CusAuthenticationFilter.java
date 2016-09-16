@@ -3,6 +3,7 @@ package cn.com.ttblog.ssmbootstrap_table.filter;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.subject.Subject;
@@ -19,6 +20,10 @@ public class CusAuthenticationFilter extends FormAuthenticationFilter {
 	@Override
 	protected boolean executeLogin(ServletRequest request,
 			ServletResponse response) throws Exception {
+		if(SecurityUtils.getSubject().isAuthenticated()){
+			LOG.debug("已经认证过!");
+			return false;
+		}
 		boolean login=super.executeLogin(request, response);
 		LOG.debug("executeLogin:{}",login);
 		return login;

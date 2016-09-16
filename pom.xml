@@ -3,7 +3,6 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>cn.com.ttblog.ssmbootstrap-table</groupId>
 	<artifactId>ssmbootstrap_table</artifactId>
-	<packaging>war</packaging>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>ssmbootstrap_table Maven Webapp</name>
 	<url>http://netbuffer.github.io</url>
@@ -289,4 +288,5 @@
 			</plugin>
 		</plugins>
 	</build>
+	<packaging>war</packaging>
 </project>

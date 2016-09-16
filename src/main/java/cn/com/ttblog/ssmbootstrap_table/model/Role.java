@@ -4,8 +4,24 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 
 public class Role {
 	private Integer id;
-	private Integer name;
-	private Integer description;
+	private String name;
+	private String description;
+	
+	public String getName() {
+		return name;
+	}
+	
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	public String getDescription() {
+		return description;
+	}
+	
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
 	public Integer getId() {
 		return id;
@@ -13,22 +29,6 @@ public class Role {
 
 	public void setId(Integer id) {
 		this.id = id;
-	}
-
-	public Integer getName() {
-		return name;
-	}
-
-	public void setName(Integer name) {
-		this.name = name;
-	}
-
-	public Integer getDescription() {
-		return description;
-	}
-
-	public void setDescription(Integer description) {
-		this.description = description;
 	}
 
 	public String toString() {

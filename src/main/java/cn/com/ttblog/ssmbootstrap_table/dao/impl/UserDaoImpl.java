@@ -15,7 +15,7 @@ import cn.com.ttblog.ssmbootstrap_table.model.Permission;
 import cn.com.ttblog.ssmbootstrap_table.model.User;
 import cn.com.ttblog.ssmbootstrap_table.util.BeanMapUtil;
 
-@Repository
+@Repository("userDao")
 public class UserDaoImpl implements IUserDao {
 
 	@Autowired

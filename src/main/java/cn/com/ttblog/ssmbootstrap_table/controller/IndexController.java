@@ -18,6 +18,9 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
+import org.apache.shiro.authz.annotation.RequiresGuest;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -53,6 +56,9 @@ public class IndexController {
 	@Autowired
 	private ImageCaptchaService imageCaptchaService;
 	private static final Logger logger = LoggerFactory.getLogger(IndexController.class);
+	public IndexController(){
+		logger.warn("实例化indexcontroller:{}",this);
+	}
 //	http://www.tuicool.com/articles/rMzAFj
 //	@RequestMapping("/login")
 //	public String login(HttpSession session, HttpServletRequest request,
@@ -119,6 +125,9 @@ public class IndexController {
 	}
 	
 	@RequestMapping("/newdata")
+//	@RequiresRoles(value="user")
+	//需要认证访问
+	@RequiresAuthentication
 	public String newdata(HttpSession session, Model model) {
 		DecimalFormat df = new DecimalFormat("0.00");
 		// Display the total amount of memory in the Java virtual machine.

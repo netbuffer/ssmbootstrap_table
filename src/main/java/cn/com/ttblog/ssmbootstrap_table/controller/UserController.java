@@ -10,6 +10,7 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -86,6 +87,7 @@ public class UserController {
 	 * @return
 	 */
 	@RequestMapping("/userlist")
+	@RequiresRoles(value="user")//注解需要user角色
 	public String userlist(@RequestParam(value="search",required=false)String search,String order, int limit, int offset, Model model) {
 		logger.info("参数:{},{},{}", order, limit, offset);
 		if(search!=null){
