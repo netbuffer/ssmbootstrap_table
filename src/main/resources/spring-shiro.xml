@@ -79,6 +79,7 @@
 		<property name="filterChainDefinitions">
 			<value>
 				/=anon
+				/shiro/**=anon
 				/unauth.jsp=anon
 				/favicon.ico=anon
 				/css/**=anon

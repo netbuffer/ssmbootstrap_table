@@ -27,7 +27,7 @@ public class SpringMVCInterceptor implements HandlerInterceptor {
 	public boolean preHandle(HttpServletRequest request,
 			HttpServletResponse response, Object handler) throws Exception {
 		// 拿到requet数据处理，response处理
-		logger.debug("执行拦截器:{}", getClass().getName());
+		logger.debug("preHandle:{},uri:{}", getClass().getName(),request.getRequestURI());
 		return true;
 	}
 
@@ -47,6 +47,7 @@ public class SpringMVCInterceptor implements HandlerInterceptor {
 	public void postHandle(HttpServletRequest request,
 			HttpServletResponse response, Object handler,
 			ModelAndView modelAndView) throws Exception {
+		logger.debug("postHandle:{},uri:{}", getClass().getName(),request.getRequestURI());
 	}
 
 	/**
@@ -58,6 +59,7 @@ public class SpringMVCInterceptor implements HandlerInterceptor {
 	public void afterCompletion(HttpServletRequest request,
 			HttpServletResponse response, Object handler, Exception ex)
 			throws Exception {
+		logger.debug("afterCompletion:{},uri:{}", getClass().getName(),request.getRequestURI());
 	}
 
 }
