@@ -82,7 +82,7 @@ public class IndexController {
 //		}
 //	}
 	
-	@RequestMapping(value={"/","/login"},method=RequestMethod.GET)
+	@RequestMapping(value={"","/","/login"},method=RequestMethod.GET)
 	public String login(){
 		logger.debug("index");
 		if(SecurityUtils.getSubject().isAuthenticated()){
