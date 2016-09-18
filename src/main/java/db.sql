@@ -90,3 +90,7 @@ declare i int default 0;
  end
  -- 添加1w个用户
 call insert_touser(1,10000);
+-- 锁表
+lock tables user read;
+lock tables user write;
+unlock tables;
