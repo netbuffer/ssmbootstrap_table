@@ -334,12 +334,15 @@ public class TestController {
 	 * @throws WriterException
 	 */
 	@RequestMapping(value={"/qr"},method=RequestMethod.GET)
-	public void qr(HttpServletResponse response,@RequestParam(value="param",defaultValue="test",required=false) String param) 
+	public void qr(HttpServletResponse response,@RequestParam(value="param",defaultValue="test",required=false) String param,
+			@RequestParam(value="width",defaultValue="200") int width,@RequestParam(value="height",defaultValue="200") int height,
+			@RequestParam(value="format",defaultValue="jpg") String format,@RequestParam(value="r",defaultValue="0") int r,
+			@RequestParam(value="g",defaultValue="0") int g,@RequestParam(value="b",defaultValue="0") int b) 
 			throws IOException, WriterException{
 		logger.debug("使用zxing生成二维码,内容:{}",param);
-		int width = 200; // 图像宽度  
-        int height = 200; // 图像高度  
-        String format = "png";// 图像类型  
+//		int width = 200; // 图像宽度  
+//        int height = 200; // 图像高度  
+//        String format = "png";// 图像类型  
         Map<EncodeHintType, Object> hints = new HashMap<EncodeHintType, Object>();
 //        http://www.tuicool.com/articles/vQFZNfq
         hints.put(EncodeHintType.CHARACTER_SET, "utf-8"); //编码
@@ -354,7 +357,7 @@ public class TestController {
 		response.setDateHeader("Expires", 0L);
 		response.setContentType("image/jpeg");
 		//颜色
-		MatrixToImageConfig config = new MatrixToImageConfig(Color.yellow.getRGB(),0xFFFFFFFF);
+		MatrixToImageConfig config = new MatrixToImageConfig(new Color(r,g,b).getRGB(),0xFFFFFFFF);
 		ImageIO.write(MatrixToImageWriter.toBufferedImage(bitMatrix,config), "jpeg", jpegOutputStream);
 		byte[] captchaChallengeAsJpeg = jpegOutputStream.toByteArray();
 		ServletOutputStream respOs = response.getOutputStream();
