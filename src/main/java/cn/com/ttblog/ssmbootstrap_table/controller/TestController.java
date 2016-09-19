@@ -347,7 +347,7 @@ public class TestController {
 //        http://www.tuicool.com/articles/vQFZNfq
         hints.put(EncodeHintType.CHARACTER_SET, "utf-8"); //编码
         hints.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.M); //容错率
-        hints.put(EncodeHintType.MARGIN, 0);  //二维码边框宽度，这里文档说设置0-4
+        hints.put(EncodeHintType.MARGIN, 0);  //二维码边框宽度，这里文档说设置0-4,发现当宽高都大于100的时候，才会有无边框效果
         hints.put(EncodeHintType.CHARACTER_SET, "UTF-8");  
         BitMatrix bitMatrix = new MultiFormatWriter().encode(param,  
                 BarcodeFormat.QR_CODE, width, height, hints);// 生成矩阵  
