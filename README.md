@@ -15,3 +15,5 @@
 #### spring/springmvc容器扫描
 - context:include-filter
 - context:exclude-filter
+
+> [开涛shiro目录帖](http://jinnianshilongnian.iteye.com/blog/2018398)

@@ -85,7 +85,7 @@
 				/css/**=anon
 				/image/**=anon
 				/js/**=anon
-				/admin/**=authc,resourceCheckFilter
+				/admin/**=cfauth,resourceCheckFilter
 				/login=cfauth
 				/test/jcaptcha=anon
 				/logout = logout
@@ -93,7 +93,7 @@
 				/register=anon
 				/captcha=anon
 				/jsonp=anon
-				/** = resourceCheckFilter
+				/** = cfauth,resourceCheckFilter
 			</value>
 		</property>
 	</bean>
