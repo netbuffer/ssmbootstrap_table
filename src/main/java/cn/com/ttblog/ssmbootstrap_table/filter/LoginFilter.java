@@ -117,10 +117,18 @@ public class LoginFilter implements Filter {
 			}
 		}else{
 			LOG.debug("^^^no cookie，no session");
-			if(uri.endsWith(ConfigConstant.PROJECTNAME+"/")){
+//			if(uri.endsWith(ConfigConstant.PROJECTNAME+"/")){
+//			httpServletResponse.sendRedirect(httpServletRequest
+//					.getContextPath() + "/index.html");
+//			}
+			if(!httpServletResponse.isCommitted()){
+				//记录之前访问的参数
+				String requrib=httpServletRequest.getRequestURI()+"?"+httpServletRequest.getQueryString();
+				String requri=Base64.encodeBase64String(requrib.getBytes());
 				httpServletResponse.sendRedirect(httpServletRequest
-						.getContextPath() + "/index.html");
+						.getContextPath() + "/index.html?requri="+requri);
 			}
+			return ;
 		}
 		
 	}
