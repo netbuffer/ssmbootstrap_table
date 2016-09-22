@@ -4,9 +4,11 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.Session;
+import org.apache.shiro.session.mgt.eis.EnterpriseCacheSessionDAO;
 import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,6 +25,8 @@ import com.alibaba.fastjson.JSONObject;
 public class ShiroController {
 
 	private static final Logger LOG = LoggerFactory.getLogger(ShiroController.class);
+	@Autowired
+	private EnterpriseCacheSessionDAO sessionDao;
 	
 	@RequestMapping(value="/",method=RequestMethod.GET)
 	@ResponseBody
@@ -100,5 +104,14 @@ public class ShiroController {
 	public boolean getSessionAttr(@PathVariable("key") String key,@PathVariable("val")String val,HttpServletRequest request) {
 		request.getSession().setAttribute(key, val);
 		return true;
+	}
+	
+	/**
+	 * 查询活跃的session会话
+	 */
+	@RequestMapping(value="/session/all",method=RequestMethod.GET)
+	@ResponseBody
+	public Object getActiveSessions(){
+		return sessionDao.getActiveSessions();
 	}
 }

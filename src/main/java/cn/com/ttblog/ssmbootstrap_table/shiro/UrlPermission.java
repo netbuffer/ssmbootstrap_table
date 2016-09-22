@@ -11,7 +11,25 @@ public class UrlPermission implements Permission {
 	private static final Logger LOG=LoggerFactory.getLogger(UrlPermission.class);
 	
 	private String url;
+	private String roles;
+	private String perms;
 	
+	public String getRoles() {
+		return roles;
+	}
+	
+	public void setRoles(String roles) {
+		this.roles = roles;
+	}
+	
+	public String getPerms() {
+		return perms;
+	}
+	
+	public void setPerms(String perms) {
+		this.perms = perms;
+	}
+
 	public String getUrl() {
 		return url;
 	}
@@ -40,5 +58,6 @@ public class UrlPermission implements Permission {
 	public String toString(){
 		return ToStringBuilder.reflectionToString(this);
 	}
+
 
 }
