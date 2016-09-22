@@ -10,9 +10,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONObject;
@@ -29,10 +31,19 @@ public class ShiroController {
 	private EnterpriseCacheSessionDAO sessionDao;
 	
 	@RequestMapping(value="/",method=RequestMethod.GET)
-	@ResponseBody
-	public Object index(){
-		LOG.debug("shiro-index");
-		return "shiro方法测试";
+	public String getIndex(){
+		LOG.debug("get to shiro-index");
+		return "shiro/index";
+	}
+	
+	@RequestMapping(value="/",method=RequestMethod.POST)
+	public String postIndex(@RequestParam(value="perms",required=true) String perms,
+			@RequestParam(value="roles",required=true) String roles,Model model){
+		LOG.debug("post to shiro-index");
+		Subject subject=SecurityUtils.getSubject();
+		model.addAttribute("perms",subject.isPermitted(perms));
+		model.addAttribute("roles",subject.hasRole(roles));
+		return "shiro/index";
 	}
 	
 	@RequestMapping(value="/isauth",method=RequestMethod.GET)

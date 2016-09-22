@@ -16,9 +16,10 @@ public class UrlPermissionResovler implements PermissionResolver {
 		if(permissionString.startsWith("/")) {
 			LOG.debug("use UrlPermission!");
 			return new UrlPermission(permissionString);
+		}else{
+			LOG.debug("use WildcardPermission!");
+			return new WildcardPermission(permissionString);
 		}
-		LOG.debug("use WildcardPermission!");
-		return new WildcardPermission(permissionString);
 	}
 
 }
