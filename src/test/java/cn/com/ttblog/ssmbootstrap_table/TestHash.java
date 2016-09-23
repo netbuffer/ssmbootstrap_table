@@ -1,5 +1,6 @@
 package cn.com.ttblog.ssmbootstrap_table;
 
+import org.apache.commons.lang.math.NumberUtils;
 import org.apache.shiro.crypto.hash.Md5Hash;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.junit.Test;
@@ -16,6 +17,8 @@ public class TestHash {
 		String simpleHash2 = new SimpleHash("SHA-1", str, salt).toString();
 		System.out.println("simpleHash1:"+simpleHash1);
 		System.out.println("simpleHash2:"+simpleHash2);
+		System.out.println("NumberUtils.isNumber('fsd23'):"+NumberUtils.isNumber("fsd23"));
+		System.out.println("NumberUtils.isNumber('79878'):"+NumberUtils.isNumber("79878"));
 	}
 }
  

@@ -43,11 +43,14 @@ public class UserRealm extends AuthorizingRealm {
 		List<Permission> reses = userService.listAllResource(uid);
 		List<String> permissions = new ArrayList<String>();
 		for(Permission r:reses) {
-			permissions.add(r.getUrl());
+			permissions.add(r.getUrl());//资源url
+			permissions.add(r.getPermission());//资源code
 		}
 		SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
 		info.setRoles(new HashSet<String>(roles));
 		info.setStringPermissions(new HashSet<String>(permissions));
+		//放入授权信息，便于在subject.hasRole、subject.isPermitted等起作用
+		LOG.debug("放入授权信息:{}",info);
 		return info;
 	}
 	

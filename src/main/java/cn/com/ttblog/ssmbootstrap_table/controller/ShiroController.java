@@ -30,19 +30,22 @@ public class ShiroController {
 	@Autowired
 	private EnterpriseCacheSessionDAO sessionDao;
 	
-	@RequestMapping(value="/",method=RequestMethod.GET)
+	
+	@RequestMapping(value={"","/","/index"},method=RequestMethod.GET)
 	public String getIndex(){
-		LOG.debug("get to shiro-index");
+		LOG.debug("get to shiro-index,{}",new Object());
 		return "shiro/index";
 	}
 	
-	@RequestMapping(value="/",method=RequestMethod.POST)
+	@RequestMapping(value="/index",method=RequestMethod.POST)
 	public String postIndex(@RequestParam(value="perms",required=true) String perms,
 			@RequestParam(value="roles",required=true) String roles,Model model){
 		LOG.debug("post to shiro-index");
 		Subject subject=SecurityUtils.getSubject();
-		model.addAttribute("perms",subject.isPermitted(perms));
-		model.addAttribute("roles",subject.hasRole(roles));
+		model.addAttribute("permskey",perms);
+		model.addAttribute("permsval",subject.isPermitted(perms));
+		model.addAttribute("roleskey",roles);
+		model.addAttribute("rolesval",subject.hasRole(roles));
 		return "shiro/index";
 	}
 	
@@ -60,7 +63,6 @@ public class ShiroController {
 		Subject subject=SecurityUtils.getSubject();
 		Object p=subject.getPrincipal();
 		LOG.debug("getPrincipal:{}",p);
-//		Subject subject=SecurityUtils.getSubject();
 		return p;
 	}
 	

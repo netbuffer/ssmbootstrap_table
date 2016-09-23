@@ -15,9 +15,19 @@
 </head>
 <body>
 	<c:if test="${not empty msg}"><p style="text-align:center;">${msg}</p></c:if>
-	perms:${perms}<br/>
-	roles:${roles}<br/>
-	<form action="${pageContext.request.contextPath }/shiro/" method="post">
+	<c:if test="${not empty permskey}">
+		[${permskey}]:[
+		<c:choose>
+			<c:when test="${permsval}">
+				<span style="color:green">${permsval}</span>
+			</c:when>
+			<c:otherwise>
+				<span style="color:red">${permsval}</span>
+			</c:otherwise>
+		</c:choose>]<br/>
+		[${roleskey}]:[${rolesval}]<br/>
+	</c:if>
+	<form action="${pageContext.request.contextPath }/shiro/index" method="post">
 			<div class="weui_cell">
 				<div class="weui_cell_hd">
 					<label class="weui_label">权限字符串</label>

@@ -79,7 +79,7 @@
 		<property name="filterChainDefinitions">
 			<value>
 				/=anon
-				/shiro/**=anon
+				/shiro*/**=anon
 				/unauth.jsp=anon
 				/favicon.ico=anon
 				/css/**=anon
@@ -87,7 +87,7 @@
 				/js/**=anon
 				/admin/**=cfauth,resourceCheckFilter
 				/login=cfauth
-				/test/jcaptcha=anon
+				/test/**=anon
 				/logout = logout
 				/index.html=anon
 				/register=anon
