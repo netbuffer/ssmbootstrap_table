@@ -10,6 +10,7 @@
          http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
          http://www.springframework.org/schema/tx 
          http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
+<!-- 	http://shiro.apache.org/spring.html -->
 	<description>Shiro安全配置</description>
 <!-- 	<bean id="cacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager" /> -->
 	<bean id="urlPermissionResolver" class="cn.com.ttblog.ssmbootstrap_table.shiro.UrlPermissionResovler" />
@@ -78,6 +79,7 @@
 			</util:map> </property> -->
 		<property name="filterChainDefinitions">
 			<value>
+				# anon可以匿名访问，authc需要认证
 				/=anon
 				/shiro*/**=anon
 				/unauth.jsp=anon

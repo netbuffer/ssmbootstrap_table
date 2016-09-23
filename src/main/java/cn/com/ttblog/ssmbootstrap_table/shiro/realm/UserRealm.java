@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.shiro.authc.AccountException;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
@@ -50,7 +51,7 @@ public class UserRealm extends AuthorizingRealm {
 		info.setRoles(new HashSet<String>(roles));
 		info.setStringPermissions(new HashSet<String>(permissions));
 		//放入授权信息，便于在subject.hasRole、subject.isPermitted等起作用
-		LOG.debug("放入授权信息:{}",info);
+		LOG.debug("放入授权信息:{}",ToStringBuilder.reflectionToString(info));
 		return info;
 	}
 	

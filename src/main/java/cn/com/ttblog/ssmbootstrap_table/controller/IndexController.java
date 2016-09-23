@@ -95,7 +95,9 @@ public class IndexController {
 	
 	@RequestMapping(value="/logout",method=RequestMethod.GET)
 	public void logout(){
-		SecurityUtils.getSubject().logout();
+		Subject subject=SecurityUtils.getSubject();
+		logger.debug("用户:{},退出系统",subject.getPrincipal());
+		subject.logout();
 	}
 	
 	@RequestMapping(value="/login",method=RequestMethod.POST)

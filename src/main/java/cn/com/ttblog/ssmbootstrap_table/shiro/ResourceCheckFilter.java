@@ -28,6 +28,10 @@ public class ResourceCheckFilter extends AccessControlFilter {
 		String url = getPathWithinApplication(request);
 		boolean isPermit=subject.isPermitted(url);
 		LOG.debug("shiro resource check,url:{},ispermitted:{}",url,isPermit);
+		if(subject.hasRole("admin")){
+			LOG.debug("has admin role,pass");
+			return true; 
+		}
 		return isPermit;
 	}
 
