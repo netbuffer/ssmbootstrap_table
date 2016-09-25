@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix='fmt' uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,6 +15,17 @@
 </script>	
 </head>
 <body>
+Hello, <shiro:principal/><br/>
+<shiro:principal property="name"/>
+<!-- shiro jsp标签库-->
+<!-- http://shiro.apache.org/web.html#Web-JSP%2FGSPTagLibrary -->
+
+<shiro:guest>游客请<a href="${pageContext.request.contextPath }/login">登陆</a> </shiro:guest><br/>
+<shiro:user> 已经认证过用户 </shiro:user><br/>
+<shiro:authenticated> 认证过</shiro:authenticated><br/>
+<shiro:notAuthenticated> 未认证请登录 <a href="login.jsp">登陆</a> </shiro:notAuthenticated><br/>
+	<shiro:hasRole name="admin"> <a href="admin.jsp">Administer the system</a> </shiro:hasRole><br/>
+	<shiro:hasPermission name="user:create"> <a href="createUser.jsp">Create a new User</a> </shiro:hasPermission><br/>
 	<c:if test="${not empty msg}"><p style="text-align:center;">${msg}</p></c:if>
 	<c:if test="${not empty permskey}">
 		[${permskey}]:[
