@@ -50,7 +50,12 @@ public class UserRealm extends AuthorizingRealm {
 		SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
 		info.setRoles(new HashSet<String>(roles));
 		info.setStringPermissions(new HashSet<String>(permissions));
-		//放入授权信息，便于在subject.hasRole、subject.isPermitted等起作用
+		/**
+		 * 放入授权信息，便于在
+		 * subject.hasRole、subject.isPermitted等起作用
+		 * @RequiresRoles shiro注解时候调用
+		 * jsp页面使用shiro标签调用
+		 */
 		LOG.debug("放入授权信息:{}",ToStringBuilder.reflectionToString(info));
 		return info;
 	}
