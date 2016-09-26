@@ -42,6 +42,7 @@ public class UserServiceImpl implements IUserService {
 			user.setPassword(hash.toHex());
 			user.setSalt(salt);
 		}
+		user.setAdddate((int) ((System.currentTimeMillis() / 1000)));
 		LOG.debug("service层保存用户信息:{}",user);
 		userDao.addUser(user);
 	}

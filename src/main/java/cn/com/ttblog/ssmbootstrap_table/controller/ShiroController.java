@@ -3,6 +3,7 @@ package cn.com.ttblog.ssmbootstrap_table.controller;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.session.mgt.eis.EnterpriseCacheSessionDAO;
 import org.apache.shiro.subject.Subject;
@@ -17,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import cn.com.ttblog.ssmbootstrap_table.service.IRoleService;
+
 import com.alibaba.fastjson.JSONObject;
 
 /**
@@ -29,7 +32,8 @@ public class ShiroController {
 	private static final Logger LOG = LoggerFactory.getLogger(ShiroController.class);
 	@Autowired
 	private EnterpriseCacheSessionDAO sessionDao;
-	
+	@Autowired
+	private IRoleService roleService;
 	
 	@RequestMapping(value={"","/","/index"},method=RequestMethod.GET)
 	public String getIndex(){
@@ -126,5 +130,13 @@ public class ShiroController {
 	@ResponseBody
 	public Object getActiveSessions(){
 		return sessionDao.getActiveSessions();
+	}
+	
+	@RequiresRoles(value={"admin"})
+	@RequestMapping(value="/role/list",method=RequestMethod.GET)
+	public String listRoles(Model m){
+		LOG.debug("查询角色列表");
+		m.addAttribute("roles", roleService.listRoles());
+		return "shiro/role";
 	}
 }
