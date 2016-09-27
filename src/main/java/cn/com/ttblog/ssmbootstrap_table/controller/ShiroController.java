@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import cn.com.ttblog.ssmbootstrap_table.service.IPermissionService;
 import cn.com.ttblog.ssmbootstrap_table.service.IRoleService;
 
 import com.alibaba.fastjson.JSONObject;
@@ -34,6 +35,8 @@ public class ShiroController {
 	private EnterpriseCacheSessionDAO sessionDao;
 	@Autowired
 	private IRoleService roleService;
+	@Autowired
+	private IPermissionService permissionService;
 	
 	@RequestMapping(value={"","/","/index"},method=RequestMethod.GET)
 	public String getIndex(){
@@ -137,6 +140,14 @@ public class ShiroController {
 	public String listRoles(Model m){
 		LOG.debug("查询角色列表");
 		m.addAttribute("roles", roleService.listRoles());
-		return "shiro/role";
+		return "shiro/roles";
+	}
+	
+	@RequiresRoles(value={"admin"})
+	@RequestMapping(value="/permission/list",method=RequestMethod.GET)
+	public String listPermissions(Model m){
+		LOG.debug("查询权限列表");
+		m.addAttribute("permissions", permissionService.listPermissions());
+		return "shiro/permissions";
 	}
 }
