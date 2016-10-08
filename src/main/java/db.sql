@@ -104,3 +104,9 @@ INSERT INTO `permission` VALUES ('3', 'user', '/user/userlist', 'user', 'user');
 INSERT INTO `role_permission` VALUES ('1', '1', '1');
 INSERT INTO `role_permission` VALUES ('2', '1', '2');
 INSERT INTO `role_permission` VALUES ('3', '1', '3');
+-- user-role唯一索引
+ALTER TABLE `user_role` ADD UNIQUE INDEX `u&r` (`user_id`, `role_id`);
+-- role-permission唯一索引
+ALTER TABLE `role_permission` ADD UNIQUE INDEX `r&p` (`role_id`, `permission_id`);
+-- permission唯一索引
+ALTER TABLE `permission` ADD UNIQUE INDEX `u&c` (`permission_url`, `permission_code`);

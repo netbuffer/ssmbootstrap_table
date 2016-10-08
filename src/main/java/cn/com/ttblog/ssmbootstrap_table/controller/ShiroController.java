@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import cn.com.ttblog.ssmbootstrap_table.model.Permission;
+import cn.com.ttblog.ssmbootstrap_table.model.Role;
 import cn.com.ttblog.ssmbootstrap_table.service.IPermissionService;
 import cn.com.ttblog.ssmbootstrap_table.service.IRoleService;
 
@@ -144,10 +146,41 @@ public class ShiroController {
 	}
 	
 	@RequiresRoles(value={"admin"})
+	@RequestMapping(value="/role/add",method=RequestMethod.GET)
+	public String addRole(){
+		LOG.debug("添加角色");
+		return "shiro/addrole";
+	}
+	
+	@RequiresRoles(value={"admin"})
+	@RequestMapping(value="/role/add",method=RequestMethod.POST)
+	public String addRole(Role r){
+		LOG.debug("保存角色:{}",r);
+		roleService.addRole(r);
+		return "redirect:/shiro/role/list";
+	}
+	
+	@RequiresRoles(value={"admin"})
 	@RequestMapping(value="/permission/list",method=RequestMethod.GET)
 	public String listPermissions(Model m){
 		LOG.debug("查询权限列表");
 		m.addAttribute("permissions", permissionService.listPermissions());
 		return "shiro/permissions";
 	}
+	
+	@RequiresRoles(value={"admin"})
+	@RequestMapping(value="/permission/add",method=RequestMethod.GET)
+	public String addPermissions(){
+		LOG.debug("添加权限");
+		return "shiro/addpermissions";
+	}
+	
+	@RequiresRoles(value={"admin"})
+	@RequestMapping(value="/permission/add",method=RequestMethod.POST)
+	public String addPermissions(Permission p){
+		LOG.debug("保存权限:{}",p);
+		permissionService.addPermission(p);
+		return "redirect:/shiro/permission/list";
+	}
+	
 }
