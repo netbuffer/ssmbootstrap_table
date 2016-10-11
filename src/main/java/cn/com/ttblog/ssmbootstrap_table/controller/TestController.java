@@ -29,7 +29,9 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -66,6 +68,7 @@ import cn.com.ttblog.ssmbootstrap_table.model.ExtendUser;
 import cn.com.ttblog.ssmbootstrap_table.model.User;
 import cn.com.ttblog.ssmbootstrap_table.util.AjaxUtils;
 import eu.bitwalker.useragentutils.UserAgent;
+import lombok.val;
 
 @Controller
 @RequestMapping("/test")
@@ -374,7 +377,11 @@ public class TestController {
 	
 	@RequestMapping(value={"/decodeqr"},method=RequestMethod.POST)
 	@ResponseBody
-	public String decodeqr(HttpServletRequest request,@RequestParam(value="qrimg",required=true)CommonsMultipartFile file) throws NotFoundException, IOException{
+	public String decodeqr(HttpServletRequest request,
+			@RequestParam(value="qrimg",required=true)CommonsMultipartFile file,
+			@RequestParam(value="name",required=false)String name
+			)throws NotFoundException, IOException{
+		logger.debug("二维码解析，附加数据:{}",name);
 		if(file.isEmpty()){
 			throw new RuntimeException("请上传文件");
 		}
@@ -385,9 +392,18 @@ public class TestController {
         Map<DecodeHintType, Object> hints = new HashMap<DecodeHintType, Object>();  
         hints.put(DecodeHintType.CHARACTER_SET, "UTF-8");
         //对图像进行解码 
-        Result result = new MultiFormatReader().decode(binaryBitmap, hints); 
-        logger.debug("zxing解析二维码结果:{}",result);
-        return result.getText();
+        Result result = null;
+        String resultTxt="incorrect qrimage";
+        try {
+			result=new MultiFormatReader().decode(binaryBitmap, hints);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+        if(result!=null){
+        	resultTxt=result.getText();
+        }
+        logger.debug("zxing解析二维码结果:{}",resultTxt);
+        return resultTxt;
 	}
 	
 	@RequestMapping(value={"/server"},method=RequestMethod.GET)
@@ -432,4 +448,39 @@ public class TestController {
 		logger.debug("用户ua:{}",userAgent);
 		return userAgent;
 	}
+	
+	/**
+	 * 会在视图中添加key为“user”的model，而不是“u”！
+	 * @param u
+	 * @return
+	 */
+	@RequestMapping(value="/testmodelattr1")
+	public String testmodelattr1(User u){
+		logger.debug("testmodelattr1,u:{}",u);
+		return "test";
+	}
+	
+	/**
+	 * 会在视图中添加key为“user”的model，和key为“u”的model！
+	 * @param u
+	 * @param m
+	 */
+	@RequestMapping(value="/testmodelattr2")
+	public String testmodelattr2(User u,Model m){
+		logger.debug("testmodelattr2,u:{}",u);
+		m.addAttribute("u", u);
+		return "test";
+	}
+	
+	/**
+	 * 会在视图中添加key为“u”的model，此时不会再添加key为“user”的model了
+	 * @param u
+	 * @return
+	 */
+	@RequestMapping(value="/testmodelattr3")
+	public String testmodelattr3(@ModelAttribute(value="u")User u){
+		logger.debug("testmodelattr3,u:{}",u);
+		return "test";
+	}
+	
 }

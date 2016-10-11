@@ -3,7 +3,7 @@
 * spring+springmvc+mybatis
 * poi3
 * 自定义标签开发
-* bootstrap3
+* bootstrap3/bootstrap-fileinput/jquery.fileupload
 * bootstrap-table1.9
 * druid
 * weui
