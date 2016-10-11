@@ -42,7 +42,7 @@ public class LoginFilter implements Filter {
 		HttpServletResponse httpServletResponse = (HttpServletResponse) servletResponse;
 
 		String noFilterTagString = filterConfig
-				.getInitParameter("noFilterTags");
+				.getInitParameter("noFilterTags").trim();
 		boolean enable=Boolean.parseBoolean(filterConfig.getInitParameter("enable"));
 		//不起用的情况下直接通过
 		if(!enable){
@@ -50,7 +50,12 @@ public class LoginFilter implements Filter {
 					httpServletResponse);
 			return ;
 		}
+		
 		String[] noFilterTags = noFilterTagString.split("\n");
+		int length=noFilterTags.length;
+		for(int i=0;i<length;i++){
+			noFilterTags[i]=noFilterTags[i].trim();
+		}
 		LOG.debug("放行路径:{}-{},访问路径:{}",Arrays.toString(noFilterTags),noFilterTags.length,httpServletRequest.getRequestURI());
 		if(AntPathMatcherUtil.isMatch(noFilterTags,httpServletRequest.getRequestURI())){
 			filterChain.doFilter(httpServletRequest,
@@ -117,10 +122,18 @@ public class LoginFilter implements Filter {
 			}
 		}else{
 			LOG.debug("^^^no cookie，no session");
-			if(uri.endsWith(ConfigConstant.PROJECTNAME+"/")){
+//			if(uri.endsWith(ConfigConstant.PROJECTNAME+"/")){
+//			httpServletResponse.sendRedirect(httpServletRequest
+//					.getContextPath() + "/index.html");
+//			}
+			if(!httpServletResponse.isCommitted()){
+				//记录之前访问的参数
+				String requrib=httpServletRequest.getRequestURI()+"?"+httpServletRequest.getQueryString();
+				String requri=Base64.encodeBase64String(requrib.getBytes());
 				httpServletResponse.sendRedirect(httpServletRequest
-						.getContextPath() + "/index.html");
+						.getContextPath() + "/index.html?requri="+requri);
 			}
+			return ;
 		}
 		
 	}
