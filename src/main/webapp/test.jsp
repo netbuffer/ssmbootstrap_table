@@ -16,6 +16,8 @@
 	<l2d:l2d value="${showTime}" format="yyyy-MM-dd HH:mm:ss" /><br/>
 	<code>fmt:message key="header.language":</code><fmt:message key="header.language"/><br/>
 	<code>spring:message code="header.language":</code><spring:message code="header.language"/><br/><hr/>
-	syn:${syn}
+	syn:${syn}<hr/>
+	<span style="color:green;">user</span>:${user}<br />
+	<span style="color:red;">u</span>:${u}
 </body>
 </html>

@@ -3,12 +3,15 @@ package cn.com.ttblog.ssmbootstrap_table;
 import java.io.File;
 import java.io.IOException;
 
-import net.coobird.thumbnailator.Thumbnails;
+import javax.imageio.ImageIO;
 
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import net.coobird.thumbnailator.Thumbnails;
+import net.coobird.thumbnailator.geometry.Positions;
 
 /**
  * http://rensanning.iteye.com/blog/1545708
@@ -45,5 +48,16 @@ public class TestThumbnailator {
 		Thumbnails.of(f.getAbsolutePath())   
 		        .scale(1.10f)  
 		        .toFile("thumbnailator"+RandomStringUtils.randomAlphabetic(5)+".jpg");
+	}
+	
+	@Test
+	public void testWaterMark() throws IOException{
+		String file=this.getClass().getResource("qr.jpg").getFile(),icon=this.getClass().getResource("java.png").getFile();
+		File f=new File(file);
+		Thumbnails.of(f.getAbsolutePath())
+		.size(200, 200)  
+        .watermark(Positions.CENTER, ImageIO.read(new File(icon)), 0.8f)   
+        .outputQuality(0.8f)   
+        .toFile("thumbnailator"+RandomStringUtils.randomAlphabetic(5)+".jpg");  
 	}
 }
