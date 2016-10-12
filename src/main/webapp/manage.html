@@ -2,6 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
 <title>信息管理页</title>
 <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
 <link
@@ -28,7 +29,14 @@
 <script type="text/javascript">
 	$(function() {
 		$.get("test/indexurl",function(data){
-			$("body").append("<img src='test/qr?width=200&height=200&param="+data+"&r=51&g=0&b=51' style='position:fixed;bottom:0;left: 0; z-index:99999 ; width:100px;height:100px;' alt='...'>")
+			//position:fixed;bottom:0;left: 0; z-index:99999 ;
+			$('#qr').popover({
+				title:"扫一扫",
+				content:"<img src='test/qr?width=200&height=200&param="+data+"&r=51&g=0&b=51' style='width:100px;height:100px;' alt='扫一扫访问'>",
+				html:true,
+				placement:"bottom",
+				trigger:"hover"
+			});
 		});
 		$.getJSON('newdata.json', function(data) {
 			$("#xinzeng").text(data.newcount);
@@ -313,8 +321,8 @@
 				</ul>
 
 				<ul class="nav navbar-nav">
-					<li class="active"><a href="demo" target="_blank">Demo <span class="sr-only">(current)</span></a></li>
-					<li><a href="#">Link</a></li>
+					<li class=""><a href="demo" target="_blank">Demo <span class="sr-only">(current)</span></a></li>
+					<li id="qr"><a href="#">扫码访问</a></li>
 					<li class="dropdown"><a href="#" class="dropdown-toggle"
 						data-toggle="dropdown" role="button" aria-haspopup="true"
 						aria-expanded="false">Dropdown <span class="caret"></span></a>
