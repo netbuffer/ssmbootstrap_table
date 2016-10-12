@@ -12,14 +12,12 @@ import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
-
 import javax.annotation.Resource;
 import javax.imageio.ImageIO;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,7 +40,6 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.i18n.CookieLocaleResolver;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import com.alibaba.fastjson.JSONObject;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.Binarizer;
@@ -61,14 +58,12 @@ import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.common.HybridBinarizer;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
-
 import cn.com.ttblog.ssmbootstrap_table.annotation.Token;
 import cn.com.ttblog.ssmbootstrap_table.model.Address;
 import cn.com.ttblog.ssmbootstrap_table.model.ExtendUser;
 import cn.com.ttblog.ssmbootstrap_table.model.User;
 import cn.com.ttblog.ssmbootstrap_table.util.AjaxUtils;
 import eu.bitwalker.useragentutils.UserAgent;
-import lombok.val;
 
 @Controller
 @RequestMapping("/test")
@@ -483,4 +478,17 @@ public class TestController {
 		return "test";
 	}
 	
+	@RequestMapping(value="/serverip")
+	public @ResponseBody String getLocalIP(){
+		String ip=AjaxUtils.getLocalIP();
+		logger.debug("getLocalIP:{}",ip);
+		return ip;
+	}
+	
+	@RequestMapping(value="/indexurl")
+	public @ResponseBody String indexurl(HttpServletRequest request){
+		String indexurl=request.getScheme()+"://"+AjaxUtils.getLocalIP()+":"+configProperties.getProperty("appport")+request.getContextPath();
+		logger.debug("indexurl:{}",indexurl);
+		return indexurl;
+	}
 }
