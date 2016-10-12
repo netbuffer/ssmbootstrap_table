@@ -21,5 +21,9 @@ public class RoleService implements IRoleService{
 	public List<Role> listRoles() {
 		return roleDao.listRoles();
 	}
+	@Override
+	public Role findRoleById(Integer roleId) {
+		return roleDao.findRoleById(roleId);
+	}
 
 }

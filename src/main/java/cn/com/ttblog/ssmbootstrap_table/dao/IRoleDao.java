@@ -6,6 +6,6 @@ import cn.com.ttblog.ssmbootstrap_table.model.Role;
 
 public interface IRoleDao {
 	public void addRole(Role r);
-
 	public List<Role> listRoles();
+	public Role findRoleById(Integer roleId);
 }

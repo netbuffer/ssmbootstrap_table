@@ -41,7 +41,7 @@
 				    </label>
 		          </td>
 		          <td>${item.id}</td>
-		          <td>${item.name}</td>
+		          <td><a href="${pageContext.request.contextPath }/shiro/permission/list/${item.id}" target="_blank">${item.name}</a></td>
 		          <td>${item.description}</td>
 		        </tr>
 			</c:forEach>

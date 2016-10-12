@@ -23,7 +23,12 @@
 <body>
 	<div class="container-fluid">
 		<table class="table">
-	      <caption>权限列表</caption>
+	      <caption>
+	      	<c:choose>
+	      		<c:when test="${not empty role}">查询<span style="font-weight:bold;">${role.name}</span>对应的</c:when>
+	      	</c:choose>
+	      	权限列表
+	      </caption>
 	      <thead>
 	        <tr>
 	          <th></th>

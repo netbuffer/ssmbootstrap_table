@@ -43,4 +43,24 @@ public class PermissionDaoImpl implements IPermissionDao{
 					}
 				});
 	}
+
+	@Override
+	public List<Permission> listPermissionsByRoleId(Integer roleId) {
+		return jdbcTemple.query(
+				"select * from "+TABLENAME.PERMISSION.getValue()+
+				" WHERE id IN ( SELECT rp.permission_id FROM role_permission rp INNER JOIN role WHERE rp.role_id = ?)",new Object[]{roleId},
+				new RowMapper<Permission>() {
+					@Override
+					public Permission mapRow(ResultSet rs, int rowNum)
+							throws SQLException {
+						Permission p=new Permission();
+						p.setId(rs.getInt("id"));
+						p.setName(rs.getString("permission_name"));
+						p.setParentPermission(rs.getString("permission_parentcode"));
+						p.setPermission(rs.getString("permission_code"));
+						p.setUrl(rs.getString("permission_url"));
+						return p;
+					}
+				});
+	}
 }

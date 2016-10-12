@@ -22,4 +22,9 @@ public class PermissionServiceImpl implements IPermissionService{
 	public List<Permission> listPermissions() {
 		return permissionDao.listPermissions();
 	}
+
+	@Override
+	public List<Permission> listPermissionsByRoleId(Integer roleId) {
+		return permissionDao.listPermissionsByRoleId(roleId);
+	}
 }

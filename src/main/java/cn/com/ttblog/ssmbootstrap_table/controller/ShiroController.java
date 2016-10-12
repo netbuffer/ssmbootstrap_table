@@ -161,6 +161,24 @@ public class ShiroController {
 	}
 	
 	@RequiresRoles(value={"admin"})
+	@RequestMapping(value="/permission/list/{roleId}",method=RequestMethod.GET)
+	public String listPermissions(Model m,@PathVariable("roleId") Integer roleId){
+		if(roleId!=null&&roleId>0){
+			LOG.debug("查询角色:{}对应的权限列表",roleId);
+			Role role=roleService.findRoleById(roleId);
+			if(role==null||role.getName()==null||role.getName().length()==0){
+				throw new IllegalArgumentException("未找到对应的角色");
+			}
+			m.addAttribute("role", role);
+			m.addAttribute("permissions", permissionService.listPermissionsByRoleId(roleId));
+		}else{
+			LOG.debug("查询权限列表");
+			m.addAttribute("permissions", permissionService.listPermissions());
+		}
+		return "shiro/permissions";
+	}
+	
+	@RequiresRoles(value={"admin"})
 	@RequestMapping(value="/permission/list",method=RequestMethod.GET)
 	public String listPermissions(Model m){
 		LOG.debug("查询权限列表");
