@@ -26,6 +26,7 @@
 	      <caption>
 	      	<c:choose>
 	      		<c:when test="${not empty role}">查询<span style="font-weight:bold;">${role.name}</span>对应的</c:when>
+	      		<c:when test="${not empty user}">查询<span style="font-weight:bold;">${user.name}</span>对应的</c:when>
 	      	</c:choose>
 	      	权限列表
 	      </caption>

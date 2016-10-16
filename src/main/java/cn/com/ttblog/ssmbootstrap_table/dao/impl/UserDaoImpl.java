@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -117,7 +118,7 @@ public class UserDaoImpl implements IUserDao {
 
 	@Override
 	public User getUserById(long userId) {
-		final User u = new User();
+		User u = null;
 		// 1.使用map转bean
 		// BeanMapUtil
 		// .transMap2Bean(jdbcTemple.queryForMap(
@@ -139,23 +140,27 @@ public class UserDaoImpl implements IUserDao {
 		// });
 
 		// 3.使用RowMapper自己组装bean
-		return jdbcTemple.query("select * from user where id=?",
-				new Object[] { userId }, new RowMapper<User>() {
-					@Override
-					public User mapRow(ResultSet rs, int rowNum)
-							throws SQLException {
-						User u = new User();
-						u.setId(rs.getLong("id"));
-						u.setAdddate(rs.getInt("adddate"));
-						u.setName(rs.getString("name"));
-						u.setSex(rs.getString("sex"));
-						u.setAge(rs.getInt("age"));
-						u.setDeliveryaddress(rs.getString("deliveryaddress"));
-						u.setPhone(rs.getString("phone"));
-						return u;
-					}
-				}).get(0);
-		// return u;
+		try {
+			u=jdbcTemple.queryForObject("select * from user where id=?",
+					new Object[] { userId }, new RowMapper<User>() {
+						@Override
+						public User mapRow(ResultSet rs, int rowNum)
+								throws SQLException {
+							User u = new User();
+							u.setId(rs.getLong("id"));
+							u.setAdddate(rs.getInt("adddate"));
+							u.setName(rs.getString("name"));
+							u.setSex(rs.getString("sex"));
+							u.setAge(rs.getInt("age"));
+							u.setDeliveryaddress(rs.getString("deliveryaddress"));
+							u.setPhone(rs.getString("phone"));
+							return u;
+						}
+					});
+		} catch (DataAccessException e) {
+			e.printStackTrace();
+		}
+		return u;
 	}
 
 	@Override

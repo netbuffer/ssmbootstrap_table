@@ -20,8 +20,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.com.ttblog.ssmbootstrap_table.model.Permission;
 import cn.com.ttblog.ssmbootstrap_table.model.Role;
+import cn.com.ttblog.ssmbootstrap_table.model.User;
 import cn.com.ttblog.ssmbootstrap_table.service.IPermissionService;
 import cn.com.ttblog.ssmbootstrap_table.service.IRoleService;
+import cn.com.ttblog.ssmbootstrap_table.service.IUserService;
 
 import com.alibaba.fastjson.JSONObject;
 
@@ -39,6 +41,8 @@ public class ShiroController {
 	private IRoleService roleService;
 	@Autowired
 	private IPermissionService permissionService;
+	@Autowired
+	private IUserService userService;
 	
 	@RequestMapping(value={"","/","/index"},method=RequestMethod.GET)
 	public String getIndex(){
@@ -171,6 +175,24 @@ public class ShiroController {
 			}
 			m.addAttribute("role", role);
 			m.addAttribute("permissions", permissionService.listPermissionsByRoleId(roleId));
+		}else{
+			LOG.debug("查询权限列表");
+			m.addAttribute("permissions", permissionService.listPermissions());
+		}
+		return "shiro/permissions";
+	}
+	
+	@RequiresRoles(value={"admin"})
+	@RequestMapping(value="/permission/list/user/{userId}",method=RequestMethod.GET)
+	public String listPermissionsByUserId(Model m,@PathVariable("userId") Integer userId){
+		if(userId!=null&&userId>0){
+			LOG.debug("查询用户:{}对应的权限列表",userId);
+			User user=userService.getUserById(userId);
+			if(user==null||user.getName()==null||user.getName().length()==0){
+				throw new IllegalArgumentException("未找到对应的用户");
+			}
+			m.addAttribute("user", user);
+			m.addAttribute("permissions", permissionService.listPermissionsByUserId(userId));
 		}else{
 			LOG.debug("查询权限列表");
 			m.addAttribute("permissions", permissionService.listPermissions());

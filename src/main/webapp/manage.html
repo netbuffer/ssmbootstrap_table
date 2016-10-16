@@ -25,6 +25,19 @@
 <script src="js/moment.zh-cn.js"></script>
 <script type="text/javascript">
 	$(function() {
+
+		$('#dtb').on('load-success.bs.table', function (data) {
+			$('.perms_list_show_a').each(function(index,item){
+				var txt=$(item).text();
+				$(item).tooltip({
+					"title" : "查看用户["+txt+"]对应的权限",
+					"placement" : "top"
+				});
+			});
+			
+		});
+		
+		
 		$.getJSON('newdata.json', function(data) {
 			$("#xinzeng").text(data.newcount);
 			$("#xinzeng").tooltip({
@@ -258,6 +271,11 @@
 	function dateFormatter(value, row, index) {
 		return moment.unix(value).format("YYYY-MM-DD hh:mm:ss a");
 	}
+	
+	function showPermFormatter(value, row, index){
+		console.log("namerow:%o",row);
+		return "<a class='perms_list_show_a' href='shiro/permission/list/user/"+row.id+"' target='_blank'>"+value+"</a>";
+	}
 </script>
 </head>
 <body style="padding-top: 70px;">
@@ -355,7 +373,7 @@
 			<thead>
 				<tr>
 					<th data-field="id" data-formatter="hideIdFormatter" class="hide"></th>
-					<th data-field="name" data-align="left">姓名</th>
+					<th data-field="name" data-formatter="showPermFormatter" data-align="left">姓名</th>
 					<th data-field="sex" data-align="center">性别</th>
 					<th data-field="age">年龄</th>
 					<th data-field="phone">手机号</th>
