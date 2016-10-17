@@ -142,6 +142,24 @@ public class ShiroController {
 	}
 	
 	@RequiresRoles(value={"admin"})
+	@RequestMapping(value="/role/list/{userId}",method=RequestMethod.GET)
+	public String listRoles(Model m,@PathVariable("userId") Long userId){
+		if(userId==null){
+			LOG.debug("查询角色列表");
+			m.addAttribute("roles", roleService.listRoles());
+		}else{
+			User user=userService.getUserById(userId);
+			if(user==null||user.getName()==null||user.getName().length()==0){
+				throw new IllegalArgumentException("未找到对应的用户");
+			}
+			LOG.debug("查询[{}]对应的角色列表",user.getName());
+			m.addAttribute("user", user);
+			m.addAttribute("roles", roleService.listRolesByUserId(userId));
+		}
+		return "shiro/roles";
+	}
+	
+	@RequiresRoles(value={"admin"})
 	@RequestMapping(value="/role/list",method=RequestMethod.GET)
 	public String listRoles(Model m){
 		LOG.debug("查询角色列表");

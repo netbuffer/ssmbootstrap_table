@@ -23,7 +23,12 @@
 <body>
 	<div class="container-fluid">
 		<table class="table">
-	      <caption>角色列表</caption>
+	      <caption>
+			<c:choose>
+	      		<c:when test="${not empty user}">查询<span style="font-weight:bold;">${user.name}</span>对应的</c:when>
+	      	</c:choose>
+	      	角色列表
+	      </caption>
 	      <thead>
 	        <tr>
 	          <th></th>

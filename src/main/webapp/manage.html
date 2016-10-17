@@ -10,6 +10,7 @@
 <link
 	href="//cdn.bootcss.com/bootstrap-table/1.10.0/bootstrap-table.min.css"
 	rel="stylesheet">
+<link href="//cdn.bootcss.com/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.css" rel="stylesheet">
 <script src="http://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
 <script src="http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 <script
@@ -23,9 +24,9 @@
 <script src="//cdn.bootcss.com/echarts/3.0.0/echarts.min.js"></script>
 <script src="js/moment.min.js"></script>
 <script src="js/moment.zh-cn.js"></script>
+<script src="//cdn.bootcss.com/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.min.js"></script>
 <script type="text/javascript">
 	$(function() {
-
 		$('#dtb').on('load-success.bs.table', function (data) {
 			$('.perms_list_show_a').each(function(index,item){
 				var txt=$(item).text();
@@ -37,7 +38,29 @@
 			
 		});
 		
-		
+		$('#edituc').on('show.bs.modal', function (e) {
+			$.getJSON("shiro/role/list.json",function(data){
+				data=data.roles;
+				$.each(data,function(index,item){
+					//console.log("item:%o",item);
+					console.log("item.name:%s",item.name);
+					console.log("item.id:%s",item.id);
+					$("#select_roles").append("<option value='"+item.id+"'>"+item.name+"</option>"); 
+				});
+			});
+			$.getJSON("shiro/role/list/"+$("#wait_user_id").val()+".json",function(data){
+				data=data.roles;
+				var items=[];
+				$.each(data,function(index,item){
+					items.push(item.name);
+				});
+				//$('.tagsinput').tagsinput('removeAll');
+				console.log("items:%o",items);
+				//$(".tagsinput").tagsinput(items);
+				$('.tagsinput').tagsinput('test', 't','a');
+			});
+		});
+
 		$.getJSON('newdata.json', function(data) {
 			$("#xinzeng").text(data.newcount);
 			$("#xinzeng").tooltip({
@@ -188,12 +211,9 @@
 			console.log(value, row, index);
 		},
 		'click .edit' : function(e, value, row, index) {
-			alert($("[data-index=" + index + "]").find('td').eq(8).html());
-			//alert($("[data-index="+index+"]").find('td').eq(3).text());
-			$("#waitph").val(
-					$("[data-index=" + index + "]").find('td').eq(3).text());
+			$("#wait_user_id").val(row.id);
 			$("#edituc").modal("show");
-			//alert('You click edit icon, row: ' + JSON.stringify(row));
+			//alert('You click e	dit icon, row: ' + JSON.stringify(row));
 			//console.log(value, row, index);
 		},
 		'click .remove' : function(e, value, row, index) {
@@ -397,9 +417,17 @@
 						<h4 class="modal-title" id="myModalLabel">编辑当前用户的资料</h4>
 					</div>
 					<div class="modal-body">
-						<input id="waiteduc" type="text" class="form-control" value=""
-							pattern="" required="required" /> <input id="waitph"
-							type="hidden" />
+						<input id="waiteduc" type="hidden" class="form-control" value="" pattern="" required="required" /> 
+						<input id="waitph" type="hidden" />
+						<input id="wait_user_id" type="hidden" />
+						<div class="form-group">
+						  <label class="col-md-4 control-label" for="selectbasic">设置权限</label>
+						  <div class="col-md-4">
+						    <select id="select_roles" name="set_user_role" class="form-control"></select>
+						  </div>
+						</div>
+						<hr/>
+						<input type="text" class="tagsinput" value="Amsterdam,Washington,Sydney,Beijing,Cairo" data-role="tagsinput" />
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>

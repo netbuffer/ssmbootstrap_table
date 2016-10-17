@@ -3,11 +3,13 @@ package cn.com.ttblog.ssmbootstrap_table.dao.impl;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
+
 import cn.com.ttblog.ssmbootstrap_table.Constant.TABLENAME;
 import cn.com.ttblog.ssmbootstrap_table.dao.IRoleDao;
 import cn.com.ttblog.ssmbootstrap_table.model.Role;
@@ -61,5 +63,22 @@ public class RoleDaoImpl implements IRoleDao{
 			e.printStackTrace();
 		}
 		return role;
+	}
+
+	@Override
+	public List<Role> listRolesByUserId(Long userId) {
+		return jdbcTemple.query(
+			"select r.role_name,r.id,r.role_description from "+TABLENAME.ROLE.getValue()+" r,"+TABLENAME.USERROLE.getValue()+" ur where ur.role_id=r.id and ur.user_id=?",new Object[]{userId},
+			new RowMapper<Role>() {
+			@Override
+			public Role mapRow(ResultSet rs, int rowNum)
+					throws SQLException {
+				Role r=new Role();
+				r.setId(rs.getInt("id"));
+				r.setName(rs.getString("role_name"));
+				r.setDescription(rs.getString("role_description"));
+				return r;
+			}
+		});
 	}
 }
