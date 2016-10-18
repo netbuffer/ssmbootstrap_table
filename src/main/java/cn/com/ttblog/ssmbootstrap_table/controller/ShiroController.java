@@ -21,8 +21,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import cn.com.ttblog.ssmbootstrap_table.model.Permission;
 import cn.com.ttblog.ssmbootstrap_table.model.Role;
 import cn.com.ttblog.ssmbootstrap_table.model.User;
+import cn.com.ttblog.ssmbootstrap_table.model.UserRole;
 import cn.com.ttblog.ssmbootstrap_table.service.IPermissionService;
 import cn.com.ttblog.ssmbootstrap_table.service.IRoleService;
+import cn.com.ttblog.ssmbootstrap_table.service.IUserRoleService;
 import cn.com.ttblog.ssmbootstrap_table.service.IUserService;
 
 import com.alibaba.fastjson.JSONObject;
@@ -43,6 +45,8 @@ public class ShiroController {
 	private IPermissionService permissionService;
 	@Autowired
 	private IUserService userService;
+	@Autowired
+	private IUserRoleService userRoleService;
 	
 	@RequestMapping(value={"","/","/index"},method=RequestMethod.GET)
 	public String getIndex(){
@@ -241,4 +245,20 @@ public class ShiroController {
 		return "redirect:/shiro/permission/list";
 	}
 	
+	@RequiresRoles(value={"admin"})
+	@RequestMapping(value="/userrole/add",method=RequestMethod.GET)
+	@ResponseBody
+	public JSONObject addUserRole(UserRole ur){
+		JSONObject j=new JSONObject();
+		LOG.debug("保存用户角色权限:{}",ur);
+		j.put("success", true);
+		try {
+			userRoleService.addUserRole(ur);
+		} catch (Exception e) {
+			j.put("success", false);
+			j.put("msg", e.getMessage());
+			e.printStackTrace();
+		}
+		return j;
+	}
 }

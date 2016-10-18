@@ -35,7 +35,9 @@
 					"placement" : "top"
 				});
 			});
-			
+// 			$("#select_roles").change(function(){
+// 				alert($(this).find("option:selected").text());
+// 			});
 		});
 		
 		$('#edituc').on('show.bs.modal', function (e) {
@@ -55,9 +57,7 @@
 				$.each(data,function(index,item){
 					$('.tagsinput').tagsinput('add',item.name);
 				});
-				console.log("items:%o",items);
 				//$(".tagsinput").tagsinput(items);
-				
 			});
 		});
 
@@ -250,15 +250,26 @@
 	function saveUcode() {
 		//alert($("#waiteduc").val());
 		//alert($("#waitph").val());
-		$.post('user/edit', {
-			"phone" : $("#waitph").val(),
-			"uc" : $("#waiteduc").val()
-		}, function() {
-			//alert('保存成功!');
-			$("#edituc").modal('hide');
-			$("#waiteduc").val('');
-			$("#waitph").val('');
-			refreshTable();
+// 		$.post('user/edit', {
+// 			"phone" : $("#waitph").val(),
+// 			"uc" : $("#waiteduc").val()
+// 		}, function() {
+// 			//alert('保存成功!');
+// 			$("#edituc").modal('hide');
+// 			$("#waiteduc").val('');
+// 			$("#waitph").val('');
+// 			refreshTable();
+// 		});
+		$.get('shiro/userrole/add', {
+			"roleId" : $("#select_roles").val(),
+			"userId" : $("#wait_user_id").val()
+		}, function(data) {
+			console.log("data:%o",data);
+			if(data.success){
+				alert("添加成功!");
+				$('#edituc').modal("hide");
+				refreshTable();
+			}
 		});
 	}
 
@@ -428,14 +439,19 @@
 						<input id="waitph" type="hidden" />
 						<input id="wait_user_id" type="hidden" />
 						<div class="form-group">
-						  <label class="col-md-4 control-label" for="selectbasic">设置权限</label>
-						  <div class="col-md-4">
+						  <label class="col-md-6 control-label" for="selectbasic">设置权限</label>
+						  <div class="col-md-6">
 						    <select id="select_roles" name="set_user_role" class="form-control"></select>
 						  </div>
 						</div>
 						<hr/>
-<!-- 						Amsterdam,Washington,Sydney,Beijing,Cairo -->
-						<input type="text" class="tagsinput" value="" data-role="tagsinput" />
+						<div class="form-group">
+						  <label class="col-md-6 control-label" for="selectbasic">已有权限</label>
+						  <div class="col-md-6">
+						    <!-- 						Amsterdam,Washington,Sydney,Beijing,Cairo -->
+							<input type="text" class="tagsinput" value="" data-role="tagsinput" />
+						  </div>
+						</div><br/><br/>
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
