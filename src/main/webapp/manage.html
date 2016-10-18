@@ -39,6 +39,7 @@
 		});
 		
 		$('#edituc').on('show.bs.modal', function (e) {
+			$("#select_roles").find("option").remove();
 			$.getJSON("shiro/role/list.json",function(data){
 				data=data.roles;
 				$.each(data,function(index,item){
@@ -50,14 +51,13 @@
 			});
 			$.getJSON("shiro/role/list/"+$("#wait_user_id").val()+".json",function(data){
 				data=data.roles;
-				var items=[];
+				$('.tagsinput').tagsinput('removeAll');
 				$.each(data,function(index,item){
-					items.push(item.name);
+					$('.tagsinput').tagsinput('add',item.name);
 				});
-				//$('.tagsinput').tagsinput('removeAll');
 				console.log("items:%o",items);
 				//$(".tagsinput").tagsinput(items);
-				$('.tagsinput').tagsinput('test', 't','a');
+				
 			});
 		});
 
@@ -299,6 +299,13 @@
 </script>
 </head>
 <body style="padding-top: 70px;">
+<!-- 	<select multiple data-role="tagsinput" id="t_sel"> -->
+<!-- 	  <option value="Amsterdam">Amsterdam</option> -->
+<!-- 	  <option value="Washington">Washington</option> -->
+<!-- 	  <option value="Sydney">Sydney</option> -->
+<!-- 	  <option value="Beijing">Beijing</option> -->
+<!-- 	  <option value="Cairo">Cairo</option> -->
+<!-- 	</select> -->
 	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 		<div class="container-fluid">
 			<!-- Brand and toggle get grouped for better mobile display -->
@@ -427,7 +434,8 @@
 						  </div>
 						</div>
 						<hr/>
-						<input type="text" class="tagsinput" value="Amsterdam,Washington,Sydney,Beijing,Cairo" data-role="tagsinput" />
+<!-- 						Amsterdam,Washington,Sydney,Beijing,Cairo -->
+						<input type="text" class="tagsinput" value="" data-role="tagsinput" />
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
