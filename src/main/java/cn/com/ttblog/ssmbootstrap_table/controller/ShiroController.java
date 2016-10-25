@@ -261,4 +261,16 @@ public class ShiroController {
 		}
 		return j;
 	}
+	
+	@RequiresRoles(value={"admin"})
+	@RequestMapping(value="/userrole/update",method=RequestMethod.POST)
+	@ResponseBody
+	public JSONObject updateUserRole(@RequestParam("rolenames") String rolenames,
+			@RequestParam("userId") String userId){
+		JSONObject j=new JSONObject();
+		LOG.debug("更新用户:{}对应的角色:{}",userId,rolenames);
+		j.put("success", true);
+		return j;
+	}
+	
 }

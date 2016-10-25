@@ -246,6 +246,32 @@
 		//alert(ret);
 		return params;
 	}
+	
+	function updateUserRole(){
+// 		$.post('shiro/userrole/update', {
+// 			"rolenames" : $(".tagsinput").tagsinput('items'),
+// 			"userId":$("#wait_user_id").val()
+// 		}, function(data) {
+// 			if(data.success){
+// 				alert("更新成功!");
+// 				$('#edituc').modal("hide");
+// 				refreshTable();
+// 			}
+// 		});
+		
+		$.ajax({
+			traditional: true,
+			type:"post",
+			url:"shiro/userrole/update",
+			data:{
+				"rolenames" : $(".tagsinput").tagsinput('items'),
+				"userId":$("#wait_user_id").val()
+			},
+			success:function(data){
+				console.log("receive data:%o",data);
+			}
+		});
+	}
 
 	function saveUcode() {
 		//alert($("#waiteduc").val());
@@ -449,8 +475,13 @@
 						  <label class="col-md-6 control-label" for="selectbasic">已有权限</label>
 						  <div class="col-md-6">
 						    <!-- 						Amsterdam,Washington,Sydney,Beijing,Cairo -->
-							<input type="text" class="tagsinput" value="" data-role="tagsinput" />
-						  </div>
+							<div class="input-group">
+								<span class="input-group-btn">
+									<button class="btn btn-default" type="button" onclick="updateUserRole();">更新</button>
+								</span>
+								<input type="text" class="form-control tagsinput" value="" data-role="tagsinput" />
+							</div>
+							</div>
 						</div><br/><br/>
 					</div>
 					<div class="modal-footer">
