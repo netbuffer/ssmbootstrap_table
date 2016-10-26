@@ -269,6 +269,9 @@
 			},
 			success:function(data){
 				console.log("receive data:%o",data);
+				if(data.success){
+					$("#edituc").modal('hide');
+				}
 			}
 		});
 	}
