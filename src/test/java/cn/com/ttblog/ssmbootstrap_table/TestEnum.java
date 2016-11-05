@@ -2,6 +2,8 @@ package cn.com.ttblog.ssmbootstrap_table;
 
 import org.junit.Test;
 
+import cn.com.ttblog.ssmbootstrap_table.enumeration.Config;
+
 public class TestEnum {
 
 	public enum Color {
@@ -34,5 +36,7 @@ public class TestEnum {
 		//直接equals是不会相等的
 		System.out.println(Color2.RED.equals("1"));
 		System.out.println(Color2.RED.getValue().equals("1"));
+		System.out.println("==========================");
+		System.out.println("Config.KEY.getValue:"+Config.KEY.getValue());
 	}
 }
