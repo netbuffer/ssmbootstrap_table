@@ -44,5 +44,10 @@ public class TestStringFormat {
 		System.out.println("Arrays.deepToString(filename.split(\"\\.\"):"+Arrays.deepToString(filename.split("\\.")));
 	}
 	
-	
+	@Test
+	public void testSubString(){
+		String out_trade_no="100000001-1478594744";
+		out_trade_no=out_trade_no.substring(0, out_trade_no.indexOf("-"));
+		System.out.println("out_trade_no:"+out_trade_no);
+	}
 }
