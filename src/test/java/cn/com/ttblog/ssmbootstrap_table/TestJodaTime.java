@@ -116,4 +116,9 @@ public class TestJodaTime {
 		String date = sdf.format(new Date(time*1000L));
 		System.out.println(date); 
 	}
+	
+	@Test
+	public void getTimeStamp(){
+		System.out.println("timestamp:"+System.currentTimeMillis());
+	}
 }

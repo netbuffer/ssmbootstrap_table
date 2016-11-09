@@ -1,6 +1,8 @@
 package cn.com.ttblog.ssmbootstrap_table;
 
 import java.math.BigInteger;
+import java.text.DecimalFormat;
+
 import org.apache.commons.lang3.RandomUtils;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -33,5 +35,16 @@ public class TestInt {
 		for (int i = 0; i <100; i++) {
 			System.out.println("RandomUtils.nextInt(2, 6):" + RandomUtils.nextInt(2, 6));
 		}
+	}
+	
+	@Test
+	public void int2float(){
+//		float i=233.4f;
+		int i=2334;
+		System.out.println(i/100);
+		System.out.println((float)i/100);
+		//构造方法的字符格式这里如果小数不足2位,会以0补足.
+		DecimalFormat decimalFormat=new DecimalFormat(".00");
+		System.out.println(decimalFormat.format((float)i/100));
 	}
 }
