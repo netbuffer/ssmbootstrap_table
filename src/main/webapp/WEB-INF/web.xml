@@ -19,6 +19,7 @@
 			classpath:spring/spring-context.xml
 		</param-value>
 	</context-param>
+
 	<filter>
 		<filter-name>encodingFilter</filter-name>
 		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
@@ -91,11 +92,24 @@
 		<dispatcher>INCLUDE</dispatcher>
 		<dispatcher>REQUEST</dispatcher>
 	</filter-mapping>
-
+	
+	<!-- 使用spring管理filter，可以在filter中拿到spring容器中的依赖 -->
 	<filter>
 		<filter-name>LoginFilter</filter-name>
-		<filter-class>cn.com.ttblog.ssmbootstrap_table.filter.LoginFilter</filter-class>
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
 		<async-supported>true</async-supported>
+		<init-param>
+			<param-name>targetBeanName</param-name>
+			<param-value>loginFilter</param-value>
+		</init-param>
+		<init-param>  
+	        <param-name>targetFilterLifecycle</param-name>  
+	        <param-value>true</param-value>  
+        </init-param>
+        <init-param>
+			<param-name>enable</param-name>
+			<param-value>true</param-value>
+		</init-param> 
 		<init-param>
 			<param-name>noFilterTags</param-name>
 			<param-value>
@@ -109,10 +123,6 @@
 				/*/jsonp/**
 				/*/cxf/**
 			</param-value>
-		</init-param>
-		<init-param>
-			<param-name>enable</param-name>
-			<param-value>true</param-value>
 		</init-param>
 	</filter>
 	<filter-mapping>

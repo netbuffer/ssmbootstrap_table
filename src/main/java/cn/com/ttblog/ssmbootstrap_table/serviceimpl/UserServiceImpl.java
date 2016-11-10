@@ -123,4 +123,9 @@ public class UserServiceImpl implements IUserService {
 		userDao.deleteById(id);
 	}
 
+	@Override
+	public User getUserByName(String userName) {
+		return userDao.selectByName(userName);
+	}
+
 }

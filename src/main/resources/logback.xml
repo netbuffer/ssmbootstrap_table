@@ -71,12 +71,12 @@
 	<logger name="log4jdbc.debug" level="DEBUG" />
 	<logger name="net.sf.ehcache" level="ALL"/>
 	
-	<logger name="access" level="DEBUG">
+	<logger name="access" level="INFO">
         <appender-ref ref="ACCESS"/>
     </logger>
     
 	<root>
-		<level value="DEBUG" />
+		<level value="INFO" />
 		<appender-ref ref="stdout" />
 		<appender-ref ref="logfile" />
 		<appender-ref ref="ACCESS" />
