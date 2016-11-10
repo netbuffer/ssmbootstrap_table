@@ -9,6 +9,7 @@
 <link
 	href="http://cdn.bootcss.com/bootstrap/3.3.1/css/bootstrap.min.css"
 	rel="stylesheet">
+<link href="//cdn.bootcss.com/jQuery-Validation-Engine/2.6.4/validationEngine.jquery.min.css" rel="stylesheet">
 <link href="css/css.css" rel="stylesheet">
 <link href="css/font-awesome.css" rel="stylesheet">
 <link href="css/form-elements.css" rel="stylesheet">
@@ -16,10 +17,40 @@
 <script src="http://cdn.bootcss.com/jquery/2.1.3/jquery.js"></script>
 <script src="//cdn.bootcss.com/jquery-url-parser/2.3.1/purl.min.js"></script>
 <script src="//cdn.bootcss.com/jquery-backstretch/2.0.4/jquery.backstretch.min.js"></script>
+<script src="//cdn.bootcss.com/jQuery-Validation-Engine/2.6.4/languages/jquery.validationEngine-zh_CN.min.js"></script>
+<script src="//cdn.bootcss.com/jQuery-Validation-Engine/2.6.4/jquery.validationEngine.min.js"></script>
 <script type="text/javascript">
 	$(function(){
-		 $.backstretch("image/backimg.jpg");
+		if($("#form-username").val()==""){
+			$("#form-username").focus();
+		}
+		$(document).keydown(function(event){
+			if(event.keyCode==13){
+				$("#login_form").submit();
+			}
+		});
+		$.backstretch("image/backimg.jpg");
 		$("input[name='requri']").val($.url(window.location.href).param('requri'));
+		$("#login_form").validationEngine('attach', {
+			showOneMessage: false,
+			"custom_error_messages": {
+				"#username": {
+					'required': {
+						'message': "请填写用户名"
+					},
+					'custom[email]': {
+						'message': "邮件格式错误"
+					}
+				}
+			},
+			promptPosition: "top",
+			scroll: false,
+			onValidationComplete: function(form, status) {
+				//可以通过这里阻止表单提交
+				console.log("The form status is: " + status + ", it will never submit");
+				return status;
+			}
+		});
 	});
 </script>
 </head>
@@ -53,17 +84,17 @@
 							</div>
 							<div class="form-bottom">
 								<form role="form" action="login" method="post"
-									class="login-form">
+									class="login-form" id="login_form">
 									<div class="form-group">
 										<label class="sr-only" for="form-username">用户名</label> <input
 											name="username" placeholder="Username..."
-											class="form-username form-control input-error"
+											class="validate[required] form-username form-control input-error"
 											id="form-username" type="text">
 									</div>
 									<div class="form-group">
 										<label class="sr-only" for="form-password">密码</label> <input
 											name="password" placeholder="Password..."
-											class="form-password form-control input-error"
+											class="validate[required] form-password form-control input-error"
 											id="form-password" type="password">
 									</div>
 									<input name="requri" type="hidden" value=""/>
