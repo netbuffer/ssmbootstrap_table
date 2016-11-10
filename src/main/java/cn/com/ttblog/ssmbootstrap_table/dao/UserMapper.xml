@@ -62,6 +62,14 @@
 		from user
 		where id = #{id,jdbcType=BIGINT}
 	</select>
+	
+	<select id="selectByName" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from user
+		where name = #{name}
+	</select>
 
 	<select id="getUserListCount" resultType="java.lang.Long">
 		select count(*) from

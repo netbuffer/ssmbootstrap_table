@@ -47,6 +47,9 @@
 	<!-- jsonpfilter -->
 	<bean class="com.intera.util.web.servlet.filter.JsonpCallbackFilter"
 		id="jsonpCallbackFilter" />
+	<!-- loginFilter 登录处理 -->	
+	<bean class="cn.com.ttblog.ssmbootstrap_table.filter.LoginFilter"
+		id="loginFilter" />
 	<bean id="localeResolver"
 		class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
 		<!-- 设置cookieName名称，可以根据名称通过js来修改设置，默认的名称为 类名+.LOCALE -->
