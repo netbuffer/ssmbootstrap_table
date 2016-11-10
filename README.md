@@ -7,6 +7,7 @@
 * bootstrap3/bootstrap-fileinput/jquery.fileupload
 * bootstrap-table1.9
 * druid
+* fastjson
 * weui
 * log4jdbc/log4jdbc-remix/log4jdbc-log4j2(show sql)
 * hibernate-validator
