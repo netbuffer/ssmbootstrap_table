@@ -47,4 +47,11 @@ public class TestInt {
 		DecimalFormat decimalFormat=new DecimalFormat(".00");
 		System.out.println(decimalFormat.format((float)i/100));
 	}
+	
+	@Test
+	public void testCompare(){
+		Integer i=null;
+		//这样会引发空指针，比较需要判空条件
+		System.out.println(i==1);
+	}
 }

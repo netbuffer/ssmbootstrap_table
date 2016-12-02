@@ -472,6 +472,15 @@
 		<finalName>ssmbootstrap_table</finalName>
 		<plugins>
 			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.1</version>
+				<configuration>
+					<source>1.7</source> <!-- 源代码使用的开发版本 -->
+					<target>1.7</target> <!-- 需要生成的目标class文件的编译版本 -->
+				</configuration>
+			</plugin>
+			<plugin>
 				<groupId>org.apache.tomcat.maven</groupId>
 				<artifactId>tomcat7-maven-plugin</artifactId>
 				<version>2.2</version>
