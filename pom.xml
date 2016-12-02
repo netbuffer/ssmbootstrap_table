@@ -469,7 +469,7 @@
 		</repository>
 	</repositories>
 	<build>
-		<!--ideaxu需要配置打包选项-->
+		<!--IntelliJ IDEA需要配置打包选项-->
 		<resources>
 			<resource>
 				<directory>src/main/resources</directory>
