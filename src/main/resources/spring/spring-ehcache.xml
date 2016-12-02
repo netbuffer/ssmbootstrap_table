@@ -12,8 +12,9 @@
                         ">
 	<!-- http://blog.csdn.net/clj198606061111/article/details/41121437 -->
 	<cache:annotation-driven cache-manager="cacheManager" />
+	<!-- idea中需要设置p:shared="true"，eclipse不需要设置，否则出错,原因不明...-->
 	<bean id="cacheManagerFactory"
-		class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean"  p:shared="true">
+		class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
 		<property name="configLocation" value="classpath:ehcache.xml" />
 	</bean>
 	
