@@ -23,6 +23,9 @@
 * mockito
 * itextpdf
 
+> # github:[https://github.com/netbuffer/ssmbootstrap_table](https://github.com/netbuffer/ssmbootstrap_table)
+> # git@osc:[http://git.oschina.net/gradle/ssmbootstrap_table](http://git.oschina.net/gradle/ssmbootstrap_table)
+
 ## How to run
 The project constructed by `maven`, please execute under the `src/main/java` `SQL script` to your `MySQL` database operation, and then modify the database configuration information `jdbc.properties` under the path `src/main/resource` configuration file in the project directory, enter, execute `mvn tomcat7:run` to run
 

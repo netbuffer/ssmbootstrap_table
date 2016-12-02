@@ -69,6 +69,7 @@ import eu.bitwalker.useragentutils.UserAgent;
 @RequestMapping("/test")
 @SessionAttributes("name")
 public class TestController {
+	private static final Logger LOG=LoggerFactory.getLogger(TestController.class);
 	private Logger loggerAccess = LoggerFactory.getLogger("access");
 //	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	private Logger logger = loggerAccess;
@@ -93,6 +94,19 @@ public class TestController {
     public void setJdbcUrl(String url) {
 		JDBCURL = url;
     }
+	
+	//@RequestMapping不写value会默认映射类上的访问路径"/test"
+	@RequestMapping(method=RequestMethod.GET)
+	public @ResponseBody String getTest() {
+		LOG.debug("GET to /test");
+		return "GET to /test";
+	}
+	
+	@RequestMapping(method=RequestMethod.POST)
+	public @ResponseBody String postTest() {
+		LOG.debug("POST to /test");
+		return "POST to /test";
+	}
 	
 	@RequestMapping(value = {"/getJdbcUrl" })
 	public @ResponseBody String getJdbcUrl() {
