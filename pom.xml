@@ -469,6 +469,25 @@
 		</repository>
 	</repositories>
 	<build>
+		<!--ideaxu需要配置打包选项-->
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<includes>
+					<include>**/*.properties</include>
+					<include>**/*.xml</include>
+				</includes>
+				<filtering>true</filtering>
+			</resource>
+			<resource>
+				<directory>src/main/java</directory>
+				<includes>
+					<include>**/*.properties</include>
+					<include>**/*.xml</include>
+				</includes>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
 		<finalName>ssmbootstrap_table</finalName>
 		<plugins>
 			<plugin>
