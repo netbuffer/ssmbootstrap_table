@@ -45,7 +45,7 @@
 				"placement" : "bottom"
 			});
 			$("#xinzeng").mouseover();
-			$("#login_username").text(data.username);
+			$(".login_username").text(data.username);
 			$.getJSON('datacount', function(data) {
 				var myChart = echarts.init(document
 						.getElementById('echarts_test'));
@@ -323,12 +323,12 @@
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<li class="visible-xs-block">
-						<a href="#">欢迎您：<span id="login_username"></span></a>
+						<a href="#">欢迎您：<span class="login_username"></span></a>
 					</li>
 					<li class="hidden-xs">
 						<p class="navbar-text">
 							<span class="glyphicon glyphicon-user"></span> 欢迎您：<span
-								id="login_username"></span>
+								class="login_username"></span>
 						</p>
 					</li>
 					<li class="hidden-xs">
