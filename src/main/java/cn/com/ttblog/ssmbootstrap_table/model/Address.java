@@ -2,7 +2,9 @@ package cn.com.ttblog.ssmbootstrap_table.model;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
-public class Address {
+import java.io.Serializable;
+
+public class Address implements Serializable{
 
 	private Long userId;
 
