@@ -11,3 +11,5 @@ roles |org.apache.shiro.web.filter.authz.RolesAuthorizationFilter
 ssl |org.apache.shiro.web.filter.authz.SslFilter
 user |org.apache.shiro.web.filter.authc.UserFilter
 logout |org.apache.shiro.web.filter.authc.LogoutFilter
+---
+> service层shiro注解生效需要加@Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)注解

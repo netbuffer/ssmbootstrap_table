@@ -3,21 +3,25 @@ package cn.com.ttblog.ssmbootstrap_table.serviceimpl;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import javax.annotation.Resource;
-
 import org.apache.commons.codec.binary.Hex;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.apache.shiro.crypto.SecureRandomNumberGenerator;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import cn.com.ttblog.ssmbootstrap_table.dao.IUserDao;
 import cn.com.ttblog.ssmbootstrap_table.model.User;
 import cn.com.ttblog.ssmbootstrap_table.service.IUserService;
 
+/**
+ * service层shiro注解生效需要加@Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)注解
+ */
+@Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
 @Service("userService")
 public class UserServiceImpl implements IUserService {
 	private static final Logger LOG = LoggerFactory.getLogger(UserServiceImpl.class);
@@ -31,8 +35,13 @@ public class UserServiceImpl implements IUserService {
 		return userDao.getUserById(userId);
 	}
 
+	/**
+	 * 添加用户
+	 * 需要有admin角色才能添加
+	 * @param user
+	 */
+	@RequiresRoles(value ={"admin"})
 	@Transactional
-	@Override
 	public void addUser(User user) {
 //		Random r = new Random();
 		if(null!=user.getPassword()){

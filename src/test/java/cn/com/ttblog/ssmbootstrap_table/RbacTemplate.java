@@ -1,5 +1,8 @@
 package cn.com.ttblog.ssmbootstrap_table;
 
+import cn.com.ttblog.ssmbootstrap_table.model.User;
+import cn.com.ttblog.ssmbootstrap_table.service.*;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -12,10 +15,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import cn.com.ttblog.ssmbootstrap_table.model.Permission;
 import cn.com.ttblog.ssmbootstrap_table.model.Role;
 import cn.com.ttblog.ssmbootstrap_table.model.RolePermission;
-import cn.com.ttblog.ssmbootstrap_table.service.IPermissionService;
-import cn.com.ttblog.ssmbootstrap_table.service.IRolePermissionService;
-import cn.com.ttblog.ssmbootstrap_table.service.IRoleService;
-import cn.com.ttblog.ssmbootstrap_table.service.IUserRoleService;
+
+import javax.annotation.Resource;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:spring-context.xml" })
@@ -33,7 +34,32 @@ public class RbacTemplate {
 	private IUserRoleService userRoleService;
 	@Autowired
 	private IRolePermissionService rolePermissionService;
-	
+	@Resource
+	private IUserService userService;
+
+	@Test
+	public void testAddUser() {
+//		User u = new User();
+//		u.setName("admin");
+//		u.setPassword("admin");
+//		u.setSex("男");
+//		u.setAge(29);
+//		u.setPhone("13823883883");
+//		u.setDeliveryaddress("这是收获地址的测试");
+//		u.setAdddate((int) ((System.currentTimeMillis() / 1000)));
+//		userService.addUser(u);
+		User u = new User();
+		u.setName("test");
+		u.setPassword("test");
+		u.setSex("男");
+		u.setAge(29);
+		u.setPhone("13823883883");
+		u.setDeliveryaddress("这是收获地址的测试");
+		u.setAdddate((int) ((System.currentTimeMillis() / 1000)));
+		userService.addUser(u);
+		logger.debug("添加用户:{}",u);
+	}
+
 	@Test
 	public void testAddPermission(){
 		Permission p=new Permission();

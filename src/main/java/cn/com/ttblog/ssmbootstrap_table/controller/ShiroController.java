@@ -1,6 +1,7 @@
 package cn.com.ttblog.ssmbootstrap_table.controller;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresRoles;
@@ -272,5 +273,16 @@ public class ShiroController {
 		j.put("success", true);
 		return j;
 	}
-	
+
+	/**
+	 * 测试service层shiro注解是否起作用
+	 * @param user
+	 * @return
+	 */
+	@RequestMapping(value="/adduser")
+	public User adduser(@Valid User user){
+		LOG.debug("add user:{}",user);
+		userService.addUser(user);
+		return user;
+	}
 }
