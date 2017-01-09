@@ -122,6 +122,7 @@
 				/*/image/**
 				/*/jsonp/**
 				/*/cxf/**
+				/testservlet
 			</param-value>
 		</init-param>
 	</filter>
