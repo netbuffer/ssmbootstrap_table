@@ -1,29 +1,16 @@
 package cn.com.ttblog.ssmbootstrap_table;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
-
-import net.sourceforge.pinyin4j.PinyinHelper;
-import net.sourceforge.pinyin4j.format.HanyuPinyinCaseType;
-import net.sourceforge.pinyin4j.format.HanyuPinyinOutputFormat;
-import net.sourceforge.pinyin4j.format.HanyuPinyinToneType;
-import net.sourceforge.pinyin4j.format.HanyuPinyinVCharType;
-import net.sourceforge.pinyin4j.format.exception.BadHanyuPinyinOutputFormatCombination;
-
+import cn.com.ttblog.ssmbootstrap_table.model.User;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import cn.com.ttblog.ssmbootstrap_table.model.User;
+import java.util.*;
 
 public class TestDelListContent {
-	
-	private static Logger logger = LoggerFactory.getLogger(TestMyBatis.class);
+
+	private static Logger logger = LoggerFactory.getLogger(TestDelListContent.class);
 
 	@Test
 	@Ignore
@@ -53,7 +40,7 @@ public class TestDelListContent {
 		}
 		System.out.println(arr.toString());
 	}
-	
+
 	@Test
 	public void testAddToIndex() {
 		List<String> arr=new ArrayList<String>();
@@ -63,19 +50,19 @@ public class TestDelListContent {
 		arr.add("4");
 		arr.add("5");
 		arr.add("6");
-		
+
 		System.out.println("arr->tostring:"+arr.toString());
 		System.out.println("arr->deeptostring:"+Arrays.deepToString(arr.toArray()));
-		
+
 		List<User> listuser=new ArrayList<User>();
-		
+
 		listuser.add(new User("1", "男", 22, "", "",23, "", null,null));
 		listuser.add(new User("2", "男", 22, "", "",23, "", null,null));
 		listuser.add(new User("3", "男", 22, "", "",23, "", null,null));
-		
+
 		System.out.println("listuser->tostring:"+listuser.toString());
 		System.out.println("listuser->deeptostring:"+Arrays.deepToString(listuser.toArray()));
-		
+
 		List<String> arr2=new ArrayList<String>();
 		arr2.add("7");
 		arr2.add("8");

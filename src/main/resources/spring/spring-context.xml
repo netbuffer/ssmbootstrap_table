@@ -6,9 +6,12 @@
 	   xsi:schemaLocation="http://www.springframework.org/schema/beans
                         http://www.springframework.org/schema/beans/spring-beans-4.0.xsd    
                         http://www.springframework.org/schema/context    
-                        http://www.springframework.org/schema/context/spring-context-4.0.xsd    
+                        http://www.springframework.org/schema/context/spring-context-4.0.xsd
                         http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd">
-	
+	<description>
+		spring主配置文件
+	</description>
+
 	<context:component-scan base-package="cn.com.ttblog.ssmbootstrap_table">
         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
         <context:exclude-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice" />
@@ -30,7 +33,7 @@
 	</bean>
 
 	<!-- 启用aop -->
-	<aop:aspectj-autoproxy/>
+	<aop:aspectj-autoproxy expose-proxy="true"></aop:aspectj-autoproxy>
 
 	<!-- 加载资源文件 -->
 	<import resource="spring-mybatis.xml" />
