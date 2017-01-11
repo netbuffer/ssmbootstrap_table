@@ -19,11 +19,12 @@ public class LoginProcessListener implements ApplicationListener<LoginEvent> {
 	@Async
 	@Override
 	public void onApplicationEvent(LoginEvent loginEvent) {
+		LOG.warn("开始异步记录用户登录日志");
 		try {
-			TimeUnit.SECONDS.sleep(60);
+			TimeUnit.SECONDS.sleep(10);
 		} catch (InterruptedException e) {
 			LOG.error("sleep error",e);
 		}
-		LOG.debug("异步记录用户登录日志:{}",loginEvent);
+		LOG.warn("结束异步记录用户登录日志:{}",loginEvent);
 	}
 }

@@ -180,4 +180,14 @@ public class UserController {
 		us.add(userService.getUserById(2));
 		return us;
 	}
+
+	/**
+	 * 测试异步方法执行
+	 */
+	@RequestMapping(value = "/testasync",method = RequestMethod.GET)
+	public @ResponseBody String testasync() {
+		//会立即返回响应success
+		userService.execute();
+		return "success";
+	}
 }

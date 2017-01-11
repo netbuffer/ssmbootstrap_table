@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 import javax.annotation.Resource;
 
@@ -13,6 +14,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
@@ -126,6 +128,18 @@ public class UserServiceImpl implements IUserService {
 	@Override
 	public User getUserByName(String userName) {
 		return userDao.selectByName(userName);
+	}
+
+	@Async
+	@Override
+	public void execute() {
+		logger.warn("异步方法开始执行");
+		try {
+			TimeUnit.SECONDS.sleep(10);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		logger.warn("异步方法结束执行");
 	}
 
 }

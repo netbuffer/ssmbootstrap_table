@@ -18,4 +18,5 @@ public interface IUserService {
 	public void addUM();
 	public void addUMtest() throws IllegalArgumentException;
 	public void deleteById(Long id);
+    void execute();
 }
