@@ -1,20 +1,17 @@
 package cn.com.ttblog.ssmbootstrap_table;
 
+import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
 import java.net.URL;
-
-import org.junit.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class TestWebService {
 
-	private static Logger logger = LoggerFactory.getLogger(TestMyBatis.class);
+	private static Logger logger = LoggerFactory.getLogger(TestWebService.class);
 
 	@Test
 	public void testWebService() throws IOException {

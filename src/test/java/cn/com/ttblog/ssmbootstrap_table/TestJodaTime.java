@@ -6,6 +6,8 @@ import java.util.Date;
 
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeUtils;
+import org.joda.time.LocalDate;
+import org.joda.time.LocalTime;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -13,6 +15,16 @@ import org.slf4j.LoggerFactory;
 
 import cn.com.ttblog.ssmbootstrap_table.util.JodaTimeUtil;
 
+/**
+ * 	 LocalDate - date without time
+	 LocalTime - time without date
+	 Instant - an instantaneous point on the time-line
+	 DateTime - full date and time with time-zone
+	 DateTimeZone - a better time-zone
+	 Duration and Period - amounts of time
+	 Interval - the time between two instants
+	 A comprehensive and flexible formatter-parser
+ */
 //@Ignore
 public class TestJodaTime {
 	Logger log = LoggerFactory.getLogger(this.getClass());
@@ -120,5 +132,23 @@ public class TestJodaTime {
 	@Test
 	public void getTimeStamp(){
 		System.out.println("timestamp:"+System.currentTimeMillis());
+	}
+
+	@Test
+	public void test() {
+		LocalDate localDate = new LocalDate();
+		System.out.println("localDate：" + localDate);
+		System.out.println("localDate.toDate()：" + localDate.toDate());
+		LocalTime localTime=new LocalTime();
+		System.out.println("localTime:"+localTime);
+		System.out.println("localTime.toDateTimeToday():"+localTime.toDateTimeToday());
+		LocalTime minTime=new LocalTime(0,0,0,0);
+		LocalTime maxTime=new LocalTime(23,59,59,59);
+		System.out.println("maxTime:"+maxTime);
+		System.out.println("maxTime:"+maxTime.toDateTimeToday());
+		System.out.println("昨天的时间从:"+minTime.toDateTimeToday().plusDays(-1)+"到:"+maxTime.toDateTimeToday().plusDays(-1));
+		DateTime d1=new DateTime();
+		DateTime d2=new DateTime().plusMinutes(2);
+		System.out.println("d2.compareTo(d1):"+d2.compareTo(d1));
 	}
 }
