@@ -6,8 +6,14 @@
 
 	<display-name>ssmbootstrap-table</display-name>
 	<context-param>
-		<param-name>spring.profiles.active</param-name>
-		<param-value>production</param-value>
+		<description>
+			关于Spring profile:在确定哪个profile处于激活状态时，需要依赖两个独立的属性：spring.profiles.active和spring.profiles.default。如果设置了spring.profiles.active属性的话，
+			那么它的值就会用来确定哪个profile是激活的。但如果没有设置spring.profiles.active属性的话，那Spring将会查找spring.profiles.default的值。如果spring.profiles.active和spring.profiles.default均没有设置的话，
+			那就没有激活的profile，因此只会创建那些没有定义在profile中的bean;当应用程序部署到QA、生产或其他环境之中时，负责部署的人根据情况使用系统属性、环境变量或JNDI设置spring.profiles.active即可。
+			当设置spring.profiles.active以后，至于spring.profiles.default置成什么值就已经无所谓了；系统会优先使用spring.profiles.active中所设置的profile
+		</description>
+		<param-name>spring.profiles.default</param-name>
+		<param-value>develop</param-value>
 	</context-param>
 	<context-param>
 		<param-name>webAppRootKey</param-name>
