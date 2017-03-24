@@ -32,12 +32,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.alibaba.fastjson.JSONArray;
@@ -163,7 +158,8 @@ public class IndexController {
 
 	@RequestMapping("/export")
 	public ResponseEntity<byte[]> export(HttpSession session,
-			HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
+			HttpServletRequest request, HttpServletResponse response,
+			@RequestHeader(value = "USER-AGENT") String userAgent) throws UnsupportedEncodingException {
 		SimpleDateFormat format = new SimpleDateFormat("yyyyMMddHHmmss");
 		List<User> users = userService.getUserList("desc", 10, 0);
 		String projectPath = request.getServletContext().getRealPath("export")
@@ -207,37 +203,20 @@ public class IndexController {
 		POIExcelUtil.export(titles,columns, mps, file);
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
-//		String filename="中文";
-		String filename="";
-		try {
-			filename = URLEncoder.encode(file.replace(projectPath, ""),"UTF-8");
-		} catch (UnsupportedEncodingException e1) {
-			e1.printStackTrace();
+		String filename="中文";
+		if(userAgent.toLowerCase().indexOf("firefox") >= 0){
+			try {
+				filename = new String((filename+file.replace(projectPath, "")).getBytes("UTF-8"),"iso-8859-1");
+			} catch (UnsupportedEncodingException e) {
+				e.printStackTrace();
+			}
+		}else {
+			try {
+				filename = URLEncoder.encode(filename+file.replace(projectPath, ""),"UTF-8");
+			} catch (UnsupportedEncodingException e1) {
+				e1.printStackTrace();
+			}
 		}
-		
-//		try {
-//			filename=MimeUtility.encodeWord(filename);
-//		} catch (UnsupportedEncodingException e1) {
-//			// TODO Auto-generated catch block
-//			e1.printStackTrace();
-//		}
-		
-//		try {
-////			"gbk"
-//			filename=new String(filename.getBytes(),"iso-8859-1");
-//		} catch (UnsupportedEncodingException e1) {
-//			e1.printStackTrace();
-//			throw new RuntimeException(e1.getMessage());
-//		}
-//		中文编码
-//		String userAgentStr = request.getHeader("user-agent");
-//		if(userAgentStr!=null&&userAgentStr.toLowerCase().indexOf("msie")!=-1){//ie浏览器
-//			filename = URLEncoder.encode(filename,"utf-8");
-//		}else if(userAgentStr!=null&&userAgentStr.toLowerCase().indexOf("trident")!=-1){//ie11浏览器
-//			filename = URLEncoder.encode(filename,"utf-8");
-//		}
-//		filename = new String(filename.getBytes(),"ISO8859-1");
-		
 		logger.debug("下载文件名字:{}",filename);
 		headers.setContentDispositionFormData("attachment",filename);
 		try {
