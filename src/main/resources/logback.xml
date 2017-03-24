@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configuration>
+<!--
+	Logback-classic can scan for changes in its configuration file and automatically reconfigure itself when the configuration file changes.
+-->
+<configuration  scan="true" scanPeriod="5 seconds">
 	<property name="logname" value="ssmbootstrap_table" />
 	<property name="logbase" value="${catalina.base}/logs/ssmbootstrap_table/" />
 	<jmxConfigurator />
