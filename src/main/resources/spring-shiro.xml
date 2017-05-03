@@ -80,7 +80,6 @@
 				/css/**=anon
 				/image/**=anon
 				/js/**=anon
-				/admin/**=cfauth,resourceCheckFilter
 				/login=cfauth
 				/test/**=anon
 				/logout = logout

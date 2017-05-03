@@ -39,24 +39,26 @@ public class RbacTemplate {
 
 	@Test
 	public void testAddUser() {
-//		User u = new User();
-//		u.setName("admin");
-//		u.setPassword("admin");
-//		u.setSex("男");
-//		u.setAge(29);
-//		u.setPhone("13823883883");
-//		u.setDeliveryaddress("这是收获地址的测试");
-//		u.setAdddate((int) ((System.currentTimeMillis() / 1000)));
-//		userService.addUser(u);
+		//添加超级管理员
 		User u = new User();
-		u.setName("test");
-		u.setPassword("test");
+		u.setName("admin");
+		u.setPassword("admin");
 		u.setSex("男");
 		u.setAge(29);
 		u.setPhone("13823883883");
 		u.setDeliveryaddress("这是收获地址的测试");
 		u.setAdddate((int) ((System.currentTimeMillis() / 1000)));
 		userService.addUser(u);
+
+//		User u = new User();
+//		u.setName("test");
+//		u.setPassword("test");
+//		u.setSex("男");
+//		u.setAge(29);
+//		u.setPhone("13823883883");
+//		u.setDeliveryaddress("这是收获地址的测试");
+//		u.setAdddate((int) ((System.currentTimeMillis() / 1000)));
+//		userService.addUser(u);
 		logger.debug("添加用户:{}",u);
 	}
 
