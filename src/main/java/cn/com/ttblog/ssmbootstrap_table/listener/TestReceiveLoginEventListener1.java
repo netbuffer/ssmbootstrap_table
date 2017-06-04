@@ -11,7 +11,7 @@ import cn.com.ttblog.ssmbootstrap_table.event.LoginEvent;
 @Component  
 public class TestReceiveLoginEventListener1 implements SmartApplicationListener {  
   
-	private static final Logger log = LoggerFactory.getLogger(TestReceiveLoginEventListener2.class);
+	private static final Logger log = LoggerFactory.getLogger(TestReceiveLoginEventListener1.class);
 
 	@Override
 	public boolean supportsEventType(final Class<? extends ApplicationEvent> eventType) {

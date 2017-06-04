@@ -73,11 +73,12 @@ public class IndexController {
 			Cookie c = new Cookie(ConfigConstant.USERNAME, username);
 			c.setMaxAge(86400);
 			response.addCookie(c);
-			Map<String, String> param=new HashMap<String,String>();
+			Map<String, String> param=new HashMap<>();
 			param.put("loginname", username);
 			param.put("logintime", new DateTime().toString("yyyy-MM-dd HH:mm:ss"));
 			param.put("loginip", request.getRemoteAddr());
-			applicationContext.publishEvent(new LoginEvent(param));  
+			//publishEvent会依次调用所有的监听器，同步调用，所有监听器执行完毕继续向下执行
+			applicationContext.publishEvent(new LoginEvent(this,param));
 			if(requri!=null&&requri.length()>0){
 				String uri=new String(Base64.decodeBase64(requri));
 				String touri=uri.substring(request.getContextPath().length()+1);
