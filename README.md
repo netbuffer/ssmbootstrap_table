@@ -34,17 +34,26 @@ The project constructed by `maven`, please execute under the `src/main/java` `SQ
 
 git->clone;eclipse->File->Import->Existing Maven projects，导入到eclipse后，等maven依赖下载完，右键项目，run as->maven build->tomcat7:run
 
-#![demo](src/main/webapp/image/demo.gif)
+# ![demo](src/main/webapp/image/demo.gif)
 
-#![数据列表页面](src/main/webapp/image/sys2.png)
+# ![数据列表页面](src/main/webapp/image/sys2.png)
 
 metrics | @Timed
 ---|---
 ![metrics-servlet](src/main/webapp/image/metrics.png) | ![metrics-servlet](src/main/webapp/image/@Timed.png)
 
 
-#![springfox](src/main/webapp/image/swagger.png)
+# ![springfox](src/main/webapp/image/swagger.png)
+---
+> 
+>   * develop开发分支
+>	* JdbcTemplate(test spring `jdbctemplate`/test `shiro`)
+>	* springtask(test spring `task`/`quartz`)
+>	* velocity(test `velocity` template)
+>	* swagger (test `swagger` api doc)
 
+# other projects
+> `ssmbt(ssmbootstrap_table maven module )` github:[https://github.com/netbuffer/ssmbt](https://github.com/netbuffer/ssmbt)`/`git@osc:[https://git.oschina.net/netbuffer/ssmbt](https://git.oschina.net/netbuffer/ssmbt)
 
 > `sssbootstrap_table(spring+springmvc+spring data jpa)` github:[https://github.com/netbuffer/sssbootstrap_table](https://github.com/netbuffer/sssbootstrap_table)`/`git@osc:[https://git.oschina.net/netbuffer/sssbootstrap_table](https://git.oschina.net/netbuffer/sssbootstrap_table)    
 
@@ -55,11 +64,3 @@ metrics | @Timed
 > `jfinal-bootstrap-table(jfinal)`github:[https://github.com/netbuffer/jfinal-bootstrap-table](https://github.com/netbuffer/jfinal-bootstrap-table)`/`git@osc:[http://git.oschina.net/gradle/jfinal-bootstrap-table](http://git.oschina.net/gradle/jfinal-bootstrap-table)  
 
 > `medoo_bootstrap_table(php5)`github:[https://github.com/netbuffer/medoo_bootstrap_table](https://github.com/netbuffer/medoo_bootstrap_table)`/`git@osc:[http://git.oschina.net/gradle/medoo_bootstrap_table](http://git.oschina.net/gradle/medoo_bootstrap_table)
-
----
-> 
->   * develop开发分支
->	* JdbcTemplate(test spring `jdbctemplate`/test `shiro`)
->	* springtask(test spring `task`/`quartz`)
->	* velocity(test `velocity` template)
->	* swagger (test `swagger` api doc)
