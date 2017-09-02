@@ -34,34 +34,29 @@
 </style>
 <script type="text/javascript">
 	$(function(){
-// 		http://blueimp.github.io/jQuery-File-Upload/
 		$('#fileupload').fileupload({
-		    url: "${pageContext.request.contextPath }/fileupload/multiupload",
+		    url: "${pageContext.request.contextPath }/fileupload/ajaxupload",
 		    dataType: 'json',
 		    add: function (e, data) {
 // 	            data.context = $('<p/>').text('上传中...').appendTo(document.body);
 // 	            data.submit();
-	            data.context = $('<button/>').text('start')
-                .appendTo(document.body)
+	            data.context = $('<button class="btn btn-success btn-sm"/>').text('上传')
+                .appendTo("#files")
                 .click(function () {
-                    $(this).replaceWith($('<p/>').text('Uploading...'));
+                    $(this).replaceWith($('<p id="fileupload_uploading_info" class="text-info"/>').text('上传中...'));
                     data.submit();
                 });
 	        },
 		    done: function (e, data) {
-		    	console.log(data);
-		    	data.context.text('上传完成.');
-		        $.each(data.result, function (index, file) {
-		        	console.log("file:%s",JSON.stringify(file));
-		            $('#fileupload').next().attr("src",file.url);
-		        });
+		        $("#fileupload_uploading_info").remove();
+		    	console.log("上传完成<br/>e:%o,data:%o",e,data);
+                var file=data.result;
+		    	console.log("data.result:%s",file);
+				$('#fileupload').next().attr("src",file.url);
 		    },
 		    progressall: function (e, data) {
 		        var progress = parseInt(data.loaded / data.total * 100, 10);
-		        $('#progress .bar').css(
-		            'width',
-		            progress + '%'
-		        );
+		        $('#progress').css('width', progress+'%').text(progress+'%'+" Complete");
 		    }
 		});
 		
@@ -78,12 +73,8 @@
             $("#weixin_cancle").css({display:""});  
         });  
 		
-		$("#uploads").fileupload({  
-            url: '${pageContext.request.contextPath }/fileupload/multiupload'
-		});
-		
-		$('#uploads').fileupload('option', {
-            url: '${pageContext.request.contextPath }/fileupload/multiupload',
+		$('#uploads').fileupload({
+            url: '${pageContext.request.contextPath }/fileupload/ajaxupload',
             // Enable image resizing, except for Android and Opera,
             // which actually support image resizing, but fail to
             // send Blob objects via XHR requests:
@@ -91,15 +82,47 @@
                 .test(window.navigator.userAgent),
             maxFileSize: 999000,
             acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i
+		});
+
+		$('#multi_uploads').fileupload({
+            url: '${pageContext.request.contextPath }/fileupload/multiupload',
+            singleFileUploads:false,
+            // Enable image resizing, except for Android and Opera,
+            // which actually support image resizing, but fail to
+            // send Blob objects via XHR requests:
+            disableImageResize: /Android(?!.*Chrome)|Opera/
+                .test(window.navigator.userAgent),
+            maxFileSize: 999000,
+            acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
+            add: function (e, data) {
+                data.context = $('<button class="btn btn-success btn-sm"/>').text('上传')
+                    .appendTo("#multi_files")
+                    .click(function () {
+                        $(this).replaceWith($('<p id="multi_fileupload_uploading_info" class="text-info"/>').text('上传中...'));
+                        data.submit();
+                    });
+            },
+            done: function (e, data) {
+                $("#multi_fileupload_uploading_info").remove();
+                console.log("上传完成<br/>e:%o,data:%o",e,data);
+                var file=data.result;
+                console.log("data.result:%s",file);
+                for(var f in file){
+                    $("<img />").attr("src",file[f].url).appendTo("#multi_files");
+                }
+            },
+            progressall: function (e, data) {
+                var progress = parseInt(data.loaded / data.total * 100, 10);
+                $('#multi_progress').css('width', progress+'%').text(progress+'%'+" Complete");
+            }
         });
-		
 	});
 </script>
 </head>
 <body>
 	<div class="container">
 		<div class="page-header">
-		  <h1>多文件上传 <small>Subtext for header</small></h1>
+		  <h1>多文件上传 <a href="https://blueimp.github.io/jQuery-File-Upload" target="_blank"><small>https://blueimp.github.io/jQuery-File-Upload</small></a></h1>
 		</div>
 		<!-- <div class="row fileupload-buttonbar" style="padding-left: 15px;">
 			<div class="thumbnail col-sm-6">
@@ -120,7 +143,7 @@
 			</div>
 		</div> -->
 		
-        <form id="uploads" action="${pageContext.request.contextPath }/fileupload/multiupload" method="POST" enctype="multipart/form-data">
+        <form id="uploads"  enctype="multipart/form-data">
 	        <!-- Redirect browsers with JavaScript disabled to the origin page -->
 	        <noscript><input type="hidden" name="redirect" value="https://blueimp.github.io/jQuery-File-Upload/"></noscript>
 	        <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
@@ -172,86 +195,96 @@
 		    <ol class="indicator"></ol>
 		</div>
 		<!-- The template to display files available for upload -->
-<script id="template-upload" type="text/x-tmpl">
-{% for (var i=0, file; file=o.files[i]; i++) { %}
-    <tr class="template-upload fade">
-        <td>
-            <span class="preview"></span>
-        </td>
-        <td>
-            <p class="name">{%=file.name%}</p>
-            <strong class="error text-danger"></strong>
-        </td>
-        <td>
-            <p class="size">Processing...</p>
-            <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="progress-bar progress-bar-success" style="width:0%;"></div></div>
-        </td>
-        <td>
-            {% if (!i && !o.options.autoUpload) { %}
-                <button class="btn btn-primary start" disabled>
-                    <i class="glyphicon glyphicon-upload"></i>
-                    <span>Start</span>
-                </button>
-            {% } %}
-            {% if (!i) { %}
-                <button class="btn btn-warning cancel">
-                    <i class="glyphicon glyphicon-ban-circle"></i>
-                    <span>Cancel</span>
-                </button>
-            {% } %}
-        </td>
-    </tr>
-{% } %}
-</script>
-<!-- The template to display files available for download -->
-<script id="template-download" type="text/x-tmpl">
-{% for (var i=0, file; file=o.files[i]; i++) { %}
-    <tr class="template-download fade">
-        <td>
-            <span class="preview">
-                {% if (file.thumbnailUrl) { %}
-                    <a href="{%=file.url%}" title="{%=file.name%}" download="{%=file.name%}" data-gallery><img src="{%=file.thumbnailUrl%}"></a>
-                {% } %}
-            </span>
-        </td>
-        <td>
-            <p class="name">
-                {% if (file.url) { %}
-                    <a href="{%=file.url%}" title="{%=file.name%}" download="{%=file.name%}" {%=file.thumbnailUrl?'data-gallery':''%}>{%=file.name%}</a>
-                {% } else { %}
-                    <span>{%=file.name%}</span>
-                {% } %}
-            </p>
-            {% if (file.error) { %}
-                <div><span class="label label-danger">Error</span> {%=file.error%}</div>
-            {% } %}
-        </td>
-        <td>
-            <span class="size">{%=o.formatFileSize(file.size)%}</span>
-        </td>
-        <td>
-            {% if (file.deleteUrl) { %}
-                <button class="btn btn-danger delete" data-type="{%=file.deleteType%}" data-url="{%=file.deleteUrl%}"{% if (file.deleteWithCredentials) { %} data-xhr-fields='{"withCredentials":true}'{% } %}>
-                    <i class="glyphicon glyphicon-trash"></i>
-                    <span>Delete</span>
-                </button>
-                <input type="checkbox" name="delete" value="1" class="toggle">
-            {% } else { %}
-                <button class="btn btn-warning cancel">
-                    <i class="glyphicon glyphicon-ban-circle"></i>
-                    <span>Cancel</span>
-                </button>
-            {% } %}
-        </td>
-    </tr>
-{% } %}
-</script>
-
+		<script id="template-upload" type="text/x-tmpl">
+		{% for (var i=0, file; file=o.files[i]; i++) { %}
+			<tr class="template-upload fade">
+				<td>
+					<span class="preview"></span>
+				</td>
+				<td>
+					<p class="name">{%=file.name%}</p>
+					<strong class="error text-danger"></strong>
+				</td>
+				<td>
+					<p class="size">Processing...</p>
+					<div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="progress-bar progress-bar-success" style="width:0%;"></div></div>
+				</td>
+				<td>
+					{% if (!i && !o.options.autoUpload) { %}
+						<button class="btn btn-primary start" disabled>
+							<i class="glyphicon glyphicon-upload"></i>
+							<span>Start</span>
+						</button>
+					{% } %}
+					{% if (!i) { %}
+						<button class="btn btn-warning cancel">
+							<i class="glyphicon glyphicon-ban-circle"></i>
+							<span>Cancel</span>
+						</button>
+					{% } %}
+				</td>
+			</tr>
+		{% } %}
+		</script>
+		<!-- The template to display files available for download -->
+		<script id="template-download" type="text/x-tmpl">
+		{% for (var i=0, file; file=o.files[i]; i++) { %}
+			<tr class="template-download fade">
+				<td>
+					<span class="preview">
+						{% if (file.thumbnailUrl) { %}
+							<a href="{%=file.url%}" title="{%=file.name%}" download="{%=file.name%}" data-gallery><img src="{%=file.thumbnailUrl%}"></a>
+						{% } %}
+					</span>
+				</td>
+				<td>
+					<p class="name">
+						{% if (file.url) { %}
+							<a href="{%=file.url%}" title="{%=file.name%}" download="{%=file.name%}" {%=file.thumbnailUrl?'data-gallery':''%}>{%=file.name%}</a>
+						{% } else { %}
+							<span>{%=file.name%}</span>
+						{% } %}
+					</p>
+					{% if (file.error) { %}
+						<div><span class="label label-danger">Error</span> {%=file.error%}</div>
+					{% } %}
+				</td>
+				<td>
+					<span class="size">{%=o.formatFileSize(file.size)%}</span>
+				</td>
+				<td>
+					{% if (file.deleteUrl) { %}
+						<button class="btn btn-danger delete" data-type="{%=file.deleteType%}" data-url="{%=file.deleteUrl%}"{% if (file.deleteWithCredentials) { %} data-xhr-fields='{"withCredentials":true}'{% } %}>
+							<i class="glyphicon glyphicon-trash"></i>
+							<span>Delete</span>
+						</button>
+						<input type="checkbox" name="delete" value="1" class="toggle">
+					{% } else { %}
+						<button class="btn btn-warning cancel">
+							<i class="glyphicon glyphicon-ban-circle"></i>
+							<span>Cancel</span>
+						</button>
+					{% } %}
+				</td>
+			</tr>
+		{% } %}
+		</script>
+		<hr/>
+		<h2>单文件上传</h2>
 		<div id="files">
-		    <input id="fileupload" type="file" name="file[]" multiple>
+		    <input id="fileupload" class="form-control" type="file" name="file" />
 		    <img src=""/>
 		</div>
-		<div id="progress"><div class="bar" style="width: 0%;"></div></div>
+		<div class="progress">
+			<div id="progress" class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div>
+		</div>
+		<h2>多文件上传</h2>
+		<div id="multi_files">
+			<input id="multi_uploads" class="form-control" type="file" name="multifile" multiple />
+		</div>
+		<div class="progress">
+			<div id="multi_progress" class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div>
+		</div>
 	</div>
 </body>
 </html>
