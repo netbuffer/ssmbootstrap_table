@@ -22,6 +22,7 @@
 * jwebunit
 * mockito
 * itextpdf
+* [cxf](http://cxf.apache.org/docs/index.html)
 
 > ## github:[https://github.com/netbuffer/ssmbootstrap_table](https://github.com/netbuffer/ssmbootstrap_table)
 > ## git@osc:[https://git.oschina.net/gradle/ssmbootstrap_table](https://git.oschina.net/gradle/ssmbootstrap_table)

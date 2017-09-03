@@ -36,9 +36,9 @@
 	</bean>
 
 	<!-- 多视图配置,内容协商视图解析 -->
-	<bean
-		class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
+	<bean id="contentNegotiationManager" class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
 		<property name="favorParameter" value="true" />
+		<property name="parameterName" value="format" />
 		<property name="favorPathExtension" value="true" />
 		<property name="ignoreAcceptHeader" value="false" />
 		<property name="defaultContentType" value="text/html" />
@@ -50,8 +50,11 @@
 				<entry key="pdf" value="application/pdf" />
 			</map>
 		</property>
-
-		<property name="defaultViews">
+	</bean>
+	<bean
+		class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
+		<property name="contentNegotiationManager" ref="contentNegotiationManager"/>
+ 		<property name="defaultViews">
 			<list>
 				<!-- <bean class="org.springframework.web.servlet.view.json.MappingJackson2JsonView"></bean> -->
 				<!-- 使用fastjson视图输出json数据 -->

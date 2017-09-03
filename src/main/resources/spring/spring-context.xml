@@ -16,7 +16,7 @@
 		spring主配置文件
 	</description>
 
-	<context:component-scan base-package="cn.com.ttblog.ssmbootstrap_table">
+	<context:component-scan base-package="cn.com.ttblog.ssmbootstrap_table,org.exampledriven.cxfexample.**">
         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
    		<context:exclude-filter type="annotation" expression="org.springframework.web.bind.annotation.RestController"/>
         <context:exclude-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice" />
@@ -54,7 +54,7 @@
 	<!-- 加载资源文件 -->
 	<import resource="spring-mybatis.xml" />
 	<!--<import resource="spring-jmx.xml" />-->
-	<import resource="classpath*:cxf/cxf.xml" />
+	<import resource="classpath*:cxf/cxf-servlet.xml" />
 	<import resource="spring-ehcache.xml"/>
 	<import resource="spring-websocket.xml"/>
 	

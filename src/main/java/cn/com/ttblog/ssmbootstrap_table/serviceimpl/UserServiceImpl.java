@@ -142,4 +142,13 @@ public class UserServiceImpl implements IUserService {
 		logger.warn("异步方法结束执行");
 	}
 
+	@Override
+	public User updateUser(User user) {
+		int update=userDao.updateByPrimaryKeySelective(user);
+		if(update>0){
+			return userDao.selectByPrimaryKey(user.getId());
+		}
+		return user;
+	}
+
 }

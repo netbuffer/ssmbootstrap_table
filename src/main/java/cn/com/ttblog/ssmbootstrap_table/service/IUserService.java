@@ -19,4 +19,5 @@ public interface IUserService {
 	public void addUMtest() throws IllegalArgumentException;
 	public void deleteById(Long id);
     void execute();
+    User updateUser(User user);
 }
