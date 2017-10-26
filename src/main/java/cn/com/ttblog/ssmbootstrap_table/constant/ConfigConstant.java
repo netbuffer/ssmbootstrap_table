@@ -1,4 +1,4 @@
-package cn.com.ttblog.ssmbootstrap_table.Constant;
+package cn.com.ttblog.ssmbootstrap_table.constant;
 
 public class ConfigConstant {
 	/**
