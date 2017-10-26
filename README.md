@@ -47,6 +47,7 @@ metrics | @Timed
 ---
 > 
 >   * develop开发分支
+>   * cxf test `apache cxf`
 >	* JdbcTemplate(test spring `jdbctemplate`/test `shiro`)
 >	* springtask(test spring `task`/`quartz`)
 >	* velocity(test `velocity` template)
