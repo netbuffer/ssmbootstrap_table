@@ -54,7 +54,7 @@ public class LoginFilter implements Filter {
 			noFilterTags[i]=noFilterTags[i].trim();
 		}
 		String uri = httpServletRequest.getRequestURI();
-		LOG.debug("放行路径:{}-{},访问路径:{}",Arrays.toString(noFilterTags),noFilterTags.length,uri);
+		LOG.debug("访问路径:{},放行路径:{}-{}",uri,noFilterTags.length,Arrays.toString(noFilterTags));
 		if(AntPathMatcherUtil.isMatch(noFilterTags,uri)){
 			filterChain.doFilter(httpServletRequest, httpServletResponse);
 			LOG.debug("非拦截uri");
