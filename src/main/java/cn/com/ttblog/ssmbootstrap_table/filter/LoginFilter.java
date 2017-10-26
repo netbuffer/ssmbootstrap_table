@@ -16,7 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.github.jscookie.javacookie.Cookies;
-import cn.com.ttblog.ssmbootstrap_table.Constant.ConfigConstant;
+import cn.com.ttblog.ssmbootstrap_table.constant.ConfigConstant;
 import cn.com.ttblog.ssmbootstrap_table.service.IUserService;
 import cn.com.ttblog.ssmbootstrap_table.util.AntPathMatcherUtil;
 
