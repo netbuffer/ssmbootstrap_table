@@ -36,6 +36,7 @@
 		<mockito.version>1.10.19</mockito.version>
 		<itextpdf.version>5.5.9</itextpdf.version>
 		<jsoup.version>1.9.2</jsoup.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
 	<dependencies>
