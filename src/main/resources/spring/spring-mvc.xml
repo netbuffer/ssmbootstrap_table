@@ -122,6 +122,9 @@
 			<mvc:callable-interceptors>
 				<bean class="cn.com.ttblog.ssmbootstrap_table.interceptor.AsyncInterceptor"></bean>
 			</mvc:callable-interceptors>
+			<mvc:deferred-result-interceptors>
+				<bean class="cn.com.ttblog.ssmbootstrap_table.interceptor.DefferedAsyncInterceptor"></bean>
+			</mvc:deferred-result-interceptors>
 		</mvc:async-support>
 	</mvc:annotation-driven>
 	
