@@ -20,6 +20,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -85,7 +86,9 @@ public class IndexController {
 				logger.debug("request.getContextPath():{}  decode-requri:{}  touri:{}",request.getContextPath(),uri,touri);
 //				/ssmbootstrap_table
 //				/ssmbootstrap_table/test/form?null
-				return "redirect:/"+touri;
+				if(StringUtils.isNotBlank(touri)&&!touri.equals("/")){
+					return "redirect:/"+touri;
+				}
 			}
 			return "redirect:/manage.html";
 		} else {
