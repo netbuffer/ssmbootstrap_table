@@ -5,289 +5,8 @@
 <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
 <title>信息管理页</title>
 <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
-<link
-	href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css"
-	rel="stylesheet">
-<link
-	href="//cdn.bootcss.com/bootstrap-table/1.10.0/bootstrap-table.min.css"
-	rel="stylesheet">
-<script src="http://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
-<script src="http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-<script
-	src="//cdn.bootcss.com/bootstrap-table/1.10.0/bootstrap-table.min.js"></script>
-<script
-	src="//cdn.bootcss.com/bootstrap-table/1.10.0/extensions/export/bootstrap-table-export.min.js"></script>
-<script
-	src="//cdn.bootcss.com/bootstrap-table/1.10.0/locale/bootstrap-table-zh-CN.min.js"></script>
-<script
-	src="//rawgit.com/hhurz/tableExport.jquery.plugin/master/tableExport.js"></script>
-<script src="//cdn.bootcss.com/echarts/3.0.0/echarts.min.js"></script>
-<!-- http://bootboxjs.com/ -->
-<script src="//cdn.bootcss.com/bootbox.js/4.4.0/bootbox.min.js"></script>
-<script src="js/moment.min.js"></script>
-<script src="js/moment.zh-cn.js"></script>
-<script type="text/javascript">
-	$(function() {
-		$.get("test/indexurl",function(data){
-			//position:fixed;bottom:0;left: 0; z-index:99999 ;
-			$('#qr').popover({
-				title:"扫一扫",
-				content:"<img src='test/qr?width=200&height=200&param="+data+"&r=51&g=0&b=51' style='width:100px;height:100px;' alt='扫一扫访问'>",
-				html:true,
-				placement:"bottom",
-				trigger:"hover"
-			});
-		});
-		$.getJSON('newdata.json', function(data) {
-			$("#xinzeng").text(data.newcount);
-			$("#xinzeng").tooltip({
-				"title" : "今日新增数据，点击查看",
-				"placement" : "bottom"
-			});
-			$("#xinzeng").mouseover();
-			$(".login_username").text(data.username);
-			$.getJSON('datacount', function(data) {
-				var myChart = echarts.init(document
-						.getElementById('echarts_test'));
-				var option = {
-					title : {
-						text : '用户注册统计',
-						subtext : "时间分组统计",
-						subtextStyle : {
-							fontSize : 15,
-							fontWeight : 'bold',
-							color : 'black'
-						}
-					},
-					tooltip : {
-						show : true
-					},
-					legend : {
-						data : [ '注册数' ]
-					},
-					color : '#61a0a8',
-					axisType : 'category',
-					xAxis : {
-						position : "top",
-						axisLabel : {
-							formatter : function(value) {
-								return value + "个";
-							}
-						}
-					},
-					yAxis : [ {
-						data : data.c
-					} ],
-					series : [ {
-						"name" : "注册数",
-						"type" : "bar",
-						"data" : data.d,
-						itemStyle : {
-							normal : {
-								color : 'orange'
-							}
-						},
-						label : {
-							normal : {
-								show : true,
-								position : 'right',
-								formatter : function(obj) {
-									if (obj.value > 0) {
-										return obj.value + "个";
-									} else {
-										return "暂无数据";
-									}
-								}
-							}
-						}
-					} ]
-				};
-				// 为echarts对象加载数据 
-				myChart.setOption(option);
-				
-				
-				var myChart2 = echarts.init(document
-						.getElementById('echarts_test2'));
-				var option2 = {
-					title : {
-						text : '用户注册统计',
-						subtext : "时间分组统计",
-						subtextStyle : {
-							fontSize : 15,
-							fontWeight : 'bold',
-							color : 'black'
-						}
-					},
-					tooltip : {
-						show : true
-					},
-					legend : {
-						data : [ '注册数' ]
-					},
-					color : '#61a0a8',
-					axisType : 'category',
-					xAxis : {
-						position : "top",
-						data : data.c,
-						axisLabel : {
-							formatter : function(value) {
-								return value + "时间段";
-							}
-						}
-					},
-					yAxis : [ {
-						type:"value"
-					} ],
-					series : [ {
-						"name" : "注册数",
-						"type" : "bar",
-						"data" : data.d,
-						itemStyle : {
-							normal : {
-								color : 'orange'
-							}
-						},
-						label : {
-							normal : {
-								show : true,
-								position : 'top',
-								formatter : function(obj) {
-									if (obj.value > 0) {
-										return obj.value + "个";
-									} else {
-										return "暂无数据";
-									}
-								}
-							}
-						}
-					} ]
-				};
-				// 为echarts对象加载数据 
-				myChart2.setOption(option2);
-			});
-
-		});
-	});
-
-	function operateFormatter(value, row, index) {
-		return [
-				'<a class="edit ml10" style="color:black;" href="javascript:void(0)" title="编辑">',
-				'<span class="glyphicon glyphicon-edit"></span>',
-				'</a>&emsp;',
-				'<a class="remove ml10" style="color:black;" href="javascript:void(0)" title="删除">',
-				'<i class="glyphicon glyphicon-remove"></i>', '</a>' ].join('');
-	}
-
-	function hideIdFormatter(value, row, index) {
-		return "<input type='hidden' value="+value+" name='id' />";
-	}
-
-	window.operateEvents = {
-		'click .like' : function(e, value, row, index) {
-			alert('You click like icon, row: ' + JSON.stringify(row));
-			console.log(value, row, index);
-		},
-		'click .edit' : function(e, value, row, index) {
-			console.log($("[data-index=" + index + "]").find('td').eq(8).html());
-			//alert($("[data-index="+index+"]").find('td').eq(3).text());
-			$("#waitph").val(
-					$("[data-index=" + index + "]").find('td').eq(3).text());
-			$("#edituc").modal("show");
-			//alert('You click edit icon, row: ' + JSON.stringify(row));
-			//console.log(value, row, index);
-		},
-		'click .remove' : function(e, value, row, index) {
-			//alert('You click remove icon, row: ' + JSON.stringify(row));
-			var delid = $("[data-index=" + index + "]").find('td').eq(0)
-					.children().first().val();
-			bootbox.confirm("确定删除该条记录吗？", function(result) {
-				if(result){
-				  $.getJSON('user/delete', {
-						"id" : delid
-					}, function(data) {
-						$("#dtb").bootstrapTable('refresh');
-					});
-				}else{
-					bootbox.alert("操作取消");
-				}
-			}); 
-// 			if (confirm("确定删除该条记录吗？" + delid)) {
-// 				$.getJSON('user/delete', {
-// 					"id" : delid
-// 				}, function(data) {
-// 					$("#dtb").bootstrapTable('refresh');
-// 				});
-// 			}
-			console.log(value, row, index);
-		}
-	};
-
-	function refreshTable() {
-		$("table").bootstrapTable('refresh', {
-			url : $("table").attr('data-url')
-		});
-	}
-
-	function makeparmter(params) {
-		params.queryby = $("#queryby").val();
-		var ret = '';
-		for ( var i in params) {
-			ret += i + ':' + params[i];
-		}
-		//alert(ret);
-		return params;
-	}
-
-	function saveUcode() {
-		//alert($("#waiteduc").val());
-		//alert($("#waitph").val());
-		$.post('user/edit', {
-			"phone" : $("#waitph").val(),
-			"uc" : $("#waiteduc").val()
-		}, function() {
-			//alert('保存成功!');
-			$("#edituc").modal('hide');
-			$("#waiteduc").val('');
-			$("#waitph").val('');
-			refreshTable();
-		});
-	}
-
-	function checkToday() {
-		$("#queryby").val('0');
-		refreshTable();
-	}
-
-	function checkAll() {
-		$("#queryby").val('1');
-		refreshTable();
-	}
-
-	function sys_Exit() {
-		bootbox.confirm("确定退出系统吗？", function(result) {
-			if(result){
-				window.location.href = "exit";
-			}
-		}); 
-// 		if (confirm("确定退出系统吗")) {
-// 			window.location.href = "exit";
-// 		}
-	}
-	function exporyToday() {
-		if (confirm("确定导出当天记录吗？")) {
-			window.location.href = "user/export";
-		}
-	}
-	function exporyAll() {
-		if (confirm("确定导出所有记录吗？")) {
-			window.location.href = "export";
-		}
-	}
-	
-	function dateFormatter(value, row, index) {
-		return moment.unix(value).format("YYYY-MM-DD hh:mm:ss a");
-	}
-</script>
+<link href="//cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
+<link href="//cdn.bootcss.com/bootstrap-table/1.10.0/bootstrap-table.min.css" rel="stylesheet">
 </head>
 <body>
 	<nav class="navbar navbar-inverse navbar-fixed-top">
@@ -450,6 +169,279 @@
 		</div>
 
 	</div>
+	<script src="//cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+	<script src="//cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+	<script src="//cdn.bootcss.com/bootstrap-table/1.10.0/bootstrap-table.min.js"></script>
+	<script src="//cdn.bootcss.com/bootstrap-table/1.10.0/extensions/export/bootstrap-table-export.min.js"></script>
+	<script src="//cdn.bootcss.com/bootstrap-table/1.10.0/locale/bootstrap-table-zh-CN.min.js"></script>
+	<script src="js/tableExport.js"></script>
+	<script src="//cdn.bootcss.com/echarts/3.0.0/echarts.min.js"></script>
+	<!-- http://bootboxjs.com/ -->
+	<script src="//cdn.bootcss.com/bootbox.js/4.4.0/bootbox.min.js"></script>
+	<script src="js/moment.min.js"></script>
+	<script src="js/moment.zh-cn.js"></script>
+	<script type="text/javascript">
+        $(function() {
+            $.get("test/indexurl",function(data){
+                //position:fixed;bottom:0;left: 0; z-index:99999 ;
+                $('#qr').popover({
+                    title:"扫一扫",
+                    content:"<img src='test/qr?width=200&height=200&param="+data+"&r=51&g=0&b=51' style='width:100px;height:100px;' alt='扫一扫访问'>",
+                    html:true,
+                    placement:"bottom",
+                    trigger:"hover"
+                });
+            });
+            $.getJSON('newdata.json', function(data) {
+                $("#xinzeng").text(data.newcount);
+                $("#xinzeng").tooltip({
+                    "title" : "今日新增数据，点击查看",
+                    "placement" : "bottom"
+                });
+                $("#xinzeng").mouseover();
+                $(".login_username").text(data.username);
+                $.getJSON('datacount', function(data) {
+                    var myChart = echarts.init(document
+                        .getElementById('echarts_test'));
+                    var option = {
+                        title : {
+                            text : '用户注册统计',
+                            subtext : "时间分组统计",
+                            subtextStyle : {
+                                fontSize : 15,
+                                fontWeight : 'bold',
+                                color : 'black'
+                            }
+                        },
+                        tooltip : {
+                            show : true
+                        },
+                        legend : {
+                            data : [ '注册数' ]
+                        },
+                        color : '#61a0a8',
+                        axisType : 'category',
+                        xAxis : {
+                            position : "top",
+                            axisLabel : {
+                                formatter : function(value) {
+                                    return value + "个";
+                                }
+                            }
+                        },
+                        yAxis : [ {
+                            data : data.c
+                        } ],
+                        series : [ {
+                            "name" : "注册数",
+                            "type" : "bar",
+                            "data" : data.d,
+                            itemStyle : {
+                                normal : {
+                                    color : 'orange'
+                                }
+                            },
+                            label : {
+                                normal : {
+                                    show : true,
+                                    position : 'right',
+                                    formatter : function(obj) {
+                                        if (obj.value > 0) {
+                                            return obj.value + "个";
+                                        } else {
+                                            return "暂无数据";
+                                        }
+                                    }
+                                }
+                            }
+                        } ]
+                    };
+                    // 为echarts对象加载数据
+                    myChart.setOption(option);
+
+
+                    var myChart2 = echarts.init(document
+                        .getElementById('echarts_test2'));
+                    var option2 = {
+                        title : {
+                            text : '用户注册统计',
+                            subtext : "时间分组统计",
+                            subtextStyle : {
+                                fontSize : 15,
+                                fontWeight : 'bold',
+                                color : 'black'
+                            }
+                        },
+                        tooltip : {
+                            show : true
+                        },
+                        legend : {
+                            data : [ '注册数' ]
+                        },
+                        color : '#61a0a8',
+                        axisType : 'category',
+                        xAxis : {
+                            position : "top",
+                            data : data.c,
+                            axisLabel : {
+                                formatter : function(value) {
+                                    return value + "时间段";
+                                }
+                            }
+                        },
+                        yAxis : [ {
+                            type:"value"
+                        } ],
+                        series : [ {
+                            "name" : "注册数",
+                            "type" : "bar",
+                            "data" : data.d,
+                            itemStyle : {
+                                normal : {
+                                    color : 'orange'
+                                }
+                            },
+                            label : {
+                                normal : {
+                                    show : true,
+                                    position : 'top',
+                                    formatter : function(obj) {
+                                        if (obj.value > 0) {
+                                            return obj.value + "个";
+                                        } else {
+                                            return "暂无数据";
+                                        }
+                                    }
+                                }
+                            }
+                        } ]
+                    };
+                    // 为echarts对象加载数据
+                    myChart2.setOption(option2);
+                });
+
+            });
+        });
+
+        function operateFormatter(value, row, index) {
+            return [
+                '<a class="edit ml10" style="color:black;" href="javascript:void(0)" title="编辑">',
+                '<span class="glyphicon glyphicon-edit"></span>',
+                '</a>&emsp;',
+                '<a class="remove ml10" style="color:black;" href="javascript:void(0)" title="删除">',
+                '<i class="glyphicon glyphicon-remove"></i>', '</a>' ].join('');
+        }
+
+        function hideIdFormatter(value, row, index) {
+            return "<input type='hidden' value="+value+" name='id' />";
+        }
+
+        window.operateEvents = {
+            'click .like' : function(e, value, row, index) {
+                alert('You click like icon, row: ' + JSON.stringify(row));
+                console.log(value, row, index);
+            },
+            'click .edit' : function(e, value, row, index) {
+                console.log($("[data-index=" + index + "]").find('td').eq(8).html());
+                //alert($("[data-index="+index+"]").find('td').eq(3).text());
+                $("#waitph").val(
+                    $("[data-index=" + index + "]").find('td').eq(3).text());
+                $("#edituc").modal("show");
+                //alert('You click edit icon, row: ' + JSON.stringify(row));
+                //console.log(value, row, index);
+            },
+            'click .remove' : function(e, value, row, index) {
+                //alert('You click remove icon, row: ' + JSON.stringify(row));
+                var delid = $("[data-index=" + index + "]").find('td').eq(0)
+                    .children().first().val();
+                bootbox.confirm("确定删除该条记录吗？", function(result) {
+                    if(result){
+                        $.getJSON('user/delete', {
+                            "id" : delid
+                        }, function(data) {
+                            $("#dtb").bootstrapTable('refresh');
+                        });
+                    }else{
+                        bootbox.alert("操作取消");
+                    }
+                });
+// 			if (confirm("确定删除该条记录吗？" + delid)) {
+// 				$.getJSON('user/delete', {
+// 					"id" : delid
+// 				}, function(data) {
+// 					$("#dtb").bootstrapTable('refresh');
+// 				});
+// 			}
+                console.log(value, row, index);
+            }
+        };
+
+        function refreshTable() {
+            $("table").bootstrapTable('refresh', {
+                url : $("table").attr('data-url')
+            });
+        }
+
+        function makeparmter(params) {
+            params.queryby = $("#queryby").val();
+            var ret = '';
+            for ( var i in params) {
+                ret += i + ':' + params[i];
+            }
+            //alert(ret);
+            return params;
+        }
+
+        function saveUcode() {
+            //alert($("#waiteduc").val());
+            //alert($("#waitph").val());
+            $.post('user/edit', {
+                "phone" : $("#waitph").val(),
+                "uc" : $("#waiteduc").val()
+            }, function() {
+                //alert('保存成功!');
+                $("#edituc").modal('hide');
+                $("#waiteduc").val('');
+                $("#waitph").val('');
+                refreshTable();
+            });
+        }
+
+        function checkToday() {
+            $("#queryby").val('0');
+            refreshTable();
+        }
+
+        function checkAll() {
+            $("#queryby").val('1');
+            refreshTable();
+        }
+
+        function sys_Exit() {
+            bootbox.confirm("确定退出系统吗？", function(result) {
+                if(result){
+                    window.location.href = "exit";
+                }
+            });
+// 		if (confirm("确定退出系统吗")) {
+// 			window.location.href = "exit";
+// 		}
+        }
+        function exporyToday() {
+            if (confirm("确定导出当天记录吗？")) {
+                window.location.href = "user/export";
+            }
+        }
+        function exporyAll() {
+            if (confirm("确定导出所有记录吗？")) {
+                window.location.href = "export";
+            }
+        }
+
+        function dateFormatter(value, row, index) {
+            return moment.unix(value).format("YYYY-MM-DD hh:mm:ss a");
+        }
+	</script>
 </body>
 <!-- <script src="//cdn.bootcss.com/echarts/3.0.0/echarts.min.js"></script> -->
 
