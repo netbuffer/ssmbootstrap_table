@@ -3,7 +3,7 @@
 <%@ taglib prefix="l2d" uri="/WEB-INF/LongToDateTag.tld"%>
 <%@ taglib prefix='fmt' uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<%@ taglib prefix="tags" tagdir="/WEB-INF/" %>
+<%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,6 +21,7 @@
 	<span style="color:green;">user</span>:${user}<br />
 	<span style="color:red;">u</span>:${u}
 	<hr/>
-	<tag:hello name="world" />
+	<tags:hello name="world"></tags:hello>
+	<tags:func name="func"></tags:func>
 </body>
 </html>
