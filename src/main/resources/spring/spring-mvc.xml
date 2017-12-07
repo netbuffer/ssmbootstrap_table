@@ -13,7 +13,7 @@
                             http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
 	<!-- 自动扫描该包，使SpringMVC认为包下用了@controller注解的类是控制器 -->
 	<!-- 多包扫描测试 -->
-	<context:component-scan base-package="cn.com.ttblog.ssmbootstrap_table.controller,com.other.**,org.exampledriven.cxfexample.**" use-default-filters="false">
+	<context:component-scan base-package="cn.com.ttblog.ssmbootstrap_table.controller,com.other.**" use-default-filters="false">
         <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller" />
 		<context:include-filter type="annotation" expression="org.springframework.web.bind.annotation.RestController" />
         <context:include-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice" />
@@ -29,6 +29,19 @@
 		<property name="charset" value="UTF-8" />
 		<!-- Default dateFormat -->
 		<property name="dateFormat" value="yyyy-MM-dd HH:mm:ss" />
+		<!--fastjson空值处理:https://github.com/alibaba/fastjson/wiki/WriteNull_cn-->
+		<property name="serializerFeatures">
+			<list>
+				<value>BrowserCompatible</value>
+				<value>WriteMapNullValue</value>
+				<value>WriteNullListAsEmpty</value>
+				<value>WriteNullStringAsEmpty</value>
+				<value>WriteNullNumberAsZero</value>
+				<value>WriteNullBooleanAsFalse</value>
+				<value>WriteNonStringKeyAsString</value>
+				<value>WriteNonStringValueAsString</value>
+			</list>
+		</property>
 	</bean>
 	<!-- fastjsonView -->
 	<bean id="fastJsonJsonView" class="com.alibaba.fastjson.support.spring.FastJsonJsonView">
@@ -109,6 +122,9 @@
 			<mvc:callable-interceptors>
 				<bean class="cn.com.ttblog.ssmbootstrap_table.interceptor.AsyncInterceptor"></bean>
 			</mvc:callable-interceptors>
+			<mvc:deferred-result-interceptors>
+				<bean class="cn.com.ttblog.ssmbootstrap_table.interceptor.DefferedAsyncInterceptor"></bean>
+			</mvc:deferred-result-interceptors>
 		</mvc:async-support>
 	</mvc:annotation-driven>
 	
