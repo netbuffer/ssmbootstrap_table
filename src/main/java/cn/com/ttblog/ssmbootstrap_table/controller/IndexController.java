@@ -60,7 +60,7 @@ public class IndexController {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	@Autowired  
-    private ApplicationContext applicationContext;  
+    private ApplicationContext applicationContext;
 	
 	@RequestMapping("/login")
 	public String login(HttpSession session, HttpServletRequest request,
@@ -79,7 +79,11 @@ public class IndexController {
 			param.put("logintime", new DateTime().toString("yyyy-MM-dd HH:mm:ss"));
 			param.put("loginip", request.getRemoteAddr());
 			//publishEvent会依次调用所有的监听器，同步调用，所有监听器执行完毕继续向下执行
-			applicationContext.publishEvent(new LoginEvent(this,param));
+			logger.info("发布事件,parent context:{},application:{}",applicationContext.getParent(),applicationContext);
+			/**
+			 * 在Controller控制器这一层发布事件不要直接用applicationContext.publishEvent(),因为事件会同时添加在root application context中导致重复执行一次
+			 */
+			applicationContext.getParent().publishEvent(new LoginEvent(this,param));
 			if(requri!=null&&requri.length()>0){
 				String uri=new String(Base64.decodeBase64(requri));
 				String touri=uri.substring(request.getContextPath().length()+1);
