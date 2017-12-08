@@ -22,17 +22,6 @@
         <context:exclude-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice" />
     </context:component-scan>
 
-	<!--<bean id="threadPoolTaskExecutor"-->
-		  <!--class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">-->
-		<!--<property name="corePoolSize" value="1" />-->
-		<!--<property name="maxPoolSize" value="10" />-->
-		<!--<property name="queueCapacity" value="50" />-->
-		<!--<property name="threadNamePrefix" value="task-" />-->
-		<!--<property name="keepAliveSeconds" value="30" />-->
-	<!--</bean>-->
-
-	<!--<task:annotation-driven executor="threadPoolTaskExecutor"></task:annotation-driven>-->
-
 	<bean id="configProperties"
 		class="org.springframework.beans.factory.config.PropertiesFactoryBean">
 		<property name="locations">
