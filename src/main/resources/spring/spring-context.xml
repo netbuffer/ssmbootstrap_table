@@ -22,17 +22,6 @@
         <context:exclude-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice" />
     </context:component-scan>
 
-	<!--<bean id="threadPoolTaskExecutor"-->
-		  <!--class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">-->
-		<!--<property name="corePoolSize" value="1" />-->
-		<!--<property name="maxPoolSize" value="10" />-->
-		<!--<property name="queueCapacity" value="50" />-->
-		<!--<property name="threadNamePrefix" value="task-" />-->
-		<!--<property name="keepAliveSeconds" value="30" />-->
-	<!--</bean>-->
-
-	<!--<task:annotation-driven executor="threadPoolTaskExecutor"></task:annotation-driven>-->
-
 	<bean id="configProperties"
 		class="org.springframework.beans.factory.config.PropertiesFactoryBean">
 		<property name="locations">
@@ -56,7 +45,18 @@
 	<!--<import resource="spring-jmx.xml" />-->
 	<import resource="spring-ehcache.xml"/>
 	<import resource="spring-websocket.xml"/>
-	
+
+	<bean id="async-method-pool"
+		  class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+		<property name="corePoolSize" value="1" />
+		<property name="maxPoolSize" value="10" />
+		<property name="queueCapacity" value="50" />
+		<property name="threadNamePrefix" value="async-method-pool-" />
+		<property name="keepAliveSeconds" value="30" />
+	</bean>
+
+	<task:annotation-driven executor="async-method-pool" proxy-target-class="true"></task:annotation-driven>
+
 	<!-- jsonpfilter -->
 	<bean class="com.intera.util.web.servlet.filter.JsonpCallbackFilter"
 		id="jsonpCallbackFilter" />
