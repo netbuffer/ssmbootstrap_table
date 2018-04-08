@@ -8,3 +8,6 @@
 /reports
 /.pmd
 /.idea
+*.iml
+*.jpg
+*.json
