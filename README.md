@@ -23,6 +23,9 @@
 * mockito
 * itextpdf
 
+# 微信扫码使用gitee工具
+![gitee工具](https://s1.ax1x.com/2018/08/10/P60MMF.jpg)
+
 > ## github:[https://github.com/netbuffer/ssmbootstrap_table](https://github.com/netbuffer/ssmbootstrap_table)
 > ## git@osc:[https://gitee.com/netbuffer/ssmbootstrap_table](https://gitee.com/netbuffer/ssmbootstrap_table)
 
