@@ -15,7 +15,7 @@
 	<websocket:handlers>
 		<websocket:mapping path="/ws" handler="myHandler" />
 		<websocket:handshake-interceptors>  
-	    	<bean class="cn.com.ttblog.ssmbootstrap_table.interceptor.HandshakeInterceptor"/>  
+	    	<bean class="cn.netbuffer.ssmbootstrap_table.interceptor.HandshakeInterceptor"/>
 	    </websocket:handshake-interceptors>
 	</websocket:handlers>
 	<websocket:handlers>
@@ -23,5 +23,5 @@
 		<websocket:sockjs />
 	</websocket:handlers>
 	<bean id="myHandler"
-		class="cn.com.ttblog.ssmbootstrap_table.websocket.MySpringTextWsHandler" />
+		class="cn.netbuffer.ssmbootstrap_table.websocket.MySpringTextWsHandler" />
 </beans>

@@ -5,8 +5,8 @@
 	<tag>
 		<name>l2d</name>
 		<description>convert long to date</description>
-		<tag-class>cn.com.ttblog.ssmbootstrap_table.util.LongToDateTag
-		</tag-class>
+		<tag-class>cn.netbuffer.ssmbootstrap_table.util.LongToDateTag
+        </tag-class>
 		<body-content>empty</body-content>
 		<attribute>
 			<name>value</name>
