@@ -56,22 +56,22 @@
 	<logger name="org.springframework.beans" level="DEBUG" />
 	<logger name="org.springframework.context" level="DEBUG" />
 	<logger name="org.springframework.http" level="DEBUG" /> -->
-	<logger name="org.springframework" level="DEBUG" />
+	<logger name="org.springframework" level="INFO" />
 	<logger name="org.mybatis" level="OFF" />
-	<logger name="com.ibatis" level="DEBUG" />
-	<logger name="java.sql" level="DEBUG" />
+	<logger name="com.ibatis" level="INFO" />
 	<!-- mybatis使用slf4j作为日志实现，需要配置dao或者mapper namespace的日志级别，就可以打印sql了-->
-	<logger name="cn.com.ttblog.ssmbootstrap_table.dao" level="INFO" />
-	<logger name="cn.com.ttblog.ssmbootstrap_table" level="DEBUG" />
+	<logger name="cn.netbuffer.ssmbootstrap_table.dao" level="INFO" />
+	<logger name="cn.netbuffer.ssmbootstrap_table" level="DEBUG" />
 	<!-- log4j-jdbc-remix/log4jdbc-log4j2 result以表格打印结果 -->
+	<logger name="java.sql" level="OFF" />
 	<logger name="jdbc.resultsettable" level="INFO" />
 	<logger name="jdbc.connection" level="OFF" />
 	<logger name="jdbc.audit" level="OFF" />
 	<logger name="jdbc.resultset" level="OFF" />
 	<logger name="jdbc.sqlonly" level="OFF" />
 	<logger name="jdbc.sqltiming" level="INFO" />
-	<logger name="log4jdbc.debug" level="DEBUG" />
-	<logger name="net.sf.ehcache" level="ALL"/>
+	<logger name="log4jdbc.debug" level="OFF" />
+	<logger name="net.sf.ehcache" level="OFF"/>
 	
 	<logger name="access" level="INFO">
         <appender-ref ref="ACCESS"/>

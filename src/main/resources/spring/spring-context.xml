@@ -16,7 +16,7 @@
 		spring主配置文件
 	</description>
 
-	<context:component-scan base-package="cn.com.ttblog.ssmbootstrap_table">
+	<context:component-scan base-package="cn.netbuffer.ssmbootstrap_table">
         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
    		<context:exclude-filter type="annotation" expression="org.springframework.web.bind.annotation.RestController"/>
         <context:exclude-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice" />
@@ -61,7 +61,7 @@
 	<bean class="com.intera.util.web.servlet.filter.JsonpCallbackFilter"
 		id="jsonpCallbackFilter" />
 	<!-- loginFilter 登录处理 -->	
-	<bean class="cn.com.ttblog.ssmbootstrap_table.filter.LoginFilter"
+	<bean class="cn.netbuffer.ssmbootstrap_table.filter.LoginFilter"
 		id="loginFilter" />
 	<bean id="localeResolver"
 		class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
@@ -73,13 +73,13 @@
 		<property name="cookiePath" value="/" />
 	</bean>
 	<beans profile="develop">
-		<bean id="userFromSpring" class="cn.com.ttblog.ssmbootstrap_table.model.User" lazy-init="false" init-method="init">
+		<bean id="userFromSpring" class="cn.netbuffer.ssmbootstrap_table.model.User" lazy-init="false" init-method="init">
 			 <property name="id" value="1" />
              <property name="name" value="develop-user" />
 		</bean>
 	</beans>
 	<beans profile="production">
-		<bean id="userFromSpring" class="cn.com.ttblog.ssmbootstrap_table.model.User" lazy-init="false" init-method="init">
+		<bean id="userFromSpring" class="cn.netbuffer.ssmbootstrap_table.model.User" lazy-init="false" init-method="init">
 			 <property name="id" value="2" />
              <property name="name" value="production-user" />
 		</bean>
