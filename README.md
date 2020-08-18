@@ -23,11 +23,11 @@
 * mockito
 * itextpdf
 
-# 微信扫码使用gitee工具
-![gitee工具](https://s1.ax1x.com/2018/08/10/P60MMF.jpg)
-
 > ## github:[https://github.com/netbuffer/ssmbootstrap_table](https://github.com/netbuffer/ssmbootstrap_table)
 > ## git@osc:[https://gitee.com/netbuffer/ssmbootstrap_table](https://gitee.com/netbuffer/ssmbootstrap_table)
+
+## Stargazers over time
+[![Stargazers over time](https://starchart.cc/netbuffer/ssmbootstrap_table.svg)](https://starchart.cc/netbuffer/ssmbootstrap_table)
 
 ## How to run
 The project constructed by `maven`, please execute under the `src/main/java` `SQL script` to your `MySQL` database operation, and then modify the database configuration information `jdbc.properties` under the path `src/main/resource` configuration file in the project directory, enter, execute `mvn tomcat7:run` to run

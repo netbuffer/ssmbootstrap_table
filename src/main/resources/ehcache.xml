@@ -38,7 +38,7 @@
 		memoryStoreEvictionPolicy="LRU"/>
 	<!-- mybatis如何指定ehcache缓存? http://www.oschina.net/question/220933_39031 -->
 	<cache
-		name="cn.com.ttblog.ssmbootstrap_table.dao.IUserDaoMemoryStore"
+		name="cn.netbuffer.ssmbootstrap_table.dao.IUserDaoMemoryStore"
 		maxElementsInMemory="3000" 
 		eternal="false"	
 		timeToIdleSeconds="60" 

@@ -13,14 +13,14 @@
                             http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
 	<!-- 自动扫描该包，使SpringMVC认为包下用了@controller注解的类是控制器 -->
 	<!-- 多包扫描测试 -->
-	<context:component-scan base-package="cn.com.ttblog.ssmbootstrap_table.controller,com.other.**" use-default-filters="false">
+	<context:component-scan base-package="cn.netbuffer.ssmbootstrap_table.controller,com.other.**" use-default-filters="false">
         <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller" />
 		<context:include-filter type="annotation" expression="org.springframework.web.bind.annotation.RestController" />
         <context:include-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice" />
     </context:component-scan>
 
 	<bean id="logBeanPocessor"
-		class="cn.com.ttblog.ssmbootstrap_table.util.TestBeanPostProcessor"
+		class="cn.netbuffer.ssmbootstrap_table.util.TestBeanPostProcessor"
 		lazy-init="false" />
 
 	<!-- fastjson配置 -->
@@ -77,16 +77,16 @@
 						<bean class="org.springframework.oxm.jaxb.Jaxb2Marshaller">
 							<property name="classesToBeBound">
 								<list>
-									<value>cn.com.ttblog.ssmbootstrap_table.model.User</value>
+									<value>cn.netbuffer.ssmbootstrap_table.model.User</value>
 								</list>
 							</property>
 						</bean>
 					</constructor-arg>
 				</bean>
 				<!--  PDF view -->
-          		<bean class="cn.com.ttblog.ssmbootstrap_table.view.PdfView" />
+          		<bean class="cn.netbuffer.ssmbootstrap_table.view.PdfView" />
           		<!--  excel view -->
-          		<bean class="cn.com.ttblog.ssmbootstrap_table.view.ExcelView" />
+          		<bean class="cn.netbuffer.ssmbootstrap_table.view.ExcelView" />
 			</list>
 		</property>
 	</bean>
@@ -120,10 +120,10 @@
 		</mvc:message-converters>
 		<mvc:async-support default-timeout="5000" task-executor="asyncThreadPool">
 			<mvc:callable-interceptors>
-				<bean class="cn.com.ttblog.ssmbootstrap_table.interceptor.AsyncInterceptor"></bean>
+				<bean class="cn.netbuffer.ssmbootstrap_table.interceptor.AsyncInterceptor"></bean>
 			</mvc:callable-interceptors>
 			<mvc:deferred-result-interceptors>
-				<bean class="cn.com.ttblog.ssmbootstrap_table.interceptor.DefferedAsyncInterceptor"></bean>
+				<bean class="cn.netbuffer.ssmbootstrap_table.interceptor.DefferedAsyncInterceptor"></bean>
 			</mvc:deferred-result-interceptors>
 		</mvc:async-support>
 	</mvc:annotation-driven>
@@ -151,9 +151,9 @@
 	<!-- <bean name="xStreamMarshallingView" id="xStreamMarshallingView" class="org.springframework.web.servlet.view.xml.MarshallingView"> 
 		<property name="marshaller"> <bean class="org.springframework.oxm.xstream.XStreamMarshaller"> 
 		<property name="autodetectAnnotations" value="true" /> <property name="aliases"> 
-		<map> Account这个类的别名就变成了myBeans，那么转换后的xml中就是myBeans <entry key="u" value="cn.com.ttblog.ssmbootstrap_table.model.User" 
+		<map> Account这个类的别名就变成了myBeans，那么转换后的xml中就是myBeans <entry key="u" value="User"
 		/> </map> </property> 基本属性别名 <property name="fieldAliases"> <map> Account中的brithday这个属性 
-		<entry key="cn.com.ttblog.ssmbootstrap_table.model.User.age" value="年龄" /> 
+		<entry key="User.age" value="年龄" />
 		</map> </property> </bean> </property> </bean> -->
 	<!-- 配置文件上传，如果没有使用文件上传可以不用配置，当然如果不配，那么配置文件中也不必引入上传组件包 -->
 	<bean id="multipartResolver"
@@ -224,16 +224,16 @@
 			<mvc:mapping path="/**"/>
 			<!-- 排除静态资源请求 -->
 			<mvc:exclude-mapping path="/css/**"/>
-			<bean class="cn.com.ttblog.ssmbootstrap_table.interceptor.SpringMVCInterceptor" />
+			<bean class="cn.netbuffer.ssmbootstrap_table.interceptor.SpringMVCInterceptor" />
 		</mvc:interceptor>
 		<!-- token拦截器 -->
 		<bean
-			class="cn.com.ttblog.ssmbootstrap_table.interceptor.TokenInterceptor" />
+			class="cn.netbuffer.ssmbootstrap_table.interceptor.TokenInterceptor" />
 		<!-- 如果不配置或/*,将拦截所有的Controller 定义在mvc:interceptor下面的表示是对特定的请求才进行拦截的 -->
 		<!-- <mvc:interceptor> <mvc:mapping <mvc:mapping path="/**"/> path="/test/number.do" /> <bean class="com.host.app.web.interceptor.LoginInterceptor" 
 			/> </mvc:interceptor> -->
 	</mvc:interceptors>
 	
-	<bean name="swagger" class="cn.com.ttblog.ssmbootstrap_table.util.SwaggerConfig"></bean>
+	<bean name="swagger" class="cn.netbuffer.ssmbootstrap_table.util.SwaggerConfig"></bean>
     <mvc:resources mapping="/webjars/**" location="classpath:/META-INF/resources/webjars/"/>
 </beans>  

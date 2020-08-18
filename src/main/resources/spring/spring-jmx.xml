@@ -5,7 +5,7 @@
                         http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
 	<bean
 		class="org.springframework.jmx.export.annotation.AnnotationMBeanExporter" />
-	<bean name="beanMonitor" class="cn.com.ttblog.ssmbootstrap_table.mbean.BeanMonitor"></bean>
+	<bean name="beanMonitor" class="cn.netbuffer.ssmbootstrap_table.mbean.BeanMonitor"></bean>
 	
 	<bean id="server"
 		class="org.springframework.jmx.support.ConnectorServerFactoryBean"
