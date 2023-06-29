@@ -48,13 +48,23 @@ metrics | @Timed
 
 # ![springfox](src/main/webapp/image/swagger.png)
 ---
-> 
->   * develop开发分支
->   * cxf test `apache cxf`
->	* JdbcTemplate(test spring `jdbctemplate`/test `shiro`)
->	* springtask(test spring `task`/`quartz`)
->	* velocity(test `velocity` template)
->	* swagger (test `swagger` api doc)
+
+## tomcat encoding
+
+```
+<Connector port="8080" protocol="HTTP/1.1"
+               connectionTimeout="20000"
+               redirectPort="8443"
+               URIEncoding="ISO-8859-1"/>
+```
+
+
+> * develop开发分支
+> * cxf test `apache cxf`
+> * JdbcTemplate(test spring `jdbctemplate`/test `shiro`)
+> * springtask(test spring `task`/`quartz`)
+> * velocity(test `velocity` template)
+> * swagger (test `swagger` api doc)
 
 # other projects
 > `ssmbt(ssmbootstrap_table maven module )` github:[https://github.com/netbuffer/ssmbt](https://github.com/netbuffer/ssmbt)`/`git@osc:[https://gitee.com/netbuffer/ssmbt](https://gitee.com/netbuffer/ssmbt)

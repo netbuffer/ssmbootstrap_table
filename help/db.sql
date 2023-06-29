@@ -1,3 +1,5 @@
+CREATE DATABASE u CHARACTER SET utf8 COLLATE utf8_general_ci;
+
 CREATE TABLE `user` (
   `id` bigint(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL COMMENT '姓名',
